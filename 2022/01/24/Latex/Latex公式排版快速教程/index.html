@@ -1,0 +1,402 @@
+<!doctype html>
+<html lang="zh"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"><meta><title>Latex公式排版快速教程 - houdezaiwu&#039;s blog</title><link rel="manifest" href="/manifest.json"><meta name="application-name" content="czt"><meta name="msapplication-TileImage" content="/img/favicon.svg"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-title" content="czt"><meta name="apple-mobile-web-app-status-bar-style" content="default"><meta name="description" content="本文主要关注Latex在公式排版的技巧，并且配合Markdown更好的编辑公式。主要包含希腊字母、上下标、分式与根式、运算符、标注、箭头、括号与定界符、多行公式、大括号、矩阵以及实战书写几个公式。 因为hexo的公式排版和代码高亮有冲突，为了更好的显示公式只能牺牲代码显示，同时由于Hexo对于有些代码的显示有一定问题，有些代码还是不能很好的显示。"><meta property="og:type" content="blog"><meta property="og:title" content="Latex公式排版快速教程"><meta property="og:url" content="http://example.com/2022/01/24/Latex/Latex%E5%85%AC%E5%BC%8F%E6%8E%92%E7%89%88%E5%BF%AB%E9%80%9F%E6%95%99%E7%A8%8B/"><meta property="og:site_name" content="houdezaiwu&#039;s blog"><meta property="og:description" content="本文主要关注Latex在公式排版的技巧，并且配合Markdown更好的编辑公式。主要包含希腊字母、上下标、分式与根式、运算符、标注、箭头、括号与定界符、多行公式、大括号、矩阵以及实战书写几个公式。 因为hexo的公式排版和代码高亮有冲突，为了更好的显示公式只能牺牲代码显示，同时由于Hexo对于有些代码的显示有一定问题，有些代码还是不能很好的显示。"><meta property="og:locale" content="zh_CN"><meta property="og:image" content="https://gitee.com/houdezaiwu2022/image-bed/raw/master/latex/202201232336388.png"><meta property="og:image" content="https://gitee.com/houdezaiwu2022/image-bed/raw/master/latex/202201241548524.png"><meta property="og:image" content="https://gitee.com/houdezaiwu2022/image-bed/raw/master/latex/202201241600985.png"><meta property="article:published_time" content="2022-01-24T09:39:58.000Z"><meta property="article:modified_time" content="2022-01-24T10:00:36.587Z"><meta property="article:author" content="czt"><meta property="article:tag" content="Latex"><meta property="twitter:card" content="summary"><meta property="twitter:image" content="https://gitee.com/houdezaiwu2022/image-bed/raw/master/latex/202201232336388.png"><script type="application/ld+json">{"@context":"https://schema.org","@type":"BlogPosting","mainEntityOfPage":{"@type":"WebPage","@id":"http://example.com/2022/01/24/Latex/Latex%E5%85%AC%E5%BC%8F%E6%8E%92%E7%89%88%E5%BF%AB%E9%80%9F%E6%95%99%E7%A8%8B/"},"headline":"Latex公式排版快速教程","image":["https://gitee.com/houdezaiwu2022/image-bed/raw/master/latex/202201232336388.png","https://gitee.com/houdezaiwu2022/image-bed/raw/master/latex/202201241548524.png","https://gitee.com/houdezaiwu2022/image-bed/raw/master/latex/202201241600985.png"],"datePublished":"2022-01-24T09:39:58.000Z","dateModified":"2022-01-24T10:00:36.587Z","author":{"@type":"Person","name":"czt"},"publisher":{"@type":"Organization","name":"houdezaiwu's blog","logo":{"@type":"ImageObject","url":"http://example.com/img/logo.svg"}},"description":"本文主要关注Latex在公式排版的技巧，并且配合Markdown更好的编辑公式。主要包含希腊字母、上下标、分式与根式、运算符、标注、箭头、括号与定界符、多行公式、大括号、矩阵以及实战书写几个公式。 因为hexo的公式排版和代码高亮有冲突，为了更好的显示公式只能牺牲代码显示，同时由于Hexo对于有些代码的显示有一定问题，有些代码还是不能很好的显示。"}</script><link rel="canonical" href="http://example.com/2022/01/24/Latex/Latex%E5%85%AC%E5%BC%8F%E6%8E%92%E7%89%88%E5%BF%AB%E9%80%9F%E6%95%99%E7%A8%8B/"><link rel="icon" href="/img/favicon.svg"><link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.2/css/all.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@9.12.0/styles/atom-one-light.css"><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Ubuntu:wght@400;600&amp;family=Source+Code+Pro"><link rel="stylesheet" href="/css/default.css"><style>body>.footer,body>.navbar,body>.section{opacity:0}</style><!--!--><!--!--><!--!--><!--!--><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/cookieconsent@3.1.1/build/cookieconsent.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/lightgallery@1.10.0/dist/css/lightgallery.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/justifiedGallery@3.8.1/dist/css/justifiedGallery.min.css"><!--!--><!--!--><!--!--><style>.pace{-webkit-pointer-events:none;pointer-events:none;-webkit-user-select:none;-moz-user-select:none;user-select:none}.pace-inactive{display:none}.pace .pace-progress{background:#3273dc;position:fixed;z-index:2000;top:0;right:100%;width:100%;height:2px}</style><script src="https://cdn.jsdelivr.net/npm/pace-js@1.2.4/pace.min.js"></script><!--!--><!--!--><meta name="generator" content="Hexo 6.0.0"></head><body class="is-3-column"><nav class="navbar navbar-main"><div class="container"><div class="navbar-brand justify-content-center"><a class="navbar-item navbar-logo" href="/"><img src="/img/logo.svg" alt="houdezaiwu&#039;s blog" height="28"></a></div><div class="navbar-menu"><div class="navbar-start"><a class="navbar-item" href="/">主页</a><a class="navbar-item" href="/archives">归档</a><a class="navbar-item" href="/categories">分类</a><a class="navbar-item" href="/tags">标签</a><a class="navbar-item" href="/about">关于</a></div><div class="navbar-end"><a class="navbar-item" target="_blank" rel="noopener" title="Download on GitHub" href="https://github.com/ppoffice/hexo-theme-icarus"><i class="fab fa-github"></i></a><a class="navbar-item is-hidden-tablet catalogue" title="目录" href="javascript:;"><i class="fas fa-list-ul"></i></a><a class="navbar-item search" title="搜索" href="javascript:;"><i class="fas fa-search"></i></a></div></div></div></nav><section class="section"><div class="container"><div class="columns"><div class="column order-2 column-main is-8-tablet is-8-desktop is-6-widescreen"><div class="card"><article class="card-content article" role="article"><div class="article-meta is-size-7 is-uppercase level is-mobile"><div class="level-left"><span class="level-item"><time dateTime="2022-01-24T09:39:58.000Z" title="2022/1/24 下午5:39:58">2022-01-24</time>发表</span><span class="level-item"><time dateTime="2022-01-24T10:00:36.587Z" title="2022/1/24 下午6:00:36">2022-01-24</time>更新</span><span class="level-item"><a class="link-muted" href="/categories/Latex/">Latex</a></span><span class="level-item">16 分钟读完 (大约2391个字)</span></div></div><h1 class="title is-3 is-size-4-mobile">Latex公式排版快速教程</h1><div class="content"><p>本文主要关注Latex在公式排版的技巧，并且配合Markdown更好的编辑公式。主要包含希腊字母、上下标、分式与根式、运算符、标注、箭头、括号与定界符、多行公式、大括号、矩阵以及实战书写几个公式。</p>
+<p>因为hexo的公式排版和代码高亮有冲突，为了更好的显示公式只能牺牲代码显示，<strong>同时由于Hexo对于有些代码的显示有一定问题，有些代码还是不能很好的显示</strong>。</p>
+<span id="more"></span>
+<h4 id="希腊字母"><a href="#希腊字母" class="headerlink" title="希腊字母"></a>希腊字母</h4><p>输入方法：<script type="math/tex">\+字母的拼写</script></p>
+<p><strong>常用的希腊字母表</strong></p>
+<p><img src="https://gitee.com/houdezaiwu2022/image-bed/raw/master/latex/202201232336388.png" alt="希腊字母表"></p>
+<ul>
+<li>对于有大写的字母来说，直接将首字母大写即可得到大写的希腊字母，对于没有大写的字母如$\alpha$和$\beta$，如果首字母大写对应的是$\Alpha$和$\Beta$即AB。</li>
+<li>对于变体字的输入，直接在前面加var即可。</li>
+</ul>
+<h4 id="上下标"><a href="#上下标" class="headerlink" title="上下标"></a>上下标</h4><ul>
+<li><p>一般来说，上下标直接使用^和_即可。</p>
+</li>
+<li><p>对于斜体的要加大括号，否则就会只对第一个有效。</p>
+<pre class="line-numbers language-latex" data-language="latex"><code class="language-latex"><span class="token equation string">$
+	a^2 , a_2
+	x^&#123;y+z&#125;,p_&#123;ij&#125;,p_ij
+$</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+<script type="math/tex; mode=display">
+a^2 , a_2, \,
+x^{y+z},p_{ij},p_ij</script><blockquote>
+<p><strong>英文字母只有在表示变量</strong>(或<strong>单一字符的函数名称</strong>，如f(r))时才可使用<strong>斜体</strong>，其余情况都应使用<strong>罗马体(直立体)</strong>。</p>
+</blockquote>
+<pre class="line-numbers language-latex" data-language="latex"><code class="language-latex"><span class="token equation string">$
+	x_i        此时为斜体
+	x_&#123;<span class="token equation-command regex">\rm</span> i&#125;  此时为直立体roman
+	x_&#123;<span class="token equation-command regex">\mathrm</span> i&#125; <span class="token equation-command regex">\rm</span> is short for <span class="token equation-command regex">\mathrm</span>
+	x_&#123;<span class="token equation-command regex">\text</span> i&#125; 
+	<span class="token equation-command regex">\text</span>&#123;e&#125; ,<span class="token equation-command regex">\text</span>&#123;i&#125; 自然对数和虚数单位也要为直立体
+$</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<script type="math/tex; mode=display">
+x_i, i=1,2...n\\       
+    x_{\rm i} ,i是input\\
+    x_{\mathrm i},x_{\text i}\\
+    \text{A B},\rm{AB}\\
+    \text{e} 自然对数,\text{i} 虚数单位</script><ul>
+<li><code>\text&#123;&#125;</code>和<code>\rm&#123;&#125;</code>的区别是前者<strong>支持空格</strong>，后者不支持空格。</li>
+</ul>
+</li>
+</ul>
+<h4 id="分式与根式"><a href="#分式与根式" class="headerlink" title="分式与根式"></a>分式与根式</h4><p><strong>\frac(fraction,分数)</strong></p>
+<pre class="line-numbers language-latex" data-language="latex"><code class="language-latex"><span class="token equation string">$
+	<span class="token equation-command regex">\frac</span>&#123;1&#125;&#123;2&#125;, <span class="token equation-command regex">\frac</span> 1 2 
+	<span class="token equation-command regex">\frac</span>&#123;1&#125;&#123;x+y&#125;
+	<span class="token equation-command regex">\frac</span>&#123;<span class="token equation-command regex">\frac</span> 1 x +1&#125;&#123;y+1&#125;,<span class="token equation-command regex">\frac</span>&#123;<span class="token equation-command regex">\dfrac</span> 1 x +1&#125;&#123;y+1&#125;
+$</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<ul>
+<li><p>单个字符可以不用大括号，原理与上面相似。</p>
+</li>
+<li><p>如果感觉嵌套时的字符比较小的话，可以用\dfrac{}{}.</p>
+</li>
+</ul>
+<script type="math/tex; mode=display">
+\frac{1}{2}, \frac 1 2 
+    \frac{1}{x+y}\\
+    \frac{\frac 1 x +1}{y+1},\frac{\dfrac 1 x +1}{y+1}</script><p><strong>\sqrt[]{}(square root,平方根)</strong></p>
+<pre class="line-numbers language-latex" data-language="latex"><code class="language-latex"><span class="token equation string">$
+	<span class="token equation-command regex">\sqrt</span> 2, <span class="token equation-command regex">\sqrt</span>&#123;x+y&#125;, <span class="token equation-command regex">\sqrt</span>[3]&#123;x+z&#125;
+$</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+<script type="math/tex; mode=display">
+\sqrt 2, \sqrt{x+y}, \sqrt[3]{x+z}</script><ul>
+<li>对于非平方根的数在\sqrt后加<strong>[]</strong>来自定义。</li>
+</ul>
+<h4 id="普通运算符"><a href="#普通运算符" class="headerlink" title="普通运算符"></a>普通运算符</h4><pre class="line-numbers language-latex" data-language="latex"><code class="language-latex"><span class="token equation string">$
+	+-
+	<span class="token equation-command regex">\times</span>,<span class="token equation-command regex">\cdot</span>,<span class="token equation-command regex">\div</span>
+	<span class="token equation-command regex">\pm</span>,<span class="token equation-command regex">\mp</span>
+	>&lt;,<span class="token equation-command regex">\ge</span>,<span class="token equation-command regex">\le</span>,<span class="token equation-command regex">\gg</span>,<span class="token equation-command regex">\ll</span>,<span class="token equation-command regex">\ne</span>,<span class="token equation-command regex">\approx</span>,<span class="token equation-command regex">\equiv</span>
+	<span class="token equation-command regex">\cap</span>,<span class="token equation-command regex">\cup</span>,<span class="token equation-command regex">\in</span>,<span class="token equation-command regex">\notin</span>,<span class="token equation-command regex">\subseteq</span>,<span class="token equation-command regex">\subsetneqq</span>,<span class="token equation-command regex">\subnsetneqq</span>
+	<span class="token equation-command regex">\varnothing</span>,<span class="token equation-command regex">\forall</span>,<span class="token equation-command regex">\exists</span>,<span class="token equation-command regex">\nexists</span><span class="token equation-command regex">\because</span>,<span class="token equation-command regex">\therefore</span>
+	<span class="token equation-command regex">\mathbb</span> R,<span class="token equation-command regex">\R</span>,<span class="token equation-command regex">\Q</span>,<span class="token equation-command regex">\N</span>,<span class="token equation-command regex">\Z</span>_+
+	<span class="token equation-command regex">\mathcal</span> F,<span class="token equation-command regex">\mathscr</span> F
+$</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<ul>
+<li>$\pm$ ：<strong>\pm</strong>(<strong>p</strong>lus-<strong>m</strong>ius 正负号)</li>
+<li><p>$\mp$：<strong>\mp</strong>(<strong>m</strong>ius-<strong>p</strong>lus 负正号)</p>
+</li>
+<li><p>$\ge$：<strong>\ge</strong>(<strong>g</strong>reater than or <strong>e</strong>qual 大于等于)</p>
+</li>
+<li><p>$\le$：<strong>\le</strong>(<strong>l</strong>ess than or <strong>e</strong>qual 大于等于)</p>
+</li>
+<li><p>$\gg,\ll$：<strong>\gg,\ll</strong>（远大于,远小于）</p>
+</li>
+<li><p>$\ne$：<strong>\ne</strong>（<strong>n</strong>ot <strong>e</strong>qual, 不等于）</p>
+</li>
+<li><p>$\approx$：<strong>\approx</strong>(<strong>approx</strong>imate, 约等于)</p>
+</li>
+<li><p>$\equiv$：<strong>\equiv</strong>(<strong>equiv</strong>alent, 恒等的)</p>
+</li>
+<li>$\cap,\cup$：<strong>\cap，\cup</strong>（交集，并集）</li>
+<li><p>$\in,\notin$：<strong>\in,\notin</strong>（属于，不属于）</p>
+</li>
+<li><p>$\subseteq,\subsetneqq,\subsetneq$：<strong>\subseteq,\subsetneqq,\subsetneq</strong>（子集，真子集）</p>
+</li>
+<li>$\supseteq,\supsetneqq,\supsetneq$：<strong>\suqseteq,\suqsetneqq,\suqsetneq</strong>（与上面相反）</li>
+<li>$\varnothing,\forall$：<strong>\varnothing</strong>（空集）,<strong>\forall</strong>(与任意的)</li>
+<li>$\exists,\nexists$：<strong>\exists,\nexists</strong>（存在，不存在）</li>
+<li><p>$\because,\therefore$：<strong>\because,\therefore</strong>（因为，所以）</p>
+</li>
+<li><p>$\R,\Q,\N,\Z$：<strong>\R,\Q,\N,\Z</strong>对于数集来说特有的字符，可以直接使用\转义即可，但是除了数集以外的其他字符就无法使用了。完整写法为：<strong>\mathbb R</strong></p>
+</li>
+<li><p>$\mathcal F,\mathscr F$：<strong>\mathcal F,\mathscr F</strong>（花体字符）</p>
+<p>以下为上面字符的运行结果。</p>
+</li>
+</ul>
+<script type="math/tex; mode=display">
++-\\
+    \times,\cdot,\div\\
+    \pm,\mp\\
+    ><,\ge,\le,\gg,\ll,\ne,\approx,\equiv\\
+    \cap,\cup,\in,\notin,\subseteq,\subsetneqq,\subsetneq\\
+    \varnothing,\forall,\exists,\nexists\because,\therefore\\
+    \mathbb R,\R,\Q,\N,\Z_+\\
+    \mathcal F,\mathscr F</script><pre class="line-numbers language-latex" data-language="latex"><code class="language-latex"><span class="token equation string">$
+	<span class="token equation-command regex">\cdots</span>,<span class="token equation-command regex">\vdots</span>,<span class="token equation-command regex">\ddots</span>
+	<span class="token equation-command regex">\infty</span>,<span class="token equation-command regex">\partial</span>,<span class="token equation-command regex">\nabla</span>,<span class="token equation-command regex">\propto</span>,<span class="token equation-command regex">\degree</span>
+	<span class="token equation-command regex">\sin</span> x, <span class="token equation-command regex">\sec</span> x, <span class="token equation-command regex">\coshx</span> x
+	<span class="token equation-command regex">\log</span>_2 x, <span class="token equation-command regex">\ln</span> x, <span class="token equation-command regex">\lg</span> x
+	<span class="token equation-command regex">\lim</span>_&#123;x <span class="token equation-command regex">\to</span> 0&#125;<span class="token equation-command regex">\frac</span>&#123;<span class="token equation-command regex">\sin</span> x&#125;&#123;x&#125;
+	<span class="token equation-command regex">\lim</span><span class="token equation-command regex">\limits</span>_&#123;x <span class="token equation-command regex">\to</span> 0&#125;<span class="token equation-command regex">\frac</span>&#123;<span class="token equation-command regex">\sin</span> x&#125;&#123;x&#125;
+	<span class="token equation-command regex">\max</span> x
+$</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<ul>
+<li><p>$\cdots,\vdots,\ddots$：<strong>\cdots,\vdots,\ddots</strong>（省略号）</p>
+</li>
+<li><p>$\infty,\partial,\nabla$：<strong>\infty,\partial,\nabla</strong>（无穷，偏微分，拉普拉斯）</p>
+</li>
+<li>$\propto$：<strong>\propto</strong>（<strong>prop</strong>ortional <strong>to</strong>,正比于）</li>
+<li><p>$\degree$：<strong>\degree</strong>（度°）</p>
+</li>
+<li><p>$\lim_{x \to 0}\frac{\sin x}{x},\lim\limits_{x \to 0}\frac{\sin x}{x}$：\lim<strong>\limits</strong>_{x \to 0}\frac{\sin x}{x}**，由于第一个趋近符号停在的下标，因此加上\limits来显示出来。</p>
+<blockquote>
+<p>运算符超过一个字符也要用直立体的。例如MSE(x),<code>\text&#123;MSE&#125;(x)</code>。</p>
+</blockquote>
+</li>
+</ul>
+<h4 id="大型运算符"><a href="#大型运算符" class="headerlink" title="大型运算符"></a>大型运算符</h4><pre class="line-numbers language-latex" data-language="latex"><code class="language-latex"><span class="token equation string">$
+	<span class="token equation-command regex">\sum</span>,<span class="token equation-command regex">\prod</span>
+	<span class="token equation-command regex">\sum</span>_i,<span class="token equation-command regex">\sum</span>_&#123;i=0&#125;^N
+	<span class="token equation-command regex">\frac</span>&#123;<span class="token equation-command regex">\sum</span><span class="token equation-command regex">\limits</span>_&#123;i=1&#125;^n x_i&#125;&#123;<span class="token equation-command regex">\prod</span><span class="token equation-command regex">\limits</span>&#123;i=1&#125;^n x_i&#125;
+$</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<ul>
+<li>$\sum,\prod$：<strong>\sum,\prod</strong>（求和，求积）</li>
+<li>$\sum_i,\sum_{i=0}^N$：<strong>\sum_i,\sum_{i=0}^N</strong>（带有起止符号的求和与求积），这里同极限操作，用<strong>\limit</strong>s可以使得我们的起止符号移到上下端。如$\sum\limits_{i=1}^n x_i$,代码为<strong>\sum\limits_{i=1}^n x_i</strong>。</li>
+</ul>
+<script type="math/tex; mode=display">
+\sum,\prod,
+    \sum_i,\sum_{i=0}^N,
+    \frac{\sum\limits_{i=1}^n x_i}    {\prod\limits_{i=1}^n x_i}</script><pre class="line-numbers language-latex" data-language="latex"><code class="language-latex"><span class="token equation string">$
+	<span class="token equation-command regex">\int</span>,<span class="token equation-command regex">\iint</span>,<span class="token equation-command regex">\iiint</span>,<span class="token equation-command regex">\oint</span>,<span class="token equation-command regex">\oiint</span>
+	<span class="token equation-command regex">\int</span>_&#123;-<span class="token equation-command regex">\infty</span>&#125;^0 f(x)<span class="token equation-command regex">\,</span> <span class="token equation-command regex">\text</span> d x
+$</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+<ul>
+<li>$\int,\iint,\iiint$：<strong>\int,\iint,\iiint</strong>（一重，二重，三重普通积分）</li>
+<li>$\oint,\oiint$：<strong>\oint,\oiint</strong>（一重，二重环路积分）</li>
+<li>$\int_{-\infty}^0 f(x)\, \text d x$：<strong>\int_{-\infty}^0 f(x)\, \text d x</strong>，这里<strong>dx</strong>是常量，要用<strong>直立体</strong>，同时被积函数<strong>f(x)</strong>要和<strong>dx</strong>保持一定的距离。</li>
+</ul>
+<script type="math/tex; mode=display">
+\int,\iint,\iiint,\oint,\oiint
+\int_{-\infty}^0 f(x)\, \text d x</script><pre class="line-numbers language-latex" data-language="latex"><code class="language-latex"><span class="token equation string">$
+	a<span class="token equation-command regex">\,</span> a<span class="token equation-command regex">\\</span>  
+	a<span class="token equation-command regex">\ </span>a<span class="token equation-command regex">\\</span>
+	a<span class="token equation-command regex">\quad</span> a<span class="token equation-command regex">\\</span>
+	a<span class="token equation-command regex">\qquad</span> a<span class="token equation-command regex">\\</span>
+$</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<ul>
+<li>几种不同的空格，<strong>\,</strong> &lt; <strong>\+空格</strong> &lt; <strong>\quad</strong> &lt; <strong>\qquad</strong>。<strong>（分别为一字符，一字符，两字符，四字符）</strong></li>
+</ul>
+<script type="math/tex; mode=display">
+a\, a\\  
+    a\ a\\
+    a\quad a\\
+    a\qquad a\\</script><h4 id="标注符号"><a href="#标注符号" class="headerlink" title="标注符号"></a>标注符号</h4><pre class="line-numbers language-latex" data-language="latex"><code class="language-latex"><span class="token equation string">$
+	<span class="token equation-command regex">\vec</span> x, <span class="token equation-command regex">\overrightarrow</span> &#123;AB&#125;
+	<span class="token equation-command regex">\bar</span> x, <span class="token equation-command regex">\overline</span> &#123;AB&#125;
+$</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+<ul>
+<li>$\vec x, \overrightarrow {AB}$：<strong>\vec x, \overrightarrow {AB}</strong>（小箭头，全覆盖的箭头）。</li>
+<li>$\bar x, \overline {AB}$：<strong>\bar x, \overline {AB}</strong>（平均值符号，全覆盖的平均值符号）。</li>
+</ul>
+<script type="math/tex; mode=display">
+\vec x, \overrightarrow {AB}\\
+    \bar x, \overline {AB}</script><p><strong>其他常用的标注符号：</strong></p>
+<p><img src="https://gitee.com/houdezaiwu2022/image-bed/raw/master/latex/202201241548524.png" alt="标注符号"></p>
+<h4 id="箭头"><a href="#箭头" class="headerlink" title="箭头"></a>箭头</h4><pre class="line-numbers language-latex" data-language="latex"><code class="language-latex"><span class="token equation string">$
+<span class="token equation-command regex">\leftarrow</span>,<span class="token equation-command regex">\Rightarrow</span>,<span class="token equation-command regex">\Leftrightarrow</span>,<span class="token equation-command regex">\longleftarrow</span>
+$</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+<ul>
+<li>$\leftarrow,\Rightarrow,\Leftrightarrow$：<strong>\leftarrow,\Rightarrow,\Leftrightarrow</strong>（左右箭头）如果要标注双箭头，则首字母大写即可。</li>
+<li>$\longleftarrow$：<strong>\longleftarrow</strong>（长箭头）。</li>
+</ul>
+<p><strong>完整的箭头命令：</strong></p>
+<p><img src="https://gitee.com/houdezaiwu2022/image-bed/raw/master/latex/202201241600985.png" alt="箭头命令"></p>
+<h4 id="括号与定界符"><a href="#括号与定界符" class="headerlink" title="括号与定界符"></a>括号与定界符</h4><pre class="line-numbers language-latex" data-language="latex"><code class="language-latex"><span class="token equation string">$
+[]() <span class="token equation-command regex">\&#123;</span> <span class="token equation-command regex">\&#125;</span>
+<span class="token equation-command regex">\lceil</span> <span class="token equation-command regex">\rceil</span>,<span class="token equation-command regex">\lfloor</span> <span class="token equation-command regex">\rfloor</span>,|| <span class="token equation-command regex">\\</span>
+(0,<span class="token equation-command regex">\frac</span> 1 a]
+<span class="token equation-command regex">\left</span>(0, <span class="token equation-command regex">\frac</span>1 a <span class="token equation-command regex">\right</span>] <span class="token equation-command regex">\\</span>
+<span class="token equation-command regex">\frac</span> &#123;<span class="token equation-command regex">\partial</span> f&#125;&#123;<span class="token equation-command regex">\partial</span> x&#125;|_&#123;x=0&#125;,
+<span class="token equation-command regex">\left</span>. <span class="token equation-command regex">\frac</span> &#123;<span class="token equation-command regex">\partial</span> f&#125;&#123;<span class="token equation-command regex">\partial</span> x&#125; <span class="token equation-command regex">\right</span>|_&#123;x=0&#125;
+$</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<ul>
+<li><p>$<a href=""></a> \{ \}$：<strong><a href=""></a> \{ \}</strong>这里的小括号中括号直接输入即可，大括号要加  <strong>\\</strong> 来进行转义。</p>
+</li>
+<li><p>$\lceil \rceil,\lfloor \rfloor,||$：<strong>\lceil,\rceil,\lfloor,\rfloor,||</strong>（取整和绝对值符号）。</p>
+<blockquote>
+<p>但是，这样会输入的括号的大小是恒定，因此要加上<strong>\left,\right</strong>转义字符开进行高度的自适应。</p>
+</blockquote>
+<p>对于偏微分的来说，左边<strong>\left.</strong>，右边<strong>\right|</strong> 。</p>
+</li>
+</ul>
+<script type="math/tex; mode=display">
+[x],(z), \{ y\},
+\lceil a \rceil,\lfloor s \rfloor,|q| \\
+(0,\frac 1 a ]
+\left(0, \frac1 a \right ] \\
+\frac {\partial f}{\partial x}|_{x=0},
+\left. \frac {\partial f}{\partial x} \right|_{x=0}</script><h4 id="多行公式"><a href="#多行公式" class="headerlink" title="多行公式"></a>多行公式</h4><p>上面我们直接使用双反斜杠<strong>\\\\</strong>来进行，但是我们一般建立多行的环境来进行的。</p>
+<pre class="line-numbers language-latex" data-language="latex"><code class="language-latex"><span class="token equation string">$
+<span class="token equation-command regex">\begin</span>&#123;align&#125;
+a = b+c+d<span class="token equation-command regex">\\</span>=e+f
+<span class="token equation-command regex">\end</span>&#123;align&#125;
+
+<span class="token equation-command regex">\begin</span>&#123;align&#125;
+a&amp;=b+c+d<span class="token equation-command regex">\\</span>
+&amp;=e+f
+<span class="token equation-command regex">\end</span>&#123;align&#125;
+$</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<ul>
+<li>一般情况下默认的是右对齐，<strong>如果想要等号需要在左边加&amp;符号</strong>。</li>
+</ul>
+<script type="math/tex; mode=display">
+\begin{align}
+a = b+c+d\\=e+f
+\end{align}</script><script type="math/tex; mode=display">
+\begin{align}
+a&=b+c+d\\
+&=e+f
+\end{align}</script><h4 id="大括号"><a href="#大括号" class="headerlink" title="大括号"></a>大括号</h4><pre class="line-numbers language-latex" data-language="latex"><code class="language-latex"><span class="token equation string">$
+f(x)=
+<span class="token equation-command regex">\begin</span>&#123;cases&#125;
+<span class="token equation-command regex">\sin</span> x &amp;,-<span class="token equation-command regex">\pi</span> <span class="token equation-command regex">\le</span> x <span class="token equation-command regex">\le</span> <span class="token equation-command regex">\pi</span><span class="token equation-command regex">\\</span>
+0 &amp;, <span class="token equation-command regex">\text</span>&#123;其他&#125;
+<span class="token equation-command regex">\end</span>&#123;cases&#125;
+$</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<ul>
+<li>通过在逗号前+&amp;，来实现逗号处上下对齐。</li>
+</ul>
+<script type="math/tex; mode=display">
+f(x)=
+\begin{cases}
+\sin x &,-\pi \le x \le \pi\\
+0 &, \text{其他}
+\end{cases}</script><h4 id="矩阵"><a href="#矩阵" class="headerlink" title="矩阵"></a>矩阵</h4><p>矩阵的输入环境有以下的四种：<strong>matrix、bmatrix(方括号)、pmatrix(圆括号)、vmatrix(绝对值符号，行列式)</strong>。</p>
+<pre class="line-numbers language-latex" data-language="latex"><code class="language-latex"><span class="token equation string">$
+<span class="token equation-command regex">\begin</span>&#123;matrix&#125;
+a &amp; b &amp;<span class="token equation-command regex">\cdots</span> &amp; c<span class="token equation-command regex">\\</span>
+<span class="token equation-command regex">\vdots</span> &amp; <span class="token equation-command regex">\vdots</span> &amp;<span class="token equation-command regex">\ddots</span> &amp; <span class="token equation-command regex">\vdots</span><span class="token equation-command regex">\\</span>
+e &amp; f &amp;<span class="token equation-command regex">\cdots</span> &amp;g
+<span class="token equation-command regex">\end</span>&#123;matrix&#125;
+<span class="token equation-command regex">\quad</span>
+<span class="token equation-command regex">\begin</span>&#123;bmatrix&#125;
+a &amp; b &amp;<span class="token equation-command regex">\cdots</span> &amp; c<span class="token equation-command regex">\\</span>
+<span class="token equation-command regex">\vdots</span> &amp; <span class="token equation-command regex">\vdots</span> &amp;<span class="token equation-command regex">\ddots</span> &amp; <span class="token equation-command regex">\vdots</span><span class="token equation-command regex">\\</span>
+e &amp; f &amp;<span class="token equation-command regex">\cdots</span> &amp;g
+<span class="token equation-command regex">\end</span>&#123;bmatrix&#125;
+<span class="token equation-command regex">\quad</span>
+<span class="token equation-command regex">\begin</span>&#123;pmatrix&#125;
+a &amp; b &amp;<span class="token equation-command regex">\cdots</span> &amp; c<span class="token equation-command regex">\\</span>
+<span class="token equation-command regex">\vdots</span> &amp; <span class="token equation-command regex">\vdots</span> &amp;<span class="token equation-command regex">\ddots</span> &amp; <span class="token equation-command regex">\vdots</span><span class="token equation-command regex">\\</span>
+e &amp; f &amp;<span class="token equation-command regex">\cdots</span> &amp;g
+<span class="token equation-command regex">\end</span>&#123;pmatrix&#125;
+<span class="token equation-command regex">\quad</span>
+<span class="token equation-command regex">\begin</span>&#123;vmatrix&#125;
+a &amp; b &amp;<span class="token equation-command regex">\cdots</span> &amp; c<span class="token equation-command regex">\\</span>
+<span class="token equation-command regex">\vdots</span> &amp; <span class="token equation-command regex">\vdots</span> &amp;<span class="token equation-command regex">\ddots</span> &amp; <span class="token equation-command regex">\vdots</span><span class="token equation-command regex">\\</span>
+e &amp; f &amp;<span class="token equation-command regex">\cdots</span> &amp;g
+<span class="token equation-command regex">\end</span>&#123;vmatrix&#125;
+$</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<script type="math/tex; mode=display">
+\begin{matrix}
+a & b &\cdots & c\\
+\vdots & \vdots &\ddots & \vdots\\
+e & f &\cdots &g
+\end{matrix}
+\quad
+\begin{bmatrix}
+a & b &\cdots & c\\
+\vdots & \vdots &\ddots & \vdots\\
+e & f &\cdots &g
+\end{bmatrix}
+\quad
+\begin{pmatrix}
+a & b &\cdots & c\\
+\vdots & \vdots &\ddots & \vdots\\
+e & f &\cdots &g
+\end{pmatrix}
+\quad
+\begin{vmatrix}
+a & b &\cdots & c\\
+\vdots & \vdots &\ddots & \vdots\\
+e & f &\cdots &g
+\end{vmatrix}</script><ul>
+<li><p>矩阵字母也有其特有的写法<strong>(加粗的罗马体)</strong>，<strong>需要在字母前面加\bf(完整为\mathbf)</strong>，同时<strong>转置和求逆</strong>的符号也都为<strong>直立体</strong>。</p>
+<pre class="line-numbers language-latex" data-language="latex"><code class="language-latex"><span class="token equation string">$
+<span class="token equation-command regex">\bf</span> A, <span class="token equation-command regex">\bf</span> B^&#123;<span class="token equation-command regex">\rm</span> T&#125;
+$</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+</li>
+</ul>
+<script type="math/tex; mode=display">
+\bf A, \bf B^{\rm T}</script><h4 id="实战演练"><a href="#实战演练" class="headerlink" title="实战演练"></a>实战演练</h4><script type="math/tex; mode=display">
+f(x)=\frac 1 {\sqrt{2\pi}\sigma}{\rm e}^{-\frac {(x-\mu)^2}{2\sigma^2}}
+f(x)=\frac 1 {\sqrt{2\pi}\sigma}exp{\left [-\frac {(x-\mu)^2}{2\sigma^2}\right]}</script><pre class="line-numbers language-latex" data-language="latex"><code class="language-latex"><span class="token equation string">$$
+f(x)=<span class="token equation-command regex">\frac</span> 1 &#123;<span class="token equation-command regex">\sqrt</span>&#123;2<span class="token equation-command regex">\pi</span>&#125;<span class="token equation-command regex">\sigma</span>&#125;&#123;<span class="token equation-command regex">\rm</span> e&#125;^&#123;-<span class="token equation-command regex">\frac</span> &#123;(x-<span class="token equation-command regex">\mu</span>)^2&#125;&#123;2<span class="token equation-command regex">\sigma</span>^2&#125;&#125;
+f(x)=<span class="token equation-command regex">\frac</span> 1 &#123;<span class="token equation-command regex">\sqrt</span>&#123;2<span class="token equation-command regex">\pi</span>&#125;<span class="token equation-command regex">\sigma</span>&#125;exp&#123;<span class="token equation-command regex">\left</span> [-<span class="token equation-command regex">\frac</span> &#123;(x-<span class="token equation-command regex">\mu</span>)^2&#125;&#123;2<span class="token equation-command regex">\sigma</span>^2&#125;<span class="token equation-command regex">\right</span>]&#125;
+$$</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+<script type="math/tex; mode=display">
+\lim\limits_{N\to \infty} P\left\{ \left| \frac{I(\alpha_i)}{N}-H(s) \right|<\varepsilon \right\}=1</script><pre class="line-numbers language-latex" data-language="latex"><code class="language-latex"><span class="token equation string">$
+<span class="token equation-command regex">\lim</span><span class="token equation-command regex">\limits</span>_&#123;N<span class="token equation-command regex">\to</span> <span class="token equation-command regex">\infty</span>&#125; P<span class="token equation-command regex">\left</span><span class="token equation-command regex">\&#123;</span> <span class="token equation-command regex">\left</span>| <span class="token equation-command regex">\frac</span>&#123;I(<span class="token equation-command regex">\alpha</span>_i)&#125;&#123;N&#125;-H(s) <span class="token equation-command regex">\right</span>|&lt;<span class="token equation-command regex">\varepsilon</span> <span class="token equation-command regex">\right</span><span class="token equation-command regex">\&#125;</span>=1
+$</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+<script type="math/tex; mode=display">
+x(n)=\frac 1 {2\pi} \int_{-\pi}^{\pi} X \left( \rm e^{j\omega}\right)e^{jn\omega} \, \rm {d}\omega</script><pre class="line-numbers language-latex" data-language="latex"><code class="language-latex"><span class="token equation string">$
+x(n)=<span class="token equation-command regex">\frac</span> 1 &#123;2<span class="token equation-command regex">\pi</span>&#125; <span class="token equation-command regex">\int</span>_&#123;-<span class="token equation-command regex">\pi</span>&#125;^&#123;<span class="token equation-command regex">\pi</span>&#125; X <span class="token equation-command regex">\left</span>( <span class="token equation-command regex">\rm</span> e^&#123;j<span class="token equation-command regex">\omega</span>&#125;<span class="token equation-command regex">\right</span>)e^&#123;jn<span class="token equation-command regex">\omega</span>&#125; <span class="token equation-command regex">\,</span> <span class="token equation-command regex">\rm</span> &#123;d&#125;<span class="token equation-command regex">\omega</span>
+$</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+<ul>
+<li>在论文里<strong>\vec B 写成\mathbf B会更标准</strong>，后面的<strong>\vec R</strong>也同理。</li>
+</ul>
+<script type="math/tex; mode=display">
+\begin{align}
+
+\vec B \left (\vec r \right) &= \frac{\mu_0}{4\pi} \oint_C \frac{I\ d\vec l \times \vec R}{R^3}\\
+&=\frac{\mu_0}{4\pi} \int_V \frac{\vec J_V \times \vec R }{R^3}\, \rm{d} V'
+
+\end{align}</script><pre class="line-numbers language-latex" data-language="latex"><code class="language-latex"><span class="token equation string">$
+<span class="token equation-command regex">\begin</span>&#123;align&#125;
+<span class="token equation-command regex">\vec</span> B <span class="token equation-command regex">\left</span> (<span class="token equation-command regex">\vec</span> r <span class="token equation-command regex">\right</span>) &amp;= <span class="token equation-command regex">\frac</span>&#123;<span class="token equation-command regex">\mu</span>_0&#125;&#123;4<span class="token equation-command regex">\pi</span>&#125; <span class="token equation-command regex">\oint</span>_C <span class="token equation-command regex">\frac</span>&#123;I<span class="token equation-command regex">\ </span>d<span class="token equation-command regex">\vec</span> l <span class="token equation-command regex">\times</span> <span class="token equation-command regex">\vec</span> R&#125;&#123;R^3&#125;<span class="token equation-command regex">\\</span>
+&amp;=<span class="token equation-command regex">\frac</span>&#123;<span class="token equation-command regex">\mu</span>_0&#125;&#123;4<span class="token equation-command regex">\pi</span>&#125; <span class="token equation-command regex">\int</span>_V <span class="token equation-command regex">\frac</span>&#123;<span class="token equation-command regex">\vec</span> J_V <span class="token equation-command regex">\times</span> <span class="token equation-command regex">\vec</span> R &#125;&#123;R^3&#125;<span class="token equation-command regex">\,</span> <span class="token equation-command regex">\rm</span>&#123;d&#125; V'
+<span class="token equation-command regex">\end</span>&#123;align&#125;
+$</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h4 id="Reference"><a href="#Reference" class="headerlink" title="Reference"></a>Reference</h4><p>[1] <a target="_blank" rel="noopener" href="https://www.bilibili.com/video/BV1no4y1U7At?from=search&amp;seid=6098599299429567044&amp;spm_id_from=333.337.0.0">视频参考</a>于B站教程.</p>
+</div><div class="article-licensing box"><div class="licensing-title"><p>Latex公式排版快速教程</p><p><a href="http://example.com/2022/01/24/Latex/Latex公式排版快速教程/">http://example.com/2022/01/24/Latex/Latex公式排版快速教程/</a></p></div><div class="licensing-meta level is-mobile"><div class="level-left"><div class="level-item is-narrow"><div><h6>作者</h6><p>czt</p></div></div><div class="level-item is-narrow"><div><h6>发布于</h6><p>2022-01-24</p></div></div><div class="level-item is-narrow"><div><h6>更新于</h6><p>2022-01-24</p></div></div><div class="level-item is-narrow"><div><h6>许可协议</h6><p><a class="icons" rel="noopener" target="_blank" title="Creative Commons" href="https://creativecommons.org/"><i class="icon fab fa-creative-commons"></i></a><a class="icons" rel="noopener" target="_blank" title="Attribution" href="https://creativecommons.org/licenses/by/4.0/"><i class="icon fab fa-creative-commons-by"></i></a><a class="icons" rel="noopener" target="_blank" title="Noncommercial" href="https://creativecommons.org/licenses/by-nc/4.0/"><i class="icon fab fa-creative-commons-nc"></i></a></p></div></div></div></div></div><div class="article-tags is-size-7 mb-4"><span class="mr-2">#</span><a class="link-muted mr-2" rel="tag" href="/tags/Latex/">Latex</a></div><!--!--></article></div><!--!--><nav class="post-navigation mt-4 level is-mobile"><div class="level-end"><a class="article-nav-next level level-item link-muted" href="/2022/01/23/PyTorch%E6%95%99%E7%A8%8B%E4%B8%8E%E6%BA%90%E7%A0%81%E8%AE%B2%E8%A7%A3/%E5%BC%A0%E9%87%8F%E7%9A%84%E5%88%9B%E5%BB%BA%E4%B8%8E%E8%BF%90%E7%AE%97/"><span class="level-item">张量的创建与运算</span><i class="level-item fas fa-chevron-right"></i></a></div></nav><!--!--></div><div class="column column-left is-4-tablet is-4-desktop is-3-widescreen  order-1 is-sticky"><div class="card widget" data-type="profile"><div class="card-content"><nav class="level"><div class="level-item has-text-centered flex-shrink-1"><div><figure class="image is-128x128 mx-auto mb-2"><img class="avatar" src="https://gitee.com/houdezaiwu2022/image-bed/raw/master/hexoimg/202201222202112.jpg" alt="厚德载物"></figure><p class="title is-size-4 is-block" style="line-height:inherit;">厚德载物</p><p class="is-size-6 is-block">博士生</p><p class="is-size-6 is-flex justify-content-center"><i class="fas fa-map-marker-alt mr-1"></i><span>中国 湖北 武汉</span></p></div></div></nav><nav class="level is-mobile"><div class="level-item has-text-centered is-marginless"><div><p class="heading">文章</p><a href="/archives"><p class="title">5</p></a></div></div><div class="level-item has-text-centered is-marginless"><div><p class="heading">分类</p><a href="/categories"><p class="title">4</p></a></div></div><div class="level-item has-text-centered is-marginless"><div><p class="heading">标签</p><a href="/tags"><p class="title">5</p></a></div></div></nav><div class="level"><a class="level-item button is-primary is-rounded" href="https://github.com/ppoffice" target="_blank" rel="noopener">关注我</a></div><div class="level is-mobile is-multiline"><a class="level-item button is-transparent is-marginless" target="_blank" rel="noopener" title="Github" href="https://github.com/ppoffice"><i class="fab fa-github"></i></a><a class="level-item button is-transparent is-marginless" target="_blank" rel="noopener" title="Facebook" href="https://facebook.com"><i class="fab fa-facebook"></i></a><a class="level-item button is-transparent is-marginless" target="_blank" rel="noopener" title="Twitter" href="https://twitter.com"><i class="fab fa-twitter"></i></a><a class="level-item button is-transparent is-marginless" target="_blank" rel="noopener" title="Dribbble" href="https://dribbble.com"><i class="fab fa-dribbble"></i></a><a class="level-item button is-transparent is-marginless" target="_blank" rel="noopener" title="RSS" href="/"><i class="fas fa-rss"></i></a></div></div></div><div class="card widget" data-type="links"><div class="card-content"><div class="menu"><h3 class="menu-label">链接</h3><ul class="menu-list"><li><a class="level is-mobile" href="https://hexo.io" target="_blank" rel="noopener"><span class="level-left"><span class="level-item">Hexo</span></span><span class="level-right"><span class="level-item tag">hexo.io</span></span></a></li><li><a class="level is-mobile" href="https://bulma.io" target="_blank" rel="noopener"><span class="level-left"><span class="level-item">Bulma</span></span><span class="level-right"><span class="level-item tag">bulma.io</span></span></a></li></ul></div></div></div><div class="card widget" data-type="archives"><div class="card-content"><div class="menu"><h3 class="menu-label">归档</h3><ul class="menu-list"><li><a class="level is-mobile" href="/archives/2022/01/"><span class="level-start"><span class="level-item">一月 2022</span></span><span class="level-end"><span class="level-item tag">5</span></span></a></li></ul></div></div></div><div class="card widget" data-type="tags"><div class="card-content"><div class="menu"><h3 class="menu-label">标签</h3><div class="field is-grouped is-grouped-multiline"><div class="control"><a class="tags has-addons" href="/tags/Latex/"><span class="tag">Latex</span><span class="tag">1</span></a></div><div class="control"><a class="tags has-addons" href="/tags/Markdown/"><span class="tag">Markdown</span><span class="tag">1</span></a></div><div class="control"><a class="tags has-addons" href="/tags/Typora/"><span class="tag">Typora</span><span class="tag">1</span></a></div><div class="control"><a class="tags has-addons" href="/tags/pytorch/"><span class="tag">pytorch</span><span class="tag">1</span></a></div><div class="control"><a class="tags has-addons" href="/tags/%E6%9C%BA%E6%A2%B0%E6%8C%AF%E5%8A%A8/"><span class="tag">机械振动</span><span class="tag">1</span></a></div></div></div></div></div><div class="column-right-shadow is-hidden-widescreen is-sticky"></div></div><div class="column column-right is-4-tablet is-4-desktop is-3-widescreen is-hidden-touch is-hidden-desktop-only order-3 is-sticky"><div class="card widget" id="toc" data-type="toc"><div class="card-content"><div class="menu"><h3 class="menu-label">目录</h3><ul class="menu-list"><li><a class="level is-mobile" href="#希腊字母"><span class="level-left"><span class="level-item">1</span><span class="level-item">希腊字母</span></span></a></li><li><a class="level is-mobile" href="#上下标"><span class="level-left"><span class="level-item">2</span><span class="level-item">上下标</span></span></a></li><li><a class="level is-mobile" href="#分式与根式"><span class="level-left"><span class="level-item">3</span><span class="level-item">分式与根式</span></span></a></li><li><a class="level is-mobile" href="#普通运算符"><span class="level-left"><span class="level-item">4</span><span class="level-item">普通运算符</span></span></a></li><li><a class="level is-mobile" href="#大型运算符"><span class="level-left"><span class="level-item">5</span><span class="level-item">大型运算符</span></span></a></li><li><a class="level is-mobile" href="#标注符号"><span class="level-left"><span class="level-item">6</span><span class="level-item">标注符号</span></span></a></li><li><a class="level is-mobile" href="#箭头"><span class="level-left"><span class="level-item">7</span><span class="level-item">箭头</span></span></a></li><li><a class="level is-mobile" href="#括号与定界符"><span class="level-left"><span class="level-item">8</span><span class="level-item">括号与定界符</span></span></a></li><li><a class="level is-mobile" href="#多行公式"><span class="level-left"><span class="level-item">9</span><span class="level-item">多行公式</span></span></a></li><li><a class="level is-mobile" href="#大括号"><span class="level-left"><span class="level-item">10</span><span class="level-item">大括号</span></span></a></li><li><a class="level is-mobile" href="#矩阵"><span class="level-left"><span class="level-item">11</span><span class="level-item">矩阵</span></span></a></li><li><a class="level is-mobile" href="#实战演练"><span class="level-left"><span class="level-item">12</span><span class="level-item">实战演练</span></span></a></li><li><a class="level is-mobile" href="#Reference"><span class="level-left"><span class="level-item">13</span><span class="level-item">Reference</span></span></a></li></ul></div></div><script src="/js/toc.js" defer></script></div><div class="card widget" data-type="categories"><div class="card-content"><div class="menu"><h3 class="menu-label">分类</h3><ul class="menu-list"><li><a class="level is-mobile" href="/categories/Latex/"><span class="level-start"><span class="level-item">Latex</span></span><span class="level-end"><span class="level-item tag">1</span></span></a></li><li><a class="level is-mobile" href="/categories/PyTorch%E6%95%99%E7%A8%8B%E4%B8%8E%E6%BA%90%E7%A0%81%E8%AE%B2%E8%A7%A3/"><span class="level-start"><span class="level-item">PyTorch教程与源码讲解</span></span><span class="level-end"><span class="level-item tag">1</span></span></a></li><li><a class="level is-mobile" href="/categories/Typora/"><span class="level-start"><span class="level-item">Typora</span></span><span class="level-end"><span class="level-item tag">1</span></span></a></li><li><a class="level is-mobile" href="/categories/%E6%8C%AF%E5%8A%A8%E5%8A%9B%E5%AD%A6/"><span class="level-start"><span class="level-item">振动力学</span></span><span class="level-end"><span class="level-item tag">1</span></span></a></li></ul></div></div></div><div class="card widget" data-type="recent-posts"><div class="card-content"><h3 class="menu-label">最新文章</h3><article class="media"><div class="media-content"><p class="date"><time dateTime="2022-01-24T09:39:58.000Z">2022-01-24</time></p><p class="title"><a href="/2022/01/24/Latex/Latex%E5%85%AC%E5%BC%8F%E6%8E%92%E7%89%88%E5%BF%AB%E9%80%9F%E6%95%99%E7%A8%8B/">Latex公式排版快速教程</a></p><p class="categories"><a href="/categories/Latex/">Latex</a></p></div></article><article class="media"><figure class="media-left"><a class="image" href="/2022/01/23/PyTorch%E6%95%99%E7%A8%8B%E4%B8%8E%E6%BA%90%E7%A0%81%E8%AE%B2%E8%A7%A3/%E5%BC%A0%E9%87%8F%E7%9A%84%E5%88%9B%E5%BB%BA%E4%B8%8E%E8%BF%90%E7%AE%97/"><img src="/2022/01/23/PyTorch%E6%95%99%E7%A8%8B%E4%B8%8E%E6%BA%90%E7%A0%81%E8%AE%B2%E8%A7%A3/%E5%BC%A0%E9%87%8F%E7%9A%84%E5%88%9B%E5%BB%BA%E4%B8%8E%E8%BF%90%E7%AE%97/pytorch.jpeg" alt="张量的创建与运算"></a></figure><div class="media-content"><p class="date"><time dateTime="2022-01-23T12:59:01.000Z">2022-01-23</time></p><p class="title"><a href="/2022/01/23/PyTorch%E6%95%99%E7%A8%8B%E4%B8%8E%E6%BA%90%E7%A0%81%E8%AE%B2%E8%A7%A3/%E5%BC%A0%E9%87%8F%E7%9A%84%E5%88%9B%E5%BB%BA%E4%B8%8E%E8%BF%90%E7%AE%97/">张量的创建与运算</a></p><p class="categories"><a href="/categories/PyTorch%E6%95%99%E7%A8%8B%E4%B8%8E%E6%BA%90%E7%A0%81%E8%AE%B2%E8%A7%A3/">PyTorch教程与源码讲解</a></p></div></article><article class="media"><div class="media-content"><p class="date"><time dateTime="2022-01-23T03:12:39.000Z">2022-01-23</time></p><p class="title"><a href="/2022/01/23/%E6%8C%AF%E5%8A%A8%E5%8A%9B%E5%AD%A6/%E7%AC%AC%E4%B8%80%E7%AB%A0%E7%BB%AA%E8%AE%BA/">第一章绪论</a></p><p class="categories"><a href="/categories/%E6%8C%AF%E5%8A%A8%E5%8A%9B%E5%AD%A6/">振动力学</a></p></div></article><article class="media"><figure class="media-left"><a class="image" href="/2022/01/21/Typora%E5%85%A5%E9%97%A8/"><img src="/2022/01/21/Typora%E5%85%A5%E9%97%A8/typora.png" alt="Typora入门"></a></figure><div class="media-content"><p class="date"><time dateTime="2022-01-21T14:14:45.000Z">2022-01-21</time></p><p class="title"><a href="/2022/01/21/Typora%E5%85%A5%E9%97%A8/">Typora入门</a></p><p class="categories"><a href="/categories/Typora/">Typora</a></p></div></article><article class="media"><div class="media-content"><p class="date"><time dateTime="2022-01-18T08:57:40.000Z">2022-01-18</time></p><p class="title"><a href="/2022/01/18/hello-world/">Hello World</a></p></div></article></div></div></div></div></div></section><footer class="footer"><div class="container"><div class="level"><div class="level-start"><a class="footer-logo is-block mb-2" href="/"><img src="/img/logo.svg" alt="houdezaiwu&#039;s blog" height="28"></a><p class="is-size-7"><span>&copy; 2022 czt</span>  Powered by <a href="https://hexo.io/" target="_blank" rel="noopener">Hexo</a> &amp; <a href="https://github.com/ppoffice/hexo-theme-icarus" target="_blank" rel="noopener">Icarus</a></p></div><div class="level-end"><div class="field has-addons"><p class="control"><a class="button is-transparent is-large" target="_blank" rel="noopener" title="Creative Commons" href="https://creativecommons.org/"><i class="fab fa-creative-commons"></i></a></p><p class="control"><a class="button is-transparent is-large" target="_blank" rel="noopener" title="Attribution 4.0 International" href="https://creativecommons.org/licenses/by/4.0/"><i class="fab fa-creative-commons-by"></i></a></p><p class="control"><a class="button is-transparent is-large" target="_blank" rel="noopener" title="Download on GitHub" href="https://github.com/ppoffice/hexo-theme-icarus"><i class="fab fa-github"></i></a></p></div></div></div></div></footer><script src="https://cdn.jsdelivr.net/npm/jquery@3.3.1/dist/jquery.min.js"></script><script src="https://cdn.jsdelivr.net/npm/moment@2.22.2/min/moment-with-locales.min.js"></script><script src="https://cdn.jsdelivr.net/npm/clipboard@2.0.4/dist/clipboard.min.js" defer></script><script>moment.locale("zh-CN");</script><script>var IcarusThemeSettings = {
+            article: {
+                highlight: {
+                    clipboard: true,
+                    fold: 'unfolded'
+                }
+            }
+        };</script><script src="/js/column.js"></script><script src="/js/animation.js"></script><a id="back-to-top" title="回到顶端" href="javascript:;"><i class="fas fa-chevron-up"></i></a><script src="/js/back_to_top.js" defer></script><!--!--><!--!--><!--!--><script src="https://cdn.jsdelivr.net/npm/cookieconsent@3.1.1/build/cookieconsent.min.js" defer></script><script>window.addEventListener("load", () => {
+      window.cookieconsent.initialise({
+        type: "info",
+        theme: "edgeless",
+        static: false,
+        position: "bottom-left",
+        content: {
+          message: "此网站使用Cookie来改善您的体验。",
+          dismiss: "知道了！",
+          allow: "允许使用Cookie",
+          deny: "拒绝",
+          link: "了解更多",
+          policy: "Cookie政策",
+          href: "https://www.cookiesandyou.com/",
+        },
+        palette: {
+          popup: {
+            background: "#edeff5",
+            text: "#838391"
+          },
+          button: {
+            background: "#4b81e8"
+          },
+        },
+      });
+    });</script><script src="https://cdn.jsdelivr.net/npm/lightgallery@1.10.0/dist/js/lightgallery.min.js" defer></script><script src="https://cdn.jsdelivr.net/npm/justifiedGallery@3.8.1/dist/js/jquery.justifiedGallery.min.js" defer></script><script>window.addEventListener("load", () => {
+            if (typeof $.fn.lightGallery === 'function') {
+                $('.article').lightGallery({ selector: '.gallery-item' });
+            }
+            if (typeof $.fn.justifiedGallery === 'function') {
+                if ($('.justified-gallery > p > .gallery-item').length) {
+                    $('.justified-gallery > p > .gallery-item').unwrap();
+                }
+                $('.justified-gallery').justifiedGallery();
+            }
+        });</script><!--!--><!--!--><script type="text/x-mathjax-config">MathJax.Hub.Config({
+            'HTML-CSS': {
+                matchFontHeight: false
+            },
+            SVG: {
+                matchFontHeight: false
+            },
+            CommonHTML: {
+                matchFontHeight: false
+            },
+            tex2jax: {
+                inlineMath: [
+                    ['$','$'],
+                    ['\\(','\\)']
+                ]
+            }
+        });</script><script src="https://cdn.jsdelivr.net/npm/mathjax@2.7.9/unpacked/MathJax.js?config=TeX-MML-AM_CHTML" defer></script><!--!--><!--!--><!--!--><script src="/js/main.js" defer></script><div class="searchbox"><div class="searchbox-container"><div class="searchbox-header"><div class="searchbox-input-container"><input class="searchbox-input" type="text" placeholder="想要查找什么..."></div><a class="searchbox-close" href="javascript:;">×</a></div><div class="searchbox-body"></div></div></div><script src="/js/insight.js" defer></script><script>document.addEventListener('DOMContentLoaded', function () {
+            loadInsight({"contentUrl":"/content.json"}, {"hint":"想要查找什么...","untitled":"(无标题)","posts":"文章","pages":"页面","categories":"分类","tags":"标签"});
+        });</script></body></html>
