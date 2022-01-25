@@ -1,0 +1,183 @@
+<!doctype html>
+<html lang="zh"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"><meta><title>Latex期刊论文的排版 - houdezaiwu&#039;s blog</title><link rel="manifest" href="/manifest.json"><meta name="application-name" content="czt"><meta name="msapplication-TileImage" content="/img/favicon.svg"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-title" content="czt"><meta name="apple-mobile-web-app-status-bar-style" content="default"><meta name="description" content="本文主要针对与IEEE的一个Latex模板，主要从模板下载、语句解释、插入图片、插入公式、插入算法图、插入引用等方面来讲解如何使用模板。该教程属于简易教程，深入学习请看后续的详细教程。视频参考"><meta property="og:type" content="blog"><meta property="og:title" content="Latex期刊论文的排版"><meta property="og:url" content="http://example.com/2022/01/25/Latex/Latex%E6%9C%9F%E5%88%8A%E8%AE%BA%E6%96%87%E7%9A%84%E6%8E%92%E7%89%88/"><meta property="og:site_name" content="houdezaiwu&#039;s blog"><meta property="og:description" content="本文主要针对与IEEE的一个Latex模板，主要从模板下载、语句解释、插入图片、插入公式、插入算法图、插入引用等方面来讲解如何使用模板。该教程属于简易教程，深入学习请看后续的详细教程。视频参考"><meta property="og:locale" content="zh_CN"><meta property="og:image" content="http://example.com/2022/01/24/Latex/Latex%E5%85%AC%E5%BC%8F%E6%8E%92%E7%89%88%E5%BF%AB%E9%80%9F%E6%95%99%E7%A8%8B/Latex.jpg"><meta property="article:published_time" content="2022-01-25T03:39:28.000Z"><meta property="article:modified_time" content="2022-01-25T03:49:25.537Z"><meta property="article:author" content="czt"><meta property="article:tag" content="Latex"><meta property="twitter:card" content="summary"><meta property="twitter:image" content="/2022/01/24/Latex/Latex%E5%85%AC%E5%BC%8F%E6%8E%92%E7%89%88%E5%BF%AB%E9%80%9F%E6%95%99%E7%A8%8B/Latex.jpg"><script type="application/ld+json">{"@context":"https://schema.org","@type":"BlogPosting","mainEntityOfPage":{"@type":"WebPage","@id":"http://example.com/2022/01/25/Latex/Latex%E6%9C%9F%E5%88%8A%E8%AE%BA%E6%96%87%E7%9A%84%E6%8E%92%E7%89%88/"},"headline":"Latex期刊论文的排版","image":["http://example.com/2022/01/24/Latex/Latex%E5%85%AC%E5%BC%8F%E6%8E%92%E7%89%88%E5%BF%AB%E9%80%9F%E6%95%99%E7%A8%8B/Latex.jpg"],"datePublished":"2022-01-25T03:39:28.000Z","dateModified":"2022-01-25T03:49:25.537Z","author":{"@type":"Person","name":"czt"},"publisher":{"@type":"Organization","name":"houdezaiwu's blog","logo":{"@type":"ImageObject","url":"http://example.com/img/logo.svg"}},"description":"本文主要针对与IEEE的一个Latex模板，主要从模板下载、语句解释、插入图片、插入公式、插入算法图、插入引用等方面来讲解如何使用模板。该教程属于简易教程，深入学习请看后续的详细教程。视频参考"}</script><link rel="canonical" href="http://example.com/2022/01/25/Latex/Latex%E6%9C%9F%E5%88%8A%E8%AE%BA%E6%96%87%E7%9A%84%E6%8E%92%E7%89%88/"><link rel="icon" href="/img/favicon.svg"><link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.2/css/all.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@9.12.0/styles/atom-one-light.css"><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Ubuntu:wght@400;600&amp;family=Source+Code+Pro"><link rel="stylesheet" href="/css/default.css"><style>body>.footer,body>.navbar,body>.section{opacity:0}</style><!--!--><!--!--><!--!--><!--!--><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/cookieconsent@3.1.1/build/cookieconsent.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/lightgallery@1.10.0/dist/css/lightgallery.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/justifiedGallery@3.8.1/dist/css/justifiedGallery.min.css"><!--!--><!--!--><!--!--><style>.pace{-webkit-pointer-events:none;pointer-events:none;-webkit-user-select:none;-moz-user-select:none;user-select:none}.pace-inactive{display:none}.pace .pace-progress{background:#3273dc;position:fixed;z-index:2000;top:0;right:100%;width:100%;height:2px}</style><script src="https://cdn.jsdelivr.net/npm/pace-js@1.2.4/pace.min.js"></script><!--!--><!--!--><meta name="generator" content="Hexo 6.0.0"></head><body class="is-3-column"><nav class="navbar navbar-main"><div class="container"><div class="navbar-brand justify-content-center"><a class="navbar-item navbar-logo" href="/"><img src="/img/logo.svg" alt="houdezaiwu&#039;s blog" height="28"></a></div><div class="navbar-menu"><div class="navbar-start"><a class="navbar-item" href="/">主页</a><a class="navbar-item" href="/archives">归档</a><a class="navbar-item" href="/categories">分类</a><a class="navbar-item" href="/tags">标签</a><a class="navbar-item" href="/about">关于</a></div><div class="navbar-end"><a class="navbar-item" target="_blank" rel="noopener" title="Download on GitHub" href="https://github.com/ppoffice/hexo-theme-icarus"><i class="fab fa-github"></i></a><a class="navbar-item is-hidden-tablet catalogue" title="目录" href="javascript:;"><i class="fas fa-list-ul"></i></a><a class="navbar-item search" title="搜索" href="javascript:;"><i class="fas fa-search"></i></a></div></div></div></nav><section class="section"><div class="container"><div class="columns"><div class="column order-2 column-main is-8-tablet is-8-desktop is-6-widescreen"><div class="card"><article class="card-content article" role="article"><div class="article-meta is-size-7 is-uppercase level is-mobile"><div class="level-left"><span class="level-item"><time dateTime="2022-01-25T03:39:28.000Z" title="2022/1/25 上午11:39:28">2022-01-25</time>发表</span><span class="level-item"><time dateTime="2022-01-25T03:49:25.537Z" title="2022/1/25 上午11:49:25">2022-01-25</time>更新</span><span class="level-item"><a class="link-muted" href="/categories/Latex/">Latex</a></span><span class="level-item">6 分钟读完 (大约936个字)</span></div></div><h1 class="title is-3 is-size-4-mobile">Latex期刊论文的排版</h1><div class="content"><p>本文主要针对与IEEE的一个Latex模板，主要从模板下载、语句解释、插入图片、插入公式、插入算法图、插入引用等方面来讲解如何使用模板。该教程属于简易教程，深入学习请看后续的详细教程。<a target="_blank" rel="noopener" href="https://www.bilibili.com/video/BV1JR4y1H7Es?from=search&amp;seid=17792399379314935081&amp;spm_id_from=333.337.0.0">视频参考</a></p>
+<span id="more"></span>
+<h3 id="Latex模板下载"><a href="#Latex模板下载" class="headerlink" title="Latex模板下载"></a>Latex模板下载</h3><ul>
+<li>模板下载:IEEE模板:<br><a target="_blank" rel="noopener" href="http://www.ieee.org/publications_standards/publications/authors/author_templates.html">http://www.ieee.org/publications_standards/publications/authors/author_templates.html</a></li>
+<li><p>通用模板:<br><a target="_blank" rel="noopener" href="https://www.overleaf.com/">https://www.overleaf.com/</a></p>
+</li>
+<li><p>其他方法:<br>百度,csdn等网页找</p>
+</li>
+</ul>
+<p><strong>Latex的核心思想就是内容与格式分离</strong></p>
+<h3 id="模板的基本语句解释"><a href="#模板的基本语句解释" class="headerlink" title="模板的基本语句解释"></a>模板的基本语句解释</h3><ul>
+<li><strong>\begin{document}</strong>是文件的开始，之前为导言区，可以加入各种各样的宏包。</li>
+</ul>
+<p><img src="https://gitee.com/houdezaiwu2022/image-bed/raw/master/latex/202201250949256.png" alt="image-20220125094908557"></p>
+<ul>
+<li><strong>\begin{document}</strong>之后到<strong>\begin{abstract}</strong>之前用来写作者信息，联系方式以及致谢等信息。</li>
+</ul>
+<p><img src="https://gitee.com/houdezaiwu2022/image-bed/raw/master/latex/202201250948281.png" alt="image-20220125094831356"></p>
+<ul>
+<li><strong>\begin{IEEEkeywords}</strong> 后面写关键词。</li>
+</ul>
+<p><img src="https://gitee.com/houdezaiwu2022/image-bed/raw/master/latex/202201250948842.png" alt="image-20220125094810480"></p>
+<ul>
+<li><strong>\section{Introduction}</strong> 之后为介绍综述部分。</li>
+<li><strong>\subsection{name}</strong> 为子标题部分。</li>
+</ul>
+<p><img src="https://gitee.com/houdezaiwu2022/image-bed/raw/master/latex/202201251003813.png" alt="image-20220125095804365"></p>
+<ul>
+<li><strong>\section{References Section}</strong> 参考文献部分。</li>
+</ul>
+<p><img src="https://gitee.com/houdezaiwu2022/image-bed/raw/master/latex/202201251003277.png" alt="image-20220125100258950"></p>
+<ul>
+<li><strong>\begin{IEEEbiography}</strong> 开始作者生平部分。</li>
+</ul>
+<p><img src="https://gitee.com/houdezaiwu2022/image-bed/raw/master/latex/202201251003163.png" alt="image-20220125100103905"></p>
+<h3 id="插入图片"><a href="#插入图片" class="headerlink" title="插入图片"></a>插入图片</h3><ul>
+<li>首先，导入宏包 <strong>\usepackage{graphicx}</strong>。</li>
+</ul>
+<p><img src="https://gitee.com/houdezaiwu2022/image-bed/raw/master/latex/202201251008114.png" alt="image-20220125100825279"></p>
+<ul>
+<li>其次，导入代码块，<strong>其中的后缀名可以去查看详细的教程。</strong></li>
+</ul>
+<p><img src="image-20220125101616664.png" alt="image-20220125101616664"></p>
+<ul>
+<li>最后，编辑图片的大小样式。</li>
+</ul>
+<p><img src="https://gitee.com/houdezaiwu2022/image-bed/raw/master/latex/202201251022521.png" alt="image-20220125102207453"></p>
+<h3 id="插入公式"><a href="#插入公式" class="headerlink" title="插入公式"></a>插入公式</h3><p>公式部分主要的内容参考之前的专门写公式那篇<a href="[Latex公式排版快速教程 - houdezaiwu&#39;s blog (houdezaiwu2019.github.io">博客</a>](<a target="_blank" rel="noopener" href="https://houdezaiwu2019.github.io/2022/01/24/Latex/Latex公式排版快速教程/))。">https://houdezaiwu2019.github.io/2022/01/24/Latex/Latex公式排版快速教程/))。</a></p>
+<ul>
+<li>首先，导入宏包 <strong>\usepackage{amsmath,amsfonts}</strong></li>
+</ul>
+<p><img src="https://gitee.com/houdezaiwu2022/image-bed/raw/master/latex/202201251027507.png" alt="image-20220125102718996"></p>
+<ul>
+<li><p>其次，行间公式如图，文章终会自行标号，也可以自行标号<strong>\tag{1.1}</strong>。</p>
+<p><img src="https://gitee.com/houdezaiwu2022/image-bed/raw/master/latex/202201251031460.png" alt="image-20220125103104146"></p>
+</li>
+</ul>
+<script type="math/tex; mode=display">
+\begin{equation}
+\label{deqn_ex1}
+x = \sum_{i=0}^{n} 2{i} Q.
+\tag{1.1}
+\end{equation}</script><ul>
+<li>最后，行内的公式的写法是在<strong>$ $</strong>之间直接写即可，如$x^2+y^2=0$</li>
+</ul>
+<h3 id="插入参考文献"><a href="#插入参考文献" class="headerlink" title="插入参考文献"></a>插入参考文献</h3><p>实用办法插入参考文献</p>
+<ul>
+<li>首先，引入宏包 <strong>\usepackage[colorlinks,linkeolor-black,anchorcolor-black,citecolor-black]{hyperref }%用于调整多个参考文献的间距。直接用就好。</strong></li>
+</ul>
+<p><img src="https://gitee.com/houdezaiwu2022/image-bed/raw/master/latex/202201251040077.png" alt="image-20220125104039053"></p>
+<ul>
+<li>模板的插入方法，直接插入。</li>
+</ul>
+<p><img src="https://gitee.com/houdezaiwu2022/image-bed/raw/master/latex/202201251044909.png" alt="image-20220125104451913"></p>
+<ul>
+<li><p>也可以自己使用BibTex格式的文件来插入，<strong>但是在实际编译的过程中要记得将BibTex文件也进行编译。</strong></p>
+<ul>
+<li>到百度上下载一个BibTex的文件。</li>
+<li>引用BIb文件。</li>
+</ul>
+<p><img src="https://gitee.com/houdezaiwu2022/image-bed/raw/master/latex/202201251052687.png" alt="image-20220125105158583"></p>
+<blockquote>
+<p>以下为BibTex文件的内容。</p>
+<pre class="line-numbers language-latex" data-language="latex"><code class="language-latex">@article<span class="token punctuation">&#123;</span>2021Exploiting,
+title=<span class="token punctuation">&#123;</span>Exploiting Vector Attention and Contextual Prior for Ultrasound Image Segmentation<span class="token punctuation">&#125;</span>,
+author=<span class="token punctuation">&#123;</span> Xu, L.  and  Gao, S.  and  Shi, L.  and  Wei, B.  and  He, Y. <span class="token punctuation">&#125;</span>,
+journal=<span class="token punctuation">&#123;</span>Neurocomputing<span class="token punctuation">&#125;</span>,
+volume=<span class="token punctuation">&#123;</span>454<span class="token punctuation">&#125;</span>,
+number=<span class="token punctuation">&#123;</span>1<span class="token punctuation">&#125;</span>,
+year=<span class="token punctuation">&#123;</span>2021<span class="token punctuation">&#125;</span>,
+<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+</blockquote>
+</li>
+</ul>
+<p><img src="https://gitee.com/houdezaiwu2022/image-bed/raw/master/latex/202201251059733.png" alt="image-20220125105917038"></p>
+<ul>
+<li>引用，BibTex也要编译，否则出现的是？，但是目前TexStduio我还没有找到在哪里编译BibTex文件。</li>
+</ul>
+<p><img src="https://gitee.com/houdezaiwu2022/image-bed/raw/master/latex/202201251105672.png" alt="image-20220125110528844"></p>
+<h3 id="插入算法图"><a href="#插入算法图" class="headerlink" title="插入算法图"></a>插入算法图</h3><ul>
+<li>首先，导入宏包 <strong>\usepackage[ruled,linesnumbered]{algorithm2e}</strong>。</li>
+</ul>
+<p><img src="https://gitee.com/houdezaiwu2022/image-bed/raw/master/latex/202201251148666.png" alt="image-20220125110921831"></p>
+<ul>
+<li>之后，导入算法块即可。</li>
+</ul>
+<center>
+    <img src = "https://gitee.com/houdezaiwu2022/image-bed/raw/master/latex/202201251131775.png"
+         width=45%>
+    <img src = "https://gitee.com/houdezaiwu2022/image-bed/raw/master/latex/202201251131803.png"
+         width=45%>
+</center>
+
+
+
+<h3 id="工具补充"><a href="#工具补充" class="headerlink" title="工具补充"></a>工具补充</h3><ul>
+<li>补充好用网页:手写公式转latex <a target="_blank" rel="noopener" href="https://editor.codecogs.com/">https://editor.codecogs.com/</a></li>
+<li>手写符号，转latex表达 <a target="_blank" rel="noopener" href="https://detexify.kirelabs.org/classify/html">https://detexify.kirelabs.org/classify/html</a></li>
+<li>截图看公式 <a target="_blank" rel="noopener" href="https://mathpix.com/">https://mathpix.com/</a></li>
+<li>手写表格，转latex表达 <a target="_blank" rel="noopener" href="https://www.tablesgenerator.com/">https://www.tablesgenerator.com/</a></li>
+</ul>
+</div><div class="article-licensing box"><div class="licensing-title"><p>Latex期刊论文的排版</p><p><a href="http://example.com/2022/01/25/Latex/Latex期刊论文的排版/">http://example.com/2022/01/25/Latex/Latex期刊论文的排版/</a></p></div><div class="licensing-meta level is-mobile"><div class="level-left"><div class="level-item is-narrow"><div><h6>作者</h6><p>czt</p></div></div><div class="level-item is-narrow"><div><h6>发布于</h6><p>2022-01-25</p></div></div><div class="level-item is-narrow"><div><h6>更新于</h6><p>2022-01-25</p></div></div><div class="level-item is-narrow"><div><h6>许可协议</h6><p><a class="icons" rel="noopener" target="_blank" title="Creative Commons" href="https://creativecommons.org/"><i class="icon fab fa-creative-commons"></i></a><a class="icons" rel="noopener" target="_blank" title="Attribution" href="https://creativecommons.org/licenses/by/4.0/"><i class="icon fab fa-creative-commons-by"></i></a><a class="icons" rel="noopener" target="_blank" title="Noncommercial" href="https://creativecommons.org/licenses/by-nc/4.0/"><i class="icon fab fa-creative-commons-nc"></i></a></p></div></div></div></div></div><div class="article-tags is-size-7 mb-4"><span class="mr-2">#</span><a class="link-muted mr-2" rel="tag" href="/tags/Latex/">Latex</a></div><!--!--></article></div><!--!--><nav class="post-navigation mt-4 level is-mobile"><div class="level-end"><a class="article-nav-next level level-item link-muted" href="/2022/01/24/Latex/Latex%E5%85%AC%E5%BC%8F%E6%8E%92%E7%89%88%E5%BF%AB%E9%80%9F%E6%95%99%E7%A8%8B/"><span class="level-item">Latex公式排版快速教程</span><i class="level-item fas fa-chevron-right"></i></a></div></nav><!--!--></div><div class="column column-left is-4-tablet is-4-desktop is-3-widescreen  order-1 is-sticky"><div class="card widget" data-type="profile"><div class="card-content"><nav class="level"><div class="level-item has-text-centered flex-shrink-1"><div><figure class="image is-128x128 mx-auto mb-2"><img class="avatar" src="https://gitee.com/houdezaiwu2022/image-bed/raw/master/hexoimg/202201222202112.jpg" alt="厚德载物"></figure><p class="title is-size-4 is-block" style="line-height:inherit;">厚德载物</p><p class="is-size-6 is-block">博士生</p><p class="is-size-6 is-flex justify-content-center"><i class="fas fa-map-marker-alt mr-1"></i><span>中国 湖北 武汉</span></p></div></div></nav><nav class="level is-mobile"><div class="level-item has-text-centered is-marginless"><div><p class="heading">文章</p><a href="/archives"><p class="title">6</p></a></div></div><div class="level-item has-text-centered is-marginless"><div><p class="heading">分类</p><a href="/categories"><p class="title">4</p></a></div></div><div class="level-item has-text-centered is-marginless"><div><p class="heading">标签</p><a href="/tags"><p class="title">5</p></a></div></div></nav><div class="level"><a class="level-item button is-primary is-rounded" href="https://github.com/ppoffice" target="_blank" rel="noopener">关注我</a></div><div class="level is-mobile is-multiline"><a class="level-item button is-transparent is-marginless" target="_blank" rel="noopener" title="Github" href="https://github.com/ppoffice"><i class="fab fa-github"></i></a><a class="level-item button is-transparent is-marginless" target="_blank" rel="noopener" title="Facebook" href="https://facebook.com"><i class="fab fa-facebook"></i></a><a class="level-item button is-transparent is-marginless" target="_blank" rel="noopener" title="Twitter" href="https://twitter.com"><i class="fab fa-twitter"></i></a><a class="level-item button is-transparent is-marginless" target="_blank" rel="noopener" title="Dribbble" href="https://dribbble.com"><i class="fab fa-dribbble"></i></a><a class="level-item button is-transparent is-marginless" target="_blank" rel="noopener" title="RSS" href="/"><i class="fas fa-rss"></i></a></div></div></div><div class="card widget" data-type="links"><div class="card-content"><div class="menu"><h3 class="menu-label">链接</h3><ul class="menu-list"><li><a class="level is-mobile" href="https://hexo.io" target="_blank" rel="noopener"><span class="level-left"><span class="level-item">Hexo</span></span><span class="level-right"><span class="level-item tag">hexo.io</span></span></a></li><li><a class="level is-mobile" href="https://bulma.io" target="_blank" rel="noopener"><span class="level-left"><span class="level-item">Bulma</span></span><span class="level-right"><span class="level-item tag">bulma.io</span></span></a></li></ul></div></div></div><div class="card widget" data-type="archives"><div class="card-content"><div class="menu"><h3 class="menu-label">归档</h3><ul class="menu-list"><li><a class="level is-mobile" href="/archives/2022/01/"><span class="level-start"><span class="level-item">一月 2022</span></span><span class="level-end"><span class="level-item tag">6</span></span></a></li></ul></div></div></div><div class="card widget" data-type="tags"><div class="card-content"><div class="menu"><h3 class="menu-label">标签</h3><div class="field is-grouped is-grouped-multiline"><div class="control"><a class="tags has-addons" href="/tags/Latex/"><span class="tag">Latex</span><span class="tag">2</span></a></div><div class="control"><a class="tags has-addons" href="/tags/Markdown/"><span class="tag">Markdown</span><span class="tag">1</span></a></div><div class="control"><a class="tags has-addons" href="/tags/Typora/"><span class="tag">Typora</span><span class="tag">1</span></a></div><div class="control"><a class="tags has-addons" href="/tags/pytorch/"><span class="tag">pytorch</span><span class="tag">1</span></a></div><div class="control"><a class="tags has-addons" href="/tags/%E6%9C%BA%E6%A2%B0%E6%8C%AF%E5%8A%A8/"><span class="tag">机械振动</span><span class="tag">1</span></a></div></div></div></div></div><div class="column-right-shadow is-hidden-widescreen is-sticky"></div></div><div class="column column-right is-4-tablet is-4-desktop is-3-widescreen is-hidden-touch is-hidden-desktop-only order-3 is-sticky"><div class="card widget" id="toc" data-type="toc"><div class="card-content"><div class="menu"><h3 class="menu-label">目录</h3><ul class="menu-list"><li><a class="level is-mobile" href="#Latex模板下载"><span class="level-left"><span class="level-item">1</span><span class="level-item">Latex模板下载</span></span></a></li><li><a class="level is-mobile" href="#模板的基本语句解释"><span class="level-left"><span class="level-item">2</span><span class="level-item">模板的基本语句解释</span></span></a></li><li><a class="level is-mobile" href="#插入图片"><span class="level-left"><span class="level-item">3</span><span class="level-item">插入图片</span></span></a></li><li><a class="level is-mobile" href="#插入公式"><span class="level-left"><span class="level-item">4</span><span class="level-item">插入公式</span></span></a></li><li><a class="level is-mobile" href="#插入参考文献"><span class="level-left"><span class="level-item">5</span><span class="level-item">插入参考文献</span></span></a></li><li><a class="level is-mobile" href="#插入算法图"><span class="level-left"><span class="level-item">6</span><span class="level-item">插入算法图</span></span></a></li><li><a class="level is-mobile" href="#工具补充"><span class="level-left"><span class="level-item">7</span><span class="level-item">工具补充</span></span></a></li></ul></div></div><script src="/js/toc.js" defer></script></div><div class="card widget" data-type="categories"><div class="card-content"><div class="menu"><h3 class="menu-label">分类</h3><ul class="menu-list"><li><a class="level is-mobile" href="/categories/Latex/"><span class="level-start"><span class="level-item">Latex</span></span><span class="level-end"><span class="level-item tag">2</span></span></a></li><li><a class="level is-mobile" href="/categories/PyTorch%E6%95%99%E7%A8%8B%E4%B8%8E%E6%BA%90%E7%A0%81%E8%AE%B2%E8%A7%A3/"><span class="level-start"><span class="level-item">PyTorch教程与源码讲解</span></span><span class="level-end"><span class="level-item tag">1</span></span></a></li><li><a class="level is-mobile" href="/categories/Typora/"><span class="level-start"><span class="level-item">Typora</span></span><span class="level-end"><span class="level-item tag">1</span></span></a></li><li><a class="level is-mobile" href="/categories/%E6%8C%AF%E5%8A%A8%E5%8A%9B%E5%AD%A6/"><span class="level-start"><span class="level-item">振动力学</span></span><span class="level-end"><span class="level-item tag">1</span></span></a></li></ul></div></div></div><div class="card widget" data-type="recent-posts"><div class="card-content"><h3 class="menu-label">最新文章</h3><article class="media"><figure class="media-left"><a class="image" href="/2022/01/25/Latex/Latex%E6%9C%9F%E5%88%8A%E8%AE%BA%E6%96%87%E7%9A%84%E6%8E%92%E7%89%88/"><img src="/2022/01/24/Latex/Latex%E5%85%AC%E5%BC%8F%E6%8E%92%E7%89%88%E5%BF%AB%E9%80%9F%E6%95%99%E7%A8%8B/Latex.jpg" alt="Latex期刊论文的排版"></a></figure><div class="media-content"><p class="date"><time dateTime="2022-01-25T03:39:28.000Z">2022-01-25</time></p><p class="title"><a href="/2022/01/25/Latex/Latex%E6%9C%9F%E5%88%8A%E8%AE%BA%E6%96%87%E7%9A%84%E6%8E%92%E7%89%88/">Latex期刊论文的排版</a></p><p class="categories"><a href="/categories/Latex/">Latex</a></p></div></article><article class="media"><figure class="media-left"><a class="image" href="/2022/01/24/Latex/Latex%E5%85%AC%E5%BC%8F%E6%8E%92%E7%89%88%E5%BF%AB%E9%80%9F%E6%95%99%E7%A8%8B/"><img src="/2022/01/24/Latex/Latex%E5%85%AC%E5%BC%8F%E6%8E%92%E7%89%88%E5%BF%AB%E9%80%9F%E6%95%99%E7%A8%8B/Latex.jpg" alt="Latex公式排版快速教程"></a></figure><div class="media-content"><p class="date"><time dateTime="2022-01-24T09:39:58.000Z">2022-01-24</time></p><p class="title"><a href="/2022/01/24/Latex/Latex%E5%85%AC%E5%BC%8F%E6%8E%92%E7%89%88%E5%BF%AB%E9%80%9F%E6%95%99%E7%A8%8B/">Latex公式排版快速教程</a></p><p class="categories"><a href="/categories/Latex/">Latex</a></p></div></article><article class="media"><figure class="media-left"><a class="image" href="/2022/01/23/PyTorch%E6%95%99%E7%A8%8B%E4%B8%8E%E6%BA%90%E7%A0%81%E8%AE%B2%E8%A7%A3/%E5%BC%A0%E9%87%8F%E7%9A%84%E5%88%9B%E5%BB%BA%E4%B8%8E%E8%BF%90%E7%AE%97/"><img src="/2022/01/23/PyTorch%E6%95%99%E7%A8%8B%E4%B8%8E%E6%BA%90%E7%A0%81%E8%AE%B2%E8%A7%A3/%E5%BC%A0%E9%87%8F%E7%9A%84%E5%88%9B%E5%BB%BA%E4%B8%8E%E8%BF%90%E7%AE%97/pytorch.jpeg" alt="张量的创建与运算"></a></figure><div class="media-content"><p class="date"><time dateTime="2022-01-23T12:59:01.000Z">2022-01-23</time></p><p class="title"><a href="/2022/01/23/PyTorch%E6%95%99%E7%A8%8B%E4%B8%8E%E6%BA%90%E7%A0%81%E8%AE%B2%E8%A7%A3/%E5%BC%A0%E9%87%8F%E7%9A%84%E5%88%9B%E5%BB%BA%E4%B8%8E%E8%BF%90%E7%AE%97/">张量的创建与运算</a></p><p class="categories"><a href="/categories/PyTorch%E6%95%99%E7%A8%8B%E4%B8%8E%E6%BA%90%E7%A0%81%E8%AE%B2%E8%A7%A3/">PyTorch教程与源码讲解</a></p></div></article><article class="media"><div class="media-content"><p class="date"><time dateTime="2022-01-23T03:12:39.000Z">2022-01-23</time></p><p class="title"><a href="/2022/01/23/%E6%8C%AF%E5%8A%A8%E5%8A%9B%E5%AD%A6/%E7%AC%AC%E4%B8%80%E7%AB%A0%E7%BB%AA%E8%AE%BA/">第一章绪论</a></p><p class="categories"><a href="/categories/%E6%8C%AF%E5%8A%A8%E5%8A%9B%E5%AD%A6/">振动力学</a></p></div></article><article class="media"><figure class="media-left"><a class="image" href="/2022/01/21/Typora%E5%85%A5%E9%97%A8/"><img src="/2022/01/21/Typora%E5%85%A5%E9%97%A8/typora.png" alt="Typora入门"></a></figure><div class="media-content"><p class="date"><time dateTime="2022-01-21T14:14:45.000Z">2022-01-21</time></p><p class="title"><a href="/2022/01/21/Typora%E5%85%A5%E9%97%A8/">Typora入门</a></p><p class="categories"><a href="/categories/Typora/">Typora</a></p></div></article></div></div></div></div></div></section><footer class="footer"><div class="container"><div class="level"><div class="level-start"><a class="footer-logo is-block mb-2" href="/"><img src="/img/logo.svg" alt="houdezaiwu&#039;s blog" height="28"></a><p class="is-size-7"><span>&copy; 2022 czt</span>  Powered by <a href="https://hexo.io/" target="_blank" rel="noopener">Hexo</a> &amp; <a href="https://github.com/ppoffice/hexo-theme-icarus" target="_blank" rel="noopener">Icarus</a></p></div><div class="level-end"><div class="field has-addons"><p class="control"><a class="button is-transparent is-large" target="_blank" rel="noopener" title="Creative Commons" href="https://creativecommons.org/"><i class="fab fa-creative-commons"></i></a></p><p class="control"><a class="button is-transparent is-large" target="_blank" rel="noopener" title="Attribution 4.0 International" href="https://creativecommons.org/licenses/by/4.0/"><i class="fab fa-creative-commons-by"></i></a></p><p class="control"><a class="button is-transparent is-large" target="_blank" rel="noopener" title="Download on GitHub" href="https://github.com/ppoffice/hexo-theme-icarus"><i class="fab fa-github"></i></a></p></div></div></div></div></footer><script src="https://cdn.jsdelivr.net/npm/jquery@3.3.1/dist/jquery.min.js"></script><script src="https://cdn.jsdelivr.net/npm/moment@2.22.2/min/moment-with-locales.min.js"></script><script src="https://cdn.jsdelivr.net/npm/clipboard@2.0.4/dist/clipboard.min.js" defer></script><script>moment.locale("zh-CN");</script><script>var IcarusThemeSettings = {
+            article: {
+                highlight: {
+                    clipboard: true,
+                    fold: 'unfolded'
+                }
+            }
+        };</script><script src="/js/column.js"></script><script src="/js/animation.js"></script><a id="back-to-top" title="回到顶端" href="javascript:;"><i class="fas fa-chevron-up"></i></a><script src="/js/back_to_top.js" defer></script><!--!--><!--!--><!--!--><script src="https://cdn.jsdelivr.net/npm/cookieconsent@3.1.1/build/cookieconsent.min.js" defer></script><script>window.addEventListener("load", () => {
+      window.cookieconsent.initialise({
+        type: "info",
+        theme: "edgeless",
+        static: false,
+        position: "bottom-left",
+        content: {
+          message: "此网站使用Cookie来改善您的体验。",
+          dismiss: "知道了！",
+          allow: "允许使用Cookie",
+          deny: "拒绝",
+          link: "了解更多",
+          policy: "Cookie政策",
+          href: "https://www.cookiesandyou.com/",
+        },
+        palette: {
+          popup: {
+            background: "#edeff5",
+            text: "#838391"
+          },
+          button: {
+            background: "#4b81e8"
+          },
+        },
+      });
+    });</script><script src="https://cdn.jsdelivr.net/npm/lightgallery@1.10.0/dist/js/lightgallery.min.js" defer></script><script src="https://cdn.jsdelivr.net/npm/justifiedGallery@3.8.1/dist/js/jquery.justifiedGallery.min.js" defer></script><script>window.addEventListener("load", () => {
+            if (typeof $.fn.lightGallery === 'function') {
+                $('.article').lightGallery({ selector: '.gallery-item' });
+            }
+            if (typeof $.fn.justifiedGallery === 'function') {
+                if ($('.justified-gallery > p > .gallery-item').length) {
+                    $('.justified-gallery > p > .gallery-item').unwrap();
+                }
+                $('.justified-gallery').justifiedGallery();
+            }
+        });</script><!--!--><!--!--><script type="text/x-mathjax-config">MathJax.Hub.Config({
+            'HTML-CSS': {
+                matchFontHeight: false
+            },
+            SVG: {
+                matchFontHeight: false
+            },
+            CommonHTML: {
+                matchFontHeight: false
+            },
+            tex2jax: {
+                inlineMath: [
+                    ['$','$'],
+                    ['\\(','\\)']
+                ]
+            }
+        });</script><script src="https://cdn.jsdelivr.net/npm/mathjax@2.7.9/unpacked/MathJax.js?config=TeX-MML-AM_CHTML" defer></script><!--!--><!--!--><!--!--><script src="/js/main.js" defer></script><div class="searchbox"><div class="searchbox-container"><div class="searchbox-header"><div class="searchbox-input-container"><input class="searchbox-input" type="text" placeholder="想要查找什么..."></div><a class="searchbox-close" href="javascript:;">×</a></div><div class="searchbox-body"></div></div></div><script src="/js/insight.js" defer></script><script>document.addEventListener('DOMContentLoaded', function () {
+            loadInsight({"contentUrl":"/content.json"}, {"hint":"想要查找什么...","untitled":"(无标题)","posts":"文章","pages":"页面","categories":"分类","tags":"标签"});
+        });</script></body></html>
