@@ -1,0 +1,444 @@
+<!doctype html>
+<html lang="zh"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"><meta><title>第二章单自由度系统振动_第一部分 - houdezaiwu&#039;s blog</title><link rel="manifest" href="/manifest.json"><meta name="application-name" content="czt"><meta name="msapplication-TileImage" content="/img/favicon.svg"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-title" content="czt"><meta name="apple-mobile-web-app-status-bar-style" content="default"><meta name="description" content="单自由度系统振动的第一部分，主要讲的是无阻尼自由振动、能量法、瑞利法以及等效刚度与质量。"><meta property="og:type" content="blog"><meta property="og:title" content="第二章单自由度系统振动_第一部分"><meta property="og:url" content="http://example.com/2022/01/27/%E6%8C%AF%E5%8A%A8%E5%8A%9B%E5%AD%A6/%E7%AC%AC%E4%BA%8C%E7%AB%A0%E5%8D%95%E8%87%AA%E7%94%B1%E5%BA%A6%E7%B3%BB%E7%BB%9F%E6%8C%AF%E5%8A%A8-%E7%AC%AC%E4%B8%80%E9%83%A8%E5%88%86/"><meta property="og:site_name" content="houdezaiwu&#039;s blog"><meta property="og:description" content="单自由度系统振动的第一部分，主要讲的是无阻尼自由振动、能量法、瑞利法以及等效刚度与质量。"><meta property="og:locale" content="zh_CN"><meta property="og:image" content="https://gitee.com/houdezaiwu2022/image-bed/raw/master/vibration_mechanics/202201261133162.png"><meta property="article:published_time" content="2022-01-27T02:57:49.000Z"><meta property="article:modified_time" content="2022-01-27T03:08:03.002Z"><meta property="article:author" content="czt"><meta property="article:tag" content="机械振动"><meta property="twitter:card" content="summary"><meta property="twitter:image" content="https://gitee.com/houdezaiwu2022/image-bed/raw/master/vibration_mechanics/202201261133162.png"><script type="application/ld+json">{"@context":"https://schema.org","@type":"BlogPosting","mainEntityOfPage":{"@type":"WebPage","@id":"http://example.com/2022/01/27/%E6%8C%AF%E5%8A%A8%E5%8A%9B%E5%AD%A6/%E7%AC%AC%E4%BA%8C%E7%AB%A0%E5%8D%95%E8%87%AA%E7%94%B1%E5%BA%A6%E7%B3%BB%E7%BB%9F%E6%8C%AF%E5%8A%A8-%E7%AC%AC%E4%B8%80%E9%83%A8%E5%88%86/"},"headline":"第二章单自由度系统振动_第一部分","image":["https://gitee.com/houdezaiwu2022/image-bed/raw/master/vibration_mechanics/202201261133162.png"],"datePublished":"2022-01-27T02:57:49.000Z","dateModified":"2022-01-27T03:08:03.002Z","author":{"@type":"Person","name":"czt"},"publisher":{"@type":"Organization","name":"houdezaiwu's blog","logo":{"@type":"ImageObject","url":"http://example.com/img/logo.svg"}},"description":"单自由度系统振动的第一部分，主要讲的是无阻尼自由振动、能量法、瑞利法以及等效刚度与质量。"}</script><link rel="canonical" href="http://example.com/2022/01/27/%E6%8C%AF%E5%8A%A8%E5%8A%9B%E5%AD%A6/%E7%AC%AC%E4%BA%8C%E7%AB%A0%E5%8D%95%E8%87%AA%E7%94%B1%E5%BA%A6%E7%B3%BB%E7%BB%9F%E6%8C%AF%E5%8A%A8-%E7%AC%AC%E4%B8%80%E9%83%A8%E5%88%86/"><link rel="icon" href="/img/favicon.svg"><link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.2/css/all.css"><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Ubuntu:wght@400;600&amp;family=Source+Code+Pro"><link rel="stylesheet" href="/css/default.css"><style>body>.footer,body>.navbar,body>.section{opacity:0}</style><!--!--><!--!--><!--!--><!--!--><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/cookieconsent@3.1.1/build/cookieconsent.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/lightgallery@1.10.0/dist/css/lightgallery.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/justifiedGallery@3.8.1/dist/css/justifiedGallery.min.css"><!--!--><!--!--><!--!--><style>.pace{-webkit-pointer-events:none;pointer-events:none;-webkit-user-select:none;-moz-user-select:none;user-select:none}.pace-inactive{display:none}.pace .pace-progress{background:#3273dc;position:fixed;z-index:2000;top:0;right:100%;width:100%;height:2px}</style><script src="https://cdn.jsdelivr.net/npm/pace-js@1.2.4/pace.min.js"></script><!--!--><!--!--><meta name="generator" content="Hexo 6.0.0"><link rel="stylesheet" href="/css/prism-coy-without-shadows.css" type="text/css">
+<link rel="stylesheet" href="/css/prism-line-numbers.css" type="text/css"></head><body class="is-3-column"><nav class="navbar navbar-main"><div class="container"><div class="navbar-brand justify-content-center"><a class="navbar-item navbar-logo" href="/"><img src="/img/logo.svg" alt="houdezaiwu&#039;s blog" height="28"></a></div><div class="navbar-menu"><div class="navbar-start"><a class="navbar-item" href="/">主页</a><a class="navbar-item" href="/archives">归档</a><a class="navbar-item" href="/categories">分类</a><a class="navbar-item" href="/tags">标签</a><a class="navbar-item" href="/about">关于</a></div><div class="navbar-end"><a class="navbar-item" target="_blank" rel="noopener" title="Download on GitHub" href="https://github.com/ppoffice/hexo-theme-icarus"><i class="fab fa-github"></i></a><a class="navbar-item is-hidden-tablet catalogue" title="目录" href="javascript:;"><i class="fas fa-list-ul"></i></a><a class="navbar-item search" title="搜索" href="javascript:;"><i class="fas fa-search"></i></a></div></div></div></nav><section class="section"><div class="container"><div class="columns"><div class="column order-2 column-main is-8-tablet is-8-desktop is-6-widescreen"><div class="card"><div class="card-image"><span class="image is-7by3"><img class="fill" src="https://gitee.com/houdezaiwu2022/image-bed/raw/master/vibration_mechanics/202201261133162.png" alt="第二章单自由度系统振动_第一部分"></span></div><article class="card-content article" role="article"><div class="article-meta is-size-7 is-uppercase level is-mobile"><div class="level-left"><span class="level-item"><time dateTime="2022-01-27T02:57:49.000Z" title="2022/1/27 上午10:57:49">2022-01-27</time>发表</span><span class="level-item"><time dateTime="2022-01-27T03:08:03.002Z" title="2022/1/27 上午11:08:03">2022-01-27</time>更新</span><span class="level-item"><a class="link-muted" href="/categories/%E6%8C%AF%E5%8A%A8%E5%8A%9B%E5%AD%A6/">振动力学</a></span><span class="level-item">28 分钟读完 (大约4273个字)</span></div></div><h1 class="title is-3 is-size-4-mobile">第二章单自由度系统振动_第一部分</h1><div class="content"><p>单自由度系统振动的第一部分，主要讲的是无阻尼自由振动、能量法、瑞利法以及等效刚度与质量。</p>
+<span id="more"></span>
+<h3 id="无阻尼的自由振动"><a href="#无阻尼的自由振动" class="headerlink" title="无阻尼的自由振动"></a>无阻尼的自由振动</h3><p>令$x$为位移，以质量块静平衡位置为原点，$\lambda$为静变形。受到初始扰动时，由牛顿第二定律，得：</p>
+<script type="math/tex; mode=display">
+m\ddot x(t) = mg - k(\lambda+x(t))</script><p>在静平衡时的位置：$mg = k\lambda$</p>
+<center>
+    <img src="https://gitee.com/houdezaiwu2022/image-bed/raw/master/vibration_mechanics/202201261115237.png"
+         width=45%>
+    <img src="https://gitee.com/houdezaiwu2022/image-bed/raw/master/vibration_mechanics/202201261116127.png"
+         width=45%>
+</center>
+
+<p>则物体的振动或自由振动的微分方程为：</p>
+<script type="math/tex; mode=display">
+m\ddot x(t)+kx(t)=0</script><p>令：$\omega_0=\sqrt \frac{k}{m}$ <strong>固有频率，单位：弧度/秒（rad/s)</strong></p>
+<p>则有微分方程为：$\ddot x(t) + \omega_0^2x(t)=0 \Rightarrow$ 对应得特征方程为：$ms^2+k=0 \Rightarrow$  特征根：$s_{1,2}=\pm i\omega_0$</p>
+<p>$s_1、s_2$都满足特征方程，因此通解可以写为</p>
+<script type="math/tex; mode=display">
+\begin{align}
+x(t) &= A_1e^{s_1t}+A_2 e^{s_2t}\\
+     &=A_1e^{i\omega t}+A_2 e^{-i\omega t}\\ 
+     &= c_1 \cos (\omega_0t) +c_2 \sin (\omega_0t)\\
+     &= A \sin (\omega_0t+\varphi)
+\end{align}</script><p>$c_1和c_2$为新常数，主要由初始条件来决定 </p>
+<p>振幅：$A=\sqrt {(c_1^2+c_2^2)}$ </p>
+<p>初相位：$\varphi=tg^{-1} \left (\dfrac {c1}{c2} \right )$</p>
+<ul>
+<li>$\omega_0$  ：<strong>系统固有的数值特征</strong>，与系统是否振动以及如何振动无关。</li>
+<li>$A,\varphi$：非系统固有数字特征，与系统所受激励和初始状态有关。</li>
+</ul>
+<p>考虑系统在初始扰动下的自由振动，设$t=\tau$的初始位移和初始速度为：$x(\tau)=x_\tau \qquad \dot x(\tau)=\dot x_\tau$</p>
+<p>则令：</p>
+<script type="math/tex; mode=display">
+c_1=b_1 \cos(\omega_0 \tau)-b_2\sin (\omega_0\tau)\\
+c_2=b_1 \sin(\omega_0 \tau)-b_2\cos (\omega_0\tau)</script><p>带入得：$b_1=x_\tau  \quad b_2=\dfrac{\dot x_\tau}{\omega_0}$ 并且$\tau$时刻后得自由振动的解为：</p>
+<script type="math/tex; mode=display">
+x(t) = x_\tau \cos \omega_0(t-\tau) +\frac{\dot x_\tau}{\omega_0} \sin \omega_0(t-\tau)\\</script><p>带入零时刻的初始条件$x(0)=x_0 \qquad \dot x(0)=\dot x_0$可得：</p>
+<script type="math/tex; mode=display">
+x(t) = x_0 \cos \omega_0(t) +\frac{\dot x_0}{\omega_0} \sin \omega_0(t)=A\sin(\omega_0t+\varphi)</script><p>此时的<strong>振幅</strong>为$A=\sqrt{x_0^2+\left(\frac{\dot x_0}{\omega_0}\right)^2}$，相位为$\varphi=tg^{-1} \dfrac{x_0\omega_0}{\dot x_0}$</p>
+<ul>
+<li><p>无阻尼的质量弹簧系统受到初始扰动后，其自由振动是以$\omega_0$为振动顿率的简谐振动,并且永无休止。</p>
+</li>
+<li><p>初始条件的说明：初始条件是外界能量转入的一种方式，</p>
+<ul>
+<li>有初始位移即转入了弹性势能。</li>
+<li>有初始速度即转入了动能，用锤子敲击的脉冲就是输入了动能。</li>
+</ul>
+</li>
+</ul>
+<p><img src="https://gitee.com/houdezaiwu2022/image-bed/raw/master/vibration_mechanics/202201261551056.png" alt="image-20220126155042564"></p>
+<p>如图所示：可以得出，</p>
+<ul>
+<li>弹簧的刚度为蓝色最大、黑色最小。</li>
+<li>刚度越大、圆频率$\omega_0=\sqrt{\dfrac{k}{m}}$ 越大，周期（$T=\dfrac{2\pi}{\omega_0}$）越小。</li>
+</ul>
+<p><img src="https://gitee.com/houdezaiwu2022/image-bed/raw/master/vibration_mechanics/202201261554989.png" alt="image-20220126155447152"></p>
+<p>由此得出圆频率的另一种计算方法：</p>
+<p>由于在静止情况下$mg=k\lambda$ 可得：$\omega_0=\sqrt{\dfrac{k}{m}}=\sqrt{\dfrac{g}{\lambda}}$</p>
+<p>对于不易得到m和k 的系统，若能测出静变形$\lambda$，则用该式计算较为方便。</p>
+<h3 id="无阻尼振动的计算实例"><a href="#无阻尼振动的计算实例" class="headerlink" title="无阻尼振动的计算实例"></a>无阻尼振动的计算实例</h3><p><img src="https://gitee.com/houdezaiwu2022/image-bed/raw/master/vibration_mechanics/202201261631172.png" alt="image-20220126163118504"></p>
+<ul>
+<li>首先，我们规定的原点一般为静平衡位置，这样可以时建模得到了微分方程为齐次的，在原长处建模时，微分方程为非齐次的。<script type="math/tex; mode=display">
+m\ddot x+kx=0\\
+如果以原长的位置进行建模：\\
+m\ddot x+k x=mg</script></li>
+</ul>
+<p><img src="https://gitee.com/houdezaiwu2022/image-bed/raw/master/vibration_mechanics/202201261642824.png" style="zoom:67%;" /></p>
+<ul>
+<li>由题可得振动的频率为：$\omega_0=\sqrt{\dfrac{gk}{W}}=19.6\,rad/s$</li>
+<li><p>重物匀速下降时处于静平衡位置，若将坐标原点取在绳被卡<br>住瞬时重物所在位置，则t=0时有，$x_0=0\quad \dot x_0=v$</p>
+</li>
+<li><p>于是带入振动方程：</p>
+</li>
+</ul>
+<script type="math/tex; mode=display">
+\begin{align}
+x(t) &= x_0 \cos \omega_0(t) +\frac{\dot x_0}{\omega_0} \sin \omega_0(t)\\
+&=\dfrac{v}{\omega_0} \sin(\omega_0t)=12.8\sin(19.6t) (cm)
+\end{align}</script><ul>
+<li><p>求绳子的最大张力，一定时是绳子在最底部时的。绳中最大张力等于静张力与因为振动引起动的张力之和：</p>
+<script type="math/tex; mode=display">
+T_{max}=T_s+kA=W+kA\\
+=1.47\times10^5+0.74\times10^5=2.21\times10^5</script><blockquote>
+<p>动张力几乎是静张力的一半</p>
+</blockquote>
+<p>由于$kA=k\dfrac{v}{\omega_0}=v\sqrt{km}$ 为了减少振动引起的动张力，应当降低升降系统的刚度。<strong>尽管这样可能会造成A过大舒适性下降，但是由于加速度减小，安全性得到保证。</strong></p>
+</li>
+</ul>
+<p><img src="https://gitee.com/houdezaiwu2022/image-bed/raw/master/vibration_mechanics/202201261703580.png" alt="image-20220126170334764"></p>
+<ul>
+<li>首先，取平衡位置，<strong>以梁承受重物静平衡位置为坐标原点</strong>（就像相当于将重物平稳的放在上面产生的静变形为$\lambda$）<ul>
+<li>由材料力学得：$\lambda=\dfrac{mgl^3}{48EJ}$</li>
+<li>自由振动频率：$\omega_0=\sqrt{\dfrac{g}{\lambda}}=\sqrt {\dfrac{48EJ}{ml^3}}$</li>
+</ul>
+</li>
+</ul>
+<p><img src="https://gitee.com/houdezaiwu2022/image-bed/raw/master/vibration_mechanics/202201261714996.png" alt="image-20220126171443221"></p>
+<ul>
+<li>撞击时刻为零时刻，则t=0 时，有：$x_0=-\lambda\quad\dot x_0=\sqrt{2gh}$<ul>
+<li>自由振动振幅：$A=\sqrt{x_0^2+\left(\frac{\dot x_0}{\omega_0}\right)^2}=\sqrt{\lambda^2+2h\lambda}$</li>
+<li>梁的最大扰度：$\lambda_{max}=A+\lambda$</li>
+</ul>
+</li>
+</ul>
+<p><img src="https://gitee.com/houdezaiwu2022/image-bed/raw/master/vibration_mechanics/202201261722761.png" alt="image-20220126172241748"></p>
+<ul>
+<li>由牛顿第二定律：</li>
+</ul>
+<script type="math/tex; mode=display">
+I\ddot \theta(t)+k_\theta \theta(t)=0\\
+\ddot \theta(t)+\omega_0^2\theta(t)=0</script><ul>
+<li>则扭振的固有频率为$\omega_0=\sqrt{\dfrac{k_\theta}{I}}$</li>
+</ul>
+<p>总结：由上例可看出，除坐标不同外，角振动与直线振动的数学描述完全相同。如果在弹簧质量系统中将m、k 称为<strong>广义质量</strong>及<strong>广义刚度</strong>，则<strong>弹簧质量系统的有关结论完全适用于角振动</strong>。以后不加特别声明时，弹簧质量系统是广义的。</p>
+<p><img src="https://gitee.com/houdezaiwu2022/image-bed/raw/master/vibration_mechanics/202201261729144.png" alt="image-20220126172941879"></p>
+<ul>
+<li><p>从上两例还可看出，单自由度无阻尼系统总包含着<strong>惯性元件</strong>和<strong>弹性元件</strong>两种基本元件。</p>
+</li>
+<li><p>惯性元件是感受<strong>加速度</strong>的元件，它表现为系统的<strong>质量或转动惯量</strong>；</p>
+</li>
+<li><p>弹性元件是<strong>产生使系统恢复原来状态的恢复力的元件</strong>，它表现为具有<strong>刚度或扭转刚度的弹性体</strong>。</p>
+</li>
+<li><p>同一个系统中，若惯性增加，则使固有频率降低，而若刚度增加，则固有频率增大。</p>
+</li>
+</ul>
+<p><img src="https://gitee.com/houdezaiwu2022/image-bed/raw/master/vibration_mechanics/202201261737692.png" alt="image-20220126173750885"></p>
+<p>求复摆在平衡位置附近做微振动时的微分方程和固有频率。这里我们考虑的振动都是微振动（$\sin \theta \approx \theta$ )。</p>
+<ul>
+<li><p>首先，由牛顿定律：$I_0\ddot \theta(t)+mga\sin \theta(t)=0$</p>
+<p>得出固有频率$\omega_0=\sqrt{\dfrac{mga}{I_0}}$</p>
+</li>
+<li><p>若已测出物体的固有频率，则可求出$\omega_0$，再由移轴定理，可得物质绕质心的转动惯量：$I_c=I_0-ma^2$</p>
+<pre><code>  实验确定复杂形状物体的转动惯量的一个方法。
+</code></pre></li>
+</ul>
+<p><img src="https://gitee.com/houdezaiwu2022/image-bed/raw/master/vibration_mechanics/202201271103595.png" alt="image-20220126175006215"></p>
+<ul>
+<li><p>以静平衡位置为坐标原点建立坐标系，振动固有频率：$\omega_0=\sqrt{\dfrac{K}{m}}=70rad/s$</p>
+</li>
+<li><p>振动初始条件：$kx_0=mg\times\sin30° \ \Rightarrow x_0=-0.1cm$</p>
+</li>
+</ul>
+<p><img src="https://gitee.com/houdezaiwu2022/image-bed/raw/master/vibration_mechanics/202201271103799.png" alt="image-20220126180115409"></p>
+<ul>
+<li>由题初始速度为$\dot x_0=0$，则运动方程为$x(t)=-0.1\cos(70t) cm$</li>
+</ul>
+<p><strong>如果系统竖直放置，振动频率是否改变？</strong>不改变，因为质量是不变的，只有原长会改变。</p>
+<h3 id="能量法"><a href="#能量法" class="headerlink" title="能量法"></a>能量法</h3><ul>
+<li>对于不计阻尼即认为没有能量损失的单自由度系统，可利用<br><strong>能量守恒原理</strong>建立<strong>自由振动微分方程</strong>，或直接求出固有频率。</li>
+<li>无阻尼系统为保守系统，其机械能守恒，即动能T 和势能<br>V 之和保持不变，即：$T+V=const$</li>
+</ul>
+<script type="math/tex; mode=display">
+\dfrac{d}{dt} (T+V)=0</script><p><img src="https://gitee.com/houdezaiwu2022/image-bed/raw/master/vibration_mechanics/202201262228266.png" alt="image-20220126222830298"></p>
+<ul>
+<li><p>当原点在静平衡位置的情况：</p>
+<ul>
+<li>则总的势能为：</li>
+</ul>
+<script type="math/tex; mode=display">
+V=-mgx+\int_0^xk(\lambda+x)\,dx\\=-mgx+k\lambda x+\frac 1 2 k x^2 =\frac 1 2 kx^2</script><ul>
+<li><p>则总的能量的为：$T+V=\dfrac 1 2 k x^2+\dfrac 1 2m \dot x^2$</p>
+<p>$\dfrac{d}{dt} (T+V)=(m\ddot x +kx)\dot x=0 \,\Rightarrow \, m\ddot x(t)+kx(t)=0$</p>
+</li>
+</ul>
+</li>
+</ul>
+<p>能量法的步骤：(1)<strong>列方程</strong>，(2)<strong>求固有频率</strong></p>
+<p><img src="https://gitee.com/houdezaiwu2022/image-bed/raw/master/vibration_mechanics/202201262304292.png" alt="image-20220126230447853"></p>
+<ul>
+<li><p>如果将坐标原点不是取在系统的静平衡位置，而是取在弹簧为自由长时的位置，此时由能量之和的导数为零可得：</p>
+<pre><code>$m\ddot x \dot x-mg\dot x +kx \dot x=0 \, \Rightarrow \, m\ddot x(t)+kx(t)=mg$
+</code></pre><ul>
+<li>设新的坐标$y=x-\dfrac {mg} k =x- \lambda \ \Rightarrow \ m\ddot y(t)+ky(t)=0$</li>
+<li>如果重力的影响仅是改变了惯性元件的静平衡位置，那么将坐标原点取在静平衡位置上，方程中就不会出现重力项。</li>
+</ul>
+</li>
+</ul>
+<p><img src="https://gitee.com/houdezaiwu2022/image-bed/raw/master/vibration_mechanics/202201262315835.png" alt="image-20220126231555126"></p>
+<ul>
+<li><p>由于$T+V=const$，则有$T_{max}= V_{max}\Rightarrow\frac 1 2m \dot x_{max}^2=\frac 1 2 k x_{max}^2$</p>
+</li>
+<li><p>即有$\dot x_{max}=\omega_0x_{max}$，带入$x(t)= A \sin (\omega_0t+\varphi) $，可得$\omega_0=\sqrt{\dfrac{k}{m}}$</p>
+</li>
+<li><p>对于转动：$\dot \theta_{max}=\omega_0\theta_{max}$</p>
+</li>
+</ul>
+<p><img src="https://gitee.com/houdezaiwu2022/image-bed/raw/master/vibration_mechanics/202201262322186.png" alt="image-20220126232215268"></p>
+<p>(1) 倒摆作微幅振动时的固有频率<br>(2) 摆球$m=0.9kg$时，测得频率f为1.5HZ，$m=1.8kg$时，测得频率f为0.75HZ，问摆球质量为多少千克时恰使系统处于不稳定平衡状态？</p>
+<center>
+    <img src="https://gitee.com/houdezaiwu2022/image-bed/raw/master/vibration_mechanics/202201262354273.png"
+         width=37%>
+    <img src="https://gitee.com/houdezaiwu2022/image-bed/raw/master/vibration_mechanics/202201262356085.png"
+         width=53%>
+</center>
+
+<ul>
+<li><p>解法一：静平衡位置如左图，广义坐标为$\theta$</p>
+<ul>
+<li><p>势能：<strong>由于是微振动，正弦遵循小角近似，但是余弦不遵循</strong></p>
+<script type="math/tex; mode=display">
+\begin{align}
+V&=2 \times \frac{1}{2}\left(\frac{1}{2} k\right)(\theta a)^{2}-m g l(1-\cos \theta)\\
+&=\frac{1}{2} k a^{2} \theta^{2}-m g l\left(1-\left(1-2 \sin ^{2} \frac{\theta}{2}\right)\right)\\
+&=\frac{1}{2}\left(k a^{2} \theta^{2}-m g l \theta^{2}\right)=\frac{1}{2}\left(k a^{2}-m g l\right) \theta^{2}
+\end{align}</script></li>
+<li><p>动能：$T=\dfrac{1}{2} I \dot{\theta}^{2}=\dfrac{1}{2} m l^{2} \dot{\theta}^{2}$</p>
+</li>
+<li><p>微分方程为：$T_{max}=U_{max} \Rightarrow \frac{1}{2} m l^{2} \dot{\theta}_{\max }^{2}=\dfrac{1}{2}\left(k a^{2}-m g l\right) \theta_{\max }^{2}$</p>
+</li>
+<li><p>求固有频率：$\dot \theta_{max}=\omega_0\theta_{max} \Rightarrow \omega_{0}=\sqrt{\dfrac{k a^{2}-m g l}{m l^{2}}}$</p>
+</li>
+<li><p>这里我们将$ m l^{2}$视为等效质量，$\left(k a^{2}-m g l\right) $视为等效刚度。</p>
+</li>
+</ul>
+</li>
+<li><p>解法二：静平衡位置如右图，广义坐标为$\theta$</p>
+<ul>
+<li><p>势能：<strong>由于是微振动，这里用小角近似</strong></p>
+<script type="math/tex; mode=display">
+\begin{align}
+V&=2 \times \frac{1}{2}\left(\frac{1}{2} k\right)(\theta a)^{2}+m g l\cos \theta\\
+&=\frac{1}{2} k a^{2} \theta^{2}+m g l\left(1-2 \sin ^{2} \frac{\theta}{2}\right)\\
+&=\frac{1}{2}\left(k a^{2} -m g l \right)\theta^{2}+mgl
+\end{align}</script></li>
+<li><p>动能：$T=\dfrac{1}{2} I \dot{\theta}^{2}=\dfrac{1}{2} m l^{2} \dot{\theta}^{2}$</p>
+</li>
+<li><p>由于$\frac{d}{d t}(T+U)=0 \Rightarrow\ 2 m l^{2} \dot{\theta} \ddot{\theta}+2 \theta\left(k a^{2}-m g l\right) \dot{\theta}=0$</p>
+<p>则有：$2 m l^{2} \ddot{\theta}+2\left(k a^{2}-m g l\right) \theta=0 \Rightarrow \omega_{0}=\sqrt{\dfrac{k a^{2}-m g l}{m l^{2}}}$</p>
+</li>
+</ul>
+</li>
+</ul>
+<p><img src="https://gitee.com/houdezaiwu2022/image-bed/raw/master/vibration_mechanics/202201270015249.png" alt="image-20220127001533253"></p>
+<p>确定系统微振动的固有频率。</p>
+<p><img src="https://gitee.com/houdezaiwu2022/image-bed/raw/master/vibration_mechanics/202201270902772.png" alt="image-20220127090228492"></p>
+<ul>
+<li><p>广义坐标：圆柱微转角$\theta$，圆柱做一般运动，</p>
+<ul>
+<li>由柯希尼定理，动能：$T=\frac{1}{2}\left(\frac{3}{2} m R^{2}\right) \dot{\theta}^{2}$</li>
+<li>C点为瞬心<ul>
+<li>A点速度：$v_{A}=(R+a) \dot{\theta} \  \Rightarrow \  x_{A}=(R+a) \theta$</li>
+<li>B点的速度：$v_{B}=(R-b) \dot{\theta}\  \Rightarrow \ x_{B}=(R-b) \theta$</li>
+</ul>
+</li>
+<li>则势能为：$U=\dfrac{1}{2}\left(2 k_{1}\right)(R+a)^{2} \theta^{2}+\dfrac{1}{2}\left(2 k_{2}\right)(R-b)^{2} \theta^{2}$</li>
+</ul>
+</li>
+<li><p>由于$T_{\max }=U_{\max } \quad \Rightarrow \quad\dot{\theta}_{\max }=\omega_{0} \theta_{\max }$</p>
+<script type="math/tex; mode=display">
+\begin{align}
+\omega_{0}^{2}&=\dfrac{2\left[k_{1}(R+a)^{2}+k_{2}(R-b)^{2}\right]}{3 m R^{2} / 2}\\
+&=\dfrac{4}{3 m}\left[k_{1}\left(1+\dfrac{a}{R}\right)^{2}+k_{2}\left(1-\dfrac{b}{R}\right)^{2}\right]
+\end{align}</script><p>解得固有频率为：$\omega_{0}=\sqrt{\dfrac{4}{3 m}\left[k_{1}\left(1+\dfrac{a}{R}\right)^{2}+k_{2}\left(1-\dfrac{b}{R}\right)^{2}\right]}$</p>
+</li>
+</ul>
+<p><img src="https://gitee.com/houdezaiwu2022/image-bed/raw/master/vibration_mechanics/202201270914294.png" alt="image-20220127091456899"></p>
+<ul>
+<li><p>坐标原点设在静平衡位置，因为计算势能的时候预先压缩造成的重力势能和弹性势能一定会被约掉，得出其次动力学方程。</p>
+</li>
+<li><p>因此，广义的坐标：质量块的垂直位移x</p>
+<ul>
+<li><p>动能：</p>
+<script type="math/tex; mode=display">
+\begin{align}
+T&=\frac{1}{2} m \dot{x}^{2}+\dfrac{1}{2} M\left(\dfrac{1}{2} \dot{x}\right)^{2}+\frac{1}{2}\left(\dfrac{1}{2} M R^{2}\right)\left(\dfrac{\dot{x}}{2 R}\right)^{2}\\
+&=\frac{1}{2}\left(m+\frac{1}{4} M+\frac{1}{8} M\right) \dot{x}^{2}\\
+&=\frac{1}{2}\left(m+\frac{3}{8} M\right) \dot{x}^{2}
+\end{align}</script></li>
+<li><p>势能：$U=\dfrac{1}{2} k_{2} x^{2}+\dfrac{1}{2} k_{1}\left(\dfrac{1}{2} x\right)^{2}=\dfrac{1}{2}\left(k_{2}+\dfrac{1}{4} k_{1}\right) x^{2}$</p>
+</li>
+</ul>
+</li>
+<li><p>由能量守恒可知：</p>
+<p>$T_{\max }=U_{\max } \quad \Rightarrow \quad\dot{x}_{\max }=\omega_{0} x_{\max }$</p>
+<p>解得：$\omega_{0}=\sqrt{\dfrac{2 k_{1}+8 k_{2}}{3 M+8 m}}$</p>
+</li>
+</ul>
+<h3 id="瑞利法"><a href="#瑞利法" class="headerlink" title="瑞利法"></a>瑞利法</h3><p>利用能量法求解固有频率时，对于系统的<strong>动能</strong>的计算只考虑了<strong>惯性元件的动能</strong>，而<strong>忽略不计弹性元件的质量</strong>所具有的动能，因此算出的固有频率是实际值的<strong>上限</strong>。</p>
+<p>这种简化方法在许多场合中都能满足要求，但有些工程问题中，<strong>弹性元件本身的质量因占系统总质量相当大的比例而不能忽略</strong>，否则算出的固有频率明显偏高。</p>
+<p><img src="https://gitee.com/houdezaiwu2022/image-bed/raw/master/vibration_mechanics/202201270937281.png" alt="image-20220127093721932"></p>
+<ul>
+<li>当弹簧的质量的质量不是远小于小车的质量时，就无法忽略弹簧的质量，因此这里用等效的质量来分析。</li>
+<li>系统最大的势能：$V_{\max }=\frac{1}{2} k x_{\max }^{2}$</li>
+</ul>
+<p>$T_{\max }=U_{\max } \quad \Rightarrow \quad\dot{x}_{\max }=\omega_{0} x_{\max } \quad \Rightarrow \quad \omega_{0}=\sqrt{\dfrac{k}{m+m_{t}}}$</p>
+<p>若忽略 $m_t$ ，则$\omega_0$增大，因此忽略弹簧动能所算出的固有频率是实际值的上限。</p>
+<p>瑞利法求解等效的质量是通过积分来求解的。</p>
+<h3 id="等效质量与等效阻尼"><a href="#等效质量与等效阻尼" class="headerlink" title="等效质量与等效阻尼"></a>等效质量与等效阻尼</h3><p>方法一：<strong>能量法求解</strong></p>
+<ul>
+<li><p>选定广义位移坐标后，将系统得动能、势能写成如下形式：$T=\dfrac{1}{2} M_{e} \dot{x}^{2} ,\, V=\dfrac{1}{2} K_{e} x^{2}$ </p>
+</li>
+<li><p>当 $\dot x,x$分别取最大值时：$T \rightarrow T_{\max }， \  V \rightarrow V_{\max }$ ，可以得出：$\omega_{0}=\sqrt{\dfrac{K_{e}} {M_e}}$</p>
+</li>
+<li><p>$K_e$：简化系统的等效刚度；$M_e$：简化系统的等效质量。</p>
+</li>
+<li><p>等效的含义是指简化前后的系统的动能和势能分别相等。</p>
+</li>
+<li><p>主要步骤：</p>
+<ul>
+<li><p>选定广义坐标</p>
+</li>
+<li><p>将动能和势能写成标准形式</p>
+</li>
+<li><p>根据系数写出等效刚度和等效阻尼</p>
+</li>
+</ul>
+</li>
+</ul>
+<p><img src="https://gitee.com/houdezaiwu2022/image-bed/raw/master/vibration_mechanics/202201271009643.png" alt="image-20220127100920122" style="zoom:80%;" /></p>
+<ul>
+<li>动能：$T=\dfrac{1}{2} m l^{2} \dot{\theta}^{2} \Rightarrow M_{e}=m l^{2}$</li>
+<li><p>势能：$V=\frac{1}{2}\left(k a^{2}-m g l\right) \theta^{2} \Rightarrow K_{e}=k a^{2}-m g l$</p>
+</li>
+<li><p>固有频率：$\omega_{0}=\sqrt{\dfrac{k a^{2}-m g l}{m l^{2}}}$</p>
+</li>
+</ul>
+<p><img src="https://gitee.com/houdezaiwu2022/image-bed/raw/master/vibration_mechanics/202201271014765.png" alt="image-20220127101413822"></p>
+<ul>
+<li>势能：$U=\frac{1}{2}\left[\left(2 k_{1}\right)(R+a)^{2}+\left(2 k_{2}\right)(R-b)^{2}\right] \theta^{2}$<ul>
+<li>等效刚度：$K_{e}=\left(2 k_{1}\right)(R+a)^{2}+\left(2 k_{2}\right)(R-b)^{2}$</li>
+</ul>
+</li>
+<li>则固有频率为：$\omega_{0}^{2}=\dfrac{2\left[k_{1}(R+a)^{2}+k_{2}(R-b)^{2}\right]}{3 m R^{2} / 2}$</li>
+</ul>
+<p><img src="https://gitee.com/houdezaiwu2022/image-bed/raw/master/vibration_mechanics/202201271107782.png" alt="image-20220127110755394"></p>
+<p>方法二：<strong>定义法</strong></p>
+<ul>
+<li><p><strong>等效刚度：</strong>使系统在选定的坐标上产生<strong>单位位移</strong>而需要<strong>在此坐标方向上</strong>施加的力，叫做系统在这个坐标上的<strong>等效刚度</strong>。</p>
+</li>
+<li><p><strong>等效质量</strong>：使系统在选定的坐标上产生<strong>单位加速度</strong>而需要<strong>在此坐标方向上</strong>施加的力，叫做系统在这个坐标上的<strong>等效质量</strong>。</p>
+</li>
+</ul>
+<p><img src="https://gitee.com/houdezaiwu2022/image-bed/raw/master/vibration_mechanics/202201271020333.png" alt="image-20220127101930308"></p>
+<p>使系统在选定的坐标上产生单位位移而需要在此坐标方向上施加的力，叫做系统在这个坐标上的等效刚度。</p>
+<p><strong>串联弹簧的刚度的倒数是原来各个弹簧刚度倒数的总和</strong></p>
+<p><img src="https://gitee.com/houdezaiwu2022/image-bed/raw/master/vibration_mechanics/202201271020023.png" alt="image-20220127102000765"></p>
+<p><strong>并联弹簧的刚度是原来各个弹簧刚度的总和。</strong></p>
+<p><img src="image-20220127102451434.png" alt="image-20220127102451434"></p>
+<p>求：系统对于坐标x 的等效质量和等效刚度。</p>
+<p><img src="https://gitee.com/houdezaiwu2022/image-bed/raw/master/vibration_mechanics/202201271024954.png" alt="image-20220127102420705"></p>
+<ul>
+<li><p>方法1：能量法</p>
+<ul>
+<li>动能：$T=\dfrac{1}{2} m_{1} \dot{x}^{2}+\dfrac{1}{2} m_{2}\left(\dfrac{l_{2}}{l_{1}} \dot{x}\right)^{2}=\dfrac{1}{2}\left(m_{1}+\dfrac{l_{2}^{2}}{l_{1}^{2}} m_{2}\right) \dot{x}^{2}$<ul>
+<li>等效质量：$M_{e}=m_{1}+\dfrac{l_{2}^{2}}{l_{1}^{2}} m_{2}$</li>
+</ul>
+</li>
+<li>势能：$V=\dfrac{1}{2} k_{1} x^{2}+\dfrac{1}{2} k_{2}\left(\dfrac{l_{3}}{l_{1}} x\right)^{2}=\dfrac{1}{2}\left(k_{1}+\dfrac{l_{3}^{2}}{l_{1}^{2}} k_{2}\right) x^{2}$<ul>
+<li>等效刚度：$K_{e}=k_{1}+\dfrac{l_{3}^{2}}{l_{1}^{2}} k_{2}$</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>方法二：定义法</p>
+<ul>
+<li>设使系统在x方向产生单位加速度需要施加力P，则在m1、m2上产生惯性力，对支座取矩：<ul>
+<li>$P l_{1}=\left(m_{1} \cdot 1\right) l_{1}+\left(m_{2} \cdot \dfrac{l_{2}}{l_{1}}\right) l_{2}$</li>
+<li>等效质量：$M_{e}=m_{1}+\dfrac{l_{2}^{2}}{l_{1}^{2}} m_{2}$</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<p><img src="https://gitee.com/houdezaiwu2022/image-bed/raw/master/vibration_mechanics/202201271036348.png"
+         whidth=30%></p>
+<ul>
+<li><strong>画虚线</strong>是夸张化的m，其实其位移非常的为微小，在<strong>零时刻</strong>产生了单位加速度$\ddot x=1$，$m_1,m_2$在平衡位置静平衡位置：<strong>重力和弹簧预变形相互抵消，因此弹力可以忽略。</strong><ul>
+<li>设使系统在x坐标上产生单位位移需要施加力P，则在k1、k2处将产生弹性恢复力，对支点取矩：<ul>
+<li>$P l_{1}=\left(k_{1} \cdot 1\right) l_{1}+\left(k_{2} \cdot \dfrac{l_{3}}{l_{1}}\right) l_{3}$</li>
+<li>等效刚度：$K_{e}=k_{1}+\dfrac{l_{3}^{2}}{l_{1}^{2}} k_{2}$</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<p><img src="https://gitee.com/houdezaiwu2022/image-bed/raw/master/vibration_mechanics/202201271037539.png"
+     whidth=30%></p>
+<ul>
+<li>等效质量(惯性力)：动态求解(<strong>达朗贝尔原理</strong>)；</li>
+<li>等效刚度(静力平衡：静态求解(<strong>列静力学方程</strong>)。</li>
+</ul>
+</div><div class="article-licensing box"><div class="licensing-title"><p>第二章单自由度系统振动_第一部分</p><p><a href="http://example.com/2022/01/27/振动力学/第二章单自由度系统振动-第一部分/">http://example.com/2022/01/27/振动力学/第二章单自由度系统振动-第一部分/</a></p></div><div class="licensing-meta level is-mobile"><div class="level-left"><div class="level-item is-narrow"><div><h6>作者</h6><p>czt</p></div></div><div class="level-item is-narrow"><div><h6>发布于</h6><p>2022-01-27</p></div></div><div class="level-item is-narrow"><div><h6>更新于</h6><p>2022-01-27</p></div></div><div class="level-item is-narrow"><div><h6>许可协议</h6><p><a class="icons" rel="noopener" target="_blank" title="Creative Commons" href="https://creativecommons.org/"><i class="icon fab fa-creative-commons"></i></a><a class="icons" rel="noopener" target="_blank" title="Attribution" href="https://creativecommons.org/licenses/by/4.0/"><i class="icon fab fa-creative-commons-by"></i></a><a class="icons" rel="noopener" target="_blank" title="Noncommercial" href="https://creativecommons.org/licenses/by-nc/4.0/"><i class="icon fab fa-creative-commons-nc"></i></a></p></div></div></div></div></div><div class="article-tags is-size-7 mb-4"><span class="mr-2">#</span><a class="link-muted mr-2" rel="tag" href="/tags/%E6%9C%BA%E6%A2%B0%E6%8C%AF%E5%8A%A8/">机械振动</a></div><!--!--></article></div><!--!--><nav class="post-navigation mt-4 level is-mobile"><div class="level-end"><a class="article-nav-next level level-item link-muted" href="/2022/01/25/Latex/Latex%E6%9C%9F%E5%88%8A%E8%AE%BA%E6%96%87%E7%9A%84%E6%8E%92%E7%89%88/"><span class="level-item">Latex期刊论文的排版</span><i class="level-item fas fa-chevron-right"></i></a></div></nav><!--!--></div><div class="column column-left is-4-tablet is-4-desktop is-3-widescreen  order-1 is-sticky"><div class="card widget" data-type="profile"><div class="card-content"><nav class="level"><div class="level-item has-text-centered flex-shrink-1"><div><figure class="image is-128x128 mx-auto mb-2"><img class="avatar" src="https://gitee.com/houdezaiwu2022/image-bed/raw/master/hexoimg/202201222202112.jpg" alt="厚德载物"></figure><p class="title is-size-4 is-block" style="line-height:inherit;">厚德载物</p><p class="is-size-6 is-block">博士生</p><p class="is-size-6 is-flex justify-content-center"><i class="fas fa-map-marker-alt mr-1"></i><span>中国 湖北 武汉</span></p></div></div></nav><nav class="level is-mobile"><div class="level-item has-text-centered is-marginless"><div><p class="heading">文章</p><a href="/archives"><p class="title">7</p></a></div></div><div class="level-item has-text-centered is-marginless"><div><p class="heading">分类</p><a href="/categories"><p class="title">4</p></a></div></div><div class="level-item has-text-centered is-marginless"><div><p class="heading">标签</p><a href="/tags"><p class="title">5</p></a></div></div></nav><div class="level"><a class="level-item button is-primary is-rounded" href="https://github.com/ppoffice" target="_blank" rel="noopener">关注我</a></div><div class="level is-mobile is-multiline"><a class="level-item button is-transparent is-marginless" target="_blank" rel="noopener" title="Github" href="https://github.com/ppoffice"><i class="fab fa-github"></i></a><a class="level-item button is-transparent is-marginless" target="_blank" rel="noopener" title="Facebook" href="https://facebook.com"><i class="fab fa-facebook"></i></a><a class="level-item button is-transparent is-marginless" target="_blank" rel="noopener" title="Twitter" href="https://twitter.com"><i class="fab fa-twitter"></i></a><a class="level-item button is-transparent is-marginless" target="_blank" rel="noopener" title="Dribbble" href="https://dribbble.com"><i class="fab fa-dribbble"></i></a><a class="level-item button is-transparent is-marginless" target="_blank" rel="noopener" title="RSS" href="/"><i class="fas fa-rss"></i></a></div></div></div><div class="card widget" data-type="links"><div class="card-content"><div class="menu"><h3 class="menu-label">链接</h3><ul class="menu-list"><li><a class="level is-mobile" href="https://hexo.io" target="_blank" rel="noopener"><span class="level-left"><span class="level-item">Hexo</span></span><span class="level-right"><span class="level-item tag">hexo.io</span></span></a></li><li><a class="level is-mobile" href="https://bulma.io" target="_blank" rel="noopener"><span class="level-left"><span class="level-item">Bulma</span></span><span class="level-right"><span class="level-item tag">bulma.io</span></span></a></li></ul></div></div></div><div class="card widget" data-type="archives"><div class="card-content"><div class="menu"><h3 class="menu-label">归档</h3><ul class="menu-list"><li><a class="level is-mobile" href="/archives/2022/01/"><span class="level-start"><span class="level-item">一月 2022</span></span><span class="level-end"><span class="level-item tag">7</span></span></a></li></ul></div></div></div><div class="card widget" data-type="tags"><div class="card-content"><div class="menu"><h3 class="menu-label">标签</h3><div class="field is-grouped is-grouped-multiline"><div class="control"><a class="tags has-addons" href="/tags/Latex/"><span class="tag">Latex</span><span class="tag">2</span></a></div><div class="control"><a class="tags has-addons" href="/tags/Markdown/"><span class="tag">Markdown</span><span class="tag">1</span></a></div><div class="control"><a class="tags has-addons" href="/tags/Typora/"><span class="tag">Typora</span><span class="tag">1</span></a></div><div class="control"><a class="tags has-addons" href="/tags/pytorch/"><span class="tag">pytorch</span><span class="tag">1</span></a></div><div class="control"><a class="tags has-addons" href="/tags/%E6%9C%BA%E6%A2%B0%E6%8C%AF%E5%8A%A8/"><span class="tag">机械振动</span><span class="tag">2</span></a></div></div></div></div></div><div class="column-right-shadow is-hidden-widescreen is-sticky"></div></div><div class="column column-right is-4-tablet is-4-desktop is-3-widescreen is-hidden-touch is-hidden-desktop-only order-3 is-sticky"><div class="card widget" id="toc" data-type="toc"><div class="card-content"><div class="menu"><h3 class="menu-label">目录</h3><ul class="menu-list"><li><a class="level is-mobile" href="#无阻尼的自由振动"><span class="level-left"><span class="level-item">1</span><span class="level-item">无阻尼的自由振动</span></span></a></li><li><a class="level is-mobile" href="#无阻尼振动的计算实例"><span class="level-left"><span class="level-item">2</span><span class="level-item">无阻尼振动的计算实例</span></span></a></li><li><a class="level is-mobile" href="#能量法"><span class="level-left"><span class="level-item">3</span><span class="level-item">能量法</span></span></a></li><li><a class="level is-mobile" href="#瑞利法"><span class="level-left"><span class="level-item">4</span><span class="level-item">瑞利法</span></span></a></li><li><a class="level is-mobile" href="#等效质量与等效阻尼"><span class="level-left"><span class="level-item">5</span><span class="level-item">等效质量与等效阻尼</span></span></a></li></ul></div></div><script src="/js/toc.js" defer></script></div><div class="card widget" data-type="categories"><div class="card-content"><div class="menu"><h3 class="menu-label">分类</h3><ul class="menu-list"><li><a class="level is-mobile" href="/categories/Latex/"><span class="level-start"><span class="level-item">Latex</span></span><span class="level-end"><span class="level-item tag">2</span></span></a></li><li><a class="level is-mobile" href="/categories/PyTorch%E6%95%99%E7%A8%8B%E4%B8%8E%E6%BA%90%E7%A0%81%E8%AE%B2%E8%A7%A3/"><span class="level-start"><span class="level-item">PyTorch教程与源码讲解</span></span><span class="level-end"><span class="level-item tag">1</span></span></a></li><li><a class="level is-mobile" href="/categories/Typora/"><span class="level-start"><span class="level-item">Typora</span></span><span class="level-end"><span class="level-item tag">1</span></span></a></li><li><a class="level is-mobile" href="/categories/%E6%8C%AF%E5%8A%A8%E5%8A%9B%E5%AD%A6/"><span class="level-start"><span class="level-item">振动力学</span></span><span class="level-end"><span class="level-item tag">2</span></span></a></li></ul></div></div></div><div class="card widget" data-type="recent-posts"><div class="card-content"><h3 class="menu-label">最新文章</h3><article class="media"><figure class="media-left"><a class="image" href="/2022/01/27/%E6%8C%AF%E5%8A%A8%E5%8A%9B%E5%AD%A6/%E7%AC%AC%E4%BA%8C%E7%AB%A0%E5%8D%95%E8%87%AA%E7%94%B1%E5%BA%A6%E7%B3%BB%E7%BB%9F%E6%8C%AF%E5%8A%A8-%E7%AC%AC%E4%B8%80%E9%83%A8%E5%88%86/"><img src="https://gitee.com/houdezaiwu2022/image-bed/raw/master/vibration_mechanics/202201261133162.png" alt="第二章单自由度系统振动_第一部分"></a></figure><div class="media-content"><p class="date"><time dateTime="2022-01-27T02:57:49.000Z">2022-01-27</time></p><p class="title"><a href="/2022/01/27/%E6%8C%AF%E5%8A%A8%E5%8A%9B%E5%AD%A6/%E7%AC%AC%E4%BA%8C%E7%AB%A0%E5%8D%95%E8%87%AA%E7%94%B1%E5%BA%A6%E7%B3%BB%E7%BB%9F%E6%8C%AF%E5%8A%A8-%E7%AC%AC%E4%B8%80%E9%83%A8%E5%88%86/">第二章单自由度系统振动_第一部分</a></p><p class="categories"><a href="/categories/%E6%8C%AF%E5%8A%A8%E5%8A%9B%E5%AD%A6/">振动力学</a></p></div></article><article class="media"><figure class="media-left"><a class="image" href="/2022/01/25/Latex/Latex%E6%9C%9F%E5%88%8A%E8%AE%BA%E6%96%87%E7%9A%84%E6%8E%92%E7%89%88/"><img src="https://gitee.com/houdezaiwu2022/image-bed/raw/master/latex/202201271147807.png" alt="Latex期刊论文的排版"></a></figure><div class="media-content"><p class="date"><time dateTime="2022-01-25T03:39:28.000Z">2022-01-25</time></p><p class="title"><a href="/2022/01/25/Latex/Latex%E6%9C%9F%E5%88%8A%E8%AE%BA%E6%96%87%E7%9A%84%E6%8E%92%E7%89%88/">Latex期刊论文的排版</a></p><p class="categories"><a href="/categories/Latex/">Latex</a></p></div></article><article class="media"><figure class="media-left"><a class="image" href="/2022/01/24/Latex/Latex%E5%85%AC%E5%BC%8F%E6%8E%92%E7%89%88%E5%BF%AB%E9%80%9F%E6%95%99%E7%A8%8B/"><img src="https://gitee.com/houdezaiwu2022/image-bed/raw/master/latex/202201271147807.png" alt="Latex公式排版快速教程"></a></figure><div class="media-content"><p class="date"><time dateTime="2022-01-24T09:39:58.000Z">2022-01-24</time></p><p class="title"><a href="/2022/01/24/Latex/Latex%E5%85%AC%E5%BC%8F%E6%8E%92%E7%89%88%E5%BF%AB%E9%80%9F%E6%95%99%E7%A8%8B/">Latex公式排版快速教程</a></p><p class="categories"><a href="/categories/Latex/">Latex</a></p></div></article><article class="media"><figure class="media-left"><a class="image" href="/2022/01/23/PyTorch%E6%95%99%E7%A8%8B%E4%B8%8E%E6%BA%90%E7%A0%81%E8%AE%B2%E8%A7%A3/%E5%BC%A0%E9%87%8F%E7%9A%84%E5%88%9B%E5%BB%BA%E4%B8%8E%E8%BF%90%E7%AE%97/"><img src="https://gitee.com/houdezaiwu2022/image-bed/raw/master/pytorch/202201271155098.png" alt="张量的创建与运算"></a></figure><div class="media-content"><p class="date"><time dateTime="2022-01-23T12:59:01.000Z">2022-01-23</time></p><p class="title"><a href="/2022/01/23/PyTorch%E6%95%99%E7%A8%8B%E4%B8%8E%E6%BA%90%E7%A0%81%E8%AE%B2%E8%A7%A3/%E5%BC%A0%E9%87%8F%E7%9A%84%E5%88%9B%E5%BB%BA%E4%B8%8E%E8%BF%90%E7%AE%97/">张量的创建与运算</a></p><p class="categories"><a href="/categories/PyTorch%E6%95%99%E7%A8%8B%E4%B8%8E%E6%BA%90%E7%A0%81%E8%AE%B2%E8%A7%A3/">PyTorch教程与源码讲解</a></p></div></article><article class="media"><figure class="media-left"><a class="image" href="/2022/01/23/%E6%8C%AF%E5%8A%A8%E5%8A%9B%E5%AD%A6/%E7%AC%AC%E4%B8%80%E7%AB%A0%E7%BB%AA%E8%AE%BA/"><img src="https://gitee.com/houdezaiwu2022/image-bed/raw/master/vibration_mechanics/202201261133162.png" alt="第一章绪论"></a></figure><div class="media-content"><p class="date"><time dateTime="2022-01-23T03:12:39.000Z">2022-01-23</time></p><p class="title"><a href="/2022/01/23/%E6%8C%AF%E5%8A%A8%E5%8A%9B%E5%AD%A6/%E7%AC%AC%E4%B8%80%E7%AB%A0%E7%BB%AA%E8%AE%BA/">第一章绪论</a></p><p class="categories"><a href="/categories/%E6%8C%AF%E5%8A%A8%E5%8A%9B%E5%AD%A6/">振动力学</a></p></div></article></div></div></div></div></div></section><footer class="footer"><div class="container"><div class="level"><div class="level-start"><a class="footer-logo is-block mb-2" href="/"><img src="/img/logo.svg" alt="houdezaiwu&#039;s blog" height="28"></a><p class="is-size-7"><span>&copy; 2022 czt</span>  Powered by <a href="https://hexo.io/" target="_blank" rel="noopener">Hexo</a> &amp; <a href="https://github.com/ppoffice/hexo-theme-icarus" target="_blank" rel="noopener">Icarus</a></p></div><div class="level-end"><div class="field has-addons"><p class="control"><a class="button is-transparent is-large" target="_blank" rel="noopener" title="Creative Commons" href="https://creativecommons.org/"><i class="fab fa-creative-commons"></i></a></p><p class="control"><a class="button is-transparent is-large" target="_blank" rel="noopener" title="Attribution 4.0 International" href="https://creativecommons.org/licenses/by/4.0/"><i class="fab fa-creative-commons-by"></i></a></p><p class="control"><a class="button is-transparent is-large" target="_blank" rel="noopener" title="Download on GitHub" href="https://github.com/ppoffice/hexo-theme-icarus"><i class="fab fa-github"></i></a></p></div></div></div></div></footer><script src="https://cdn.jsdelivr.net/npm/jquery@3.3.1/dist/jquery.min.js"></script><script src="https://cdn.jsdelivr.net/npm/moment@2.22.2/min/moment-with-locales.min.js"></script><script src="https://cdn.jsdelivr.net/npm/clipboard@2.0.4/dist/clipboard.min.js" defer></script><script>moment.locale("zh-CN");</script><script>var IcarusThemeSettings = {
+            article: {
+                highlight: {
+                    clipboard: true,
+                    fold: 'unfolded'
+                }
+            }
+        };</script><script src="/js/column.js"></script><script src="/js/animation.js"></script><a id="back-to-top" title="回到顶端" href="javascript:;"><i class="fas fa-chevron-up"></i></a><script src="/js/back_to_top.js" defer></script><!--!--><!--!--><!--!--><script src="https://cdn.jsdelivr.net/npm/cookieconsent@3.1.1/build/cookieconsent.min.js" defer></script><script>window.addEventListener("load", () => {
+      window.cookieconsent.initialise({
+        type: "info",
+        theme: "edgeless",
+        static: false,
+        position: "bottom-left",
+        content: {
+          message: "此网站使用Cookie来改善您的体验。",
+          dismiss: "知道了！",
+          allow: "允许使用Cookie",
+          deny: "拒绝",
+          link: "了解更多",
+          policy: "Cookie政策",
+          href: "https://www.cookiesandyou.com/",
+        },
+        palette: {
+          popup: {
+            background: "#edeff5",
+            text: "#838391"
+          },
+          button: {
+            background: "#4b81e8"
+          },
+        },
+      });
+    });</script><script src="https://cdn.jsdelivr.net/npm/lightgallery@1.10.0/dist/js/lightgallery.min.js" defer></script><script src="https://cdn.jsdelivr.net/npm/justifiedGallery@3.8.1/dist/js/jquery.justifiedGallery.min.js" defer></script><script>window.addEventListener("load", () => {
+            if (typeof $.fn.lightGallery === 'function') {
+                $('.article').lightGallery({ selector: '.gallery-item' });
+            }
+            if (typeof $.fn.justifiedGallery === 'function') {
+                if ($('.justified-gallery > p > .gallery-item').length) {
+                    $('.justified-gallery > p > .gallery-item').unwrap();
+                }
+                $('.justified-gallery').justifiedGallery();
+            }
+        });</script><!--!--><!--!--><script type="text/x-mathjax-config">MathJax.Hub.Config({
+            'HTML-CSS': {
+                matchFontHeight: false
+            },
+            SVG: {
+                matchFontHeight: false
+            },
+            CommonHTML: {
+                matchFontHeight: false
+            },
+            tex2jax: {
+                inlineMath: [
+                    ['$','$'],
+                    ['\\(','\\)']
+                ]
+            }
+        });</script><script src="https://cdn.jsdelivr.net/npm/mathjax@2.7.9/unpacked/MathJax.js?config=TeX-MML-AM_CHTML" defer></script><!--!--><!--!--><!--!--><script src="/js/main.js" defer></script><div class="searchbox"><div class="searchbox-container"><div class="searchbox-header"><div class="searchbox-input-container"><input class="searchbox-input" type="text" placeholder="想要查找什么..."></div><a class="searchbox-close" href="javascript:;">×</a></div><div class="searchbox-body"></div></div></div><script src="/js/insight.js" defer></script><script>document.addEventListener('DOMContentLoaded', function () {
+            loadInsight({"contentUrl":"/content.json"}, {"hint":"想要查找什么...","untitled":"(无标题)","posts":"文章","pages":"页面","categories":"分类","tags":"标签"});
+        });</script></body></html>
