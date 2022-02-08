@@ -1,0 +1,308 @@
+<!doctype html>
+<html lang="zh"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"><meta><title>Latex基础教程（二） - houdezaiwu&#039;s blog</title><link rel="manifest" href="/manifest.json"><meta name="application-name" content="czt"><meta name="msapplication-TileImage" content="/img/favicon.svg"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-title" content="czt"><meta name="apple-mobile-web-app-status-bar-style" content="default"><meta name="description" content="hljs.initHighlightingOnLoad();  本文主主要包含Latex的表格操、作浮动体的设置、参考文献以及自定义命令的设置，主要参考了B站的latex中文教程-15集从入门到精通包含各种latex操作视频的后9讲。"><meta property="og:type" content="blog"><meta property="og:title" content="Latex基础教程（二）"><meta property="og:url" content="http://example.com/2022/02/08/Latex/Latex%E5%9F%BA%E7%A1%80%E6%95%99%E7%A8%8B(%E4%BA%8C)/"><meta property="og:site_name" content="houdezaiwu&#039;s blog"><meta property="og:description" content="hljs.initHighlightingOnLoad();  本文主主要包含Latex的表格操、作浮动体的设置、参考文献以及自定义命令的设置，主要参考了B站的latex中文教程-15集从入门到精通包含各种latex操作视频的后9讲。"><meta property="og:locale" content="zh_CN"><meta property="og:image" content="https://gitee.com/houdezaiwu2022/image-bed/raw/master/latex/202201271150120.jpg"><meta property="article:published_time" content="2022-02-08T06:59:26.000Z"><meta property="article:modified_time" content="2022-02-08T07:11:40.818Z"><meta property="article:author" content="czt"><meta property="article:tag" content="Latex"><meta property="twitter:card" content="summary"><meta property="twitter:image" content="https://gitee.com/houdezaiwu2022/image-bed/raw/master/latex/202201271150120.jpg"><script type="application/ld+json">{"@context":"https://schema.org","@type":"BlogPosting","mainEntityOfPage":{"@type":"WebPage","@id":"http://example.com/2022/02/08/Latex/Latex%E5%9F%BA%E7%A1%80%E6%95%99%E7%A8%8B(%E4%BA%8C)/"},"headline":"Latex基础教程（二）","image":["https://gitee.com/houdezaiwu2022/image-bed/raw/master/latex/202201271150120.jpg"],"datePublished":"2022-02-08T06:59:26.000Z","dateModified":"2022-02-08T07:11:40.818Z","author":{"@type":"Person","name":"czt"},"publisher":{"@type":"Organization","name":"houdezaiwu's blog","logo":{"@type":"ImageObject","url":"http://example.com/img/logo.svg"}},"description":"hljs.initHighlightingOnLoad();  本文主主要包含Latex的表格操、作浮动体的设置、参考文献以及自定义命令的设置，主要参考了B站的latex中文教程-15集从入门到精通包含各种latex操作视频的后9讲。"}</script><link rel="canonical" href="http://example.com/2022/02/08/Latex/Latex%E5%9F%BA%E7%A1%80%E6%95%99%E7%A8%8B(%E4%BA%8C)/"><link rel="icon" href="/img/favicon.svg"><link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.2/css/all.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@9.12.0/styles/atom-one-light.css"><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Ubuntu:wght@400;600&amp;family=Source+Code+Pro"><link rel="stylesheet" href="/css/default.css"><style>body>.footer,body>.navbar,body>.section{opacity:0}</style><!--!--><!--!--><!--!--><!--!--><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/cookieconsent@3.1.1/build/cookieconsent.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/lightgallery@1.10.0/dist/css/lightgallery.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/justifiedGallery@3.8.1/dist/css/justifiedGallery.min.css"><!--!--><!--!--><!--!--><style>.pace{-webkit-pointer-events:none;pointer-events:none;-webkit-user-select:none;-moz-user-select:none;user-select:none}.pace-inactive{display:none}.pace .pace-progress{background:#3273dc;position:fixed;z-index:2000;top:0;right:100%;width:100%;height:2px}</style><script src="https://cdn.jsdelivr.net/npm/pace-js@1.2.4/pace.min.js"></script><!--!--><!--!--><!-- hexo injector head_end start -->
+<!-- hexo-inject:begin --><!-- hexo-inject:end --><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css">
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/hexo-math@4.0.0/dist/style.css">
+<!-- hexo injector head_end end --><meta name="generator" content="Hexo 6.0.0"><!-- hexo-inject:begin --><!-- hexo-inject:end --><link rel="stylesheet" href="/css/prism-coy-without-shadows.css" type="text/css">
+<link rel="stylesheet" href="/css/prism-line-numbers.css" type="text/css"></head><body class="is-3-column"><nav class="navbar navbar-main"><div class="container"><div class="navbar-brand justify-content-center"><a class="navbar-item navbar-logo" href="/"><img src="/img/logo.svg" alt="houdezaiwu&#039;s blog" height="28"></a></div><div class="navbar-menu"><div class="navbar-start"><a class="navbar-item" href="/">主页</a><a class="navbar-item" href="/archives">归档</a><a class="navbar-item" href="/categories">分类</a><a class="navbar-item" href="/tags">标签</a><a class="navbar-item" href="/about">关于</a></div><div class="navbar-end"><a class="navbar-item" target="_blank" rel="noopener" title="Download on GitHub" href="https://github.com/ppoffice/hexo-theme-icarus"><i class="fab fa-github"></i></a><a class="navbar-item is-hidden-tablet catalogue" title="目录" href="javascript:;"><i class="fas fa-list-ul"></i></a><a class="navbar-item search" title="搜索" href="javascript:;"><i class="fas fa-search"></i></a></div></div></div></nav><section class="section"><div class="container"><div class="columns"><div class="column order-2 column-main is-8-tablet is-8-desktop is-6-widescreen"><div class="card"><div class="card-image"><span class="image is-7by3"><img class="fill" src="https://gitee.com/houdezaiwu2022/image-bed/raw/master/latex/202201271150120.jpg" alt="Latex基础教程（二）"></span></div><article class="card-content article" role="article"><div class="article-meta is-size-7 is-uppercase level is-mobile"><div class="level-left"><span class="level-item"><time dateTime="2022-02-08T06:59:26.000Z" title="2022/2/8 下午2:59:26">2022-02-08</time>发表</span><span class="level-item"><time dateTime="2022-02-08T07:11:40.818Z" title="2022/2/8 下午3:11:40">2022-02-08</time>更新</span><span class="level-item"><a class="link-muted" href="/categories/Latex/">Latex</a></span><span class="level-item">25 分钟读完 (大约3700个字)</span></div></div><h1 class="title is-3 is-size-4-mobile">Latex基础教程（二）</h1><div class="content"><link rel="stylesheet" href="//cdn.bootcss.com/highlight.js/9.2.0/styles/github.min.css">
+
+<!-- hexo-inject:begin --><!-- hexo-inject:end --><script src="//cdn.bootcss.com/highlight.js/9.2.0/highlight.min.js"></script>
+<script>hljs.initHighlightingOnLoad();</script>
+
+<p>本文主主要包含Latex的表格操、作浮动体的设置、参考文献以及自定义命令的设置，主要参考了B站的<a target="_blank" rel="noopener" href="https://www.bilibili.com/video/BV15x411j7k6?p=1">latex中文教程-15集从入门到精通包含各种latex操作视频</a>的后9讲。</p>
+<span id="more"></span>
+<h3 id="Latex中的表格"><a href="#Latex中的表格" class="headerlink" title="Latex中的表格"></a>Latex中的表格</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">\begin&#123;tabular&#125;[&lt;垂直对齐方式&gt;]&#123;&lt;列格式说明&gt;&#125;</span><br><span class="line">	&lt;表项&gt;&amp;&lt;表项&gt;&amp; ...&lt;表项入&gt; \\</span><br><span class="line">\end&#123;tabular&#125;</span><br></pre></td></tr></table></figure>
+<ul>
+<li>用\\\表示换行</li>
+<li>用&amp;表示不同的列</li>
+<li>对于格式说明参数主要有：<ul>
+<li>l-本列左对齐</li>
+<li>c-本列居中对齐</li>
+<li>r-本列右对齐</li>
+<li>p{&lt;宽&gt;}-本列宽度固定,能够自动换行</li>
+</ul>
+</li>
+</ul>
+<p><img src="https://gitee.com/houdezaiwu2022/image-bed/raw/master/latex/202202062223726.png" alt="image-20220206222330456"></p>
+<p><img src="https://gitee.com/houdezaiwu2022/image-bed/raw/master/latex/202202062223196.png" alt="image-20220206222358072"></p>
+<ul>
+<li><p>如图，一共五列，因此就有五个格式说明符。</p>
+</li>
+<li><p>其次，两个列之间加一个竖线加一个”|“，如果加一个双竖线就加一个”||“。</p>
+</li>
+<li><p>如果要加一个横线了，就在行前或行后加<code>\hline</code>。</p>
+</li>
+<li><p>帮助文档的打开</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">texdoc booktab # 三线表</span><br><span class="line">texdoc longtab # 长表格宏包</span><br><span class="line">texdoc tabu    # 综合表格宏包</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<h3 id="Latex中的浮动体"><a href="#Latex中的浮动体" class="headerlink" title="Latex中的浮动体"></a>Latex中的浮动体</h3><h4 id="浮动体的创建操作"><a href="#浮动体的创建操作" class="headerlink" title="浮动体的创建操作"></a>浮动体的创建操作</h4><p>LATEX 预定义了两类浮动体环境figure 和table。习惯上figure 里放图片，table 里放表格，但并没有严格限制，可以在任何一个浮动体里放置文字、公式、表格、图片等等任意内容。</p>
+<ul>
+<li>对于一般的图像，有<strong><em>figure</em></strong>浮动体环境。</li>
+</ul>
+<p><img src="https://gitee.com/houdezaiwu2022/image-bed/raw/master/latex/202202070947120.png" alt="image-20220207094757097"></p>
+<ul>
+<li><p>对于表格，有<strong><em>table</em></strong>浮动体环境。</p>
+<p><img src="https://gitee.com/houdezaiwu2022/image-bed/raw/master/latex/202202070949086.png" alt="image-20220207094917927"></p>
+<blockquote>
+<p>结果可以看出图像和表格的位置都发生了浮动效果。</p>
+</blockquote>
+</li>
+</ul>
+<p><img src="https://gitee.com/houdezaiwu2022/image-bed/raw/master/latex/202202070949830.png" alt="image-20220207094942132"></p>
+<h4 id="给浮动体加属性"><a href="#给浮动体加属性" class="headerlink" title="给浮动体加属性"></a>给浮动体加属性</h4><p>以table 环境的用法举例：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">\begin&#123;table&#125;[⟨placement⟩]</span><br><span class="line">...</span><br><span class="line">\end&#123;table&#125;</span><br></pre></td></tr></table></figure>
+<p><strong>⟨placement⟩</strong> 参数提供了一些符号用来表示浮动体允许排版的位置，如hbp 允许浮动体排版<strong>在当前位置</strong>、<strong>底部</strong>或者<strong>单独成页</strong>。table 和figure 浮动体的<strong>默认设置为tbp</strong>。</p>
+<p><img src="https://gitee.com/houdezaiwu2022/image-bed/raw/master/latex/202202070957849.png" alt="image-20220207095749354"></p>
+<p><img src="https://gitee.com/houdezaiwu2022/image-bed/raw/master/latex/202202071000067.png" alt="image-20220207100039650"></p>
+<ul>
+<li><p><code>\caption&#123;...&#125;</code>为设置浮动体的标题。</p>
+</li>
+<li><p><code>\centering</code>为设置图片的居中和偏左偏右。</p>
+</li>
+<li><p><code>\label&#123;...&#125;</code>为设置标签操作，方便后面的应用。</p>
+</li>
+<li><p><code>\ref&#123;...&#125;</code>为引用设置，和标签在一起来实现交叉引用。</p>
+</li>
+<li><p>这里浮动体的交叉引用和标号是自动完成的。</p>
+<p><img src="https://gitee.com/houdezaiwu2022/image-bed/raw/master/latex/202202071003588.png" alt="image-20220207100315202"></p>
+</li>
+</ul>
+<p>总结：</p>
+<ol>
+<li>浮动体可以实现灵活的分页（避免无法分割的内容产生的页面六百留白）</li>
+<li>可以给图表添加标题。</li>
+<li>交叉引用。</li>
+</ol>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">figure环境(table环境与之类似)</span><br><span class="line">\begin&#123;figure&#125;[&lt;允许位置&gt;]&lt;任意内容&gt;</span><br><span class="line">...</span><br><span class="line">\end&#123;figure&#125;</span><br><span class="line">&lt;允许位置&gt;参数(默认tbp)</span><br><span class="line">% h，此处( here)-代码所在的上下文位置</span><br><span class="line">% t，页顶(top)-代码所在页面或之后页面的顶部</span><br><span class="line">% b，页底( bottom)一代码所在页面或之后页面的底部</span><br><span class="line">% p，独立一页(page)-浮动页面</span><br></pre></td></tr></table></figure>
+<ol>
+<li>标题控制( caption、bicaption等宏包)</li>
+<li>并排与子图表( subcaption、subfig、floatrow等宏包)</li>
+<li>绕排(picinpar、 wrapfig等宏包)</li>
+</ol>
+<h3 id="Latex中的参考文献"><a href="#Latex中的参考文献" class="headerlink" title="Latex中的参考文献"></a>Latex中的参考文献</h3><h4 id="thebibliography环境的使用"><a href="#thebibliography环境的使用" class="headerlink" title="thebibliography环境的使用"></a>thebibliography环境的使用</h4><ul>
+<li><p>一次管理，一次使用参考文献格式:</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">\begin&#123;thebibliography&#125;&#123;编号样本&#125;</span><br><span class="line">\bibitem[记号]&#123;引用标志&#125;文献条目1</span><br><span class="line">\bibitem[记号]&#123;引用标志&#125;文献条目2</span><br><span class="line">end&#123;thebibliography&#125;</span><br><span class="line">% 其中文献条目包括:作者，题目，出版社，年代，版本，页码等。</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<p>如下为一个具体的案例：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">引用文章\cite&#123;article1&#125;，引用一本书\cite&#123;book1&#125;</span><br><span class="line"></span><br><span class="line">\begin&#123;thebibliography&#125;&#123;99&#125;</span><br><span class="line">\bibitem&#123;article1&#125;陈立辉,苏伟,蔡川,陈晓云，\emph&#123;基于LaTex的Meb数堂公式提取方法研究&#125;[7].计算机科学．2014(86)</span><br><span class="line">\bibitem&#123;book1&#125;William H. Press,saul A. Ieukolsky,</span><br><span class="line">william T. Vetterling,Brian P. Elanneny.,</span><br><span class="line">\emph&#123;Numerical Recipes 3rd Edition:The Art of scientific Computing&#125;</span><br><span class="line">Cambridge University Press,New York ,2007.</span><br><span class="line">\bibitem&#123;latexGuide&#125; Kopka Helmut,w.Daly Patrick,\emph&#123;Guide to \LaTeX&#125;, $4^&#123;th&#125;$ Edition.</span><br><span class="line">Available at \texttt&#123;http://www.amazon.com&#125;.</span><br><span class="line">\bibitem&#123;latexMath&#125; Graetzer. George，\emph&#123;Math Into \LaTeX&#125;,BirkhAtuser Boston;3 edition (June 22，2000).</span><br><span class="line">\end&#123;thebibliography&#125;</span><br></pre></td></tr></table></figure>
+<ul>
+<li><code>\emph&#123;&#125;</code>表示要强调的具体内容。</li>
+<li>引用的时候可以采用：<code>\cite&#123;引用标志1,引用标志2,...&#125;</code>。因此，这样管理参考文献需要给每个参考文献进行详细排版，比较的麻烦，同时也方便文献的跨文献的引用。</li>
+</ul>
+<p>因此需要一个可以一次管理多次使用的包。</p>
+<h4 id="使用BibTex文件进行参考文献管理"><a href="#使用BibTex文件进行参考文献管理" class="headerlink" title="使用BibTex文件进行参考文献管理"></a>使用BibTex文件进行参考文献管理</h4><ul>
+<li><p>bibtex文件的格式如下：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">@⟨type⟩&#123;⟨citation⟩,</span><br><span class="line">	⟨key1⟩ = &#123;⟨value1⟩&#125;,</span><br><span class="line">	⟨key2⟩ = &#123;⟨value2⟩&#125;,</span><br><span class="line">...</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>其中<strong>⟨type⟩ 为文献的类别</strong>，如article 为学术论文，book 为书籍，incollection 为论文集中的某一篇，等等。</p>
+<p><strong>⟨citation⟩ 为\cite 命令使用的文献标签</strong>。在⟨citation⟩ 之后为条目里的各个字段，以⟨key⟩ = {⟨value⟩} 的形式组织。</p>
+<p>我们在此简单列举学术论文里使用较多的BIBTEX 文献条目类别：</p>
+<ul>
+<li><strong>article 学术论文</strong>，必需字段有author, title, journal, year; 可选字段包括volume, number,pages, doi 等；</li>
+<li><strong>book 书籍</strong>，必需字段有author/editor, title, publisher, year; 可选字段包括volume/number,series, address 等；</li>
+<li><strong>incollection 论文集中的一篇</strong>，必需字段有author, title,booktitle, publisher, year; 可选字段包括editor, volume/number, chapter, pages, address 等；</li>
+<li><strong>inbook 书中的一章</strong>，必需字段有author/editor, title,chapter/pages, publisher, year; 可选字段包括volume/number, series, address 等。</li>
+</ul>
+</li>
+</ul>
+<p><img src="https://gitee.com/houdezaiwu2022/image-bed/raw/master/latex/202202072115280.png" alt="image-20220207211534425"></p>
+<ul>
+<li><p>具体的使用：</p>
+<ul>
+<li><p>在导言区设置参考文献的格式</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">\bibliographystyle&#123;plain&#125;</span><br><span class="line">%plain unsrt alpha abbrv</span><br><span class="line">\bibliographystyle[round]&#123;plain&#125;</span><br><span class="line">% 引用的括号变为圆括号</span><br></pre></td></tr></table></figure>
+<p><img src="https://gitee.com/houdezaiwu2022/image-bed/raw/master/latex/202202072247805.png" alt="image-20220207224706357"></p>
+</li>
+<li><p>在正文区设置参考文献</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">%正文区(文稿区)</span><br><span class="line">\begin&#123;document&#125;</span><br><span class="line">	引用一个无人车的文献\cite&#123;__2021&#125;</span><br><span class="line">   </span><br><span class="line">   \bibliography&#123;test&#125;</span><br><span class="line">	% 可以不写扩展名</span><br><span class="line">\end&#123;document&#125;</span><br></pre></td></tr></table></figure>
+<p><img src="https://gitee.com/houdezaiwu2022/image-bed/raw/master/latex/202202072130507.png" alt="image-20220207213029977"></p>
+<p>然后bibtex.exe会编译.aux的辅助文件，根据<code>\citation</code>在.bib文件中选择指定的参考文献，并指定的参考文献按照指定的样式进行排版，生成另一个.bbl辅助文件。</p>
+</li>
+<li><p><code>\cite &#123;xxx&#125;</code>，引用的标志为下图所示。</p>
+<p><img src="https://gitee.com/houdezaiwu2022/image-bed/raw/master/latex/202202072136421.png" alt="image-20220207213642998"></p>
+</li>
+</ul>
+</li>
+<li><p>使用google的相应功能来实现数据库的维护。</p>
+<ul>
+<li><p>在搜索结果中打开引用链接。</p>
+<p><img src="https://gitee.com/houdezaiwu2022/image-bed/raw/master/latex/202202072140889.png" alt="image-20220207214014708"></p>
+</li>
+<li><p>打开bibtex可以得到该文件对于的bibtex数据。</p>
+<p><img src="https://gitee.com/houdezaiwu2022/image-bed/raw/master/latex/202202072141516.png" alt="image-20220207214114570"></p>
+</li>
+<li><p>将生成的bibtex数据copy到文献数据库中即可。</p>
+</li>
+</ul>
+</li>
+<li><p>使用知网导入数据，需要导入zotero的FireFox浏览器。</p>
+<ul>
+<li><p>1.打开浏览器的关联插件；</p>
+</li>
+<li><p>2.选择需要的文献。</p>
+<p><img src="https://gitee.com/houdezaiwu2022/image-bed/raw/master/latex/202202072206757.png" alt="image-20220207220608571"></p>
+</li>
+<li><p>3.在Zotero里选择导出的文献，来执行导出条目的操作。</p>
+<p><img src="https://gitee.com/houdezaiwu2022/image-bed/raw/master/latex/202202072209194.png" alt="image-20220207220927467"></p>
+<p><img src="https://gitee.com/houdezaiwu2022/image-bed/raw/master/latex/202202072214260.png" alt="image-20220207221402034"></p>
+</li>
+<li><p>4.打开test.bib文件</p>
+<p><img src="https://gitee.com/houdezaiwu2022/image-bed/raw/master/latex/202202072215932.png" alt="image-20220207221519743"></p>
+</li>
+<li><p>5.引用之后的排版如下：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">%正文区(文稿区)</span><br><span class="line">\begin&#123;document&#125;</span><br><span class="line">	引用一个无人车的文献\cite&#123;__2021&#125;</span><br><span class="line">   </span><br><span class="line">   \bibliography&#123;test&#125;</span><br><span class="line">	% 可以不写扩展名</span><br><span class="line">\end&#123;document&#125;</span><br></pre></td></tr></table></figure>
+<p><img src="https://gitee.com/houdezaiwu2022/image-bed/raw/master/latex/202202072220645.png" alt="image-20220207222036460"></p>
+<ul>
+<li><p>默认只能显示导入数据库内已经引用的文献。</p>
+</li>
+<li><p>对于还未引用的文献，可以使用<code>\nocite&#123;&#125;</code>来显示。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">\nocite&#123;*&#125; % 表示所有未引用的参考文献</span><br><span class="line">\notice&#123;xxx&#125; % 特定的未引用的参考文献</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<blockquote>
+<p>特别注意，重新编译的时候要手动删除之前的参考文献，否则编译完之后没有变化。</p>
+<p><img src="https://gitee.com/houdezaiwu2022/image-bed/raw/master/latex/202202072228995.png" alt="image-20220207222856404"></p>
+<p><img src="https://gitee.com/houdezaiwu2022/image-bed/raw/master/latex/202202072229658.png" alt="image-20220207222936538"></p>
+</blockquote>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">%正文区(文稿区)</span><br><span class="line">\begin&#123;document&#125;</span><br><span class="line">	引用一个无人车的文献\cite&#123;__2021&#125;</span><br><span class="line">   </span><br><span class="line">   \nocite&#123;*&#125;</span><br><span class="line">   \bibliography&#123;test&#125;</span><br><span class="line">	% 可以不写扩展名</span><br><span class="line">\end&#123;document&#125;</span><br></pre></td></tr></table></figure>
+<p>输出的结果如下：</p>
+<p><img src="https://gitee.com/houdezaiwu2022/image-bed/raw/master/latex/202202072233009.png" alt="image-20220207223303216"></p>
+</li>
+</ul>
+</li>
+</ul>
+<h4 id="使用BibLaTex文件进行参考文献管理"><a href="#使用BibLaTex文件进行参考文献管理" class="headerlink" title="使用BibLaTex文件进行参考文献管理"></a>使用BibLaTex文件进行参考文献管理</h4><p>biblatex 宏包是一套基于LATEX 宏命令的参考文献解决方案，提供了便捷的格式控制和强大的排序、分类、筛选、多文献表等功能。biblatex 宏包也因其对UTF-8 和中文参考文献的良好支持，被国内较多LATEX 模板采用。</p>
+<p><strong>新的TEX参考文献排版引擎biblatex/ biber</strong><br>样式文件(参考文献样式文件—bbx文件，引用样式文件—cbx文件)使用LATEx编写支持根据本地化排版，如:</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">biber -l zh__pinyin texfile %用于指定按拼音排序</span><br><span class="line">biber -l zh__stroke texfile %用于按笔画排序</span><br></pre></td></tr></table></figure>
+<ul>
+<li><p>配置编译器，将默认的文献工具设置为<strong>Biber</strong>。</p>
+<p><img src="https://gitee.com/houdezaiwu2022/image-bed/raw/master/latex/202202072252981.png" alt="image-20220207225200958"></p>
+</li>
+<li><p>首先是在导言区调用biblatex 宏包。宏包支持以<strong>⟨key⟩=⟨value⟩</strong> 形式指定选项，包括参考文献样式style、参考文献著录排序的规则sorting 等。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">\usepackage[style=numeric,backend=biber]&#123;biblatex&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>接着在导言区使用\addbibresource 命令为biblatex 引入参考文献数据库。与基于BIBTEX的传统方式不同的是，<strong>这里需要写完整的文件名。</strong></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">\addbibresource&#123;test.bib&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>在正文中使用\cite 命令引用参考文献。除此之外还可以使用丰富的命令达到不同的引用效果，</p>
+<ul>
+<li>如\citeauthor 和\citeyear 分别单独引用作者和年份，</li>
+<li>\textcite 和\parencite分别类似natbib 宏包提供的\citet 和\citep 命令，以及脚注式引用\footcite 等。</li>
+</ul>
+</li>
+<li><p>最后在需要排版参考文献的位置使用命令\printbibliography</p>
+<ul>
+<li><p>默认的title是英文的Reference，可以通过增加可选参数来修改。</p>
+</li>
+<li><p>```latex<br>\printbibliography[title={参考文献}]</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">    &gt; 重新编译时，要清除上一次生成的辅助文件。</span><br><span class="line"></span><br><span class="line">- **开源的样式文件**https://gitlab.com/CasperVector/biblatex-caspervector</span><br><span class="line"></span><br><span class="line">  - 先将格式文件拷贝到当前工作目录中。</span><br><span class="line"></span><br><span class="line">    ![image-20220207232045374](https://gitee.com/houdezaiwu2022/image-bed/raw/master/latex/202202072320093.png)</span><br><span class="line"></span><br><span class="line">    ```latex</span><br><span class="line">    \usepackage[style=caspervector,backend=biber,utf8]&#123;biblatex&#125;</span><br><span class="line">    % 修改导言区的文件，使得引用caspervector样式</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>但是文章是中英文混排的，需要修改biber.exe的相关配置。</p>
+<p><img src="https://gitee.com/houdezaiwu2022/image-bed/raw/master/latex/202202072334049.png" alt="image-20220207233421078"></p>
+<p>并且修改导言区的宏包配置。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">\usepackage[style=caspervector,backend=biber,utf8,sorting=centy]&#123;biblatex&#125;</span><br><span class="line"></span><br><span class="line">% sorting=centy 就是按先英文、再中文、再姓名、再标题、再出版年份的顺序进行排序</span><br><span class="line">% c——chinese 中文</span><br><span class="line">% e——English 英文</span><br><span class="line">% n——name 作者姓名</span><br><span class="line">% t——title 文献标题</span><br><span class="line">% y——year 出版年份</span><br></pre></td></tr></table></figure>
+<p><strong>这里需要连续编译两次，来产生正确的编号。</strong></p>
+</li>
+</ul>
+</li>
+<li><p>使用.bat进行批处理编译流程。</p>
+<p><img src="https://gitee.com/houdezaiwu2022/image-bed/raw/master/latex/202202072343275.png" alt="image-20220207234323676"></p>
+</li>
+</ul>
+<h3 id="LaTeX自定义命令和环境"><a href="#LaTeX自定义命令和环境" class="headerlink" title="LaTeX自定义命令和环境"></a>LaTeX自定义命令和环境</h3><h4 id="newcommand一定义命令"><a href="#newcommand一定义命令" class="headerlink" title="\newcommand一定义命令"></a><strong>\newcommand一定义命令</strong></h4><p>命令只能由字母组成,不能以 \end开头</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">\newcommand&lt;命令&gt;[&lt;参数个数&gt;][&lt;首参数默认值&gt;]&#123;&lt;具体定义&gt;&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="newcommand可以是简单字符串替换"><a href="#newcommand可以是简单字符串替换" class="headerlink" title="\newcommand可以是简单字符串替换"></a><strong>\newcommand可以是简单字符串替换</strong></h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">%例如:使用\PRC相当于 People &#x27;s Republic of \emph&#123;China&#125;这一串内容</span><br><span class="line">\newcommand \PRC&#123;People&#x27;s Republic of \emph&#123;china&#125;&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="newcommand也可以使用参数"><a href="#newcommand也可以使用参数" class="headerlink" title="\newcommand也可以使用参数"></a>\newcommand也可以使用参数</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">%参数个数可以从1到9,使用时用#1,#2,..... .,#9表示</span><br><span class="line">\newcommand \ loves[2]&#123;#1 喜欢#2&#125;</span><br><span class="line">\newcommand \hatedby[2]&#123;#2不受#1喜欢&#125;</span><br><span class="line"></span><br><span class="line">\begin&#123;document&#125;</span><br><span class="line">\loves&#123;猫儿&#125;&#123;鱼&#125;</span><br><span class="line">\hatedby&#123;猫儿&#125;&#123;萝卜&#125;</span><br><span class="line">\end&#123;document&#125;</span><br><span class="line"></span><br><span class="line">% 猫儿喜欢鱼</span><br><span class="line">% 萝卜不受猫儿喜欢</span><br></pre></td></tr></table></figure>
+<h4 id="newcommand的参数也可以有默认值"><a href="#newcommand的参数也可以有默认值" class="headerlink" title="\newcommand的参数也可以有默认值"></a>\newcommand的参数也可以有默认值</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">%指定参数个数的同时指定了首个参数的默认值，那么这个命令的</span><br><span class="line">%第一个参数就成为可选的参数(要使用中括号指定)</span><br><span class="line">\newcommand \love[3][喜欢]&#123;#2#1#3&#125;</span><br><span class="line"></span><br><span class="line">\begin&#123;document&#125;</span><br><span class="line">\love[最爱]&#123;猫儿&#125;&#123;鱼&#125;</span><br><span class="line">\end&#123;document&#125;</span><br><span class="line"></span><br><span class="line">% 猫儿最爱鱼</span><br></pre></td></tr></table></figure>
+<h4 id="renewcommand-重定义命令"><a href="#renewcommand-重定义命令" class="headerlink" title="\renewcommand-重定义命令"></a>\renewcommand-重定义命令</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">%与 \newcommand 命令作用和用法相同,但只能用于已有命令</span><br><span class="line">% \renewcommand&lt;命令&gt;[&lt;参数个数&gt;][&lt;首参数默认值&gt;]&#123;&lt;具体定义&gt;&#125;</span><br><span class="line">\renewcommand\abstractname&#123;内容简介&#125;</span><br><span class="line">% 将摘要的名称改为内容简介</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>注意，该命令只能修改已经定义的命令，不能修改还没有的命令，其他地方的使用方法相似。</p>
+</blockquote>
+<h4 id="定义和重定义环境"><a href="#定义和重定义环境" class="headerlink" title="定义和重定义环境"></a>定义和重定义环境</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">% 基本用法和重定义命令类似</span><br><span class="line">\newenvironment&#123;&lt;环境名称&gt;&#125;[&lt;参数个数&gt;][&lt;首参数默认值&gt;]				   &#123;&lt;环境前定义&gt;&#125;&#123;&lt;环境后定义&gt;&#125;</span><br><span class="line"></span><br><span class="line">\renewenvironment&#123;&lt;环境名称&gt;&#125;[&lt;参数个数&gt;][&lt;首参数默认值&gt;]%</span><br><span class="line">               &#123;&lt;环境前定义&gt;&#125;&#123;&lt;环境后定义&gt;&#125;</span><br></pre></td></tr></table></figure>
+<ul>
+<li><p>为book类中定义摘要( abstract)环境</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">% 导言</span><br><span class="line">\newenvironment&#123;myabstract&#125;[1][摘要]%</span><br><span class="line">&#123;\small</span><br><span class="line">	\begin&#123;center&#125;\bfseries #1 						     \end&#123;center&#125;%</span><br><span class="line">	\begin&#123;quotation&#125;&#125;%</span><br><span class="line">&#123;\end&#123;quotation&#125;&#125;</span><br><span class="line"></span><br><span class="line">% 正文</span><br><span class="line">\begin&#123;document&#125;</span><br><span class="line">\begin&#123;myabstract&#125;[我的摘要]</span><br><span class="line">% 我的摘要 -&gt; #1参数</span><br><span class="line">	这是一段自定义格式的摘要...</span><br><span class="line">\end&#123;document&#125;</span><br></pre></td></tr></table></figure>
+<p><img src="https://gitee.com/houdezaiwu2022/image-bed/raw/master/latex/202202080010512.png" alt="image-20220208001047173"></p>
+</li>
+<li><p>重定义参数的嵌套使用：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">% 环境参数只有&lt;环境前定义&gt;中可以使用参数，</span><br><span class="line">% &lt;环境后定义&gt;中不能再使用环境参数。</span><br><span class="line">% 如果需要，可以先把前面得到的参数保存在一个命令中，在后面使用:</span><br><span class="line">\newenvironment&#123;Quotation&#125;[1]%</span><br><span class="line">&#123;\newcommand \quotesource&#123;#1&#125;%</span><br><span class="line">	\begin&#123;quotation&#125;&#125;%</span><br><span class="line">	&#123;\par \hfill--- 《textit&#123;\quotesource&#125;》%</span><br><span class="line">	\end&#123;quotation&#125;&#125;</span><br><span class="line">	</span><br><span class="line">% 正文</span><br><span class="line">\begin&#123;document&#125;</span><br><span class="line">	\begin&#123;Quotation&#125;&#123;易$\cdot$乾&#125;</span><br><span class="line">	初九,潜龙勿用。</span><br><span class="line">	\end&#123;Quotation&#125;.</span><br><span class="line">\end&#123;document&#125;</span><br></pre></td></tr></table></figure>
+<p><img src="https://gitee.com/houdezaiwu2022/image-bed/raw/master/latex/202202080020277.png" alt="image-20220208002049841"></p>
+</li>
+</ul>
+<p><strong>总结：</strong></p>
+<ul>
+<li>定义命令和环境是进行LaTeX格式定制、达成内容与格式分离且标的利器。</li>
+<li>使用自定义的命令和环境把字体、字号、缩进、对齐、间距等各种琐细的内容包装起来，赋以一个有意义的名字,可以使文挡结构清晰、代码整洁、易于维护。</li>
+<li>在使用宏定义的功能时，要综合利用各种已有的命令、环境、变量等功能，事实上，前面所介绍的长度变量与盒子、字体字号等内容，大多并丕直接出现在文档正文史，而主要都是用在实现各种结构化的宏定义里。</li>
+</ul>
+<h3 id="问题汇总"><a href="#问题汇总" class="headerlink" title="问题汇总"></a>问题汇总</h3><ol>
+<li><p>中文乱码问题。在网上下载了一个中文模板，跑起来没问题，语句测试也没有问题。但是在我的文件里却一再出现乱码。</p>
+<p>原因：编码问题。.tex文件要以utf-8格式存储。然后导言区加入：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">\usepackage[UTF8,noindent]&#123;ctex&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>编译器的配置。右侧的Default compiler默认值是pdflatex。这个并不支持中文的。因此将其设置为xelatex。</p>
+</li>
+</ol>
+<p>更多教程请见<a target="_blank" rel="noopener" href="https://www.bilibili.com/video/BV1Zh411y7ps?p=2">https://www.bilibili.com/video/BV1Zh411y7ps?p=2</a></p>
+</div><div class="article-licensing box"><div class="licensing-title"><p>Latex基础教程（二）</p><p><a href="http://example.com/2022/02/08/Latex/Latex基础教程(二)/">http://example.com/2022/02/08/Latex/Latex基础教程(二)/</a></p></div><div class="licensing-meta level is-mobile"><div class="level-left"><div class="level-item is-narrow"><div><h6>作者</h6><p>czt</p></div></div><div class="level-item is-narrow"><div><h6>发布于</h6><p>2022-02-08</p></div></div><div class="level-item is-narrow"><div><h6>更新于</h6><p>2022-02-08</p></div></div><div class="level-item is-narrow"><div><h6>许可协议</h6><p><a class="icons" rel="noopener" target="_blank" title="Creative Commons" href="https://creativecommons.org/"><i class="icon fab fa-creative-commons"></i></a><a class="icons" rel="noopener" target="_blank" title="Attribution" href="https://creativecommons.org/licenses/by/4.0/"><i class="icon fab fa-creative-commons-by"></i></a><a class="icons" rel="noopener" target="_blank" title="Noncommercial" href="https://creativecommons.org/licenses/by-nc/4.0/"><i class="icon fab fa-creative-commons-nc"></i></a></p></div></div></div></div></div><div class="article-tags is-size-7 mb-4"><span class="mr-2">#</span><a class="link-muted mr-2" rel="tag" href="/tags/Latex/">Latex</a></div><!--!--></article></div><!--!--><nav class="post-navigation mt-4 level is-mobile"><div class="level-start"><a class="article-nav-prev level level-item link-muted" href="/2022/02/08/%E7%8E%B0%E4%BB%A3%E6%8E%A7%E5%88%B6%E7%90%86%E8%AE%BA/%E7%AC%AC0%E7%AB%A0%E7%BB%AA%E8%AE%BA/"><i class="level-item fas fa-chevron-left"></i><span class="level-item">第0章绪论</span></a></div><div class="level-end"><a class="article-nav-next level level-item link-muted" href="/2022/02/08/Latex/Latex%E5%9F%BA%E7%A1%80%E6%95%99%E7%A8%8B(%E4%B8%80)/"><span class="level-item">Latex基础教程(一)</span><i class="level-item fas fa-chevron-right"></i></a></div></nav><!--!--></div><div class="column column-left is-4-tablet is-4-desktop is-3-widescreen  order-1 is-sticky"><div class="card widget" data-type="profile"><div class="card-content"><nav class="level"><div class="level-item has-text-centered flex-shrink-1"><div><figure class="image is-128x128 mx-auto mb-2"><img class="avatar" src="https://gitee.com/houdezaiwu2022/image-bed/raw/master/hexoimg/202201222202112.jpg" alt="厚德载物"></figure><p class="title is-size-4 is-block" style="line-height:inherit;">厚德载物</p><p class="is-size-6 is-block">博士生</p><p class="is-size-6 is-flex justify-content-center"><i class="fas fa-map-marker-alt mr-1"></i><span>中国 湖北 武汉</span></p></div></div></nav><nav class="level is-mobile"><div class="level-item has-text-centered is-marginless"><div><p class="heading">文章</p><a href="/archives"><p class="title">16</p></a></div></div><div class="level-item has-text-centered is-marginless"><div><p class="heading">分类</p><a href="/categories"><p class="title">6</p></a></div></div><div class="level-item has-text-centered is-marginless"><div><p class="heading">标签</p><a href="/tags"><p class="title">8</p></a></div></div></nav><div class="level"><a class="level-item button is-primary is-rounded" href="https://github.com/ppoffice" target="_blank" rel="noopener">关注我</a></div><div class="level is-mobile is-multiline"><a class="level-item button is-transparent is-marginless" target="_blank" rel="noopener" title="Github" href="https://github.com/ppoffice"><i class="fab fa-github"></i></a><a class="level-item button is-transparent is-marginless" target="_blank" rel="noopener" title="Facebook" href="https://facebook.com"><i class="fab fa-facebook"></i></a><a class="level-item button is-transparent is-marginless" target="_blank" rel="noopener" title="Twitter" href="https://twitter.com"><i class="fab fa-twitter"></i></a><a class="level-item button is-transparent is-marginless" target="_blank" rel="noopener" title="Dribbble" href="https://dribbble.com"><i class="fab fa-dribbble"></i></a><a class="level-item button is-transparent is-marginless" target="_blank" rel="noopener" title="RSS" href="/"><i class="fas fa-rss"></i></a></div></div></div><div class="card widget" data-type="links"><div class="card-content"><div class="menu"><h3 class="menu-label">链接</h3><ul class="menu-list"><li><a class="level is-mobile" href="https://hexo.io" target="_blank" rel="noopener"><span class="level-left"><span class="level-item">Hexo</span></span><span class="level-right"><span class="level-item tag">hexo.io</span></span></a></li><li><a class="level is-mobile" href="https://bulma.io" target="_blank" rel="noopener"><span class="level-left"><span class="level-item">Bulma</span></span><span class="level-right"><span class="level-item tag">bulma.io</span></span></a></li></ul></div></div></div><div class="card widget" data-type="archives"><div class="card-content"><div class="menu"><h3 class="menu-label">归档</h3><ul class="menu-list"><li><a class="level is-mobile" href="/archives/2022/02/"><span class="level-start"><span class="level-item">二月 2022</span></span><span class="level-end"><span class="level-item tag">5</span></span></a></li><li><a class="level is-mobile" href="/archives/2022/01/"><span class="level-start"><span class="level-item">一月 2022</span></span><span class="level-end"><span class="level-item tag">11</span></span></a></li></ul></div></div></div><div class="card widget" data-type="tags"><div class="card-content"><div class="menu"><h3 class="menu-label">标签</h3><div class="field is-grouped is-grouped-multiline"><div class="control"><a class="tags has-addons" href="/tags/Latex/"><span class="tag">Latex</span><span class="tag">4</span></a></div><div class="control"><a class="tags has-addons" href="/tags/Markdown/"><span class="tag">Markdown</span><span class="tag">1</span></a></div><div class="control"><a class="tags has-addons" href="/tags/Typora/"><span class="tag">Typora</span><span class="tag">1</span></a></div><div class="control"><a class="tags has-addons" href="/tags/control-theory/"><span class="tag">control theory</span><span class="tag">1</span></a></div><div class="control"><a class="tags has-addons" href="/tags/pytorch/"><span class="tag">pytorch</span><span class="tag">7</span></a></div><div class="control"><a class="tags has-addons" href="/tags/%E5%9B%BE%E5%83%8F%E5%88%86%E7%B1%BB/"><span class="tag">图像分类</span><span class="tag">6</span></a></div><div class="control"><a class="tags has-addons" href="/tags/%E6%8E%A7%E5%88%B6%E7%90%86%E8%AE%BA/"><span class="tag">控制理论</span><span class="tag">1</span></a></div><div class="control"><a class="tags has-addons" href="/tags/%E6%9C%BA%E6%A2%B0%E6%8C%AF%E5%8A%A8/"><span class="tag">机械振动</span><span class="tag">2</span></a></div></div></div></div></div><div class="column-right-shadow is-hidden-widescreen is-sticky"></div></div><div class="column column-right is-4-tablet is-4-desktop is-3-widescreen is-hidden-touch is-hidden-desktop-only order-3 is-sticky"><div class="card widget" id="toc" data-type="toc"><div class="card-content"><div class="menu"><h3 class="menu-label">目录</h3><ul class="menu-list"><li><a class="level is-mobile" href="#Latex中的表格"><span class="level-left"><span class="level-item">1</span><span class="level-item">Latex中的表格</span></span></a></li><li><a class="level is-mobile" href="#Latex中的浮动体"><span class="level-left"><span class="level-item">2</span><span class="level-item">Latex中的浮动体</span></span></a><ul class="menu-list"><li><a class="level is-mobile" href="#浮动体的创建操作"><span class="level-left"><span class="level-item">2.1</span><span class="level-item">浮动体的创建操作</span></span></a></li><li><a class="level is-mobile" href="#给浮动体加属性"><span class="level-left"><span class="level-item">2.2</span><span class="level-item">给浮动体加属性</span></span></a></li></ul></li><li><a class="level is-mobile" href="#Latex中的参考文献"><span class="level-left"><span class="level-item">3</span><span class="level-item">Latex中的参考文献</span></span></a><ul class="menu-list"><li><a class="level is-mobile" href="#thebibliography环境的使用"><span class="level-left"><span class="level-item">3.1</span><span class="level-item">thebibliography环境的使用</span></span></a></li><li><a class="level is-mobile" href="#使用BibTex文件进行参考文献管理"><span class="level-left"><span class="level-item">3.2</span><span class="level-item">使用BibTex文件进行参考文献管理</span></span></a></li><li><a class="level is-mobile" href="#使用BibLaTex文件进行参考文献管理"><span class="level-left"><span class="level-item">3.3</span><span class="level-item">使用BibLaTex文件进行参考文献管理</span></span></a></li></ul></li><li><a class="level is-mobile" href="#LaTeX自定义命令和环境"><span class="level-left"><span class="level-item">4</span><span class="level-item">LaTeX自定义命令和环境</span></span></a><ul class="menu-list"><li><a class="level is-mobile" href="#newcommand一定义命令"><span class="level-left"><span class="level-item">4.1</span><span class="level-item">\newcommand一定义命令</span></span></a></li><li><a class="level is-mobile" href="#newcommand可以是简单字符串替换"><span class="level-left"><span class="level-item">4.2</span><span class="level-item">\newcommand可以是简单字符串替换</span></span></a></li><li><a class="level is-mobile" href="#newcommand也可以使用参数"><span class="level-left"><span class="level-item">4.3</span><span class="level-item">\newcommand也可以使用参数</span></span></a></li><li><a class="level is-mobile" href="#newcommand的参数也可以有默认值"><span class="level-left"><span class="level-item">4.4</span><span class="level-item">\newcommand的参数也可以有默认值</span></span></a></li><li><a class="level is-mobile" href="#renewcommand-重定义命令"><span class="level-left"><span class="level-item">4.5</span><span class="level-item">\renewcommand-重定义命令</span></span></a></li><li><a class="level is-mobile" href="#定义和重定义环境"><span class="level-left"><span class="level-item">4.6</span><span class="level-item">定义和重定义环境</span></span></a></li></ul></li><li><a class="level is-mobile" href="#问题汇总"><span class="level-left"><span class="level-item">5</span><span class="level-item">问题汇总</span></span></a></li></ul></div></div><script src="/js/toc.js" defer></script></div><div class="card widget" data-type="categories"><div class="card-content"><div class="menu"><h3 class="menu-label">分类</h3><ul class="menu-list"><li><a class="level is-mobile" href="/categories/Latex/"><span class="level-start"><span class="level-item">Latex</span></span><span class="level-end"><span class="level-item tag">4</span></span></a></li><li><a class="level is-mobile" href="/categories/PyTorch%E6%95%99%E7%A8%8B%E4%B8%8E%E6%BA%90%E7%A0%81%E8%AE%B2%E8%A7%A3/"><span class="level-start"><span class="level-item">PyTorch教程与源码讲解</span></span><span class="level-end"><span class="level-item tag">1</span></span></a></li><li><a class="level is-mobile" href="/categories/Typora/"><span class="level-start"><span class="level-item">Typora</span></span><span class="level-end"><span class="level-item tag">1</span></span></a></li><li><a class="level is-mobile" href="/categories/%E5%9B%BE%E5%83%8F%E5%88%86%E7%B1%BB%E7%BD%91%E7%BB%9C%E5%8F%8APytorch%E5%AE%9E%E7%8E%B0/"><span class="level-start"><span class="level-item">图像分类网络及Pytorch实现</span></span><span class="level-end"><span class="level-item tag">6</span></span></a></li><li><a class="level is-mobile" href="/categories/%E6%8C%AF%E5%8A%A8%E5%8A%9B%E5%AD%A6/"><span class="level-start"><span class="level-item">振动力学</span></span><span class="level-end"><span class="level-item tag">2</span></span></a></li><li><a class="level is-mobile" href="/categories/%E7%8E%B0%E4%BB%A3%E6%8E%A7%E5%88%B6%E7%90%86%E8%AE%BA/"><span class="level-start"><span class="level-item">现代控制理论</span></span><span class="level-end"><span class="level-item tag">1</span></span></a></li></ul></div></div></div><div class="card widget" data-type="recent-posts"><div class="card-content"><h3 class="menu-label">最新文章</h3><article class="media"><figure class="media-left"><a class="image" href="/2022/02/08/%E7%8E%B0%E4%BB%A3%E6%8E%A7%E5%88%B6%E7%90%86%E8%AE%BA/%E7%AC%AC0%E7%AB%A0%E7%BB%AA%E8%AE%BA/"><img src="https://gitee.com/houdezaiwu2022/image-bed/raw/master/control/202202081546323.png" alt="第0章绪论"></a></figure><div class="media-content"><p class="date"><time dateTime="2022-02-08T07:48:23.000Z">2022-02-08</time></p><p class="title"><a href="/2022/02/08/%E7%8E%B0%E4%BB%A3%E6%8E%A7%E5%88%B6%E7%90%86%E8%AE%BA/%E7%AC%AC0%E7%AB%A0%E7%BB%AA%E8%AE%BA/">第0章绪论</a></p><p class="categories"><a href="/categories/%E7%8E%B0%E4%BB%A3%E6%8E%A7%E5%88%B6%E7%90%86%E8%AE%BA/">现代控制理论</a></p></div></article><article class="media"><figure class="media-left"><a class="image" href="/2022/02/08/Latex/Latex%E5%9F%BA%E7%A1%80%E6%95%99%E7%A8%8B(%E4%BA%8C)/"><img src="https://gitee.com/houdezaiwu2022/image-bed/raw/master/latex/202201271147807.png" alt="Latex基础教程（二）"></a></figure><div class="media-content"><p class="date"><time dateTime="2022-02-08T06:59:26.000Z">2022-02-08</time></p><p class="title"><a href="/2022/02/08/Latex/Latex%E5%9F%BA%E7%A1%80%E6%95%99%E7%A8%8B(%E4%BA%8C)/">Latex基础教程（二）</a></p><p class="categories"><a href="/categories/Latex/">Latex</a></p></div></article><article class="media"><figure class="media-left"><a class="image" href="/2022/02/08/Latex/Latex%E5%9F%BA%E7%A1%80%E6%95%99%E7%A8%8B(%E4%B8%80)/"><img src="https://gitee.com/houdezaiwu2022/image-bed/raw/master/latex/202201271147807.png" alt="Latex基础教程(一)"></a></figure><div class="media-content"><p class="date"><time dateTime="2022-02-08T06:59:05.000Z">2022-02-08</time></p><p class="title"><a href="/2022/02/08/Latex/Latex%E5%9F%BA%E7%A1%80%E6%95%99%E7%A8%8B(%E4%B8%80)/">Latex基础教程(一)</a></p><p class="categories"><a href="/categories/Latex/">Latex</a></p></div></article><article class="media"><figure class="media-left"><a class="image" href="/2022/02/03/%E5%9B%BE%E5%83%8F%E5%88%86%E7%B1%BB%E7%BD%91%E7%BB%9C%E5%8F%8APytorch%E5%AE%9E%E7%8E%B0/ResNeXt%E7%BD%91%E7%BB%9C%E8%AF%A6%E8%A7%A3%E4%B8%8EPytorch%E5%AE%9E%E7%8E%B0/"><img src="https://gitee.com/houdezaiwu2022/image-bed/raw/master/pytorch/202201271155098.png" alt="ResNeXt网络详解与Pytorch实现"></a></figure><div class="media-content"><p class="date"><time dateTime="2022-02-03T14:09:13.000Z">2022-02-03</time></p><p class="title"><a href="/2022/02/03/%E5%9B%BE%E5%83%8F%E5%88%86%E7%B1%BB%E7%BD%91%E7%BB%9C%E5%8F%8APytorch%E5%AE%9E%E7%8E%B0/ResNeXt%E7%BD%91%E7%BB%9C%E8%AF%A6%E8%A7%A3%E4%B8%8EPytorch%E5%AE%9E%E7%8E%B0/">ResNeXt网络详解与Pytorch实现</a></p><p class="categories"><a href="/categories/%E5%9B%BE%E5%83%8F%E5%88%86%E7%B1%BB%E7%BD%91%E7%BB%9C%E5%8F%8APytorch%E5%AE%9E%E7%8E%B0/">图像分类网络及Pytorch实现</a></p></div></article><article class="media"><figure class="media-left"><a class="image" href="/2022/02/03/%E5%9B%BE%E5%83%8F%E5%88%86%E7%B1%BB%E7%BD%91%E7%BB%9C%E5%8F%8APytorch%E5%AE%9E%E7%8E%B0/ResNet%E7%BD%91%E7%BB%9C%E8%AF%A6%E8%A7%A3%E4%B8%8EPytorch%E5%AE%9E%E7%8E%B0/"><img src="https://gitee.com/houdezaiwu2022/image-bed/raw/master/pytorch/202201271155098.png" alt="ResNet网络详解与Pytorch实现"></a></figure><div class="media-content"><p class="date"><time dateTime="2022-02-03T14:08:58.000Z">2022-02-03</time></p><p class="title"><a href="/2022/02/03/%E5%9B%BE%E5%83%8F%E5%88%86%E7%B1%BB%E7%BD%91%E7%BB%9C%E5%8F%8APytorch%E5%AE%9E%E7%8E%B0/ResNet%E7%BD%91%E7%BB%9C%E8%AF%A6%E8%A7%A3%E4%B8%8EPytorch%E5%AE%9E%E7%8E%B0/">ResNet网络详解与Pytorch实现</a></p><p class="categories"><a href="/categories/%E5%9B%BE%E5%83%8F%E5%88%86%E7%B1%BB%E7%BD%91%E7%BB%9C%E5%8F%8APytorch%E5%AE%9E%E7%8E%B0/">图像分类网络及Pytorch实现</a></p></div></article></div></div></div></div></div></section><footer class="footer"><div class="container"><div class="level"><div class="level-start"><a class="footer-logo is-block mb-2" href="/"><img src="/img/logo.svg" alt="houdezaiwu&#039;s blog" height="28"></a><p class="is-size-7"><span>&copy; 2022 czt</span>  Powered by <a href="https://hexo.io/" target="_blank" rel="noopener">Hexo</a> &amp; <a href="https://github.com/ppoffice/hexo-theme-icarus" target="_blank" rel="noopener">Icarus</a></p></div><div class="level-end"><div class="field has-addons"><p class="control"><a class="button is-transparent is-large" target="_blank" rel="noopener" title="Creative Commons" href="https://creativecommons.org/"><i class="fab fa-creative-commons"></i></a></p><p class="control"><a class="button is-transparent is-large" target="_blank" rel="noopener" title="Attribution 4.0 International" href="https://creativecommons.org/licenses/by/4.0/"><i class="fab fa-creative-commons-by"></i></a></p><p class="control"><a class="button is-transparent is-large" target="_blank" rel="noopener" title="Download on GitHub" href="https://github.com/ppoffice/hexo-theme-icarus"><i class="fab fa-github"></i></a></p></div></div></div></div></footer><script src="https://cdn.jsdelivr.net/npm/jquery@3.3.1/dist/jquery.min.js"></script><script src="https://cdn.jsdelivr.net/npm/moment@2.22.2/min/moment-with-locales.min.js"></script><script src="https://cdn.jsdelivr.net/npm/clipboard@2.0.4/dist/clipboard.min.js" defer></script><script>moment.locale("zh-CN");</script><script>var IcarusThemeSettings = {
+            article: {
+                highlight: {
+                    clipboard: true,
+                    fold: 'unfolded'
+                }
+            }
+        };</script><script src="/js/column.js"></script><script src="/js/animation.js"></script><a id="back-to-top" title="回到顶端" href="javascript:;"><i class="fas fa-chevron-up"></i></a><script src="/js/back_to_top.js" defer></script><!--!--><!--!--><!--!--><script src="https://cdn.jsdelivr.net/npm/cookieconsent@3.1.1/build/cookieconsent.min.js" defer></script><script>window.addEventListener("load", () => {
+      window.cookieconsent.initialise({
+        type: "info",
+        theme: "edgeless",
+        static: false,
+        position: "bottom-left",
+        content: {
+          message: "此网站使用Cookie来改善您的体验。",
+          dismiss: "知道了！",
+          allow: "允许使用Cookie",
+          deny: "拒绝",
+          link: "了解更多",
+          policy: "Cookie政策",
+          href: "https://www.cookiesandyou.com/",
+        },
+        palette: {
+          popup: {
+            background: "#edeff5",
+            text: "#838391"
+          },
+          button: {
+            background: "#4b81e8"
+          },
+        },
+      });
+    });</script><script src="https://cdn.jsdelivr.net/npm/lightgallery@1.10.0/dist/js/lightgallery.min.js" defer></script><script src="https://cdn.jsdelivr.net/npm/justifiedGallery@3.8.1/dist/js/jquery.justifiedGallery.min.js" defer></script><script>window.addEventListener("load", () => {
+            if (typeof $.fn.lightGallery === 'function') {
+                $('.article').lightGallery({ selector: '.gallery-item' });
+            }
+            if (typeof $.fn.justifiedGallery === 'function') {
+                if ($('.justified-gallery > p > .gallery-item').length) {
+                    $('.justified-gallery > p > .gallery-item').unwrap();
+                }
+                $('.justified-gallery').justifiedGallery();
+            }
+        });</script><!--!--><!--!--><script type="text/x-mathjax-config">MathJax.Hub.Config({
+            'HTML-CSS': {
+                matchFontHeight: false
+            },
+            SVG: {
+                matchFontHeight: false
+            },
+            CommonHTML: {
+                matchFontHeight: false
+            },
+            tex2jax: {
+                inlineMath: [
+                    ['$','$'],
+                    ['\\(','\\)']
+                ]
+            }
+        });</script><script src="https://cdn.jsdelivr.net/npm/mathjax@2.7.9/unpacked/MathJax.js?config=TeX-MML-AM_CHTML" defer></script><!--!--><!--!--><!--!--><script src="/js/main.js" defer></script><div class="searchbox"><div class="searchbox-container"><div class="searchbox-header"><div class="searchbox-input-container"><input class="searchbox-input" type="text" placeholder="想要查找什么..."></div><a class="searchbox-close" href="javascript:;">×</a></div><div class="searchbox-body"></div></div></div><script src="/js/insight.js" defer></script><script>document.addEventListener('DOMContentLoaded', function () {
+            loadInsight({"contentUrl":"/content.json"}, {"hint":"想要查找什么...","untitled":"(无标题)","posts":"文章","pages":"页面","categories":"分类","tags":"标签"});
+        });</script><!-- hexo-inject:begin --><!-- hexo-inject:end --></body></html>
