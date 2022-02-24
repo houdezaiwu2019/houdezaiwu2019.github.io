@@ -1,0 +1,187 @@
+<!doctype html>
+<html lang="zh"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"><meta><title>Pix2pix GAN 论文及模型搭建 - houdezaiwu&#039;s blog</title><link rel="manifest" href="/manifest.json"><meta name="application-name" content="czt"><meta name="msapplication-TileImage" content="/img/favicon.svg"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-title" content="czt"><meta name="apple-mobile-web-app-status-bar-style" content="default"><meta name="description" content="hljs.initHighlightingOnLoad();  本文主要介绍的pix2pix，并且自己定义损失函数，生成器主要使用的是U-Net(主要做语义分割的网络) 。"><meta property="og:type" content="blog"><meta property="og:title" content="Pix2pix GAN 论文及模型搭建"><meta property="og:url" content="http://example.com/2022/02/24/Generative%20Adversarial%20Networks/pix2pix-GAN-%E8%AE%BA%E6%96%87%E5%8F%8A%E6%A8%A1%E5%9E%8B%E6%90%AD%E5%BB%BA/"><meta property="og:site_name" content="houdezaiwu&#039;s blog"><meta property="og:description" content="hljs.initHighlightingOnLoad();  本文主要介绍的pix2pix，并且自己定义损失函数，生成器主要使用的是U-Net(主要做语义分割的网络) 。"><meta property="og:locale" content="zh_CN"><meta property="og:image" content="https://gitee.com/houdezaiwu2022/image-bed/raw/master/GAN/202202241937112.png"><meta property="article:published_time" content="2022-02-24T11:17:46.000Z"><meta property="article:modified_time" content="2022-02-24T11:40:09.280Z"><meta property="article:author" content="czt"><meta property="article:tag" content="pytorch"><meta property="article:tag" content="Generative Adversarial Networks"><meta property="article:tag" content="GAN实战"><meta property="twitter:card" content="summary"><meta property="twitter:image" content="https://gitee.com/houdezaiwu2022/image-bed/raw/master/GAN/202202241937112.png"><script type="application/ld+json">{"@context":"https://schema.org","@type":"BlogPosting","mainEntityOfPage":{"@type":"WebPage","@id":"http://example.com/2022/02/24/Generative%20Adversarial%20Networks/pix2pix-GAN-%E8%AE%BA%E6%96%87%E5%8F%8A%E6%A8%A1%E5%9E%8B%E6%90%AD%E5%BB%BA/"},"headline":"Pix2pix GAN 论文及模型搭建","image":["https://gitee.com/houdezaiwu2022/image-bed/raw/master/GAN/202202241937112.png"],"datePublished":"2022-02-24T11:17:46.000Z","dateModified":"2022-02-24T11:40:09.280Z","author":{"@type":"Person","name":"czt"},"publisher":{"@type":"Organization","name":"houdezaiwu's blog","logo":{"@type":"ImageObject","url":"http://example.com/img/logo.svg"}},"description":"hljs.initHighlightingOnLoad();  本文主要介绍的pix2pix，并且自己定义损失函数，生成器主要使用的是U-Net(主要做语义分割的网络) 。"}</script><link rel="canonical" href="http://example.com/2022/02/24/Generative%20Adversarial%20Networks/pix2pix-GAN-%E8%AE%BA%E6%96%87%E5%8F%8A%E6%A8%A1%E5%9E%8B%E6%90%AD%E5%BB%BA/"><link rel="icon" href="/img/favicon.svg"><link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.2/css/all.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@9.12.0/styles/atom-one-light.css"><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Ubuntu:wght@400;600&amp;family=Source+Code+Pro"><link rel="stylesheet" href="/css/default.css"><style>body>.footer,body>.navbar,body>.section{opacity:0}</style><!--!--><!--!--><!--!--><!--!--><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/cookieconsent@3.1.1/build/cookieconsent.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/lightgallery@1.10.0/dist/css/lightgallery.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/justifiedGallery@3.8.1/dist/css/justifiedGallery.min.css"><!--!--><!--!--><!--!--><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/outdatedbrowser@1.1.5/outdatedbrowser/outdatedbrowser.min.css"><style>.pace{-webkit-pointer-events:none;pointer-events:none;-webkit-user-select:none;-moz-user-select:none;user-select:none}.pace-inactive{display:none}.pace .pace-progress{background:#3273dc;position:fixed;z-index:2000;top:0;right:100%;width:100%;height:2px}</style><script src="https://cdn.jsdelivr.net/npm/pace-js@1.2.4/pace.min.js"></script><!--!--><!--!--><!-- hexo injector head_end start -->
+<!-- hexo-inject:begin --><!-- hexo-inject:end --><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css">
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/hexo-math@4.0.0/dist/style.css">
+<!-- hexo injector head_end end --><meta name="generator" content="Hexo 6.0.0"><!-- hexo-inject:begin --><!-- hexo-inject:end --><link rel="stylesheet" href="/css/prism-coy-without-shadows.css" type="text/css">
+<link rel="stylesheet" href="/css/prism-line-numbers.css" type="text/css"></head><body class="is-3-column"><nav class="navbar navbar-main"><div class="container"><div class="navbar-brand justify-content-center"><a class="navbar-item navbar-logo" href="/"><img src="/img/logo.svg" alt="houdezaiwu&#039;s blog" height="28"></a></div><div class="navbar-menu"><div class="navbar-start"><a class="navbar-item" href="/">主页</a><a class="navbar-item" href="/archives">归档</a><a class="navbar-item" href="/categories">分类</a><a class="navbar-item" href="/tags">标签</a><a class="navbar-item" href="/about">关于</a></div><div class="navbar-end"><a class="navbar-item" target="_blank" rel="noopener" title="Download on GitHub" href="https://github.com/ppoffice/hexo-theme-icarus"><i class="fab fa-github"></i></a><a class="navbar-item is-hidden-tablet catalogue" title="目录" href="javascript:;"><i class="fas fa-list-ul"></i></a><a class="navbar-item search" title="搜索" href="javascript:;"><i class="fas fa-search"></i></a></div></div></div></nav><section class="section"><div class="container"><div class="columns"><div class="column order-2 column-main is-8-tablet is-8-desktop is-6-widescreen"><div class="card"><div class="card-image"><span class="image is-7by3"><img class="fill" src="https://gitee.com/houdezaiwu2022/image-bed/raw/master/GAN/202202241937112.png" alt="Pix2pix GAN 论文及模型搭建"></span></div><article class="card-content article" role="article"><div class="article-meta is-size-7 is-uppercase level is-mobile"><div class="level-left"><span class="level-item"><time dateTime="2022-02-24T11:17:46.000Z" title="2022/2/24 下午7:17:46">2022-02-24</time>发表</span><span class="level-item"><time dateTime="2022-02-24T11:40:09.280Z" title="2022/2/24 下午7:40:09">2022-02-24</time>更新</span><span class="level-item"><a class="link-muted" href="/categories/Generative-Adversarial-Networks/">Generative Adversarial Networks</a></span><span class="level-item">10 分钟读完 (大约1491个字)</span></div></div><h1 class="title is-3 is-size-4-mobile">Pix2pix GAN 论文及模型搭建</h1><div class="content"><link rel="stylesheet" href="//cdn.bootcss.com/highlight.js/9.2.0/styles/github.min.css">
+
+<!-- hexo-inject:begin --><!-- hexo-inject:end --><script src="//cdn.bootcss.com/highlight.js/9.2.0/highlight.min.js"></script>
+<script>hljs.initHighlightingOnLoad();</script>
+
+<p>本文主要介绍的pix2pix，并且自己定义损失函数，生成器主要使用的是U-Net(主要做语义分割的网络) 。</p>
+<span id="more"></span>
+<h2 id="原论文简介"><a href="#原论文简介" class="headerlink" title="原论文简介"></a><strong>原论文简介</strong></h2><h3 id="教程1"><a href="#教程1" class="headerlink" title="教程1"></a><strong>教程1</strong></h3><p><img src="https://gitee.com/houdezaiwu2022/image-bed/raw/master/GAN/202202161715832.png" alt="image-20220216171413667"></p>
+<p>对于CGAN，是将条件信息进行如label进行embedding之后，一起加入到网络中进行识别生成的。整体的条件信息还可以直接是图片。</p>
+<p>判别器要做两件事情：</p>
+<ul>
+<li>生成的图片的真假问题，如果是从我们的数据集中得到的，就为真；如果是生成器生成的，就为假。</li>
+<li>其次还要判断生成的图片和真实的条件信息是否对应。</li>
+</ul>
+<p><img src="https://gitee.com/houdezaiwu2022/image-bed/raw/master/GAN/202202161725212.png" alt="image-20220216172528538"></p>
+<ul>
+<li>这里的我们也可以不加噪声，直接输出条件信息(图片)。</li>
+</ul>
+<p><img src="https://gitee.com/houdezaiwu2022/image-bed/raw/master/GAN/202202161729014.png" alt="image-20220216172939981"></p>
+<p>这里是在编码的过程中加入了随机噪声，加强了我模型的稳定性。</p>
+<p>基于auto-encoder的想法，我们定义了U-Net网络。</p>
+<p><img src="https://gitee.com/houdezaiwu2022/image-bed/raw/master/GAN/202202161731599.png" alt="image-20220216173118677"></p>
+<p>U-Net将encoder的过程加到了decoder的上面，实现了跳跃连接，这样的可训练性更好。</p>
+<p><img src="https://gitee.com/houdezaiwu2022/image-bed/raw/master/GAN/202202161734633.png" alt="image-20220216173449378"></p>
+<p>pix2pix最后要经过一个patchGAN，使得最后得输出为一个矩阵来判断真假。再与真实的网络进行一个L1loss函数，实现条件信息和真实信息的吻合。</p>
+<h3 id="教程2"><a href="#教程2" class="headerlink" title="教程2"></a><strong>教程2</strong></h3><h4 id="文章总述："><a href="#文章总述：" class="headerlink" title="文章总述："></a><strong>文章总述：</strong></h4><ul>
+<li>pix2pix本质上是一个CGAN，其输入里有一张图片 <strong>(相比传统的CGAN的输入为一个label+embedding)</strong> ，而不是一般的噪声量。</li>
+<li>这个网络里面没有损失函数，因为判别器网络其实学习到的就是一个损失函数。</li>
+<li>由于一般的基于欧式距离的损失函数会造成平均值效应，使得我们生成的图片比较的模糊。于是我们用判别器来学习出一种损失函数来到达生成图片的高清的效果。</li>
+</ul>
+<h5 id="目标函数："><a href="#目标函数：" class="headerlink" title="目标函数："></a><strong>目标函数：</strong></h5><ul>
+<li><p>CGAN的目标函数为：</p>
+<p><img src="https://gitee.com/houdezaiwu2022/image-bed/raw/master/GAN/202202161921407.png" alt="image-20220216192107620"></p>
+<ul>
+<li>这里判别函数的输入x——原图片，y——目标图片。</li>
+<li>将该损失函数和没有非CGAN进行对比，结果为：CGAN的效果更好。</li>
+</ul>
+<p><img src="https://gitee.com/houdezaiwu2022/image-bed/raw/master/GAN/202202161929884.png" alt="image-20220216192917381"></p>
+</li>
+<li><p>为了生成器的精度，要加入正则化项，由于L2正则化会造成平均值损失，于是我们使用L1正则化项。</p>
+<ul>
+<li><p>L1 loss function 可以去除模糊，提高清晰度：</p>
+<p><img src="https://gitee.com/houdezaiwu2022/image-bed/raw/master/GAN/202202161932277.png" alt="image-20220216193248344"></p>
+</li>
+<li><p>最后的损失函数为：</p>
+<p><img src="https://gitee.com/houdezaiwu2022/image-bed/raw/master/GAN/202202161933617.png" alt="image-20220216193326724"></p>
+</li>
+</ul>
+</li>
+</ul>
+<h5 id="网络结构"><a href="#网络结构" class="headerlink" title="网络结构"></a><strong>网络结构</strong></h5><h4 id="生成器结构"><a href="#生成器结构" class="headerlink" title="生成器结构"></a><strong>生成器结构</strong></h4><ul>
+<li><p>总体上，还是使用的是卷积网络，Convolution-BatchNorm-ReLU/LeakyReLU的形式。</p>
+</li>
+<li><p>生成器的网络的使用的是U-Net</p>
+<p><img src="https://gitee.com/houdezaiwu2022/image-bed/raw/master/GAN/202202161934965.png" alt="image-20220216193440556"><br>这里可以看作是及是将我们Encoder通过跳跃连接实现encoder和decoder的堆叠。</p>
+</li>
+</ul>
+<h4 id="判别器结构"><a href="#判别器结构" class="headerlink" title="判别器结构"></a><strong>判别器结构</strong></h4><ul>
+<li><p>这里的判别器使用的是PatchGAN。</p>
+<p><img src="https://gitee.com/houdezaiwu2022/image-bed/raw/master/GAN/202202161950171.png" alt="image-20220216195021594"></p>
+</li>
+<li><p>如图patchGAN输入是一个NXN的块，输出是整个块的true or fake，最后取所以的patch块的输出的平均值即可。</p>
+</li>
+<li><p>这种方法的优点是：参数少，运行速度快；并且使用的图片可以是任意大的图片。</p>
+</li>
+</ul>
+<h5 id="优化和推断"><a href="#优化和推断" class="headerlink" title="优化和推断"></a><strong>优化和推断</strong></h5><ul>
+<li>使用标准的优化方法，一次判别器，一次生成器。</li>
+<li>对于生成器来说，我们不使(用一般的$\min \{\log(1-D(G(x,z)))\}$作为损失函数，我们使用$\max \{\log(D(G(x,z))\}$ 作为损失函数。</li>
+<li>这里的优化器使用的是Adam优化器，参数$\beta_1=0.5, \beta_2=0.999$，学习率$\alpha=0.0002=2e-4$.</li>
+</ul>
+<h5 id="评估指标"><a href="#评估指标" class="headerlink" title="评估指标"></a><strong>评估指标</strong></h5><p>这里使用了we run “real vs. fake” perceptual studies on Amazon Mechanical Turk(AMT) 给1秒的时间来看图片，来判断图片的真假。</p>
+<h6 id="选择patchGAN的尺寸"><a href="#选择patchGAN的尺寸" class="headerlink" title="选择patchGAN的尺寸"></a><strong>选择patchGAN的尺寸</strong></h6><p>这里我们选择1x1-&gt;pixelGAN，NxN(整张图片)-&gt;ImageGAN，介于之间的是patchGAN，论文中比较了不同的持尺寸对生成结果的影响。</p>
+<p><img src="https://gitee.com/houdezaiwu2022/image-bed/raw/master/GAN/202202162051893.png" alt="image-20220216205110653"></p>
+<ul>
+<li>16x16 有较高的FCN-scores 并且 可以生成 artifacts。</li>
+<li>70x70的结果也很不错，也达到了上述的要求。</li>
+</ul>
+<h5 id="附录"><a href="#附录" class="headerlink" title="附录"></a><strong>附录</strong></h5><h4 id="生成器的网络结构："><a href="#生成器的网络结构：" class="headerlink" title="生成器的网络结构："></a><strong>生成器的网络结构：</strong></h4><ul>
+<li>这里的Ck-&gt;Convolution-BatchNorm-ReLU（channels=k），</li>
+</ul>
+<p>CDK-&gt;Convolution-BatchNorm-Dropout-ReLU（channels=k）。</p>
+<ul>
+<li><p>这里的卷积核都是4x4，stride=2.</p>
+</li>
+<li><p>以下为U-Net的网络结构：(这里是没有跳跃连接的)</p>
+<p><img src="https://gitee.com/houdezaiwu2022/image-bed/raw/master/GAN/202202162103942.png" alt="image-20220216210320905"></p>
+</li>
+<li><p>有跳跃连接的U-Net解码器：</p>
+<p><img src="https://gitee.com/houdezaiwu2022/image-bed/raw/master/GAN/202202162106902.png" alt="image-20220216210646631"></p>
+</li>
+<li><p>生成器的最后使用的是Tanh激活函数。</p>
+</li>
+</ul>
+<h4 id="判别器的网络结构"><a href="#判别器的网络结构" class="headerlink" title="判别器的网络结构"></a><strong>判别器的网络结构</strong></h4><ul>
+<li>使用的是LeakyReLU(0.2)，最后一层使用的是Sigmoid函数。</li>
+<li>第一个卷积上没有使用BatchNorm。</li>
+</ul>
+<h2 id="keras实现简介"><a href="#keras实现简介" class="headerlink" title="keras实现简介"></a><strong>keras实现简介</strong></h2><p><img src="https://gitee.com/houdezaiwu2022/image-bed/raw/master/GAN/202202161738791.png" alt="image-20220216173855671"></p>
+<p><img src="https://gitee.com/houdezaiwu2022/image-bed/raw/master/GAN/202202161739831.png" alt="image-20220216173926547"></p>
+<p><img src="https://gitee.com/houdezaiwu2022/image-bed/raw/master/GAN/202202161745800.png" alt="image-20220216174509110"></p>
+<p><img src="https://gitee.com/houdezaiwu2022/image-bed/raw/master/GAN/202202161745934.png" alt="image-20220216174529792"></p>
+<p><img src="https://gitee.com/houdezaiwu2022/image-bed/raw/master/GAN/202202161748868.png" alt="image-20220216174806753"></p>
+<p><img src="https://gitee.com/houdezaiwu2022/image-bed/raw/master/GAN/202202161749168.png" alt="image-20220216174942087"></p>
+<p><img src="https://gitee.com/houdezaiwu2022/image-bed/raw/master/GAN/202202161749342.png" alt="image-20220216174954511"></p>
+<p><img src="https://gitee.com/houdezaiwu2022/image-bed/raw/master/GAN/202202161750205.png" alt="image-20220216175016093"></p>
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a><strong>总结</strong></h2><ul>
+<li><p>Pix2pix是用作图像翻译的CGAN</p>
+</li>
+<li><p>Pix2pix用比较深的网络，进行精密的调参产生了不错的结果</p>
+</li>
+<li>Pix2pix需要配对的标签图像和实际图像</li>
+<li>pix2pix获得了比较良好的图像翻译的效果,但训练pix2pix需要一番工夫。</li>
+</ul>
+</div><div class="article-licensing box"><div class="licensing-title"><p>Pix2pix GAN 论文及模型搭建</p><p><a href="http://example.com/2022/02/24/Generative Adversarial Networks/pix2pix-GAN-论文及模型搭建/">http://example.com/2022/02/24/Generative Adversarial Networks/pix2pix-GAN-论文及模型搭建/</a></p></div><div class="licensing-meta level is-mobile"><div class="level-left"><div class="level-item is-narrow"><div><h6>作者</h6><p>czt</p></div></div><div class="level-item is-narrow"><div><h6>发布于</h6><p>2022-02-24</p></div></div><div class="level-item is-narrow"><div><h6>更新于</h6><p>2022-02-24</p></div></div><div class="level-item is-narrow"><div><h6>许可协议</h6><p><a class="icons" rel="noopener" target="_blank" title="Creative Commons" href="https://creativecommons.org/"><i class="icon fab fa-creative-commons"></i></a><a class="icons" rel="noopener" target="_blank" title="Attribution" href="https://creativecommons.org/licenses/by/4.0/"><i class="icon fab fa-creative-commons-by"></i></a><a class="icons" rel="noopener" target="_blank" title="Noncommercial" href="https://creativecommons.org/licenses/by-nc/4.0/"><i class="icon fab fa-creative-commons-nc"></i></a></p></div></div></div></div></div><div class="article-tags is-size-7 mb-4"><span class="mr-2">#</span><a class="link-muted mr-2" rel="tag" href="/tags/pytorch/">pytorch</a><a class="link-muted mr-2" rel="tag" href="/tags/Generative-Adversarial-Networks/">Generative Adversarial Networks</a><a class="link-muted mr-2" rel="tag" href="/tags/GAN%E5%AE%9E%E6%88%98/">GAN实战</a></div><!--!--></article></div><!--!--><nav class="post-navigation mt-4 level is-mobile"><div class="level-end"><a class="article-nav-next level level-item link-muted" href="/2022/02/23/PyTorch%E6%95%99%E7%A8%8B%E4%B8%8E%E6%BA%90%E7%A0%81%E8%AE%B2%E8%A7%A3/Pytorch%E4%B8%AD%E5%B8%B8%E7%94%A8%E7%9A%84%E9%AB%98%E7%BA%A7%E6%93%8D%E4%BD%9C%E4%B8%8E%E6%90%AD%E5%BB%BA%E5%AE%8C%E6%95%B4%E6%B5%81%E7%A8%8B/"><span class="level-item">Pytorch中常用的高级操作与搭建完整流程</span><i class="level-item fas fa-chevron-right"></i></a></div></nav><!--!--></div><div class="column column-left is-4-tablet is-4-desktop is-3-widescreen  order-1 is-sticky"><div class="card widget" data-type="profile"><div class="card-content"><nav class="level"><div class="level-item has-text-centered flex-shrink-1"><div><figure class="image is-128x128 mx-auto mb-2"><img class="avatar" src="https://gitee.com/houdezaiwu2022/image-bed/raw/master/hexoimg/202201222202112.jpg" alt="厚德载物"></figure><p class="title is-size-4 is-block" style="line-height:inherit;">厚德载物</p><p class="is-size-6 is-block">博士生</p><p class="is-size-6 is-flex justify-content-center"><i class="fas fa-map-marker-alt mr-1"></i><span>中国 湖北 武汉</span></p></div></div></nav><nav class="level is-mobile"><div class="level-item has-text-centered is-marginless"><div><p class="heading">文章</p><a href="/archives"><p class="title">32</p></a></div></div><div class="level-item has-text-centered is-marginless"><div><p class="heading">分类</p><a href="/categories"><p class="title">9</p></a></div></div><div class="level-item has-text-centered is-marginless"><div><p class="heading">标签</p><a href="/tags"><p class="title">16</p></a></div></div></nav><div class="level"><a class="level-item button is-primary is-rounded" href="https://github.com/ppoffice" target="_blank" rel="noopener">关注我</a></div><div class="level is-mobile is-multiline"><a class="level-item button is-transparent is-marginless" target="_blank" rel="noopener" title="Github" href="https://github.com/ppoffice"><i class="fab fa-github"></i></a><a class="level-item button is-transparent is-marginless" target="_blank" rel="noopener" title="Facebook" href="https://facebook.com"><i class="fab fa-facebook"></i></a><a class="level-item button is-transparent is-marginless" target="_blank" rel="noopener" title="Twitter" href="https://twitter.com"><i class="fab fa-twitter"></i></a><a class="level-item button is-transparent is-marginless" target="_blank" rel="noopener" title="Dribbble" href="https://dribbble.com"><i class="fab fa-dribbble"></i></a><a class="level-item button is-transparent is-marginless" target="_blank" rel="noopener" title="RSS" href="/"><i class="fas fa-rss"></i></a></div></div></div><div class="card widget" data-type="links"><div class="card-content"><div class="menu"><h3 class="menu-label">链接</h3><ul class="menu-list"><li><a class="level is-mobile" href="https://hexo.io" target="_blank" rel="noopener"><span class="level-left"><span class="level-item">Hexo</span></span><span class="level-right"><span class="level-item tag">hexo.io</span></span></a></li><li><a class="level is-mobile" href="https://bulma.io" target="_blank" rel="noopener"><span class="level-left"><span class="level-item">Bulma</span></span><span class="level-right"><span class="level-item tag">bulma.io</span></span></a></li></ul></div></div></div><div class="card widget" data-type="archives"><div class="card-content"><div class="menu"><h3 class="menu-label">归档</h3><ul class="menu-list"><li><a class="level is-mobile" href="/archives/2022/02/"><span class="level-start"><span class="level-item">二月 2022</span></span><span class="level-end"><span class="level-item tag">21</span></span></a></li><li><a class="level is-mobile" href="/archives/2022/01/"><span class="level-start"><span class="level-item">一月 2022</span></span><span class="level-end"><span class="level-item tag">11</span></span></a></li></ul></div></div></div><div class="card widget" data-type="tags"><div class="card-content"><div class="menu"><h3 class="menu-label">标签</h3><div class="field is-grouped is-grouped-multiline"><div class="control"><a class="tags has-addons" href="/tags/GAN%E5%AE%9E%E6%88%98/"><span class="tag">GAN实战</span><span class="tag">6</span></a></div><div class="control"><a class="tags has-addons" href="/tags/Generative-Adversarial-Networks/"><span class="tag">Generative Adversarial Networks</span><span class="tag">6</span></a></div><div class="control"><a class="tags has-addons" href="/tags/Latex/"><span class="tag">Latex</span><span class="tag">4</span></a></div><div class="control"><a class="tags has-addons" href="/tags/Markdown/"><span class="tag">Markdown</span><span class="tag">1</span></a></div><div class="control"><a class="tags has-addons" href="/tags/Typora/"><span class="tag">Typora</span><span class="tag">1</span></a></div><div class="control"><a class="tags has-addons" href="/tags/auto-encoder/"><span class="tag">auto-encoder</span><span class="tag">3</span></a></div><div class="control"><a class="tags has-addons" href="/tags/control-theory/"><span class="tag">control theory</span><span class="tag">1</span></a></div><div class="control"><a class="tags has-addons" href="/tags/object-detection/"><span class="tag">object detection</span><span class="tag">3</span></a></div><div class="control"><a class="tags has-addons" href="/tags/opencv/"><span class="tag">opencv</span><span class="tag">3</span></a></div><div class="control"><a class="tags has-addons" href="/tags/python/"><span class="tag">python</span><span class="tag">3</span></a></div><div class="control"><a class="tags has-addons" href="/tags/pytorch/"><span class="tag">pytorch</span><span class="tag">17</span></a></div><div class="control"><a class="tags has-addons" href="/tags/%E5%9B%BE%E5%83%8F%E5%88%86%E7%B1%BB/"><span class="tag">图像分类</span><span class="tag">6</span></a></div><div class="control"><a class="tags has-addons" href="/tags/%E6%8E%A7%E5%88%B6%E7%90%86%E8%AE%BA/"><span class="tag">控制理论</span><span class="tag">1</span></a></div><div class="control"><a class="tags has-addons" href="/tags/%E6%97%A0%E7%9B%91%E7%9D%A3%E5%AD%A6%E4%B9%A0/"><span class="tag">无监督学习</span><span class="tag">3</span></a></div><div class="control"><a class="tags has-addons" href="/tags/%E6%9C%BA%E6%A2%B0%E6%8C%AF%E5%8A%A8/"><span class="tag">机械振动</span><span class="tag">2</span></a></div><div class="control"><a class="tags has-addons" href="/tags/%E7%94%9F%E6%88%90%E6%A8%A1%E5%9E%8B/"><span class="tag">生成模型</span><span class="tag">3</span></a></div></div></div></div></div><div class="column-right-shadow is-hidden-widescreen is-sticky"></div></div><div class="column column-right is-4-tablet is-4-desktop is-3-widescreen is-hidden-touch is-hidden-desktop-only order-3 is-sticky"><div class="card widget" id="toc" data-type="toc"><div class="card-content"><div class="menu"><h3 class="menu-label">目录</h3><ul class="menu-list"><li><a class="level is-mobile" href="#原论文简介"><span class="level-left"><span class="level-item">1</span><span class="level-item">原论文简介</span></span></a><ul class="menu-list"><li><a class="level is-mobile" href="#教程1"><span class="level-left"><span class="level-item">1.1</span><span class="level-item">教程1</span></span></a></li><li><a class="level is-mobile" href="#教程2"><span class="level-left"><span class="level-item">1.2</span><span class="level-item">教程2</span></span></a><ul class="menu-list"><li><a class="level is-mobile" href="#文章总述："><span class="level-left"><span class="level-item">1.2.1</span><span class="level-item">文章总述：</span></span></a></li><li><a class="level is-mobile" href="#生成器结构"><span class="level-left"><span class="level-item">1.2.2</span><span class="level-item">生成器结构</span></span></a></li><li><a class="level is-mobile" href="#判别器结构"><span class="level-left"><span class="level-item">1.2.3</span><span class="level-item">判别器结构</span></span></a></li><li><a class="level is-mobile" href="#生成器的网络结构："><span class="level-left"><span class="level-item">1.2.4</span><span class="level-item">生成器的网络结构：</span></span></a></li><li><a class="level is-mobile" href="#判别器的网络结构"><span class="level-left"><span class="level-item">1.2.5</span><span class="level-item">判别器的网络结构</span></span></a></li></ul></li></ul></li><li><a class="level is-mobile" href="#keras实现简介"><span class="level-left"><span class="level-item">2</span><span class="level-item">keras实现简介</span></span></a></li><li><a class="level is-mobile" href="#总结"><span class="level-left"><span class="level-item">3</span><span class="level-item">总结</span></span></a></li></ul></div></div><script src="/js/toc.js" defer></script></div><div class="card widget" data-type="categories"><div class="card-content"><div class="menu"><h3 class="menu-label">分类</h3><ul class="menu-list"><li><a class="level is-mobile" href="/categories/Generative-Adversarial-Networks/"><span class="level-start"><span class="level-item">Generative Adversarial Networks</span></span><span class="level-end"><span class="level-item tag">6</span></span></a></li><li><a class="level is-mobile" href="/categories/Latex/"><span class="level-start"><span class="level-item">Latex</span></span><span class="level-end"><span class="level-item tag">4</span></span></a></li><li><a class="level is-mobile" href="/categories/PyTorch%E6%95%99%E7%A8%8B%E4%B8%8E%E6%BA%90%E7%A0%81%E8%AE%B2%E8%A7%A3/"><span class="level-start"><span class="level-item">PyTorch教程与源码讲解</span></span><span class="level-end"><span class="level-item tag">5</span></span></a></li><li><a class="level is-mobile" href="/categories/Typora/"><span class="level-start"><span class="level-item">Typora</span></span><span class="level-end"><span class="level-item tag">1</span></span></a></li><li><a class="level is-mobile" href="/categories/auto-encoder/"><span class="level-start"><span class="level-item">auto-encoder</span></span><span class="level-end"><span class="level-item tag">3</span></span></a></li><li><a class="level is-mobile" href="/categories/opencv/"><span class="level-start"><span class="level-item">opencv</span></span><span class="level-end"><span class="level-item tag">3</span></span></a></li><li><a class="level is-mobile" href="/categories/%E5%9B%BE%E5%83%8F%E5%88%86%E7%B1%BB%E7%BD%91%E7%BB%9C%E5%8F%8APytorch%E5%AE%9E%E7%8E%B0/"><span class="level-start"><span class="level-item">图像分类网络及Pytorch实现</span></span><span class="level-end"><span class="level-item tag">6</span></span></a></li><li><a class="level is-mobile" href="/categories/%E6%8C%AF%E5%8A%A8%E5%8A%9B%E5%AD%A6/"><span class="level-start"><span class="level-item">振动力学</span></span><span class="level-end"><span class="level-item tag">2</span></span></a></li><li><a class="level is-mobile" href="/categories/%E7%8E%B0%E4%BB%A3%E6%8E%A7%E5%88%B6%E7%90%86%E8%AE%BA/"><span class="level-start"><span class="level-item">现代控制理论</span></span><span class="level-end"><span class="level-item tag">1</span></span></a></li></ul></div></div></div><div class="card widget" data-type="recent-posts"><div class="card-content"><h3 class="menu-label">最新文章</h3><article class="media"><figure class="media-left"><a class="image" href="/2022/02/24/Generative%20Adversarial%20Networks/pix2pix-GAN-%E8%AE%BA%E6%96%87%E5%8F%8A%E6%A8%A1%E5%9E%8B%E6%90%AD%E5%BB%BA/"><img src="https://gitee.com/houdezaiwu2022/image-bed/raw/master/GAN/202202112308879.JPEG" alt="Pix2pix GAN 论文及模型搭建"></a></figure><div class="media-content"><p class="date"><time dateTime="2022-02-24T11:17:46.000Z">2022-02-24</time></p><p class="title"><a href="/2022/02/24/Generative%20Adversarial%20Networks/pix2pix-GAN-%E8%AE%BA%E6%96%87%E5%8F%8A%E6%A8%A1%E5%9E%8B%E6%90%AD%E5%BB%BA/">Pix2pix GAN 论文及模型搭建</a></p><p class="categories"><a href="/categories/Generative-Adversarial-Networks/">Generative Adversarial Networks</a></p></div></article><article class="media"><figure class="media-left"><a class="image" href="/2022/02/23/PyTorch%E6%95%99%E7%A8%8B%E4%B8%8E%E6%BA%90%E7%A0%81%E8%AE%B2%E8%A7%A3/Pytorch%E4%B8%AD%E5%B8%B8%E7%94%A8%E7%9A%84%E9%AB%98%E7%BA%A7%E6%93%8D%E4%BD%9C%E4%B8%8E%E6%90%AD%E5%BB%BA%E5%AE%8C%E6%95%B4%E6%B5%81%E7%A8%8B/"><img src="https://gitee.com/houdezaiwu2022/image-bed/raw/master/pytorch/202201271155098.png" alt="Pytorch中常用的高级操作与搭建完整流程"></a></figure><div class="media-content"><p class="date"><time dateTime="2022-02-23T13:48:08.000Z">2022-02-23</time></p><p class="title"><a href="/2022/02/23/PyTorch%E6%95%99%E7%A8%8B%E4%B8%8E%E6%BA%90%E7%A0%81%E8%AE%B2%E8%A7%A3/Pytorch%E4%B8%AD%E5%B8%B8%E7%94%A8%E7%9A%84%E9%AB%98%E7%BA%A7%E6%93%8D%E4%BD%9C%E4%B8%8E%E6%90%AD%E5%BB%BA%E5%AE%8C%E6%95%B4%E6%B5%81%E7%A8%8B/">Pytorch中常用的高级操作与搭建完整流程</a></p><p class="categories"><a href="/categories/PyTorch%E6%95%99%E7%A8%8B%E4%B8%8E%E6%BA%90%E7%A0%81%E8%AE%B2%E8%A7%A3/">PyTorch教程与源码讲解</a></p></div></article><article class="media"><figure class="media-left"><a class="image" href="/2022/02/23/PyTorch%E6%95%99%E7%A8%8B%E4%B8%8E%E6%BA%90%E7%A0%81%E8%AE%B2%E8%A7%A3/Pytorch%E5%9F%BA%E6%9C%AC%E7%BD%91%E7%BB%9C%E7%9A%84%E6%90%AD%E5%BB%BA%E8%BF%87%E7%A8%8B/"><img src="https://gitee.com/houdezaiwu2022/image-bed/raw/master/pytorch/202201271155098.png" alt="Pytorch基本网络的搭建过程"></a></figure><div class="media-content"><p class="date"><time dateTime="2022-02-23T13:47:45.000Z">2022-02-23</time></p><p class="title"><a href="/2022/02/23/PyTorch%E6%95%99%E7%A8%8B%E4%B8%8E%E6%BA%90%E7%A0%81%E8%AE%B2%E8%A7%A3/Pytorch%E5%9F%BA%E6%9C%AC%E7%BD%91%E7%BB%9C%E7%9A%84%E6%90%AD%E5%BB%BA%E8%BF%87%E7%A8%8B/">Pytorch基本网络的搭建过程</a></p><p class="categories"><a href="/categories/PyTorch%E6%95%99%E7%A8%8B%E4%B8%8E%E6%BA%90%E7%A0%81%E8%AE%B2%E8%A7%A3/">PyTorch教程与源码讲解</a></p></div></article><article class="media"><figure class="media-left"><a class="image" href="/2022/02/13/opencv/%E8%BD%A6%E6%B5%81%E7%BB%9F%E8%AE%A1%E9%A1%B9%E7%9B%AE/"><img src="https://gitee.com/houdezaiwu2022/image-bed/raw/master/opencv/202202132030725.png" alt="车流统计项目"></a></figure><div class="media-content"><p class="date"><time dateTime="2022-02-13T12:21:03.000Z">2022-02-13</time></p><p class="title"><a href="/2022/02/13/opencv/%E8%BD%A6%E6%B5%81%E7%BB%9F%E8%AE%A1%E9%A1%B9%E7%9B%AE/">车流统计项目</a></p><p class="categories"><a href="/categories/opencv/">opencv</a></p></div></article><article class="media"><figure class="media-left"><a class="image" href="/2022/02/13/opencv/kalman-filter%E5%B0%8F%E9%A1%B9%E7%9B%AE/"><img src="https://gitee.com/houdezaiwu2022/image-bed/raw/master/opencv/202202132030725.png" alt="Kalman Filter小项目"></a></figure><div class="media-content"><p class="date"><time dateTime="2022-02-13T12:20:21.000Z">2022-02-13</time></p><p class="title"><a href="/2022/02/13/opencv/kalman-filter%E5%B0%8F%E9%A1%B9%E7%9B%AE/">Kalman Filter小项目</a></p><p class="categories"><a href="/categories/opencv/">opencv</a></p></div></article></div></div></div></div></div></section><footer class="footer"><div class="container"><div class="level"><div class="level-start"><a class="footer-logo is-block mb-2" href="/"><img src="/img/logo.svg" alt="houdezaiwu&#039;s blog" height="28"></a><p class="is-size-7"><span>&copy; 2022 czt</span>  Powered by <a href="https://hexo.io/" target="_blank" rel="noopener">Hexo</a> &amp; <a href="https://github.com/ppoffice/hexo-theme-icarus" target="_blank" rel="noopener">Icarus</a></p></div><div class="level-end"><div class="field has-addons"><p class="control"><a class="button is-transparent is-large" target="_blank" rel="noopener" title="Creative Commons" href="https://creativecommons.org/"><i class="fab fa-creative-commons"></i></a></p><p class="control"><a class="button is-transparent is-large" target="_blank" rel="noopener" title="Attribution 4.0 International" href="https://creativecommons.org/licenses/by/4.0/"><i class="fab fa-creative-commons-by"></i></a></p><p class="control"><a class="button is-transparent is-large" target="_blank" rel="noopener" title="Download on GitHub" href="https://github.com/ppoffice/hexo-theme-icarus"><i class="fab fa-github"></i></a></p></div></div></div></div></footer><script src="https://cdn.jsdelivr.net/npm/jquery@3.3.1/dist/jquery.min.js"></script><script src="https://cdn.jsdelivr.net/npm/moment@2.22.2/min/moment-with-locales.min.js"></script><script src="https://cdn.jsdelivr.net/npm/clipboard@2.0.4/dist/clipboard.min.js" defer></script><script>moment.locale("zh-CN");</script><script>var IcarusThemeSettings = {
+            article: {
+                highlight: {
+                    clipboard: true,
+                    fold: 'unfolded'
+                }
+            }
+        };</script><script src="/js/column.js"></script><script src="/js/animation.js"></script><a id="back-to-top" title="回到顶端" href="javascript:;"><i class="fas fa-chevron-up"></i></a><script src="/js/back_to_top.js" defer></script><!--!--><!--!--><!--!--><script src="https://cdn.jsdelivr.net/npm/cookieconsent@3.1.1/build/cookieconsent.min.js" defer></script><script>window.addEventListener("load", () => {
+      window.cookieconsent.initialise({
+        type: "info",
+        theme: "edgeless",
+        static: false,
+        position: "bottom-left",
+        content: {
+          message: "此网站使用Cookie来改善您的体验。",
+          dismiss: "知道了！",
+          allow: "允许使用Cookie",
+          deny: "拒绝",
+          link: "了解更多",
+          policy: "Cookie政策",
+          href: "https://www.cookiesandyou.com/",
+        },
+        palette: {
+          popup: {
+            background: "#edeff5",
+            text: "#838391"
+          },
+          button: {
+            background: "#4b81e8"
+          },
+        },
+      });
+    });</script><script src="https://cdn.jsdelivr.net/npm/lightgallery@1.10.0/dist/js/lightgallery.min.js" defer></script><script src="https://cdn.jsdelivr.net/npm/justifiedGallery@3.8.1/dist/js/jquery.justifiedGallery.min.js" defer></script><script>window.addEventListener("load", () => {
+            if (typeof $.fn.lightGallery === 'function') {
+                $('.article').lightGallery({ selector: '.gallery-item' });
+            }
+            if (typeof $.fn.justifiedGallery === 'function') {
+                if ($('.justified-gallery > p > .gallery-item').length) {
+                    $('.justified-gallery > p > .gallery-item').unwrap();
+                }
+                $('.justified-gallery').justifiedGallery();
+            }
+        });</script><!--!--><!--!--><script type="text/x-mathjax-config">MathJax.Hub.Config({
+            'HTML-CSS': {
+                matchFontHeight: false
+            },
+            SVG: {
+                matchFontHeight: false
+            },
+            CommonHTML: {
+                matchFontHeight: false
+            },
+            tex2jax: {
+                inlineMath: [
+                    ['$','$'],
+                    ['\\(','\\)']
+                ]
+            }
+        });</script><script src="https://cdn.jsdelivr.net/npm/mathjax@2.7.9/unpacked/MathJax.js?config=TeX-MML-AM_CHTML" defer></script><div id="outdated"><h6>Your browser is out-of-date!</h6><p>Update your browser to view this website correctly.&amp;npsb;<a id="btnUpdateBrowser" target="_blank" rel="noopener" href="http://outdatedbrowser.com/">Update my browser now </a></p><p class="last"><a href="#" id="btnCloseUpdateBrowser" title="Close">×</a></p></div><script src="https://cdn.jsdelivr.net/npm/outdatedbrowser@1.1.5/outdatedbrowser/outdatedbrowser.min.js" defer></script><script>window.addEventListener("load", function () {
+            outdatedBrowser({
+                bgColor: '#f25648',
+                color: '#ffffff',
+                lowerThan: 'object-fit' // display on IE11 or below
+            });
+        });</script><!--!--><!--!--><!--!--><script src="/js/main.js" defer></script><div class="searchbox"><div class="searchbox-container"><div class="searchbox-header"><div class="searchbox-input-container"><input class="searchbox-input" type="text" placeholder="想要查找什么..."></div><a class="searchbox-close" href="javascript:;">×</a></div><div class="searchbox-body"></div></div></div><script src="/js/insight.js" defer></script><script>document.addEventListener('DOMContentLoaded', function () {
+            loadInsight({"contentUrl":"/content.json"}, {"hint":"想要查找什么...","untitled":"(无标题)","posts":"文章","pages":"页面","categories":"分类","tags":"标签"});
+        });</script><!-- hexo-inject:begin --><!-- hexo-inject:end --></body></html>
