@@ -1,0 +1,606 @@
+<!doctype html>
+<html lang="zh"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"><meta><title>论文写作指导 - houdezaiwu&#039;s blog</title><link rel="manifest" href="/manifest.json"><meta name="application-name" content="czt"><meta name="msapplication-TileImage" content="/img/favicon.svg"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-title" content="czt"><meta name="apple-mobile-web-app-status-bar-style" content="default"><meta name="description" content="hljs.initHighlightingOnLoad();  本文为伍老师给博士的写作指导课，主要简述的是科研论文写作的注意事项、IEEE的相关规范以及Latex的使用技巧等。"><meta property="og:type" content="blog"><meta property="og:title" content="论文写作指导"><meta property="og:url" content="http://example.com/2022/03/03/%E8%AE%BA%E6%96%87%E5%86%99%E4%BD%9C%E6%95%99%E7%A8%8B/%E8%AE%BA%E6%96%87%E5%86%99%E4%BD%9C%E6%8C%87%E5%AF%BC/"><meta property="og:site_name" content="houdezaiwu&#039;s blog"><meta property="og:description" content="hljs.initHighlightingOnLoad();  本文为伍老师给博士的写作指导课，主要简述的是科研论文写作的注意事项、IEEE的相关规范以及Latex的使用技巧等。"><meta property="og:locale" content="zh_CN"><meta property="og:image" content="https://gitee.com/houdezaiwu2022/image-bed/raw/master/paper/202203032218935.png"><meta property="article:published_time" content="2022-03-03T14:05:45.000Z"><meta property="article:modified_time" content="2022-03-03T14:20:21.072Z"><meta property="article:author" content="czt"><meta property="article:tag" content="latex"><meta property="article:tag" content="论文写作"><meta property="article:tag" content="IEEE投稿"><meta property="article:tag" content="科研"><meta property="twitter:card" content="summary"><meta property="twitter:image" content="https://gitee.com/houdezaiwu2022/image-bed/raw/master/paper/202203032218935.png"><script type="application/ld+json">{"@context":"https://schema.org","@type":"BlogPosting","mainEntityOfPage":{"@type":"WebPage","@id":"http://example.com/2022/03/03/%E8%AE%BA%E6%96%87%E5%86%99%E4%BD%9C%E6%95%99%E7%A8%8B/%E8%AE%BA%E6%96%87%E5%86%99%E4%BD%9C%E6%8C%87%E5%AF%BC/"},"headline":"论文写作指导","image":["https://gitee.com/houdezaiwu2022/image-bed/raw/master/paper/202203032218935.png"],"datePublished":"2022-03-03T14:05:45.000Z","dateModified":"2022-03-03T14:20:21.072Z","author":{"@type":"Person","name":"czt"},"publisher":{"@type":"Organization","name":"houdezaiwu's blog","logo":{"@type":"ImageObject","url":"http://example.com/img/logo.svg"}},"description":"hljs.initHighlightingOnLoad();  本文为伍老师给博士的写作指导课，主要简述的是科研论文写作的注意事项、IEEE的相关规范以及Latex的使用技巧等。"}</script><link rel="canonical" href="http://example.com/2022/03/03/%E8%AE%BA%E6%96%87%E5%86%99%E4%BD%9C%E6%95%99%E7%A8%8B/%E8%AE%BA%E6%96%87%E5%86%99%E4%BD%9C%E6%8C%87%E5%AF%BC/"><link rel="icon" href="/img/favicon.svg"><link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.2/css/all.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@9.12.0/styles/atom-one-light.css"><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Ubuntu:wght@400;600&amp;family=Source+Code+Pro"><link rel="stylesheet" href="/css/default.css"><style>body>.footer,body>.navbar,body>.section{opacity:0}</style><!--!--><!--!--><!--!--><!--!--><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/cookieconsent@3.1.1/build/cookieconsent.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/lightgallery@1.10.0/dist/css/lightgallery.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/justifiedGallery@3.8.1/dist/css/justifiedGallery.min.css"><!--!--><!--!--><!--!--><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/outdatedbrowser@1.1.5/outdatedbrowser/outdatedbrowser.min.css"><style>.pace{-webkit-pointer-events:none;pointer-events:none;-webkit-user-select:none;-moz-user-select:none;user-select:none}.pace-inactive{display:none}.pace .pace-progress{background:#3273dc;position:fixed;z-index:2000;top:0;right:100%;width:100%;height:2px}</style><script src="https://cdn.jsdelivr.net/npm/pace-js@1.2.4/pace.min.js"></script><!--!--><!--!--><!-- hexo injector head_end start -->
+<!-- hexo-inject:begin --><!-- hexo-inject:end --><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css">
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/hexo-math@4.0.0/dist/style.css">
+<!-- hexo injector head_end end --><meta name="generator" content="Hexo 6.0.0"><!-- hexo-inject:begin --><!-- hexo-inject:end --><link rel="stylesheet" href="/css/prism-coy-without-shadows.css" type="text/css">
+<link rel="stylesheet" href="/css/prism-line-numbers.css" type="text/css"></head><body class="is-3-column"><nav class="navbar navbar-main"><div class="container"><div class="navbar-brand justify-content-center"><a class="navbar-item navbar-logo" href="/"><img src="/img/logo.svg" alt="houdezaiwu&#039;s blog" height="28"></a></div><div class="navbar-menu"><div class="navbar-start"><a class="navbar-item" href="/">主页</a><a class="navbar-item" href="/archives">归档</a><a class="navbar-item" href="/categories">分类</a><a class="navbar-item" href="/tags">标签</a><a class="navbar-item" href="/about">关于</a></div><div class="navbar-end"><a class="navbar-item" target="_blank" rel="noopener" title="Download on GitHub" href="https://github.com/ppoffice/hexo-theme-icarus"><i class="fab fa-github"></i></a><a class="navbar-item is-hidden-tablet catalogue" title="目录" href="javascript:;"><i class="fas fa-list-ul"></i></a><a class="navbar-item search" title="搜索" href="javascript:;"><i class="fas fa-search"></i></a></div></div></div></nav><section class="section"><div class="container"><div class="columns"><div class="column order-2 column-main is-8-tablet is-8-desktop is-6-widescreen"><div class="card"><div class="card-image"><span class="image is-7by3"><img class="fill" src="https://gitee.com/houdezaiwu2022/image-bed/raw/master/paper/202203032218935.png" alt="论文写作指导"></span></div><article class="card-content article" role="article"><div class="article-meta is-size-7 is-uppercase level is-mobile"><div class="level-left"><span class="level-item"><time dateTime="2022-03-03T14:05:45.000Z" title="2022/3/3 下午10:05:45">2022-03-03</time>发表</span><span class="level-item"><time dateTime="2022-03-03T14:20:21.072Z" title="2022/3/3 下午10:20:21">2022-03-03</time>更新</span><span class="level-item"><a class="link-muted" href="/categories/%E8%AE%BA%E6%96%87%E5%86%99%E4%BD%9C%E6%95%99%E7%A8%8B/">论文写作教程</a></span><span class="level-item">38 分钟读完 (大约5725个字)</span></div></div><h1 class="title is-3 is-size-4-mobile">论文写作指导</h1><div class="content"><link rel="stylesheet" href="//cdn.bootcss.com/highlight.js/9.2.0/styles/github.min.css">
+
+<!-- hexo-inject:begin --><!-- hexo-inject:end --><script src="//cdn.bootcss.com/highlight.js/9.2.0/highlight.min.js"></script>
+<script>hljs.initHighlightingOnLoad();</script>
+
+<p>本文为伍老师给博士的写作指导课，主要简述的是科研论文写作的注意事项、IEEE的相关规范以及Latex的使用技巧等。</p>
+<span id="more"></span>
+<h3 id="论文撰写"><a href="#论文撰写" class="headerlink" title="论文撰写"></a><strong>论文撰写</strong></h3><h4 id="基本语法"><a href="#基本语法" class="headerlink" title="基本语法"></a><strong>基本语法</strong></h4><ul>
+<li>标题和关键字</li>
+<li>摘要</li>
+<li>简介</li>
+<li>相关工作</li>
+<li>问题和方法</li>
+<li>实验和分析</li>
+<li>总结</li>
+<li>参考文献</li>
+</ul>
+<p>这里不一定要按照上述的顺序，但是该有的结构一定要有。这样便于信息的定位和内容的完备。</p>
+<h4 id="语义"><a href="#语义" class="headerlink" title="语义"></a><strong>语义</strong></h4><ul>
+<li>要让读者读的舒服为目的。</li>
+<li>建议：<ul>
+<li>必要让评委和审稿人去猜</li>
+<li>临近相同的区域避免同一个词的重复出现</li>
+<li>避免句子以“And”开头</li>
+<li>避免过长的句子</li>
+<li>避免使用过于生晦的词汇</li>
+</ul>
+</li>
+</ul>
+<h4 id="具体内容部分"><a href="#具体内容部分" class="headerlink" title="具体内容部分"></a><strong>具体内容部分</strong></h4><ul>
+<li><p>标题</p>
+<ul>
+<li>标题要精炼、突出</li>
+<li>让编委和评委快速了解论文的方向，吸引读者</li>
+</ul>
+</li>
+<li><p>摘要</p>
+<ul>
+<li><p>主编会看的部分，评委和读者的入口</p>
+<blockquote>
+<p>就是主编通过看摘要来判断论文的方向，进而选择合适的副编，之对于最后的能否录用很关键。</p>
+</blockquote>
+</li>
+<li><p>必须描述论文主要的创新和贡献，内容要有足够的吸引性</p>
+</li>
+<li><p><strong>不要有公式</strong>，不要冗长，就是不要写多段。</p>
+</li>
+</ul>
+</li>
+<li><p>简介</p>
+<ul>
+<li>陈述问题的背景和意义</li>
+<li>简述过去在这个方向都做了什么工作</li>
+<li>指出之前工作的不足之处(<strong>要委婉一点，万一审稿人就是之前工作的作者</strong>)，也就是提交的Motivation和拟解决的主要问题</li>
+<li>简介工作的主要创新点<ul>
+<li>简介要针对前述问题的创新方法，让人感觉可以解决前述问题</li>
+</ul>
+</li>
+<li>不要过长，更具体地信息要留在后面来写，简介主要突出关键点<ul>
+<li>方便编委快速确认论文的方向，针对性地挑选编委</li>
+<li>吸引读者阅读论文</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>相关工作</p>
+<ul>
+<li>注重对调研工作的质量<ul>
+<li>从评委和主编的角度来看，调研工作的质量决定了你的品味，进而影射了你工作的质量和水准。</li>
+<li>其实就是文献综述的时候不要引用太差劲的期刊上的水文，要跟顶刊和顶会看齐。</li>
+</ul>
+</li>
+<li>相关工作也是对过去领域内相关工作的调研和整理<ul>
+<li>概述过去工作的主要贡献</li>
+<li>突出过去工作的不足之处</li>
+</ul>
+</li>
+<li>凸显提交工作的”先进性“<ul>
+<li>确保你的工作有效地针对了当前工作的不足之处，并由卓有成效的推进</li>
+<li>确保你工作的能够打动评委，能够吸引期刊的读者</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<p><img src="https://gitee.com/houdezaiwu2022/image-bed/raw/master/paper/202203031823862.png" alt="相关工作的反例"></p>
+<p>很像一个读书笔记，不像是一个相关工作</p>
+<ul>
+<li><p>问题和方法</p>
+<ul>
+<li><p>问题陈述</p>
+<ul>
+<li>比摘要和简介中进一步的陈述</li>
+<li>问题要让人容易理解，在可能的情况下，举例说明会更清晰</li>
+</ul>
+<blockquote>
+<p>一般的计算机顶会会有一张图，来介绍本文的思路，现在的审稿人会直接先看有没有那张图。</p>
+</blockquote>
+</li>
+<li><p>创新方法</p>
+<ul>
+<li>”为什么why“比“怎么how”还重要</li>
+<li><strong>why-&gt;how-&gt;what</strong></li>
+<li>聚焦于“怎么”做的容易陷入技术报告，缺乏逻辑上的串联</li>
+<li>聚焦于“为什么”，这样会吸引评委和读者思考（从而认同），并且能够自然的带出“怎么做的”。</li>
+<li>对这个方法多讨论，避免现如技术报告</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<ul>
+<li><p>实验与分析</p>
+<blockquote>
+<p>在论文实验部分，牢记“实验是对所提方案的验证”，有三个要素不可缺少。一是可重复性，要有公认的实验场景和配置；二是可解释性，图片清晰，避免出现图片“误用”；三是要可分析性，即佐证结论。</p>
+</blockquote>
+<ul>
+<li><p>公认的实验场景和配置</p>
+<ul>
+<li>可参考相关领域的定会顶刊所发表的实验设置</li>
+<li>实验要针对所研究的问题和目标</li>
+<li>相关工作的对比，要state-of-the-art (呼应:相关工作)</li>
+</ul>
+<blockquote>
+<p>对于自己的数据集最好要公开数据和代码</p>
+</blockquote>
+</li>
+<li><p>实验图表现要专业、清晰</p>
+<ul>
+<li>尽可能使用专业的绘图工具python、Matlab</li>
+<li>清晰度、字体的大小适当</li>
+<li>可学习相关领域顶会顶刊的图标</li>
+</ul>
+</li>
+<li><p>实验结果的分析</p>
+<ul>
+<li><p>分析不是简单地陈述实验结果，重点是内</p>
+<blockquote>
+<ol>
+<li>解释为什么提升了</li>
+<li>消融性的分析，三个条件缺少了某个会造成什么样的后果</li>
+<li>灵敏度分析，对超参数进行敏感性分析</li>
+<li><strong>多读论文</strong></li>
+</ol>
+</blockquote>
+</li>
+<li><p>不仅仅凸显所提出方案的有优势，更能凸显为什么有优势<strong>（呼应：为什么比怎么做还重要）</strong></p>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<p><img src="https://gitee.com/houdezaiwu2022/image-bed/raw/master/paper/202203031823587.png" alt="排版问题的反例"></p>
+<ul>
+<li>左侧的图片可解释性不是很强，因为齐亨佐那个坐标的标题栏以及图片的比例都不是很好，有点空。</li>
+<li>其次是没有图例，legend的标注。</li>
+<li>对比清晰，可以不是和state of the art进行比较，至少要让读者感觉你对自己的方法有信心；用了专业的作图工具，且考虑了黑白打印的效果。</li>
+</ul>
+<ul>
+<li><p>总结</p>
+<ul>
+<li><p>像摘要，但是又不是摘要</p>
+<ul>
+<li>总结向另一个更形象的词：takeaway</li>
+<li>是读者在阅读完论文的一个回应</li>
+</ul>
+</li>
+<li><p>在进一步理解的基础上再次总结论文的主要贡献<strong>(拔高)</strong></p>
+</li>
+<li><p>展望<strong>(可选)</strong>，在现有的工作的基础上，指出下一步工作的方向和重点</p>
+<blockquote>
+<ol>
+<li><p>这里展望要有理有据，不是瞎说</p>
+</li>
+<li><p>其次不要过渡的否决自己的工作，防止被拒稿或者打回来修改</p>
+</li>
+<li>实事求是</li>
+</ol>
+</blockquote>
+<ul>
+<li>展望，不是猜想，也要有理有据</li>
+<li>避免变成对提交工作的否决</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<ul>
+<li><p>排版</p>
+<ul>
+<li><p>尽量使用LaTeX进行排版</p>
+<ul>
+<li>专业、漂亮、对公式友好</li>
+<li>换投时，修改格式方便快捷</li>
+</ul>
+</li>
+<li><p>使用指定的论文模板</p>
+<ul>
+<li>IEEE for IEEE</li>
+<li>Springer for Springer </li>
+<li>否则，主编可以直接拒稿。</li>
+</ul>
+<p><img src="https://gitee.com/houdezaiwu2022/image-bed/raw/master/paper/202203031824610.png" alt="word和Latex的公式对比"></p>
+<p><img src="https://gitee.com/houdezaiwu2022/image-bed/raw/master/paper/202203031824364.png" alt="不足论文的反例"></p>
+<p><img src="https://gitee.com/houdezaiwu2022/image-bed/raw/master/paper/202203031825253.png" alt="不可以跨页问题的反例"></p>
+<p>定理最后的方框代表是否证明结束，这里面证明结束的方框是没有对齐的。</p>
+</li>
+</ul>
+</li>
+<li><p>审稿回复</p>
+<ul>
+<li><p>逐条阅读并且理解审稿让人的意见</p>
+</li>
+<li><p>逐条撰写回应，一方面解释，另一方面直接陈述论文相应怎么改的</p>
+</li>
+<li><p>遇到审稿人的意见方向不对的要怎么办？</p>
+<ul>
+<li>先从自身找原因：<ul>
+<li>逻辑不清，审稿人没有找到？</li>
+<li>没有表述清楚，引发歧义？</li>
+<li>忽略了，引起误解？</li>
+</ul>
+</li>
+<li>多方证实，确实是审稿人的意见不对，就礼貌地回应。</li>
+</ul>
+<p><img src="https://gitee.com/houdezaiwu2022/image-bed/raw/master/paper/202203031825015.png" alt="标准的回复样例"></p>
+<blockquote>
+<p>写回复地时候也是要委婉的说是自己写的不好引起了您的误解。</p>
+</blockquote>
+</li>
+</ul>
+</li>
+</ul>
+<p>之前的部分为过敏意老师的内容，之后的为伍老师自己总结的内容。</p>
+<h4 id="其他注意事项"><a href="#其他注意事项" class="headerlink" title="其他注意事项"></a><strong>其他注意事项</strong></h4><h5 id="单复数、时态"><a href="#单复数、时态" class="headerlink" title="单复数、时态"></a>单复数、时态</h5><ul>
+<li><p>不可数名词：equirment、research、faculty、noise。</p>
+</li>
+<li><p>可数名词：<strong>(这里就是要注意以上名词的单复数)</strong></p>
+<ul>
+<li>Datum $\rightarrow$ data</li>
+<li>Statistic  $\rightarrow$  Statistics</li>
+<li>Criterion  $\rightarrow$  Criteria</li>
+<li>Analysis $\rightarrow$  Analyses</li>
+<li>Spectrum $\rightarrow$ Spectra</li>
+</ul>
+</li>
+<li><p>在欧洲一般表达都用被动语态，但是在美国可以接受被动语态，因此这方面大可放心。</p>
+</li>
+<li><p>就算只有一个作者，也要用We 而不是 I</p>
+</li>
+<li><p>实验部分一般用过去时态</p>
+</li>
+<li><p>介绍别人的方法，一般用现在时，而不是过去式</p>
+<blockquote>
+<p>related work 上面表述别人的方法，要使用一般现在时态，而不是过去时态</p>
+</blockquote>
+</li>
+</ul>
+<h5 id="其他的注意事项"><a href="#其他的注意事项" class="headerlink" title="其他的注意事项"></a>其他的注意事项</h5><ul>
+<li><p>首先还是不要过分夸大自己而贬低别人</p>
+</li>
+<li><p>图、表、伪代码等应出现在正文以后<strong>(要先图，然后再文中出现figx.)</strong>，居中对齐，<strong>不要跨页，标题不要分离。</strong></p>
+<p><img src="https://gitee.com/houdezaiwu2022/image-bed/raw/master/paper/202203031826774.png" alt="图片布局的反例"></p>
+<p><img src="https://gitee.com/houdezaiwu2022/image-bed/raw/master/paper/202203031826604.png" alt="图片布局的反例"></p>
+</li>
+<li><p>图的清晰度要高，字体不要太大或太小</p>
+</li>
+<li><p>不要出现错别字<strong>(then &amp; than)</strong></p>
+</li>
+<li><p>每一段话也比要太长，多用短句，每段话也不宜过长。</p>
+</li>
+<li><p>每条参考文献都要在正文中得到引用</p>
+</li>
+<li><p>每个符号都要定义，<strong>(让别人帮忙检查)</strong></p>
+</li>
+<li><p>尽量不要缩写，<strong>伍老师的经验来看少于5次就不要用缩写了</strong></p>
+</li>
+<li><p>论断不要太绝对：may、could</p>
+</li>
+<li><p>表示转折用<strong>whereas</strong> 而非 while</p>
+</li>
+<li><p>表示其他用 <strong>Additionally / In addition</strong> 而非 Besides</p>
+</li>
+<li><p><strong>Principal</strong> component analysis , 而不是<strong>Principle</strong></p>
+</li>
+<li><p>一般用approach , 而非method(比较口语化和低端)</p>
+</li>
+<li><p>If 后面的从句最好加 then(英语为母语的人比较习惯) ; although 后面一定不加but</p>
+</li>
+<li><p>Compared with … ,而非 Comparing with; 区分compared with(实验方法最比较) 和 compared to(做时会用).</p>
+</li>
+<li><p>It ‘s worth doing</p>
+</li>
+<li><p>$Latex$ 中的左引号”是``(数字1旁边的那个点) 不是正常的”</p>
+</li>
+<li><p>冠词的使用，主要是根据实际的发音来定的</p>
+<ul>
+<li>An hour , an 8-hour delay , </li>
+<li>an SVM(这里是因为S的发音)</li>
+<li>an FS , &lt;-&gt; a fuzzy set</li>
+<li>a Euclidean space</li>
+</ul>
+</li>
+<li><p>:zap:Defend 的意思</p>
+<ul>
+<li>Defend : 保护、保佑， e.g. ,God Defend New Zealand </li>
+<li>Defend against : 抵御、防御，e.g. ,defend againist adversarial attacks</li>
+</ul>
+</li>
+<li><p>句子不要以And 开头</p>
+</li>
+<li><p>句子要写完整，When the number of labeled instances is in few-shot TL setting ,i.e.,each category with instances less than 10</p>
+</li>
+<li><p>3个或以上的作者才用et al. </p>
+<ul>
+<li>A proposed … ;</li>
+<li>A and B proposed … ;</li>
+<li>A et al. proposed …</li>
+</ul>
+</li>
+</ul>
+<h5 id="公式后的标点符号"><a href="#公式后的标点符号" class="headerlink" title="公式后的标点符号"></a>公式后的标点符号</h5><p><img src="https://gitee.com/houdezaiwu2022/image-bed/raw/master/paper/202203031826312.png" alt="公式中的标点符号"></p>
+<ul>
+<li>公式之后的逗号是因为后面的是前面的补充，这一句还没说完。</li>
+<li>其次公式之间的等号要对齐。</li>
+</ul>
+<p><img src="https://gitee.com/houdezaiwu2022/image-bed/raw/master/paper/202203031827082.png" alt="公式中的标点"></p>
+<ul>
+<li>这里的公式有逗号是由于，(13)(14)是下一句的一部分，因此没有标点符号。</li>
+</ul>
+<h3 id="学术规范"><a href="#学术规范" class="headerlink" title="学术规范"></a>学术规范</h3><h4 id="IEEE规定：投稿"><a href="#IEEE规定：投稿" class="headerlink" title="IEEE规定：投稿"></a><strong>IEEE规定：投稿</strong></h4><p>有时候我们感觉审稿的希望不大时，我们可以选择撤回稿件，在去投别的期刊，但是一定要得到确认文章被撤回的信息才能下一轮投稿。</p>
+<p><strong>有些期刊比较反感axiv，因此在投稿的时候要提前声明，防止其追究一稿多投的责任。</strong></p>
+<p><img src="https://gitee.com/houdezaiwu2022/image-bed/raw/master/paper/202203031828251.png" alt="**IEEE规定：投稿**"></p>
+<h4 id="IEEE规定：参考和引用"><a href="#IEEE规定：参考和引用" class="headerlink" title="IEEE规定：参考和引用"></a><strong>IEEE规定：参考和引用</strong></h4><p>图片的规定，如果文章已经发表，那么文章的版权归出版社所有，就算要引用自己论文里的图片，也要和出版社打招呼，征求同意。</p>
+<p><img src="https://gitee.com/houdezaiwu2022/image-bed/raw/master/paper/202203031828080.png" alt="**IEEE规定：参考和引用**"></p>
+<p><strong>因此我们对于以前自己的图还是重新画一下吧。</strong></p>
+<h4 id="IEEE规定：论文抄袭-gt-50-的判定及处罚决定"><a href="#IEEE规定：论文抄袭-gt-50-的判定及处罚决定" class="headerlink" title="IEEE规定：论文抄袭&gt;50%的判定及处罚决定"></a><strong>IEEE规定：论文抄袭&gt;50%的判定及处罚决定</strong></h4><ul>
+<li>这里对抄袭的规定有两种：<ul>
+<li>其一，全文抄袭，这里包括直接使用了他人的文章里的句子没有引用。(比较严重)</li>
+<li>其二，50% 可以是一篇全问抄袭了50%，或者是同一个作者连投两篇论文，一共50%.</li>
+</ul>
+</li>
+</ul>
+<p><img src="https://gitee.com/houdezaiwu2022/image-bed/raw/master/paper/202203031828827.png" alt="IEEE规定：论文抄袭&gt;50%的判定"></p>
+<p><strong>IEEE规定：论文抄袭&gt;50%的处罚决定</strong></p>
+<p><img src="https://gitee.com/houdezaiwu2022/image-bed/raw/master/paper/202203031828582.png" alt="IEEE规定：论文抄袭&gt;50%的处罚决定"></p>
+<ul>
+<li>包括在IEEE公开的数据库里写道歉信；</li>
+<li>情节严重者会5年内不许投稿IEEE，就是直接拒稿。</li>
+<li>连续两次会被终身拒稿。</li>
+</ul>
+<h4 id="IEEE规定：论文抄袭20-50-的判定及处罚决定"><a href="#IEEE规定：论文抄袭20-50-的判定及处罚决定" class="headerlink" title="IEEE规定：论文抄袭20-50%的判定及处罚决定"></a><strong>IEEE规定：论文抄袭20-50%的判定及处罚决定</strong></h4><p><img src="https://gitee.com/houdezaiwu2022/image-bed/raw/master/paper/202203031829327.png" alt="IEEE规定：论文抄袭20-50%的判定"></p>
+<ul>
+<li>基本的判定和上面一样。</li>
+</ul>
+<p><img src="https://gitee.com/houdezaiwu2022/image-bed/raw/master/paper/202203031830022.png" alt="IEEE规定：论文抄袭20-50%的处罚决定"></p>
+<ul>
+<li>处罚不同的是，3年之内禁止发论文；</li>
+<li>也要写处罚决定；</li>
+<li>其次就是再投的文章或者已接受但未发表的文章直接拒稿。</li>
+</ul>
+<h4 id="IEEE规定：论文抄袭-lt-20-的判定及处罚决定"><a href="#IEEE规定：论文抄袭-lt-20-的判定及处罚决定" class="headerlink" title="IEEE规定：论文抄袭&lt;20%的判定及处罚决定"></a><strong>IEEE规定：论文抄袭&lt;20%的判定及处罚决定</strong></h4><p><img src="https://gitee.com/houdezaiwu2022/image-bed/raw/master/paper/202203031830252.png" alt="IEEE规定：论文抄袭&lt;20%的判定"></p>
+<ul>
+<li>基本的判定规则还是一样的，一篇&lt;20%或者是同作者的同时投的文章&lt;20%。</li>
+</ul>
+<p><img src="https://gitee.com/houdezaiwu2022/image-bed/raw/master/paper/202203031830517.png" alt="IEEE规定：论文抄袭&lt;20%的处罚决定"></p>
+<ul>
+<li>不用被禁投</li>
+<li>但是要写处罚决定</li>
+</ul>
+<h4 id="IEEE规定：不正确引用"><a href="#IEEE规定：不正确引用" class="headerlink" title="IEEE规定：不正确引用"></a><strong>IEEE规定：不正确引用</strong></h4><p><strong>情况1：整段整句的引用</strong></p>
+<p><img src="https://gitee.com/houdezaiwu2022/image-bed/raw/master/paper/202203031831710.png" alt="整段整句的引用"></p>
+<ul>
+<li>直接抄要将文字变为斜体，并加上参考文献。</li>
+<li>要是用自己的话来描述别人的思路，那直接给出参考文献即可。</li>
+<li>如果被认为是抄袭，要要在数据库道歉，并给对方的作者和期刊的主编道歉</li>
+</ul>
+<p><strong>情况2：大篇幅的引用</strong></p>
+<p><img src="https://gitee.com/houdezaiwu2022/image-bed/raw/master/paper/202203031831586.png" alt="大篇幅的引用"></p>
+<ul>
+<li>相当于是剽窃思路这类的；</li>
+<li>道歉并且在本期刊发表撤稿声明</li>
+</ul>
+<h4 id="IEEE规定：不引用已有的文献"><a href="#IEEE规定：不引用已有的文献" class="headerlink" title="IEEE规定：不引用已有的文献"></a><strong>IEEE规定：不引用已有的文献</strong></h4><p><img src="https://gitee.com/houdezaiwu2022/image-bed/raw/master/paper/202203031831596.png" alt="不引用已有的文献"></p>
+<ul>
+<li>这种问题主要是，有一个和自己很相关的工作，但是效果不如人家的好，又怕别嘲讽没有意义，所以故意不去引用。</li>
+<li>初犯通常主编直接警告处理，多次出现要写检讨。</li>
+</ul>
+<h4 id="IEEE规定：一稿多投"><a href="#IEEE规定：一稿多投" class="headerlink" title="IEEE规定：一稿多投"></a><strong>IEEE规定：一稿多投</strong></h4><p><img src="https://gitee.com/houdezaiwu2022/image-bed/raw/master/paper/202203031831538.png" alt="一稿多投"></p>
+<ul>
+<li>给主编写道歉信，并公开。</li>
+</ul>
+<h3 id="经验技巧"><a href="#经验技巧" class="headerlink" title="经验技巧"></a><strong>经验技巧</strong></h3><h4 id="理工科写论文的技巧"><a href="#理工科写论文的技巧" class="headerlink" title="理工科写论文的技巧"></a><strong>理工科写论文的技巧</strong></h4><p>建议使用Latex ，美观、高效、格式切换方便</p>
+<p><img src="https://gitee.com/houdezaiwu2022/image-bed/raw/master/paper/202203031846499.png" alt="公式排版对比"></p>
+<p>MikTex,<a target="_blank" rel="noopener" href="https://miktex.org，后台引擎">https://miktex.org，后台引擎</a></p>
+<p>WinEdt，<a target="_blank" rel="noopener" href="https://www.winedt.com，前端编辑">https://www.winedt.com，前端编辑</a></p>
+<p>JabRef，<a target="_blank" rel="noopener" href="https://www.jabref.org，参考文献管理">https://www.jabref.org，参考文献管理</a></p>
+<h4 id="Latex里的公式"><a href="#Latex里的公式" class="headerlink" title="Latex里的公式"></a><strong>Latex里的公式</strong></h4><p><img src="https://gitee.com/houdezaiwu2022/image-bed/raw/master/paper/202203031850679.png" alt="带编号公式排版"></p>
+<ul>
+<li>这里伍老师推荐使用align环境来排版</li>
+<li>不带编号的公式的排版可以使用align*或者是使用<code>\nonumber</code></li>
+</ul>
+<p><img src="https://gitee.com/houdezaiwu2022/image-bed/raw/master/paper/202203031852185.png" alt="不带编号公式排版"></p>
+<ul>
+<li>这里的<code>\[  ***  \]</code>的作用和align环境相同。</li>
+</ul>
+<p><img src="https://gitee.com/houdezaiwu2022/image-bed/raw/master/paper/202203031853205.png" alt="更为复杂的公式"></p>
+<h4 id="Latex里的图片"><a href="#Latex里的图片" class="headerlink" title="Latex里的图片"></a><strong>Latex里的图片</strong></h4><ul>
+<li>对于插图一般是使用的是<code>\usepackeage&#123;graphic,subfigure&#125;</code></li>
+</ul>
+<p><img src="%E8%AE%BA%E6%96%87%E5%86%99%E4%BD%9C%E6%8C%87%E5%AF%BC.assets/image-20220303185607436.png" alt="插图"></p>
+<ul>
+<li><p>尽量是使用最简单的命令，防止无法运行成功。</p>
+</li>
+<li><p>图片的格式最好使用.eps矢量图，因为矢量图放大后不会变糊，而位图会变糊。</p>
+</li>
+<li><p>[htbp] -option参数，代表有限放到当前的位置h，否则地方不不够，会放到下一列的最顶端t，其次放到整体页面的两列的下方b。</p>
+</li>
+<li>clip: 代表直接裁掉边缘的空白。</li>
+</ul>
+<p><img src="https://gitee.com/houdezaiwu2022/image-bed/raw/master/paper/202203031905051.png" alt="加入子图的最简单的做法"></p>
+<h4 id="产生EPS图像"><a href="#产生EPS图像" class="headerlink" title="产生EPS图像"></a><strong>产生EPS图像</strong></h4><ul>
+<li><p>这里伍老师建议还是再ppt中画图比较好，进本可以满足我们的基本要求，下载Visio比较麻烦，别人想让编辑还要再下载一个Visio。</p>
+</li>
+<li><p>PPT图像转EPS: PPT中选中图像，右键另存为jpg或png，然后用wxbmpp <a target="_blank" rel="noopener" href="https://lsourceforge.net/p/dktools/wiki/wxbmpp">https://lsourceforge.net/p/dktools/wiki/wxbmpp</a>   转EPS</p>
+</li>
+<li><p>Matlab中定制图像大小和缺省字体:</p>
+<figure class="highlight matlab"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">figure</span>(<span class="string">&#x27;Position&#x27;</span>,[<span class="number">100</span> <span class="number">100</span> <span class="number">400</span> <span class="number">300</span>]);</span><br><span class="line">set(gcf，<span class="string">&#x27;DefaulttextFontName&#x27;</span>，<span class="string">&#x27;times new roman&#x27;</span>，<span class="string">&#x27;DefaultaxesFontName&#x27;</span>,<span class="string">&#x27;times new roman&#x27;</span> , <span class="string">&#x27;defaultaxesfontsize&#x27;</span>, <span class="number">11</span>);</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>Matlab 中定制 legend列数和位置:</p>
+<figure class="highlight matlab"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">H = <span class="built_in">legend</span>(CSP-LDA’,<span class="string">&#x27;CSP-CLDA’, &#x27;</span>location&#x27;, <span class="string">&#x27;eastoutside&#x27;</span> , <span class="string">&#x27;numcolumns&#x27;</span>，<span class="number">1</span>);set(h, <span class="string">&#x27;fontsize&#x27;</span>, <span class="number">9</span>, <span class="string">&#x27;position&#x27;</span>, get(h,<span class="string">&#x27;position&#x27;</span>)+[<span class="number">0.13</span> <span class="number">0.1</span> <span class="number">0</span> <span class="number">0</span>]);</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>Matlab 中存彩色EPS图像:</p>
+<figure class="highlight matlab"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">saveas(gcf, <span class="string">&#x27;name.eps&#x27;</span> , <span class="string">&#x27;epsc2&#x27;</span>);</span><br><span class="line"># epsc2 中的c代表color，如果不写c会存成黑白图片</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<h4 id="Latex中的表格"><a href="#Latex中的表格" class="headerlink" title="Latex中的表格"></a><strong>Latex中的表格</strong></h4><ul>
+<li>使用的是<code>\usepackage&#123;multirow&#125;</code>包。</li>
+</ul>
+<p><img src="https://gitee.com/houdezaiwu2022/image-bed/raw/master/paper/202203031916478.png" alt="Latexd的表格"></p>
+<h4 id="Latex中的伪代码"><a href="#Latex中的伪代码" class="headerlink" title="Latex中的伪代码"></a><strong>Latex中的伪代码</strong></h4><ul>
+<li>使用的是<code>\usepackage[linked, ruled]&#123;algorithm2e&#125;</code>包</li>
+</ul>
+<p><img src="https://gitee.com/houdezaiwu2022/image-bed/raw/master/paper/202203031920700.png" alt="伪代码"></p>
+<p><img src="https://gitee.com/houdezaiwu2022/image-bed/raw/master/paper/202203031920984.png" alt="伪代码实际情况"></p>
+<ul>
+<li><p>这个例子还是全的，包括了代码的注释、if-end，while-end，if-then.</p>
+</li>
+<li><p>很有代表性，仔细参考。</p>
+</li>
+</ul>
+<h4 id="参考文献"><a href="#参考文献" class="headerlink" title="参考文献"></a><strong>参考文献</strong></h4><h5 id="参考文献管理"><a href="#参考文献管理" class="headerlink" title="参考文献管理"></a><strong>参考文献管理</strong></h5><ul>
+<li>LaTex的参考文献建议用JabRef来创建和管理bib文件</li>
+<li>假定 bib文件名为<code>drwubib.bib</code>，需要的时候只要在文章结尾<code>\end &#123;document&#125;</code>之前加入:<br><code>\bibliographystyle&#123;IEEEtran&#125;</code>  <code>\bibliography &#123;drwubib&#125;</code><br>即可以自动处理参考文献</li>
+<li><code>\Bibliographystyle &#123;IEEEtranS&#125;</code>是把文献按第一作者 <strong>last name(姓)</strong>音序排列，IEEEtran是按照参考文献在正文中出现的顺序排列。</li>
+<li>要使所有 .tex 文件都能找到公用的 bib 文件，而不是手动在每个 .tex 文件目录里面copy一份 bib 文9件，可以把公用的bib 文件 copy到MikTex 的对应目录下，比如C:Program Files\LaTex\MiKTeX2.9\bibtexlbibldrwubib</li>
+<li>对于老版本的 WinEdt，在菜单选择<strong>Tex→MikTex → Options →  General → Refresh FNDB, </strong>MikTex以后就可以自动找到bib文件</li>
+<li>对于新版本的WinEdt，可能菜单里面没有上述选项，或者不可用。解决办法是在开始菜单里面搜索MikTex Console，Tasks 菜单里面有Refresh file name database</li>
+</ul>
+<p><strong>特殊的对于中文的参考文献</strong></p>
+<ul>
+<li>要在JabRef中使用中文参考文献，需要设置:<br>Options →Preference → General → Default Encoding → UTF8<br>Options → Preference → Appearance → Set table font → MicrosoftYaHei</li>
+<li>否则中文可能是乱码<br>Preference设置好之后可export保存，以后装新版本时直接import进去Preference文件是不同版本通用的</li>
+</ul>
+<p><strong>一般要求</strong></p>
+<p><img src="https://gitee.com/houdezaiwu2022/image-bed/raw/master/paper/202203031936972.png" alt="参考文献"></p>
+<ul>
+<li><p>一般参考文献之间使用的是 and 连接, 因为逗号有其特殊的含义。</p>
+</li>
+<li><p>{ } 的作用是防止编译器将其自动变成小写。</p>
+</li>
+</ul>
+<h5 id="参考文献格式"><a href="#参考文献格式" class="headerlink" title="参考文献格式"></a><strong>参考文献格式</strong></h5><p><strong>期刊论文Article</strong></p>
+<ul>
+<li>Volume(卷)、issue(期)、pages都不能少</li>
+<li>IEEE Transactions on XXX一般简写为{IEEE}Trans. on XXX</li>
+<li>注意Trans后面有个点，期刊名首字母大写</li>
+<li>花括号里面的文字在输出时大小写不变，这样可防止编译后IEEE变成Ieee</li>
+<li>文章标题中有特殊字符需要大写的话，也用花括号包起来</li>
+</ul>
+<p><img src="https://gitee.com/houdezaiwu2022/image-bed/raw/master/paper/202203031943946.png" alt="参考文献格式"></p>
+<p><strong>会议论文 inproceedings</strong></p>
+<ul>
+<li>会议月份、地点都不能少</li>
+<li>有时候没有页码，就不输入</li>
+<li>Proceedings的简写是Proc.</li>
+<li>International的简写是Int’l</li>
+<li>Conference的简写是 Conf.</li>
+<li>注意后面的点，全议名首字母大写</li>
+</ul>
+<p><img src="https://gitee.com/houdezaiwu2022/image-bed/raw/master/paper/202203031945548.png" alt="会议论文的格式"></p>
+<ul>
+<li>在美国开的会议，要写出主办城市和州的缩写，NV内华达州</li>
+</ul>
+<h4 id="Latex文档的Track-Change"><a href="#Latex文档的Track-Change" class="headerlink" title="Latex文档的Track Change"></a><strong>Latex文档的Track Change</strong></h4><ul>
+<li>安装latexdiff： <a target="_blank" rel="noopener" href="https://ctan.org/pkg/latexdiff?lang=en">https://ctan.org/pkg/latexdiff?lang=en</a><br>latexdiff —math-markup=0 old.tex new.tex &gt; diff.tex</li>
+<li>如果检查数学公式有无变化出问题，可设置—math-mark<br>up=0,不检查公式更新</li>
+<li>Latexdiff不是完美的，产生的tex文件里面可能有错误,<br>无法编译，对数学命令和表格命令会出错</li>
+<li>最常见是在表中，可用新文档中的表格源码直接覆盖diff.tex中对应的部分，即表格就不track change了</li>
+</ul>
+<p><img src="https://gitee.com/houdezaiwu2022/image-bed/raw/master/paper/202203031952886.png" alt="track change的展示"></p>
+<ul>
+<li>因为期刊审稿的过程中会要求提交新老版本之间的区别。这样操作比较的方便。</li>
+<li>蓝色为新添加的内容，红色为修改删去的内容。</li>
+</ul>
+<h4 id="PDF字体嵌入"><a href="#PDF字体嵌入" class="headerlink" title="PDF字体嵌入"></a><strong>PDF字体嵌入</strong></h4><ul>
+<li><p><strong>IEEE会议文章为什么要求字体embedded?</strong></p>
+<p>有些文章用了<strong>特殊的字体(德语韩语如果没有装可能无法显示)</strong>，读者计算机上面可能没有安装，导致文章无法正常显示。把字体embed 到文章中去，就相当于编译程序时把所有依赖的包都打包进去，这样没有安装该字体的读者也能正常阅读</p>
+</li>
+<li><p><strong>IEEE会议文章为什么要求字体subset?</strong></p>
+<p>一个字体包括很多字母和符号，体积可能很大，而文章中用到的可能只有几个字符。<strong>Subset</strong>就是<strong>只打包这几个用到的字符</strong>，从而避免文章体积过大</p>
+<p>（期刊文章后期会有对于的编辑帮我们处理，而会议论文没有人帮我们后期处理）</p>
+</li>
+<li><p><strong>IEEE期刊文章为什么不要求字体embedded subset?</strong></p>
+<p>IEEE的期刊文章都会经过编辑部重新排版整理，他们会处理这些东西不需要作者考虑。会议文章是作者上传最终版，所以责任在作者</p>
+</li>
+</ul>
+<p><strong>字体嵌入的方法</strong></p>
+<p><img src="https://gitee.com/houdezaiwu2022/image-bed/raw/master/paper/202203032000682.png" alt="字体嵌入的方法"></p>
+<p><img src="%E8%AE%BA%E6%96%87%E5%86%99%E4%BD%9C%E6%8C%87%E5%AF%BC.assets/image-20220303200059128.png" alt="字体嵌入的方法"></p>
+<h4 id="PPT内使用Latex-lguanaTex"><a href="#PPT内使用Latex-lguanaTex" class="headerlink" title="PPT内使用Latex: lguanaTex"></a><strong>PPT内使用Latex: lguanaTex</strong></h4><p><a target="_blank" rel="noopener" href="http://www.jonathanleroux.org/software/iguanatex">http://www.jonathanleroux.org/software/iguanatex</a></p>
+<p>但是，这个仅仅是个插件，不可以将一整个命令都copy过来。</p>
+<p><img src="%E8%AE%BA%E6%96%87%E5%86%99%E4%BD%9C%E6%8C%87%E5%AF%BC.assets/image-20220303200421882.png" alt="ppt里使用Latex"></p>
+<ul>
+<li>在生成的公式是以一个图的形式插入在ppt中，不管怎样放大都很清晰。</li>
+<li>而且这个公式的很方便编辑，而且就算别人的电脑里没有这个插件也是可以正常显示的。</li>
+</ul>
+<h4 id="Matlab中使用LaTex"><a href="#Matlab中使用LaTex" class="headerlink" title="Matlab中使用LaTex"></a><strong>Matlab中使用LaTex</strong></h4><p><img src="%E8%AE%BA%E6%96%87%E5%86%99%E4%BD%9C%E6%8C%87%E5%AF%BC.assets/image-20220303200814600.png" alt="Matlab中使用LaTex"></p>
+<ul>
+<li>如上图所示，<code>&#39;interpreter&#39;,&#39;latex&#39;</code>表示解析latex的命令。</li>
+<li>使用latex的字符会更加的美观。</li>
+</ul>
+</div><div class="article-licensing box"><div class="licensing-title"><p>论文写作指导</p><p><a href="http://example.com/2022/03/03/论文写作教程/论文写作指导/">http://example.com/2022/03/03/论文写作教程/论文写作指导/</a></p></div><div class="licensing-meta level is-mobile"><div class="level-left"><div class="level-item is-narrow"><div><h6>作者</h6><p>czt</p></div></div><div class="level-item is-narrow"><div><h6>发布于</h6><p>2022-03-03</p></div></div><div class="level-item is-narrow"><div><h6>更新于</h6><p>2022-03-03</p></div></div><div class="level-item is-narrow"><div><h6>许可协议</h6><p><a class="icons" rel="noopener" target="_blank" title="Creative Commons" href="https://creativecommons.org/"><i class="icon fab fa-creative-commons"></i></a><a class="icons" rel="noopener" target="_blank" title="Attribution" href="https://creativecommons.org/licenses/by/4.0/"><i class="icon fab fa-creative-commons-by"></i></a><a class="icons" rel="noopener" target="_blank" title="Noncommercial" href="https://creativecommons.org/licenses/by-nc/4.0/"><i class="icon fab fa-creative-commons-nc"></i></a></p></div></div></div></div></div><div class="article-tags is-size-7 mb-4"><span class="mr-2">#</span><a class="link-muted mr-2" rel="tag" href="/tags/latex/">latex</a><a class="link-muted mr-2" rel="tag" href="/tags/%E8%AE%BA%E6%96%87%E5%86%99%E4%BD%9C/">论文写作</a><a class="link-muted mr-2" rel="tag" href="/tags/IEEE%E6%8A%95%E7%A8%BF/">IEEE投稿</a><a class="link-muted mr-2" rel="tag" href="/tags/%E7%A7%91%E7%A0%94/">科研</a></div><!--!--></article></div><!--!--><nav class="post-navigation mt-4 level is-mobile"><div class="level-end"><a class="article-nav-next level level-item link-muted" href="/2022/02/24/Generative%20Adversarial%20Networks/pix2pix-GAN-%E8%AE%BA%E6%96%87%E5%8F%8A%E6%A8%A1%E5%9E%8B%E6%90%AD%E5%BB%BA/"><span class="level-item">Pix2pix GAN 论文及模型搭建</span><i class="level-item fas fa-chevron-right"></i></a></div></nav><!--!--></div><div class="column column-left is-4-tablet is-4-desktop is-3-widescreen  order-1 is-sticky"><div class="card widget" data-type="profile"><div class="card-content"><nav class="level"><div class="level-item has-text-centered flex-shrink-1"><div><figure class="image is-128x128 mx-auto mb-2"><img class="avatar" src="https://gitee.com/houdezaiwu2022/image-bed/raw/master/hexoimg/202201222202112.jpg" alt="厚德载物"></figure><p class="title is-size-4 is-block" style="line-height:inherit;">厚德载物</p><p class="is-size-6 is-block">博士生</p><p class="is-size-6 is-flex justify-content-center"><i class="fas fa-map-marker-alt mr-1"></i><span>中国 湖北 武汉</span></p></div></div></nav><nav class="level is-mobile"><div class="level-item has-text-centered is-marginless"><div><p class="heading">文章</p><a href="/archives"><p class="title">33</p></a></div></div><div class="level-item has-text-centered is-marginless"><div><p class="heading">分类</p><a href="/categories"><p class="title">10</p></a></div></div><div class="level-item has-text-centered is-marginless"><div><p class="heading">标签</p><a href="/tags"><p class="title">20</p></a></div></div></nav><div class="level"><a class="level-item button is-primary is-rounded" href="https://github.com/ppoffice" target="_blank" rel="noopener">关注我</a></div><div class="level is-mobile is-multiline"><a class="level-item button is-transparent is-marginless" target="_blank" rel="noopener" title="Github" href="https://github.com/ppoffice"><i class="fab fa-github"></i></a><a class="level-item button is-transparent is-marginless" target="_blank" rel="noopener" title="Facebook" href="https://facebook.com"><i class="fab fa-facebook"></i></a><a class="level-item button is-transparent is-marginless" target="_blank" rel="noopener" title="Twitter" href="https://twitter.com"><i class="fab fa-twitter"></i></a><a class="level-item button is-transparent is-marginless" target="_blank" rel="noopener" title="Dribbble" href="https://dribbble.com"><i class="fab fa-dribbble"></i></a><a class="level-item button is-transparent is-marginless" target="_blank" rel="noopener" title="RSS" href="/"><i class="fas fa-rss"></i></a></div></div></div><div class="card widget" data-type="links"><div class="card-content"><div class="menu"><h3 class="menu-label">链接</h3><ul class="menu-list"><li><a class="level is-mobile" href="https://hexo.io" target="_blank" rel="noopener"><span class="level-left"><span class="level-item">Hexo</span></span><span class="level-right"><span class="level-item tag">hexo.io</span></span></a></li><li><a class="level is-mobile" href="https://bulma.io" target="_blank" rel="noopener"><span class="level-left"><span class="level-item">Bulma</span></span><span class="level-right"><span class="level-item tag">bulma.io</span></span></a></li></ul></div></div></div><div class="card widget" data-type="archives"><div class="card-content"><div class="menu"><h3 class="menu-label">归档</h3><ul class="menu-list"><li><a class="level is-mobile" href="/archives/2022/03/"><span class="level-start"><span class="level-item">三月 2022</span></span><span class="level-end"><span class="level-item tag">1</span></span></a></li><li><a class="level is-mobile" href="/archives/2022/02/"><span class="level-start"><span class="level-item">二月 2022</span></span><span class="level-end"><span class="level-item tag">21</span></span></a></li><li><a class="level is-mobile" href="/archives/2022/01/"><span class="level-start"><span class="level-item">一月 2022</span></span><span class="level-end"><span class="level-item tag">11</span></span></a></li></ul></div></div></div><div class="card widget" data-type="tags"><div class="card-content"><div class="menu"><h3 class="menu-label">标签</h3><div class="field is-grouped is-grouped-multiline"><div class="control"><a class="tags has-addons" href="/tags/GAN%E5%AE%9E%E6%88%98/"><span class="tag">GAN实战</span><span class="tag">6</span></a></div><div class="control"><a class="tags has-addons" href="/tags/Generative-Adversarial-Networks/"><span class="tag">Generative Adversarial Networks</span><span class="tag">6</span></a></div><div class="control"><a class="tags has-addons" href="/tags/IEEE%E6%8A%95%E7%A8%BF/"><span class="tag">IEEE投稿</span><span class="tag">1</span></a></div><div class="control"><a class="tags has-addons" href="/tags/Latex/"><span class="tag">Latex</span><span class="tag">4</span></a></div><div class="control"><a class="tags has-addons" href="/tags/Markdown/"><span class="tag">Markdown</span><span class="tag">1</span></a></div><div class="control"><a class="tags has-addons" href="/tags/Typora/"><span class="tag">Typora</span><span class="tag">1</span></a></div><div class="control"><a class="tags has-addons" href="/tags/auto-encoder/"><span class="tag">auto-encoder</span><span class="tag">3</span></a></div><div class="control"><a class="tags has-addons" href="/tags/control-theory/"><span class="tag">control theory</span><span class="tag">1</span></a></div><div class="control"><a class="tags has-addons" href="/tags/latex/"><span class="tag">latex</span><span class="tag">1</span></a></div><div class="control"><a class="tags has-addons" href="/tags/object-detection/"><span class="tag">object detection</span><span class="tag">3</span></a></div><div class="control"><a class="tags has-addons" href="/tags/opencv/"><span class="tag">opencv</span><span class="tag">3</span></a></div><div class="control"><a class="tags has-addons" href="/tags/python/"><span class="tag">python</span><span class="tag">3</span></a></div><div class="control"><a class="tags has-addons" href="/tags/pytorch/"><span class="tag">pytorch</span><span class="tag">17</span></a></div><div class="control"><a class="tags has-addons" href="/tags/%E5%9B%BE%E5%83%8F%E5%88%86%E7%B1%BB/"><span class="tag">图像分类</span><span class="tag">6</span></a></div><div class="control"><a class="tags has-addons" href="/tags/%E6%8E%A7%E5%88%B6%E7%90%86%E8%AE%BA/"><span class="tag">控制理论</span><span class="tag">1</span></a></div><div class="control"><a class="tags has-addons" href="/tags/%E6%97%A0%E7%9B%91%E7%9D%A3%E5%AD%A6%E4%B9%A0/"><span class="tag">无监督学习</span><span class="tag">3</span></a></div><div class="control"><a class="tags has-addons" href="/tags/%E6%9C%BA%E6%A2%B0%E6%8C%AF%E5%8A%A8/"><span class="tag">机械振动</span><span class="tag">2</span></a></div><div class="control"><a class="tags has-addons" href="/tags/%E7%94%9F%E6%88%90%E6%A8%A1%E5%9E%8B/"><span class="tag">生成模型</span><span class="tag">3</span></a></div><div class="control"><a class="tags has-addons" href="/tags/%E7%A7%91%E7%A0%94/"><span class="tag">科研</span><span class="tag">1</span></a></div><div class="control"><a class="tags has-addons" href="/tags/%E8%AE%BA%E6%96%87%E5%86%99%E4%BD%9C/"><span class="tag">论文写作</span><span class="tag">1</span></a></div></div></div></div></div><div class="column-right-shadow is-hidden-widescreen is-sticky"></div></div><div class="column column-right is-4-tablet is-4-desktop is-3-widescreen is-hidden-touch is-hidden-desktop-only order-3 is-sticky"><div class="card widget" id="toc" data-type="toc"><div class="card-content"><div class="menu"><h3 class="menu-label">目录</h3><ul class="menu-list"><li><a class="level is-mobile" href="#论文撰写"><span class="level-left"><span class="level-item">1</span><span class="level-item">论文撰写</span></span></a><ul class="menu-list"><li><a class="level is-mobile" href="#基本语法"><span class="level-left"><span class="level-item">1.1</span><span class="level-item">基本语法</span></span></a></li><li><a class="level is-mobile" href="#语义"><span class="level-left"><span class="level-item">1.2</span><span class="level-item">语义</span></span></a></li><li><a class="level is-mobile" href="#具体内容部分"><span class="level-left"><span class="level-item">1.3</span><span class="level-item">具体内容部分</span></span></a></li><li><a class="level is-mobile" href="#其他注意事项"><span class="level-left"><span class="level-item">1.4</span><span class="level-item">其他注意事项</span></span></a><ul class="menu-list"><li><a class="level is-mobile" href="#单复数、时态"><span class="level-left"><span class="level-item">1.4.1</span><span class="level-item">单复数、时态</span></span></a></li><li><a class="level is-mobile" href="#其他的注意事项"><span class="level-left"><span class="level-item">1.4.2</span><span class="level-item">其他的注意事项</span></span></a></li><li><a class="level is-mobile" href="#公式后的标点符号"><span class="level-left"><span class="level-item">1.4.3</span><span class="level-item">公式后的标点符号</span></span></a></li></ul></li></ul></li><li><a class="level is-mobile" href="#学术规范"><span class="level-left"><span class="level-item">2</span><span class="level-item">学术规范</span></span></a><ul class="menu-list"><li><a class="level is-mobile" href="#IEEE规定：投稿"><span class="level-left"><span class="level-item">2.1</span><span class="level-item">IEEE规定：投稿</span></span></a></li><li><a class="level is-mobile" href="#IEEE规定：参考和引用"><span class="level-left"><span class="level-item">2.2</span><span class="level-item">IEEE规定：参考和引用</span></span></a></li><li><a class="level is-mobile" href="#IEEE规定：论文抄袭-gt-50-的判定及处罚决定"><span class="level-left"><span class="level-item">2.3</span><span class="level-item">IEEE规定：论文抄袭&gt;50%的判定及处罚决定</span></span></a></li><li><a class="level is-mobile" href="#IEEE规定：论文抄袭20-50-的判定及处罚决定"><span class="level-left"><span class="level-item">2.4</span><span class="level-item">IEEE规定：论文抄袭20-50%的判定及处罚决定</span></span></a></li><li><a class="level is-mobile" href="#IEEE规定：论文抄袭-lt-20-的判定及处罚决定"><span class="level-left"><span class="level-item">2.5</span><span class="level-item">IEEE规定：论文抄袭&lt;20%的判定及处罚决定</span></span></a></li><li><a class="level is-mobile" href="#IEEE规定：不正确引用"><span class="level-left"><span class="level-item">2.6</span><span class="level-item">IEEE规定：不正确引用</span></span></a></li><li><a class="level is-mobile" href="#IEEE规定：不引用已有的文献"><span class="level-left"><span class="level-item">2.7</span><span class="level-item">IEEE规定：不引用已有的文献</span></span></a></li><li><a class="level is-mobile" href="#IEEE规定：一稿多投"><span class="level-left"><span class="level-item">2.8</span><span class="level-item">IEEE规定：一稿多投</span></span></a></li></ul></li><li><a class="level is-mobile" href="#经验技巧"><span class="level-left"><span class="level-item">3</span><span class="level-item">经验技巧</span></span></a><ul class="menu-list"><li><a class="level is-mobile" href="#理工科写论文的技巧"><span class="level-left"><span class="level-item">3.1</span><span class="level-item">理工科写论文的技巧</span></span></a></li><li><a class="level is-mobile" href="#Latex里的公式"><span class="level-left"><span class="level-item">3.2</span><span class="level-item">Latex里的公式</span></span></a></li><li><a class="level is-mobile" href="#Latex里的图片"><span class="level-left"><span class="level-item">3.3</span><span class="level-item">Latex里的图片</span></span></a></li><li><a class="level is-mobile" href="#产生EPS图像"><span class="level-left"><span class="level-item">3.4</span><span class="level-item">产生EPS图像</span></span></a></li><li><a class="level is-mobile" href="#Latex中的表格"><span class="level-left"><span class="level-item">3.5</span><span class="level-item">Latex中的表格</span></span></a></li><li><a class="level is-mobile" href="#Latex中的伪代码"><span class="level-left"><span class="level-item">3.6</span><span class="level-item">Latex中的伪代码</span></span></a></li><li><a class="level is-mobile" href="#参考文献"><span class="level-left"><span class="level-item">3.7</span><span class="level-item">参考文献</span></span></a><ul class="menu-list"><li><a class="level is-mobile" href="#参考文献管理"><span class="level-left"><span class="level-item">3.7.1</span><span class="level-item">参考文献管理</span></span></a></li><li><a class="level is-mobile" href="#参考文献格式"><span class="level-left"><span class="level-item">3.7.2</span><span class="level-item">参考文献格式</span></span></a></li></ul></li><li><a class="level is-mobile" href="#Latex文档的Track-Change"><span class="level-left"><span class="level-item">3.8</span><span class="level-item">Latex文档的Track Change</span></span></a></li><li><a class="level is-mobile" href="#PDF字体嵌入"><span class="level-left"><span class="level-item">3.9</span><span class="level-item">PDF字体嵌入</span></span></a></li><li><a class="level is-mobile" href="#PPT内使用Latex-lguanaTex"><span class="level-left"><span class="level-item">3.10</span><span class="level-item">PPT内使用Latex: lguanaTex</span></span></a></li><li><a class="level is-mobile" href="#Matlab中使用LaTex"><span class="level-left"><span class="level-item">3.11</span><span class="level-item">Matlab中使用LaTex</span></span></a></li></ul></li></ul></div></div><script src="/js/toc.js" defer></script></div><div class="card widget" data-type="categories"><div class="card-content"><div class="menu"><h3 class="menu-label">分类</h3><ul class="menu-list"><li><a class="level is-mobile" href="/categories/Generative-Adversarial-Networks/"><span class="level-start"><span class="level-item">Generative Adversarial Networks</span></span><span class="level-end"><span class="level-item tag">6</span></span></a></li><li><a class="level is-mobile" href="/categories/Latex/"><span class="level-start"><span class="level-item">Latex</span></span><span class="level-end"><span class="level-item tag">4</span></span></a></li><li><a class="level is-mobile" href="/categories/PyTorch%E6%95%99%E7%A8%8B%E4%B8%8E%E6%BA%90%E7%A0%81%E8%AE%B2%E8%A7%A3/"><span class="level-start"><span class="level-item">PyTorch教程与源码讲解</span></span><span class="level-end"><span class="level-item tag">5</span></span></a></li><li><a class="level is-mobile" href="/categories/Typora/"><span class="level-start"><span class="level-item">Typora</span></span><span class="level-end"><span class="level-item tag">1</span></span></a></li><li><a class="level is-mobile" href="/categories/auto-encoder/"><span class="level-start"><span class="level-item">auto-encoder</span></span><span class="level-end"><span class="level-item tag">3</span></span></a></li><li><a class="level is-mobile" href="/categories/opencv/"><span class="level-start"><span class="level-item">opencv</span></span><span class="level-end"><span class="level-item tag">3</span></span></a></li><li><a class="level is-mobile" href="/categories/%E5%9B%BE%E5%83%8F%E5%88%86%E7%B1%BB%E7%BD%91%E7%BB%9C%E5%8F%8APytorch%E5%AE%9E%E7%8E%B0/"><span class="level-start"><span class="level-item">图像分类网络及Pytorch实现</span></span><span class="level-end"><span class="level-item tag">6</span></span></a></li><li><a class="level is-mobile" href="/categories/%E6%8C%AF%E5%8A%A8%E5%8A%9B%E5%AD%A6/"><span class="level-start"><span class="level-item">振动力学</span></span><span class="level-end"><span class="level-item tag">2</span></span></a></li><li><a class="level is-mobile" href="/categories/%E7%8E%B0%E4%BB%A3%E6%8E%A7%E5%88%B6%E7%90%86%E8%AE%BA/"><span class="level-start"><span class="level-item">现代控制理论</span></span><span class="level-end"><span class="level-item tag">1</span></span></a></li><li><a class="level is-mobile" href="/categories/%E8%AE%BA%E6%96%87%E5%86%99%E4%BD%9C%E6%95%99%E7%A8%8B/"><span class="level-start"><span class="level-item">论文写作教程</span></span><span class="level-end"><span class="level-item tag">1</span></span></a></li></ul></div></div></div><div class="card widget" data-type="recent-posts"><div class="card-content"><h3 class="menu-label">最新文章</h3><article class="media"><figure class="media-left"><a class="image" href="/2022/03/03/%E8%AE%BA%E6%96%87%E5%86%99%E4%BD%9C%E6%95%99%E7%A8%8B/%E8%AE%BA%E6%96%87%E5%86%99%E4%BD%9C%E6%8C%87%E5%AF%BC/"><img src="https://gitee.com/houdezaiwu2022/image-bed/raw/master/paper/202203032220322.png" alt="论文写作指导"></a></figure><div class="media-content"><p class="date"><time dateTime="2022-03-03T14:05:45.000Z">2022-03-03</time></p><p class="title"><a href="/2022/03/03/%E8%AE%BA%E6%96%87%E5%86%99%E4%BD%9C%E6%95%99%E7%A8%8B/%E8%AE%BA%E6%96%87%E5%86%99%E4%BD%9C%E6%8C%87%E5%AF%BC/">论文写作指导</a></p><p class="categories"><a href="/categories/%E8%AE%BA%E6%96%87%E5%86%99%E4%BD%9C%E6%95%99%E7%A8%8B/">论文写作教程</a></p></div></article><article class="media"><figure class="media-left"><a class="image" href="/2022/02/24/Generative%20Adversarial%20Networks/pix2pix-GAN-%E8%AE%BA%E6%96%87%E5%8F%8A%E6%A8%A1%E5%9E%8B%E6%90%AD%E5%BB%BA/"><img src="https://gitee.com/houdezaiwu2022/image-bed/raw/master/GAN/202202112308879.JPEG" alt="Pix2pix GAN 论文及模型搭建"></a></figure><div class="media-content"><p class="date"><time dateTime="2022-02-24T11:17:46.000Z">2022-02-24</time></p><p class="title"><a href="/2022/02/24/Generative%20Adversarial%20Networks/pix2pix-GAN-%E8%AE%BA%E6%96%87%E5%8F%8A%E6%A8%A1%E5%9E%8B%E6%90%AD%E5%BB%BA/">Pix2pix GAN 论文及模型搭建</a></p><p class="categories"><a href="/categories/Generative-Adversarial-Networks/">Generative Adversarial Networks</a></p></div></article><article class="media"><figure class="media-left"><a class="image" href="/2022/02/23/PyTorch%E6%95%99%E7%A8%8B%E4%B8%8E%E6%BA%90%E7%A0%81%E8%AE%B2%E8%A7%A3/Pytorch%E4%B8%AD%E5%B8%B8%E7%94%A8%E7%9A%84%E9%AB%98%E7%BA%A7%E6%93%8D%E4%BD%9C%E4%B8%8E%E6%90%AD%E5%BB%BA%E5%AE%8C%E6%95%B4%E6%B5%81%E7%A8%8B/"><img src="https://gitee.com/houdezaiwu2022/image-bed/raw/master/pytorch/202201271155098.png" alt="Pytorch中常用的高级操作与搭建完整流程"></a></figure><div class="media-content"><p class="date"><time dateTime="2022-02-23T13:48:08.000Z">2022-02-23</time></p><p class="title"><a href="/2022/02/23/PyTorch%E6%95%99%E7%A8%8B%E4%B8%8E%E6%BA%90%E7%A0%81%E8%AE%B2%E8%A7%A3/Pytorch%E4%B8%AD%E5%B8%B8%E7%94%A8%E7%9A%84%E9%AB%98%E7%BA%A7%E6%93%8D%E4%BD%9C%E4%B8%8E%E6%90%AD%E5%BB%BA%E5%AE%8C%E6%95%B4%E6%B5%81%E7%A8%8B/">Pytorch中常用的高级操作与搭建完整流程</a></p><p class="categories"><a href="/categories/PyTorch%E6%95%99%E7%A8%8B%E4%B8%8E%E6%BA%90%E7%A0%81%E8%AE%B2%E8%A7%A3/">PyTorch教程与源码讲解</a></p></div></article><article class="media"><figure class="media-left"><a class="image" href="/2022/02/23/PyTorch%E6%95%99%E7%A8%8B%E4%B8%8E%E6%BA%90%E7%A0%81%E8%AE%B2%E8%A7%A3/Pytorch%E5%9F%BA%E6%9C%AC%E7%BD%91%E7%BB%9C%E7%9A%84%E6%90%AD%E5%BB%BA%E8%BF%87%E7%A8%8B/"><img src="https://gitee.com/houdezaiwu2022/image-bed/raw/master/pytorch/202201271155098.png" alt="Pytorch基本网络的搭建过程"></a></figure><div class="media-content"><p class="date"><time dateTime="2022-02-23T13:47:45.000Z">2022-02-23</time></p><p class="title"><a href="/2022/02/23/PyTorch%E6%95%99%E7%A8%8B%E4%B8%8E%E6%BA%90%E7%A0%81%E8%AE%B2%E8%A7%A3/Pytorch%E5%9F%BA%E6%9C%AC%E7%BD%91%E7%BB%9C%E7%9A%84%E6%90%AD%E5%BB%BA%E8%BF%87%E7%A8%8B/">Pytorch基本网络的搭建过程</a></p><p class="categories"><a href="/categories/PyTorch%E6%95%99%E7%A8%8B%E4%B8%8E%E6%BA%90%E7%A0%81%E8%AE%B2%E8%A7%A3/">PyTorch教程与源码讲解</a></p></div></article><article class="media"><figure class="media-left"><a class="image" href="/2022/02/13/opencv/%E8%BD%A6%E6%B5%81%E7%BB%9F%E8%AE%A1%E9%A1%B9%E7%9B%AE/"><img src="https://gitee.com/houdezaiwu2022/image-bed/raw/master/opencv/202202132030725.png" alt="车流统计项目"></a></figure><div class="media-content"><p class="date"><time dateTime="2022-02-13T12:21:03.000Z">2022-02-13</time></p><p class="title"><a href="/2022/02/13/opencv/%E8%BD%A6%E6%B5%81%E7%BB%9F%E8%AE%A1%E9%A1%B9%E7%9B%AE/">车流统计项目</a></p><p class="categories"><a href="/categories/opencv/">opencv</a></p></div></article></div></div></div></div></div></section><footer class="footer"><div class="container"><div class="level"><div class="level-start"><a class="footer-logo is-block mb-2" href="/"><img src="/img/logo.svg" alt="houdezaiwu&#039;s blog" height="28"></a><p class="is-size-7"><span>&copy; 2022 czt</span>  Powered by <a href="https://hexo.io/" target="_blank" rel="noopener">Hexo</a> &amp; <a href="https://github.com/ppoffice/hexo-theme-icarus" target="_blank" rel="noopener">Icarus</a></p></div><div class="level-end"><div class="field has-addons"><p class="control"><a class="button is-transparent is-large" target="_blank" rel="noopener" title="Creative Commons" href="https://creativecommons.org/"><i class="fab fa-creative-commons"></i></a></p><p class="control"><a class="button is-transparent is-large" target="_blank" rel="noopener" title="Attribution 4.0 International" href="https://creativecommons.org/licenses/by/4.0/"><i class="fab fa-creative-commons-by"></i></a></p><p class="control"><a class="button is-transparent is-large" target="_blank" rel="noopener" title="Download on GitHub" href="https://github.com/ppoffice/hexo-theme-icarus"><i class="fab fa-github"></i></a></p></div></div></div></div></footer><script src="https://cdn.jsdelivr.net/npm/jquery@3.3.1/dist/jquery.min.js"></script><script src="https://cdn.jsdelivr.net/npm/moment@2.22.2/min/moment-with-locales.min.js"></script><script src="https://cdn.jsdelivr.net/npm/clipboard@2.0.4/dist/clipboard.min.js" defer></script><script>moment.locale("zh-CN");</script><script>var IcarusThemeSettings = {
+            article: {
+                highlight: {
+                    clipboard: true,
+                    fold: 'unfolded'
+                }
+            }
+        };</script><script src="/js/column.js"></script><script src="/js/animation.js"></script><a id="back-to-top" title="回到顶端" href="javascript:;"><i class="fas fa-chevron-up"></i></a><script src="/js/back_to_top.js" defer></script><!--!--><!--!--><!--!--><script src="https://cdn.jsdelivr.net/npm/cookieconsent@3.1.1/build/cookieconsent.min.js" defer></script><script>window.addEventListener("load", () => {
+      window.cookieconsent.initialise({
+        type: "info",
+        theme: "edgeless",
+        static: false,
+        position: "bottom-left",
+        content: {
+          message: "此网站使用Cookie来改善您的体验。",
+          dismiss: "知道了！",
+          allow: "允许使用Cookie",
+          deny: "拒绝",
+          link: "了解更多",
+          policy: "Cookie政策",
+          href: "https://www.cookiesandyou.com/",
+        },
+        palette: {
+          popup: {
+            background: "#edeff5",
+            text: "#838391"
+          },
+          button: {
+            background: "#4b81e8"
+          },
+        },
+      });
+    });</script><script src="https://cdn.jsdelivr.net/npm/lightgallery@1.10.0/dist/js/lightgallery.min.js" defer></script><script src="https://cdn.jsdelivr.net/npm/justifiedGallery@3.8.1/dist/js/jquery.justifiedGallery.min.js" defer></script><script>window.addEventListener("load", () => {
+            if (typeof $.fn.lightGallery === 'function') {
+                $('.article').lightGallery({ selector: '.gallery-item' });
+            }
+            if (typeof $.fn.justifiedGallery === 'function') {
+                if ($('.justified-gallery > p > .gallery-item').length) {
+                    $('.justified-gallery > p > .gallery-item').unwrap();
+                }
+                $('.justified-gallery').justifiedGallery();
+            }
+        });</script><!--!--><!--!--><script type="text/x-mathjax-config">MathJax.Hub.Config({
+            'HTML-CSS': {
+                matchFontHeight: false
+            },
+            SVG: {
+                matchFontHeight: false
+            },
+            CommonHTML: {
+                matchFontHeight: false
+            },
+            tex2jax: {
+                inlineMath: [
+                    ['$','$'],
+                    ['\\(','\\)']
+                ]
+            }
+        });</script><script src="https://cdn.jsdelivr.net/npm/mathjax@2.7.9/unpacked/MathJax.js?config=TeX-MML-AM_CHTML" defer></script><div id="outdated"><h6>Your browser is out-of-date!</h6><p>Update your browser to view this website correctly.&amp;npsb;<a id="btnUpdateBrowser" target="_blank" rel="noopener" href="http://outdatedbrowser.com/">Update my browser now </a></p><p class="last"><a href="#" id="btnCloseUpdateBrowser" title="Close">×</a></p></div><script src="https://cdn.jsdelivr.net/npm/outdatedbrowser@1.1.5/outdatedbrowser/outdatedbrowser.min.js" defer></script><script>window.addEventListener("load", function () {
+            outdatedBrowser({
+                bgColor: '#f25648',
+                color: '#ffffff',
+                lowerThan: 'object-fit' // display on IE11 or below
+            });
+        });</script><!--!--><!--!--><!--!--><script src="/js/main.js" defer></script><div class="searchbox"><div class="searchbox-container"><div class="searchbox-header"><div class="searchbox-input-container"><input class="searchbox-input" type="text" placeholder="想要查找什么..."></div><a class="searchbox-close" href="javascript:;">×</a></div><div class="searchbox-body"></div></div></div><script src="/js/insight.js" defer></script><script>document.addEventListener('DOMContentLoaded', function () {
+            loadInsight({"contentUrl":"/content.json"}, {"hint":"想要查找什么...","untitled":"(无标题)","posts":"文章","pages":"页面","categories":"分类","tags":"标签"});
+        });</script><!-- hexo-inject:begin --><!-- hexo-inject:end --></body></html>
