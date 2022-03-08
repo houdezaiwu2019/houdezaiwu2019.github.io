@@ -1,0 +1,381 @@
+<!doctype html>
+<html lang="zh"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"><meta><title>第三章 单自由度系统的受迫振动-第二部分 - houdezaiwu&#039;s blog</title><link rel="manifest" href="/manifest.json"><meta name="application-name" content="czt"><meta name="msapplication-TileImage" content="/img/favicon.svg"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-title" content="czt"><meta name="apple-mobile-web-app-status-bar-style" content="default"><meta name="description" content="hljs.initHighlightingOnLoad();  本文从简谐惯性力的受迫振动，机械阻抗与导纳，以及一些工程上的受迫振动三个方面进行讲解，在单自由度振动上面花了很多的时间，后期的对于多自由度的问题可以是呀模态叠加法是来将其转化为单自由度的问题。"><meta property="og:type" content="blog"><meta property="og:title" content="第三章 单自由度系统的受迫振动-第二部分"><meta property="og:url" content="http://example.com/2022/03/08/%E6%8C%AF%E5%8A%A8%E5%8A%9B%E5%AD%A6/%E7%AC%AC%E4%B8%89%E7%AB%A0-%E5%8D%95%E8%87%AA%E7%94%B1%E5%BA%A6%E7%B3%BB%E7%BB%9F%E7%9A%84%E5%8F%97%E8%BF%AB%E6%8C%AF%E5%8A%A8-%E7%AC%AC%E4%BA%8C%E9%83%A8%E5%88%86/"><meta property="og:site_name" content="houdezaiwu&#039;s blog"><meta property="og:description" content="hljs.initHighlightingOnLoad();  本文从简谐惯性力的受迫振动，机械阻抗与导纳，以及一些工程上的受迫振动三个方面进行讲解，在单自由度振动上面花了很多的时间，后期的对于多自由度的问题可以是呀模态叠加法是来将其转化为单自由度的问题。"><meta property="og:locale" content="zh_CN"><meta property="og:image" content="https://gitee.com/houdezaiwu2022/image-bed/raw/master/vibration_mechanics/202201261133162.png"><meta property="article:published_time" content="2022-03-08T03:10:07.000Z"><meta property="article:modified_time" content="2022-03-08T03:26:11.896Z"><meta property="article:author" content="czt"><meta property="article:tag" content="机械振动"><meta property="twitter:card" content="summary"><meta property="twitter:image" content="https://gitee.com/houdezaiwu2022/image-bed/raw/master/vibration_mechanics/202201261133162.png"><script type="application/ld+json">{"@context":"https://schema.org","@type":"BlogPosting","mainEntityOfPage":{"@type":"WebPage","@id":"http://example.com/2022/03/08/%E6%8C%AF%E5%8A%A8%E5%8A%9B%E5%AD%A6/%E7%AC%AC%E4%B8%89%E7%AB%A0-%E5%8D%95%E8%87%AA%E7%94%B1%E5%BA%A6%E7%B3%BB%E7%BB%9F%E7%9A%84%E5%8F%97%E8%BF%AB%E6%8C%AF%E5%8A%A8-%E7%AC%AC%E4%BA%8C%E9%83%A8%E5%88%86/"},"headline":"第三章 单自由度系统的受迫振动-第二部分","image":["https://gitee.com/houdezaiwu2022/image-bed/raw/master/vibration_mechanics/202201261133162.png"],"datePublished":"2022-03-08T03:10:07.000Z","dateModified":"2022-03-08T03:26:11.896Z","author":{"@type":"Person","name":"czt"},"publisher":{"@type":"Organization","name":"houdezaiwu's blog","logo":{"@type":"ImageObject","url":"http://example.com/img/logo.svg"}},"description":"hljs.initHighlightingOnLoad();  本文从简谐惯性力的受迫振动，机械阻抗与导纳，以及一些工程上的受迫振动三个方面进行讲解，在单自由度振动上面花了很多的时间，后期的对于多自由度的问题可以是呀模态叠加法是来将其转化为单自由度的问题。"}</script><link rel="canonical" href="http://example.com/2022/03/08/%E6%8C%AF%E5%8A%A8%E5%8A%9B%E5%AD%A6/%E7%AC%AC%E4%B8%89%E7%AB%A0-%E5%8D%95%E8%87%AA%E7%94%B1%E5%BA%A6%E7%B3%BB%E7%BB%9F%E7%9A%84%E5%8F%97%E8%BF%AB%E6%8C%AF%E5%8A%A8-%E7%AC%AC%E4%BA%8C%E9%83%A8%E5%88%86/"><link rel="icon" href="/img/favicon.svg"><link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.2/css/all.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@9.12.0/styles/atom-one-light.css"><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Ubuntu:wght@400;600&amp;family=Source+Code+Pro"><link rel="stylesheet" href="/css/default.css"><style>body>.footer,body>.navbar,body>.section{opacity:0}</style><!--!--><!--!--><!--!--><!--!--><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/cookieconsent@3.1.1/build/cookieconsent.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/lightgallery@1.10.0/dist/css/lightgallery.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/justifiedGallery@3.8.1/dist/css/justifiedGallery.min.css"><!--!--><!--!--><!--!--><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/outdatedbrowser@1.1.5/outdatedbrowser/outdatedbrowser.min.css"><style>.pace{-webkit-pointer-events:none;pointer-events:none;-webkit-user-select:none;-moz-user-select:none;user-select:none}.pace-inactive{display:none}.pace .pace-progress{background:#3273dc;position:fixed;z-index:2000;top:0;right:100%;width:100%;height:2px}</style><script src="https://cdn.jsdelivr.net/npm/pace-js@1.2.4/pace.min.js"></script><!--!--><!--!--><!-- hexo injector head_end start -->
+<!-- hexo-inject:begin --><!-- hexo-inject:end --><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css">
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/hexo-math@4.0.0/dist/style.css">
+<!-- hexo injector head_end end --><meta name="generator" content="Hexo 6.0.0"><!-- hexo-inject:begin --><!-- hexo-inject:end --><link rel="stylesheet" href="/css/prism-coy-without-shadows.css" type="text/css">
+<link rel="stylesheet" href="/css/prism-line-numbers.css" type="text/css"></head><body class="is-3-column"><nav class="navbar navbar-main"><div class="container"><div class="navbar-brand justify-content-center"><a class="navbar-item navbar-logo" href="/"><img src="/img/logo.svg" alt="houdezaiwu&#039;s blog" height="28"></a></div><div class="navbar-menu"><div class="navbar-start"><a class="navbar-item" href="/">主页</a><a class="navbar-item" href="/archives">归档</a><a class="navbar-item" href="/categories">分类</a><a class="navbar-item" href="/tags">标签</a><a class="navbar-item" href="/about">关于</a></div><div class="navbar-end"><a class="navbar-item" target="_blank" rel="noopener" title="Download on GitHub" href="https://github.com/ppoffice/hexo-theme-icarus"><i class="fab fa-github"></i></a><a class="navbar-item is-hidden-tablet catalogue" title="目录" href="javascript:;"><i class="fas fa-list-ul"></i></a><a class="navbar-item search" title="搜索" href="javascript:;"><i class="fas fa-search"></i></a></div></div></div></nav><section class="section"><div class="container"><div class="columns"><div class="column order-2 column-main is-8-tablet is-8-desktop is-6-widescreen"><div class="card"><div class="card-image"><span class="image is-7by3"><img class="fill" src="https://gitee.com/houdezaiwu2022/image-bed/raw/master/vibration_mechanics/202201261133162.png" alt="第三章 单自由度系统的受迫振动-第二部分"></span></div><article class="card-content article" role="article"><div class="article-meta is-size-7 is-uppercase level is-mobile"><div class="level-left"><span class="level-item"><time dateTime="2022-03-08T03:10:07.000Z" title="2022/3/8 上午11:10:07">2022-03-08</time>发表</span><span class="level-item"><time dateTime="2022-03-08T03:26:11.896Z" title="2022/3/8 上午11:26:11">2022-03-08</time>更新</span><span class="level-item"><a class="link-muted" href="/categories/%E6%8C%AF%E5%8A%A8%E5%8A%9B%E5%AD%A6/">振动力学</a></span><span class="level-item">28 分钟读完 (大约4148个字)</span></div></div><h1 class="title is-3 is-size-4-mobile">第三章 单自由度系统的受迫振动-第二部分</h1><div class="content"><link rel="stylesheet" href="//cdn.bootcss.com/highlight.js/9.2.0/styles/github.min.css">
+
+<!-- hexo-inject:begin --><!-- hexo-inject:end --><script src="//cdn.bootcss.com/highlight.js/9.2.0/highlight.min.js"></script>
+<script>hljs.initHighlightingOnLoad();</script>
+
+<p>本文从简谐惯性力的受迫振动，机械阻抗与导纳，以及一些工程上的受迫振动三个方面进行讲解，在单自由度振动上面花了很多的时间，后期的对于多自由度的问题可以是呀模态叠加法是来将其转化为单自由度的问题。</p>
+<span id="more"></span>
+<h2 id="简谐惯性力的受迫振动"><a href="#简谐惯性力的受迫振动" class="headerlink" title="简谐惯性力的受迫振动"></a><strong>简谐惯性力的受迫振动</strong></h2><p>背景：地基振动，转子偏心引起的受迫振动</p>
+<p><strong>特点：激振惯性力的幅值与频率的平方成正比例</strong></p>
+<h3 id="以地基的位移为坐标"><a href="#以地基的位移为坐标" class="headerlink" title="以地基的位移为坐标"></a><strong>以地基的位移为坐标</strong></h3><p><img src="https://gitee.com/houdezaiwu2022/image-bed/raw/master/vibration_mechanics/202203061805292.png" alt=""></p>
+<p>通过上面的推理可得：</p>
+<script type="math/tex; mode=display">
+m_1\ddot{x_1}(t)+c\dot x_1(t)+kx_1(t)=mD\omega^2e^{i\omega t}</script><p>这里我们设：$mD\omega^2=F_0$  同时由于$\omega_0^2=\dfrac k m,\ s=\dfrac \omega {\omega_0}$</p>
+<p>振动的解析表达式如下：</p>
+<script type="math/tex; mode=display">
+x_{1}=\beta B e^{i\left(\omega t-\theta_{1}\right)}=\beta \frac{F_{0}}{k} e^{i\left(\omega t-\theta_{1}\right)}=\beta \frac{m D \omega^{2}}{k} e^{i\left(\omega t-\theta_{1}\right)}\\
+=\frac{s^{2}}{\sqrt{\left(1-s^{2}\right)^{2}+\left(2 \xi_{s}\right)^{2}}} D e^{i\left(\omega t-\theta_{1}\right)}=\beta_{1} D e^{i\left(\omega t-\theta_{1}\right)}</script><p>其中，振幅放大因子为：$\beta_1=\dfrac{s^{2}}{\sqrt{\left(1-s^{2}\right)^{2}+\left(2 \xi_{s}\right)^{2}}}$, 相位差为：<script type="math/tex">\theta_{1}(s)=\operatorname{tg}^{-1} \dfrac{2 \xi s}{1-s^{2}}</script></p>
+<p>这里我们对比简谐激励的振动解析表达式：</p>
+<p><img src="https://gitee.com/houdezaiwu2022/image-bed/raw/master/vibration_mechanics/202203070914842.png" alt=""></p>
+<p><img src="https://gitee.com/houdezaiwu2022/image-bed/raw/master/vibration_mechanics/202203070911247.png" alt=""></p>
+<p>二者的相位差还是一样的，就是振幅放大因子多了个$s^2$</p>
+<p><img src="https://gitee.com/houdezaiwu2022/image-bed/raw/master/vibration_mechanics/202203070918243.png" alt=""></p>
+<ul>
+<li>这里，我们的可以看出最左边式s&gt;1，质量和地基是同步的；</li>
+<li>中间的是s=1，此时相当于发生了共振，其振幅相当大；</li>
+<li>最右边是s&lt;1，此时相对的振动的位移是小于地基振动的幅值的。</li>
+</ul>
+<h3 id="以绝对位移为坐标"><a href="#以绝对位移为坐标" class="headerlink" title="以绝对位移为坐标"></a><strong>以绝对位移为坐标</strong></h3><p><img src="https://gitee.com/houdezaiwu2022/image-bed/raw/master/vibration_mechanics/202203070926966.png" alt=""></p>
+<p>如果以绝对位移为坐标：$x(t)=x_{1}(t)+x_{f}(t)$</p>
+<p>其中：$x_{1}(t)=\beta_{1} D e^{i\left(\omega t-\theta_{1}\right)}$ ，$x_{f}(t)=D e^{i \omega t}$；</p>
+<p>于是：$x(t)=\beta_{1} D e^{i\left(\omega t-\theta_{1}\right)}+D e^{i \omega t}=(\beta_{1}+e^{i\theta_{1}})D e^{i\left(\omega t-\theta_{1}\right)}$</p>
+<p>其中，振幅放大因子为：$\beta_1=\dfrac{s^{2}}{\sqrt{\left(1-s^{2}\right)^{2}+\left(2 \xi_{s}\right)^{2}}}$, 相位差为：$\theta_{1}(s)=\operatorname{tg}^{-1} \dfrac{2 \xi s}{1-s^{2}}$</p>
+<p>于是有：</p>
+<script type="math/tex; mode=display">
+\begin{align}
+\beta_{1}+e^{i \theta_{1}}&=\frac{s^{2}}{\sqrt{\left(1-s^{2}\right)^{2}+\left(2 \xi_{S}\right)^{2}}}+\left(\cos \theta_{1}+i \sin \theta_{1}\right)\\
+&=\frac{s^{2}}{\sqrt{\left(1-s^{2}\right)^{2}+\left(2 \xi_{S}\right)^{2}}}+\frac{1-s^{2}}{\sqrt{\left(1-s^{2}\right)^{2}+\left(2 \xi_{S}\right)^{2}}}+i \frac{2 \zeta s}{\sqrt{\left(1-s^{2}\right)^{2}+\left(2 \xi_{S}\right)^{2}}}\\
+&=\frac{1+2 i \xi_{S}}{\sqrt{\left(1-S^{2}\right)^{2}+\left(2 \xi_{S}\right)^{2}}}=\frac{1}{\sqrt{\left(1-S^{2}\right)^{2}+\left(2 \zeta_{S}\right)^{2}}} \sqrt{1+\left(2 \xi_{S}\right)^{2}} e^{i \theta_{2}}\\
+&=\sqrt{\frac{1+\left(2 \xi_{S}\right)^{2}}{\left(1-S^{2}\right)^{2}+\left(2 \xi_{S}\right)^{2}}} e^{i \theta_{2}}\\
+&=\beta_{2} e^{i \theta_{2}}
+\end{align}</script><p><img src="https://gitee.com/houdezaiwu2022/image-bed/raw/master/vibration_mechanics/202203070941737.png" alt=""></p>
+<p>于是有：</p>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th></th>
+<th>表达式</th>
+<th>振幅</th>
+<th>相位</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>以地基位移为坐标</td>
+<td>$\beta_{1} D e^{i\left(\omega t-\theta_{1}\right)}$</td>
+<td>$\dfrac{s^{2}}{\sqrt{\left(1-s^{2}\right)^{2}+\left(2 \xi_{s}\right)^{2}}}$</td>
+<td>$\operatorname{tg}^{-1} \dfrac{2 \xi s}{1-s^{2}}$</td>
+</tr>
+<tr>
+<td>以绝对位移为坐标</td>
+<td>$\beta_{2} e^{i \theta_{2}}$</td>
+<td>$\sqrt{\dfrac{1+\left(2 \xi_{S}\right)^{2}}{\left(1-S^{2}\right)^{2}+\left(2 \xi_{S}\right)^{2}}}$</td>
+<td>$\operatorname{tg}^{-1} \dfrac{2 \xi s}{1-s^{2}}-\\\operatorname{tg}^{-1}\left(2 \xi_{S}\right)$</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>最后带入到表达式中，得到振动的解析表达式为：</p>
+<p>$x(t)=\beta_{2} D e^{i\left[\omega t-\left(\theta_{1}-\theta_{2}\right)\right]}=\beta_{2} D e^{i(\omega t-\theta)}$，其中$\theta=\theta_{1}-\theta_{2}$</p>
+<p>无阻尼时的表达式为：$x(t)=D \dfrac{1}{1-s^{2}} e^{i \omega t}$</p>
+<p><img src="https://gitee.com/houdezaiwu2022/image-bed/raw/master/vibration_mechanics/202203070952298.png" alt=""></p>
+<p><img src="https://gitee.com/houdezaiwu2022/image-bed/raw/master/vibration_mechanics/202203070953594.png" alt=""></p>
+<p><strong>使用其他的方法进行分析角度位移为坐标的情况</strong></p>
+<p><img src="https://gitee.com/houdezaiwu2022/image-bed/raw/master/vibration_mechanics/202203070955798.png" alt="image-20220307095548429"></p>
+<script type="math/tex; mode=display">
+x(t)=\frac{k D}{k} \frac{1}{\sqrt{\left(1-s^{2}\right)^{2}+\left(2 \xi_{s}\right)^{2}}} \sin \left(\omega t-\theta_{1}\right)+\frac{c D \omega}{k} \frac{1}{\sqrt{\left(1-s^{2}\right)^{2}+\left(2 \xi_{s}\right)^{2}}} \cos \left(\omega t-\theta_{1}\right)\\
+=\frac{D}{\sqrt{\left(1-s^{2}\right)^{2}+\left(2 \xi_{s}\right)^{2}}}\left[\sin \left(\omega t-\theta_{1}\right)+2 \xi s \cos \left(\omega t-\theta_{1}\right)\right]</script><p>其中有，</p>
+<p>$\dfrac{c \omega}{k}=\dfrac{c \omega}{\omega_{0}^{2} m}=\dfrac{c}{m} \cdot \dfrac{s}{\omega_{0}}=2 \xi \omega_{0} \dfrac{s}{\omega_{0}}=2 \xi_{S}$， $\theta_1=\operatorname{tg}^{-1} \dfrac{2 \xi s}{1-s^{2}}$</p>
+<p><img src="https://gitee.com/houdezaiwu2022/image-bed/raw/master/vibration_mechanics/202203071812634.png" alt="image-20220307181242732"></p>
+<p>之后，将$\sin \theta_{2}=\dfrac{2 \xi_{S}}{\sqrt{1+\left(2 \xi_{S}\right)^{2}}}$和$\cos \theta_{2}=\dfrac1 {\sqrt{1+\left(2 \xi_{S}\right)^{2}}}$ 此时有$\theta_2=\operatorname{tg}^{-1}\left(2 \xi_{S}\right)$</p>
+<p>于是令：$\theta = \theta_1-\theta_2$ , $\beta=\sqrt{\dfrac{1+\left(2 \xi_{S}\right)^{2}}{\left(1-s^{2}\right)^{2}+\left(2 \xi_{S}\right)^{2}}}$ 带入到上述式子中。</p>
+<p>和前面第一种方法的结果是一样的。</p>
+<h3 id="实际案例"><a href="#实际案例" class="headerlink" title="实际案例"></a><strong>实际案例</strong></h3><p><img src="https://gitee.com/houdezaiwu2022/image-bed/raw/master/vibration_mechanics/202203071834115.png" alt=""></p>
+<ul>
+<li>首先，确定系统输入的激励：</li>
+</ul>
+<p><img src="https://gitee.com/houdezaiwu2022/image-bed/raw/master/vibration_mechanics/202203071838980.png" alt=""></p>
+<ul>
+<li><p>之后，求解再空载和满载的时候，我们的阻尼c是不变的，改变的只有质量；</p>
+<ul>
+<li><p>因此根据公式$c_{cr}=2\sqrt{km},\ \dfrac c m=2\zeta\omega_0$ 可得：</p>
+<p>$\Rightarrow \ c=\zeta c_{cr}=2\zeta \sqrt{km}$, </p>
+</li>
+<li><p>由于c和k是常数，因此可以得出：$\zeta$ 和 $\sqrt m$ 成反比</p>
+</li>
+<li><p>进而得到空载时的阻尼比为：$\xi_{2}=\xi_{1} \sqrt{\dfrac{m_{1}}{m_{2}}}=1.0$ ;</p>
+<p>满载和空载时的频率比：</p>
+<p>满载：$s_{1}=\dfrac{\omega}{\omega_{01}}=\omega \sqrt{\dfrac{m_{1}}{k}}=1.87$</p>
+<p>空载：$s_{2}=\dfrac{\omega}{\omega_{02}}=\omega \sqrt{\dfrac{m_{2}}{k}}=1.87$</p>
+</li>
+</ul>
+</li>
+<li><p>然后，计算振幅，满载时振幅 B1，空载时振幅 B2：</p>
+<ul>
+<li>满载：$\dfrac{B_{1}}{a}=\sqrt{\dfrac{1+\left(2 \xi_{1} s_{1}\right)^{2}}{\left(1-s_{1}^{2}\right)^{2}+\left(2 \xi_{1} s_{1}\right)^{2}}}=0.68$</li>
+<li>空载：$\dfrac{B_{2}}{a}=\sqrt{\dfrac{1+\left(2 \xi_{2} s_{2}\right)^{2}}{\left(1-s_{2}^{2}\right)^{2}+\left(2 \xi_{2} s_{2}\right)^{2}}}=1.13$</li>
+<li>因此可得振幅比为：$B_1/B_2=0.60$</li>
+</ul>
+</li>
+</ul>
+<p><img src="https://gitee.com/houdezaiwu2022/image-bed/raw/master/vibration_mechanics/202203071856116.png" alt=""></p>
+<ul>
+<li><p>首先，将模型进行简化，并求解系统的固有频率$\omega=\sqrt{k/m}=\sqrt{g/\delta}$：</p>
+<p>等效的时候可以将我们的杆子看作<strong>刚体</strong>，将A处的运动等效过去；然后再将杆子看作是柔性体，计算刚度k。</p>
+</li>
+</ul>
+<p><img src="https://gitee.com/houdezaiwu2022/image-bed/raw/master/vibration_mechanics/202203071903413.png" alt=""></p>
+<ul>
+<li><p>之后，列出动力学方程：</p>
+<p>$m \ddot{x}+k\left(x-x_{f}\right)=0 \Rightarrow m \ddot{x}+k x=\dfrac {k b d} a \sin \omega t$</p>
+<p>根据上面的求绝对位移为坐标，且无阻尼情况下的方程，</p>
+<p>计算可得：$\bar{x}=\dfrac{k b d / a}{k} \cdot \dfrac{1}{1-s^{2}}=\dfrac{b d}{a} \cdot \dfrac{1}{1-s^{2}} \quad s=\dfrac{\omega}{\omega_{0}}$</p>
+</li>
+</ul>
+<h3 id="支撑运动的小结"><a href="#支撑运动的小结" class="headerlink" title="支撑运动的小结"></a><strong>支撑运动的小结</strong></h3><p><img src="https://gitee.com/houdezaiwu2022/image-bed/raw/master/vibration_mechanics/202203071822506.png" alt=""></p>
+<ul>
+<li>这里的输入不是力，是基础的位移。</li>
+<li>这里我们有两种坐标形式来考虑动力学方程的建立，一个是使用相对位移坐标，另一个是研究绝对位移坐标。</li>
+<li>振幅放大因子，两种位移坐标下是不一样的。</li>
+<li>如果要想隔振有效果，那么$s&gt;\sqrt{2}$</li>
+</ul>
+<h3 id="转子偏心问题"><a href="#转子偏心问题" class="headerlink" title="转子偏心问题"></a><strong>转子偏心问题</strong></h3><p>高速旋转机械中，偏心质量产生的离心惯性力是主要的激励来源。旋转<br><strong>机械总质量为M</strong>，转子偏心质量为m，偏心距为e，转子转动角速度为  $\omega$ </p>
+<p><img src="https://gitee.com/houdezaiwu2022/image-bed/raw/master/vibration_mechanics/202203071922306.png" alt=""></p>
+<ul>
+<li><p>这里$me$：不平衡量，$me\omega^2$：不平衡量引起的离心惯性力。</p>
+<ul>
+<li><p>于是我们设：$F_0=me\omega^2$, $x(t)=\beta B \sin (\omega t-\theta)$</p>
+<p>其中$\beta=\dfrac 1 {\sqrt{\left(1-s^{2}\right)^{2}+\left(2 \xi_{S}\right)^{2} } }$,</p>
+<p> $B=\dfrac {F_0} k=\dfrac {me\omega^2} k$ , </p>
+<p>$s=\dfrac{\omega}{\omega_{0}}$, $\theta=\operatorname{tg}^{-1} \dfrac{2 \xi s}{1-s^{2}}$, 注意$\omega = \sqrt{\dfrac K M}$ </p>
+</li>
+</ul>
+</li>
+<li><p>这里B可以写作为：$B=\dfrac {F_0} k=\dfrac {me\omega^2} k = \dfrac {me\omega^2} {\omega_0^2M}=\dfrac {me} {M} s^2$</p>
+<p>此时振动的表达式为：</p>
+<p>$x(t)=\dfrac{s^{2}}{\sqrt{\left(1-s^{2}\right)^{2}+\left(2 \xi_{s}\right)^{2}}} \dfrac{m e}{M} \sin (\omega t-\theta)=\beta_{1} B_{1} \sin (\omega t-\theta)$</p>
+<p>其中，$\beta=\dfrac 1 {\sqrt{\left(1-s^{2}\right)^{2}+\left(2 \xi_{S}\right)^{2} } }$, $B_1=\dfrac {me} M$ </p>
+</li>
+</ul>
+<p><img src="https://gitee.com/houdezaiwu2022/image-bed/raw/master/vibration_mechanics/202203072018808.png" alt=""></p>
+<p><img src="https://gitee.com/houdezaiwu2022/image-bed/raw/master/vibration_mechanics/202203072019279.png" alt=""></p>
+<ul>
+<li><p>公式：$x(t)=\dfrac{s^{2}}{\sqrt{\left(1-s^{2}\right)^{2}+\left(2 \xi_{s}\right)^{2}}} \dfrac{m e}{M} \sin (\omega t-\theta)$</p>
+</li>
+<li><p>首先，共振的时候，我们的s=1;</p>
+<p>代入得共振时的最大振幅是：$\dfrac 1 {2\zeta} \dfrac {me}{M}=0.1(m) \ \Rightarrow \ e=0.1(m)$</p>
+</li>
+<li><p>其次，这里假设增加质量后阻尼是不变的，其实是要变的：</p>
+<p>$\dfrac 1 {2\zeta} \dfrac {me}{M+\Delta M}=0.01(m) \ \Rightarrow \ \dfrac{\Delta M} {M}=9$</p>
+<p>得出：$\Delta M=9M$ </p>
+</li>
+</ul>
+<p><img src="https://gitee.com/houdezaiwu2022/image-bed/raw/master/vibration_mechanics/202203072020616.png" alt=""></p>
+<h2 id="机械阻抗与导纳"><a href="#机械阻抗与导纳" class="headerlink" title="机械阻抗与导纳"></a><strong>机械阻抗与导纳</strong></h2><ul>
+<li><p>工程中常用机械阻抗来分析结构的动力特性；</p>
+</li>
+<li><p><strong>机械阻抗定义为：简谐激振时复数形式的输入与输出之比</strong>；</p>
+</li>
+</ul>
+<p><img src="https://gitee.com/houdezaiwu2022/image-bed/raw/master/vibration_mechanics/202203072031788.png" alt=""></p>
+<ol>
+<li><strong>位移阻抗</strong></li>
+</ol>
+<script type="math/tex; mode=display">
+Z_{x}(\omega)=\dfrac{F_{0} e^{i \omega t}}{\bar{x} e^{i \omega t}}=\dfrac{F_{0}}{\bar{x}}=\dfrac{1}{H(\omega)}=k-m \omega^{2}+i c \omega\\
+H(\omega)=\frac{1}{k-m \omega^{2}+i c \omega}</script><p><strong>位移阻抗</strong>与复频响应函数<strong>互为倒数</strong>， $H(\omega)$ <strong>也称为导纳</strong>。</p>
+<p>输出也可以定义为速度或加速度，相应的机械阻抗称为速度阻抗和加速度阻抗。</p>
+<ol>
+<li><strong>速度阻抗</strong></li>
+</ol>
+<script type="math/tex; mode=display">
+Z_{\dot x}(\omega)=\frac{F_{0} e^{i \omega t}}{\dot{x}}=\frac{F_{0} e^{i \omega t}}{i \omega \bar{x} e^{i \omega t}}=\frac{1}{i \omega} Z_{x}(\omega)</script><ol>
+<li><strong>加速度阻抗</strong></li>
+</ol>
+<script type="math/tex; mode=display">
+Z_{\ddot{x}}(\omega)=-\frac{1}{\omega^{2}} Z_{x}(\omega)</script><ul>
+<li><p>机械阻抗的倒数称为机械导纳，相应 $Z_{x}(\omega)$、$Z_{\dot x}(\omega)$ 、$Z_{\ddot x}(\omega)$ 分别有<strong>位移导纳、速度导纳和加速度导纳。</strong></p>
+</li>
+<li><p>机械阻抗和机械导纳都<strong>仅仅取决于系统本身的动力特性（m，k，c）</strong>，它们都是<strong>复数</strong>。</p>
+</li>
+<li><p>现已有多种专门测试机械阻抗的分析仪器，根据系统的机械阻抗可以确定和分析系统的固有频率、相对阻尼系数等参数及其它动力特征</p>
+</li>
+</ul>
+<p><strong>复频响应函数又可写为：</strong></p>
+<script type="math/tex; mode=display">
+H(\omega)=\frac{1}{k-m \omega^{2}+i c \omega}=\frac{1}{k} \cdot \frac{1}{\left(1-s^{2}\right)+i\left(2 \xi_{S}\right)}</script><p>其中的模与幅角为：</p>
+<script type="math/tex; mode=display">
+|H(\omega)|=\frac{1}{k} \cdot \frac{1}{\sqrt{\left(1-s^{2}\right)^{2}+(2 \xi s)^{2}}}=\frac{\beta}{k}=\frac{\beta}{F_{0} / B}=\frac{\beta B}{F_{0}}\\
+\arg H(\omega)=\operatorname{tg}^{-1} \frac{2 \xi_{S}}{\left(1-S^{2}\right)^{2}+\left(2 \xi_{S}\right)^{2}}=-\theta</script><p>$H(\omega)$同时反映了系统响应的幅频特性和相频特性。</p>
+<p><img src="https://gitee.com/houdezaiwu2022/image-bed/raw/master/vibration_mechanics/202203072048457.png" alt=""></p>
+<p>$\operatorname{Re}(H)=\dfrac{1}{k} \cdot \dfrac{1-s^{2}}{\left(1-s^{2}\right)^{2}+\left(2 \xi{s}\right)^{2}} \quad \operatorname{Im}(H)=-\dfrac{1}{k} \cdot \dfrac{2 \xi_{s}}{\left(1-s^{2}\right)^{2}+\left(2 \xi_{s}\right)^{2}}$</p>
+<p>还可以用<strong>频率比 s</strong>  或<strong>相对阻尼系数</strong> $\xi$ 作参变量，把 $H(\omega)$ 画在复平面上，这样得到的曲线称为<strong>乃奎斯特图(Nyquict plot)</strong></p>
+<p><img src="https://gitee.com/houdezaiwu2022/image-bed/raw/master/vibration_mechanics/202203072050091.png" alt=""></p>
+<h2 id="工程中的受迫振动问题"><a href="#工程中的受迫振动问题" class="headerlink" title="工程中的受迫振动问题"></a><strong>工程中的受迫振动问题</strong></h2><h3 id="惯性式测振仪"><a href="#惯性式测振仪" class="headerlink" title="惯性式测振仪"></a><strong>惯性式测振仪</strong></h3><p><img src="https://gitee.com/houdezaiwu2022/image-bed/raw/master/vibration_mechanics/202203072117940.png" alt=""></p>
+<ul>
+<li><p>此时，由$s=\dfrac \omega {\omega_0}$  此时 $s \rightarrow \infty \Leftrightarrow \omega&gt;&gt;\omega_{0}$    有$\lim \limits_{s \rightarrow \infty} A_{1} \approx D$</p>
+<ul>
+<li>低固有频率的测量仪用于测量振动的位移幅值，<strong>称为位移计。</strong></li>
+</ul>
+</li>
+<li><p>当仪器固有频率远小于外壳振动频率时，仪器读数幅值 A1 接近外壳振动的振幅 D。</p>
+</li>
+<li>A1还可以写成：$A_{1}=\dfrac{1}{\sqrt{\left(1-s^{2}\right)^{2}+\left(2 \xi{s}\right)^{2}}}\left(\dfrac{D \omega^{2}}{\omega_{0}^{2}}\right)$<ul>
+<li>此时，由$s=\dfrac \omega {\omega_0}$  此时 $s \rightarrow 0 \Leftrightarrow \omega \ll \omega_{0}$   于是有$\lim \limits_{s \rightarrow 0} A_{1} \approx \dfrac 1 {\omega_0^2}(D\omega^2)$ ；<strong>其中$D\omega^2$：被测物体的加速度幅值</strong>。</li>
+<li>当仪器的固有频率远大于外壳振动频率时，仪器读数的<strong>幅值 A1</strong>与外壳<strong>加速度的幅值</strong>成正比。</li>
+<li>高固有频率测量仪用于测量振动的加速度幅值，称为<strong>加速计</strong>。</li>
+</ul>
+</li>
+</ul>
+<h3 id="振动的隔离"><a href="#振动的隔离" class="headerlink" title="振动的隔离"></a><strong>振动的隔离</strong></h3><h4 id="主动隔振"><a href="#主动隔振" class="headerlink" title="主动隔振"></a>主动隔振</h4><p>将作为振源的机器设备与地基隔离，以减少对环境的影响称为<strong>主动隔振</strong>。</p>
+<p><img src="https://gitee.com/houdezaiwu2022/image-bed/raw/master/vibration_mechanics/202203072144154.png" alt=""></p>
+<p>具体的计算如下所示：</p>
+<p><img src="https://gitee.com/houdezaiwu2022/image-bed/raw/master/vibration_mechanics/202203072145273.png" alt=""></p>
+<p>其中，$\beta=\dfrac 1 {\sqrt{\left(1-s^{2}\right)^{2}+\left(2 \xi_{S}\right)^{2} } }$,$s=\dfrac{\omega}{\omega_{0}}$, $\theta=\operatorname{tg}^{-1} \dfrac{2 \xi s}{1-s^{2}}$</p>
+<p><img src="https://gitee.com/houdezaiwu2022/image-bed/raw/master/vibration_mechanics/202203072146688.png" alt=""></p>
+<p>其中，$\theta_{2}=\operatorname{tg}^{-1} 2 \xi s ,\quad \dfrac{c \omega}{k}=\dfrac{c \omega}{\omega_{0}{ }^{2} m}=\dfrac{c}{m} \cdot \dfrac{s}{\omega_{0}}=2 \xi \omega_{0} \dfrac{s}{\omega_{0}}=2 \xi_{S}$</p>
+<p>因此可得隔振系数为：$\eta = \dfrac{F_{1\max} } {F_0} = \sqrt{\dfrac{1+\left(2 \xi_{S}\right)^{2}}{\left(1-s^{2}\right)^{2}+\left(2 \xi_{S}\right)^{2} } }$</p>
+<p>画出主动隔振系数的图像，可得到以下的结论：</p>
+<p><img src="https://gitee.com/houdezaiwu2022/image-bed/raw/master/vibration_mechanics/202203072156435.png" alt=""></p>
+<p><strong>典型例题：</strong></p>
+<p><img src="https://gitee.com/houdezaiwu2022/image-bed/raw/master/vibration_mechanics/202203072157637.png" alt=""></p>
+<p><img src="https://gitee.com/houdezaiwu2022/image-bed/raw/master/vibration_mechanics/202203072201068.png" alt=""></p>
+<p><img src="https://gitee.com/houdezaiwu2022/image-bed/raw/master/vibration_mechanics/202203072203173.png" alt=""></p>
+<p>小结：本节课是如何计算隔振后的力，主动隔振系数的计算、已经频率比的选择问题。</p>
+<h4 id="被动隔振"><a href="#被动隔振" class="headerlink" title="被动隔振"></a><strong>被动隔振</strong></h4><p>将地基的振动与机器设备隔离，以避免将振动传至设备，称为<strong>被动隔振</strong>。</p>
+<p><img src="https://gitee.com/houdezaiwu2022/image-bed/raw/master/vibration_mechanics/202203072208520.png" alt=""></p>
+<ul>
+<li>这里主动隔振系数和被动隔振系数的表达式时相同的，但是其中的内涵是不一样的。</li>
+<li>主动隔振系数是力之比，而被动隔振系数是位移之比。</li>
+</ul>
+<p><strong>典型例题：</strong></p>
+<p><img src="https://gitee.com/houdezaiwu2022/image-bed/raw/master/vibration_mechanics/202203080910784.png" alt=""></p>
+<ul>
+<li><p>为计算梁自身质量对其横向振动固有频率的影响，需确定梁质量等效到自由端时的等效质量，然后可按单自由度计算悬臂梁横向振动的固有频率。</p>
+</li>
+<li><p>这里我们首先计算是悬臂梁的等效质量：</p>
+<p><img src="https://gitee.com/houdezaiwu2022/image-bed/raw/master/vibration_mechanics/202203080915136.png" alt=""></p>
+</li>
+<li><p>等效之后系统称为一个单自由度系统：</p>
+<p><img src="https://gitee.com/houdezaiwu2022/image-bed/raw/master/vibration_mechanics/202203080916936.png" alt=""></p>
+</li>
+<li><p>根据刚度和等效的质量可以得出：</p>
+<p>电路板的固有频率：$\omega_0 = \sqrt{\dfrac {k_b}{m_{eq}}}=\sqrt{\dfrac{1.296\times10^6}{0.5893}}rad/s=1482.99\ rad/s$</p>
+<p>计算机底座的频率：$\omega = \dfrac{2\pi \times 3000}{60} = 312.66\ rad/s$ </p>
+<p>频率之比：$s=\dfrac{\omega}{\omega_0}=\dfrac{312.66}{1482.99}=0.2108$</p>
+<p>位移传递率：</p>
+<script type="math/tex; mode=display">
+\eta = \sqrt{\dfrac{1+\left(2 \xi_{S}\right)^{2}}{\left(1-s^{2}\right)^{2}+\left(2 \xi{s}\right)^{2}}}=\sqrt{\dfrac{1+\left(2 \times 0.01\times0.2108\right)^{2}}{\left(1-0.2108^{2}\right)^{2}+\left(2 \times0.01\times{0.2108}\right)^{2}}}=1.0465</script></li>
+<li><p>位移传递率（104.65%）已超过最大许可值（10%）; 因此这里假装了隔振器，这里加入以后可能会成为一个双自由度的系统，因此为了简化模型，将梁简化为刚体。</p>
+<p><img src="https://gitee.com/houdezaiwu2022/image-bed/raw/master/vibration_mechanics/202203080939074.png" alt=""></p>
+<ul>
+<li><p>于是计算隔振器的频率和刚度：</p>
+<p>$k=\dfrac {M\omega^2} {s^2} = \dfrac {2.75\times 312.66^2}{11.0218}N/m = 24390.7309\ N/m$</p>
+<p>隔振器的阻尼常数为：</p>
+<p>$c=2\xi\sqrt{Mk}=2\times 0.01 \sqrt {2.75\times24390.7309}=5.1797\ N\cdot s/m$</p>
+</li>
+</ul>
+</li>
+</ul>
+<h3 id="转子的临界转速"><a href="#转子的临界转速" class="headerlink" title="转子的临界转速"></a><strong>转子的临界转速</strong></h3><p>气轮机、发电机等<strong>高速旋转机械</strong>在<strong>开机或停机</strong>过程中经过某一转速附近时，支撑系统经常会发生剧烈振动。</p>
+<p><img src="https://gitee.com/houdezaiwu2022/image-bed/raw/master/vibration_mechanics/202203080950949.png" alt="image-20220308095013055"></p>
+<ul>
+<li><p>轴以角速度$\omega$恒速旋转，轴沿着x和y方向的横向刚度：$k=\dfrac {48EI} {l^3}$ </p>
+</li>
+<li><p>由于离心惯性力，轴产生的静扰度$OO_1=f$</p>
+<p>粘性阻尼力正比于圆盘形心 $O_1$ 的速度</p>
+</li>
+<li><p>设形心 $O_1$ 的坐标$(x,y)$，质心C的坐标为$(x+e\cos\omega t,\ y+\sin \omega t)$</p>
+</li>
+<li><p>由质心的运动定理：</p>
+<script type="math/tex; mode=display">
+m\frac{d^2}{dt^2} (x+e\cos\omega t)=-kx-c\dot x\\
+m\frac{d^2}{dt^2} (y+e\sin\omega t)=-ky-c\dot y\\</script><p><img src="https://gitee.com/houdezaiwu2022/image-bed/raw/master/vibration_mechanics/202203081003913.png" alt=""></p>
+</li>
+<li><p>设：$\omega_0 =\sqrt{k/m}=\sqrt{g/l_0}$ ，其中$l_0$是静变形，<strong>$\omega_0 $ 转子不转动而作横向自由振动时的固有频率</strong></p>
+<p><img src="https://gitee.com/houdezaiwu2022/image-bed/raw/master/vibration_mechanics/202203081006723.png" alt=""></p>
+</li>
+</ul>
+<p><img src="https://gitee.com/houdezaiwu2022/image-bed/raw/master/vibration_mechanics/202203081006444.png" alt=""></p>
+<ul>
+<li><p>此时动扰度为：$f=\sqrt{x^2+y^2}=e\beta_1=\dfrac {es^2} {\sqrt{\left(1-s^{2}\right)^{2}+\left(2 \xi{s}\right)^{2} } }$</p>
+</li>
+<li><p>当s=1时：$f=\dfrac e {2\xi}$ ,此时的$\omega=\omega_0$,即转动频率与转子的固有频率相等；</p>
+<ul>
+<li>可见，当阻尼比$\xi$ 较小时，即使转子平衡得很好(e 很小)，动挠度f 也会相当大，容易使轴破坏，这样的转速称为<strong>临界转速</strong>：</li>
+<li>每分钟的转速表示：$n_f=\dfrac {60\omega_f}{2 \pi} (r/min)$  其中，$\omega_f=\omega_0=\sqrt{k/m}$</li>
+</ul>
+</li>
+<li><p>当s&gt;&gt;1时，即$\omega \gg \omega_0$, 有：$\beta_1 \approx1$ , $\theta_1 \approx \pi$ , 转动频率远大于转子固有频率, 出现<strong>自动定心现象。</strong></p>
+<p>  <img src="https://gitee.com/houdezaiwu2022/image-bed/raw/master/vibration_mechanics/202203081026448.png" alt="image-20220308102602933"></p>
+</li>
+</ul>
+<p>这里面主要学会如何求临界转速，以及了解自动定心现象。</p>
+<p><strong>计算实例</strong></p>
+<p><img src="https://gitee.com/houdezaiwu2022/image-bed/raw/master/vibration_mechanics/202203081100492.png" alt=""></p>
+<p><img src="https://gitee.com/houdezaiwu2022/image-bed/raw/master/vibration_mechanics/202203081105673.png" alt=""></p>
+<p>这里，在单自由度振动上面花了很多的时间，后期的对于多自由度的问题可以是呀模态叠加法是来将其转化为单自由度的问题。</p>
+</div><div class="article-licensing box"><div class="licensing-title"><p>第三章 单自由度系统的受迫振动-第二部分</p><p><a href="http://example.com/2022/03/08/振动力学/第三章-单自由度系统的受迫振动-第二部分/">http://example.com/2022/03/08/振动力学/第三章-单自由度系统的受迫振动-第二部分/</a></p></div><div class="licensing-meta level is-mobile"><div class="level-left"><div class="level-item is-narrow"><div><h6>作者</h6><p>czt</p></div></div><div class="level-item is-narrow"><div><h6>发布于</h6><p>2022-03-08</p></div></div><div class="level-item is-narrow"><div><h6>更新于</h6><p>2022-03-08</p></div></div><div class="level-item is-narrow"><div><h6>许可协议</h6><p><a class="icons" rel="noopener" target="_blank" title="Creative Commons" href="https://creativecommons.org/"><i class="icon fab fa-creative-commons"></i></a><a class="icons" rel="noopener" target="_blank" title="Attribution" href="https://creativecommons.org/licenses/by/4.0/"><i class="icon fab fa-creative-commons-by"></i></a><a class="icons" rel="noopener" target="_blank" title="Noncommercial" href="https://creativecommons.org/licenses/by-nc/4.0/"><i class="icon fab fa-creative-commons-nc"></i></a></p></div></div></div></div></div><div class="article-tags is-size-7 mb-4"><span class="mr-2">#</span><a class="link-muted mr-2" rel="tag" href="/tags/%E6%9C%BA%E6%A2%B0%E6%8C%AF%E5%8A%A8/">机械振动</a></div><!--!--></article></div><!--!--><nav class="post-navigation mt-4 level is-mobile"><div class="level-end"><a class="article-nav-next level level-item link-muted" href="/2022/03/06/%E6%8C%AF%E5%8A%A8%E5%8A%9B%E5%AD%A6/%E7%AC%AC%E4%B8%89%E7%AB%A0-%E5%8D%95%E8%87%AA%E7%94%B1%E5%BA%A6%E7%B3%BB%E7%BB%9F%E7%9A%84%E5%8F%97%E8%BF%AB%E6%8C%AF%E5%8A%A8-%E7%AC%AC%E4%B8%80%E9%83%A8%E5%88%86/"><span class="level-item">第三章 单自由度系统的受迫振动-第一部分</span><i class="level-item fas fa-chevron-right"></i></a></div></nav><!--!--></div><div class="column column-left is-4-tablet is-4-desktop is-3-widescreen  order-1 is-sticky"><div class="card widget" data-type="profile"><div class="card-content"><nav class="level"><div class="level-item has-text-centered flex-shrink-1"><div><figure class="image is-128x128 mx-auto mb-2"><img class="avatar" src="https://gitee.com/houdezaiwu2022/image-bed/raw/master/hexoimg/202201222202112.jpg" alt="厚德载物"></figure><p class="title is-size-4 is-block" style="line-height:inherit;">厚德载物</p><p class="is-size-6 is-block">博士生</p><p class="is-size-6 is-flex justify-content-center"><i class="fas fa-map-marker-alt mr-1"></i><span>中国 湖北 武汉</span></p></div></div></nav><nav class="level is-mobile"><div class="level-item has-text-centered is-marginless"><div><p class="heading">文章</p><a href="/archives"><p class="title">36</p></a></div></div><div class="level-item has-text-centered is-marginless"><div><p class="heading">分类</p><a href="/categories"><p class="title">10</p></a></div></div><div class="level-item has-text-centered is-marginless"><div><p class="heading">标签</p><a href="/tags"><p class="title">20</p></a></div></div></nav><div class="level"><a class="level-item button is-primary is-rounded" href="https://github.com/ppoffice" target="_blank" rel="noopener">关注我</a></div><div class="level is-mobile is-multiline"><a class="level-item button is-transparent is-marginless" target="_blank" rel="noopener" title="Github" href="https://github.com/ppoffice"><i class="fab fa-github"></i></a><a class="level-item button is-transparent is-marginless" target="_blank" rel="noopener" title="Facebook" href="https://facebook.com"><i class="fab fa-facebook"></i></a><a class="level-item button is-transparent is-marginless" target="_blank" rel="noopener" title="Twitter" href="https://twitter.com"><i class="fab fa-twitter"></i></a><a class="level-item button is-transparent is-marginless" target="_blank" rel="noopener" title="Dribbble" href="https://dribbble.com"><i class="fab fa-dribbble"></i></a><a class="level-item button is-transparent is-marginless" target="_blank" rel="noopener" title="RSS" href="/"><i class="fas fa-rss"></i></a></div></div></div><div class="card widget" data-type="links"><div class="card-content"><div class="menu"><h3 class="menu-label">链接</h3><ul class="menu-list"><li><a class="level is-mobile" href="https://hexo.io" target="_blank" rel="noopener"><span class="level-left"><span class="level-item">Hexo</span></span><span class="level-right"><span class="level-item tag">hexo.io</span></span></a></li><li><a class="level is-mobile" href="https://bulma.io" target="_blank" rel="noopener"><span class="level-left"><span class="level-item">Bulma</span></span><span class="level-right"><span class="level-item tag">bulma.io</span></span></a></li></ul></div></div></div><div class="card widget" data-type="archives"><div class="card-content"><div class="menu"><h3 class="menu-label">归档</h3><ul class="menu-list"><li><a class="level is-mobile" href="/archives/2022/03/"><span class="level-start"><span class="level-item">三月 2022</span></span><span class="level-end"><span class="level-item tag">4</span></span></a></li><li><a class="level is-mobile" href="/archives/2022/02/"><span class="level-start"><span class="level-item">二月 2022</span></span><span class="level-end"><span class="level-item tag">21</span></span></a></li><li><a class="level is-mobile" href="/archives/2022/01/"><span class="level-start"><span class="level-item">一月 2022</span></span><span class="level-end"><span class="level-item tag">11</span></span></a></li></ul></div></div></div><div class="card widget" data-type="tags"><div class="card-content"><div class="menu"><h3 class="menu-label">标签</h3><div class="field is-grouped is-grouped-multiline"><div class="control"><a class="tags has-addons" href="/tags/GAN%E5%AE%9E%E6%88%98/"><span class="tag">GAN实战</span><span class="tag">6</span></a></div><div class="control"><a class="tags has-addons" href="/tags/Generative-Adversarial-Networks/"><span class="tag">Generative Adversarial Networks</span><span class="tag">6</span></a></div><div class="control"><a class="tags has-addons" href="/tags/IEEE%E6%8A%95%E7%A8%BF/"><span class="tag">IEEE投稿</span><span class="tag">1</span></a></div><div class="control"><a class="tags has-addons" href="/tags/Latex/"><span class="tag">Latex</span><span class="tag">4</span></a></div><div class="control"><a class="tags has-addons" href="/tags/Markdown/"><span class="tag">Markdown</span><span class="tag">1</span></a></div><div class="control"><a class="tags has-addons" href="/tags/Typora/"><span class="tag">Typora</span><span class="tag">1</span></a></div><div class="control"><a class="tags has-addons" href="/tags/auto-encoder/"><span class="tag">auto-encoder</span><span class="tag">3</span></a></div><div class="control"><a class="tags has-addons" href="/tags/control-theory/"><span class="tag">control theory</span><span class="tag">1</span></a></div><div class="control"><a class="tags has-addons" href="/tags/latex/"><span class="tag">latex</span><span class="tag">1</span></a></div><div class="control"><a class="tags has-addons" href="/tags/object-detection/"><span class="tag">object detection</span><span class="tag">3</span></a></div><div class="control"><a class="tags has-addons" href="/tags/opencv/"><span class="tag">opencv</span><span class="tag">3</span></a></div><div class="control"><a class="tags has-addons" href="/tags/python/"><span class="tag">python</span><span class="tag">3</span></a></div><div class="control"><a class="tags has-addons" href="/tags/pytorch/"><span class="tag">pytorch</span><span class="tag">17</span></a></div><div class="control"><a class="tags has-addons" href="/tags/%E5%9B%BE%E5%83%8F%E5%88%86%E7%B1%BB/"><span class="tag">图像分类</span><span class="tag">6</span></a></div><div class="control"><a class="tags has-addons" href="/tags/%E6%8E%A7%E5%88%B6%E7%90%86%E8%AE%BA/"><span class="tag">控制理论</span><span class="tag">1</span></a></div><div class="control"><a class="tags has-addons" href="/tags/%E6%97%A0%E7%9B%91%E7%9D%A3%E5%AD%A6%E4%B9%A0/"><span class="tag">无监督学习</span><span class="tag">3</span></a></div><div class="control"><a class="tags has-addons" href="/tags/%E6%9C%BA%E6%A2%B0%E6%8C%AF%E5%8A%A8/"><span class="tag">机械振动</span><span class="tag">5</span></a></div><div class="control"><a class="tags has-addons" href="/tags/%E7%94%9F%E6%88%90%E6%A8%A1%E5%9E%8B/"><span class="tag">生成模型</span><span class="tag">3</span></a></div><div class="control"><a class="tags has-addons" href="/tags/%E7%A7%91%E7%A0%94/"><span class="tag">科研</span><span class="tag">1</span></a></div><div class="control"><a class="tags has-addons" href="/tags/%E8%AE%BA%E6%96%87%E5%86%99%E4%BD%9C/"><span class="tag">论文写作</span><span class="tag">1</span></a></div></div></div></div></div><div class="column-right-shadow is-hidden-widescreen is-sticky"></div></div><div class="column column-right is-4-tablet is-4-desktop is-3-widescreen is-hidden-touch is-hidden-desktop-only order-3 is-sticky"><div class="card widget" id="toc" data-type="toc"><div class="card-content"><div class="menu"><h3 class="menu-label">目录</h3><ul class="menu-list"><li><a class="level is-mobile" href="#简谐惯性力的受迫振动"><span class="level-left"><span class="level-item">1</span><span class="level-item">简谐惯性力的受迫振动</span></span></a><ul class="menu-list"><li><a class="level is-mobile" href="#以地基的位移为坐标"><span class="level-left"><span class="level-item">1.1</span><span class="level-item">以地基的位移为坐标</span></span></a></li><li><a class="level is-mobile" href="#以绝对位移为坐标"><span class="level-left"><span class="level-item">1.2</span><span class="level-item">以绝对位移为坐标</span></span></a></li><li><a class="level is-mobile" href="#实际案例"><span class="level-left"><span class="level-item">1.3</span><span class="level-item">实际案例</span></span></a></li><li><a class="level is-mobile" href="#支撑运动的小结"><span class="level-left"><span class="level-item">1.4</span><span class="level-item">支撑运动的小结</span></span></a></li><li><a class="level is-mobile" href="#转子偏心问题"><span class="level-left"><span class="level-item">1.5</span><span class="level-item">转子偏心问题</span></span></a></li></ul></li><li><a class="level is-mobile" href="#机械阻抗与导纳"><span class="level-left"><span class="level-item">2</span><span class="level-item">机械阻抗与导纳</span></span></a></li><li><a class="level is-mobile" href="#工程中的受迫振动问题"><span class="level-left"><span class="level-item">3</span><span class="level-item">工程中的受迫振动问题</span></span></a><ul class="menu-list"><li><a class="level is-mobile" href="#惯性式测振仪"><span class="level-left"><span class="level-item">3.1</span><span class="level-item">惯性式测振仪</span></span></a></li><li><a class="level is-mobile" href="#振动的隔离"><span class="level-left"><span class="level-item">3.2</span><span class="level-item">振动的隔离</span></span></a><ul class="menu-list"><li><a class="level is-mobile" href="#主动隔振"><span class="level-left"><span class="level-item">3.2.1</span><span class="level-item">主动隔振</span></span></a></li><li><a class="level is-mobile" href="#被动隔振"><span class="level-left"><span class="level-item">3.2.2</span><span class="level-item">被动隔振</span></span></a></li></ul></li><li><a class="level is-mobile" href="#转子的临界转速"><span class="level-left"><span class="level-item">3.3</span><span class="level-item">转子的临界转速</span></span></a></li></ul></li></ul></div></div><script src="/js/toc.js" defer></script></div><div class="card widget" data-type="categories"><div class="card-content"><div class="menu"><h3 class="menu-label">分类</h3><ul class="menu-list"><li><a class="level is-mobile" href="/categories/Generative-Adversarial-Networks/"><span class="level-start"><span class="level-item">Generative Adversarial Networks</span></span><span class="level-end"><span class="level-item tag">6</span></span></a></li><li><a class="level is-mobile" href="/categories/Latex/"><span class="level-start"><span class="level-item">Latex</span></span><span class="level-end"><span class="level-item tag">4</span></span></a></li><li><a class="level is-mobile" href="/categories/PyTorch%E6%95%99%E7%A8%8B%E4%B8%8E%E6%BA%90%E7%A0%81%E8%AE%B2%E8%A7%A3/"><span class="level-start"><span class="level-item">PyTorch教程与源码讲解</span></span><span class="level-end"><span class="level-item tag">5</span></span></a></li><li><a class="level is-mobile" href="/categories/Typora/"><span class="level-start"><span class="level-item">Typora</span></span><span class="level-end"><span class="level-item tag">1</span></span></a></li><li><a class="level is-mobile" href="/categories/auto-encoder/"><span class="level-start"><span class="level-item">auto-encoder</span></span><span class="level-end"><span class="level-item tag">3</span></span></a></li><li><a class="level is-mobile" href="/categories/opencv/"><span class="level-start"><span class="level-item">opencv</span></span><span class="level-end"><span class="level-item tag">3</span></span></a></li><li><a class="level is-mobile" href="/categories/%E5%9B%BE%E5%83%8F%E5%88%86%E7%B1%BB%E7%BD%91%E7%BB%9C%E5%8F%8APytorch%E5%AE%9E%E7%8E%B0/"><span class="level-start"><span class="level-item">图像分类网络及Pytorch实现</span></span><span class="level-end"><span class="level-item tag">6</span></span></a></li><li><a class="level is-mobile" href="/categories/%E6%8C%AF%E5%8A%A8%E5%8A%9B%E5%AD%A6/"><span class="level-start"><span class="level-item">振动力学</span></span><span class="level-end"><span class="level-item tag">5</span></span></a></li><li><a class="level is-mobile" href="/categories/%E7%8E%B0%E4%BB%A3%E6%8E%A7%E5%88%B6%E7%90%86%E8%AE%BA/"><span class="level-start"><span class="level-item">现代控制理论</span></span><span class="level-end"><span class="level-item tag">1</span></span></a></li><li><a class="level is-mobile" href="/categories/%E7%A7%91%E7%A0%94%E5%85%A5%E9%97%A8%E7%AC%94%E8%AE%B0/"><span class="level-start"><span class="level-item">科研入门笔记</span></span><span class="level-end"><span class="level-item tag">1</span></span></a></li></ul></div></div></div><div class="card widget" data-type="recent-posts"><div class="card-content"><h3 class="menu-label">最新文章</h3><article class="media"><figure class="media-left"><a class="image" href="/2022/03/08/%E6%8C%AF%E5%8A%A8%E5%8A%9B%E5%AD%A6/%E7%AC%AC%E4%B8%89%E7%AB%A0-%E5%8D%95%E8%87%AA%E7%94%B1%E5%BA%A6%E7%B3%BB%E7%BB%9F%E7%9A%84%E5%8F%97%E8%BF%AB%E6%8C%AF%E5%8A%A8-%E7%AC%AC%E4%BA%8C%E9%83%A8%E5%88%86/"><img src="https://gitee.com/houdezaiwu2022/image-bed/raw/master/vibration_mechanics/202201261133162.png" alt="第三章 单自由度系统的受迫振动-第二部分"></a></figure><div class="media-content"><p class="date"><time dateTime="2022-03-08T03:10:07.000Z">2022-03-08</time></p><p class="title"><a href="/2022/03/08/%E6%8C%AF%E5%8A%A8%E5%8A%9B%E5%AD%A6/%E7%AC%AC%E4%B8%89%E7%AB%A0-%E5%8D%95%E8%87%AA%E7%94%B1%E5%BA%A6%E7%B3%BB%E7%BB%9F%E7%9A%84%E5%8F%97%E8%BF%AB%E6%8C%AF%E5%8A%A8-%E7%AC%AC%E4%BA%8C%E9%83%A8%E5%88%86/">第三章 单自由度系统的受迫振动-第二部分</a></p><p class="categories"><a href="/categories/%E6%8C%AF%E5%8A%A8%E5%8A%9B%E5%AD%A6/">振动力学</a></p></div></article><article class="media"><figure class="media-left"><a class="image" href="/2022/03/06/%E6%8C%AF%E5%8A%A8%E5%8A%9B%E5%AD%A6/%E7%AC%AC%E4%B8%89%E7%AB%A0-%E5%8D%95%E8%87%AA%E7%94%B1%E5%BA%A6%E7%B3%BB%E7%BB%9F%E7%9A%84%E5%8F%97%E8%BF%AB%E6%8C%AF%E5%8A%A8-%E7%AC%AC%E4%B8%80%E9%83%A8%E5%88%86/"><img src="https://gitee.com/houdezaiwu2022/image-bed/raw/master/vibration_mechanics/202201261133162.png" alt="第三章 单自由度系统的受迫振动-第一部分"></a></figure><div class="media-content"><p class="date"><time dateTime="2022-03-06T10:15:02.000Z">2022-03-06</time></p><p class="title"><a href="/2022/03/06/%E6%8C%AF%E5%8A%A8%E5%8A%9B%E5%AD%A6/%E7%AC%AC%E4%B8%89%E7%AB%A0-%E5%8D%95%E8%87%AA%E7%94%B1%E5%BA%A6%E7%B3%BB%E7%BB%9F%E7%9A%84%E5%8F%97%E8%BF%AB%E6%8C%AF%E5%8A%A8-%E7%AC%AC%E4%B8%80%E9%83%A8%E5%88%86/">第三章 单自由度系统的受迫振动-第一部分</a></p><p class="categories"><a href="/categories/%E6%8C%AF%E5%8A%A8%E5%8A%9B%E5%AD%A6/">振动力学</a></p></div></article><article class="media"><figure class="media-left"><a class="image" href="/2022/03/05/%E6%8C%AF%E5%8A%A8%E5%8A%9B%E5%AD%A6/%E7%AC%AC%E4%BA%8C%E7%AB%A0%E5%8D%95%E8%87%AA%E7%94%B1%E5%BA%A6%E7%B3%BB%E7%BB%9F%E8%87%AA%E7%94%B1%E6%8C%AF%E5%8A%A8-%E7%AC%AC%E4%BA%8C%E9%83%A8%E5%88%86/"><img src="https://gitee.com/houdezaiwu2022/image-bed/raw/master/vibration_mechanics/202201261133162.png" alt="第二章单自由度系统自由振动-第二部分"></a></figure><div class="media-content"><p class="date"><time dateTime="2022-03-05T10:49:06.000Z">2022-03-05</time></p><p class="title"><a href="/2022/03/05/%E6%8C%AF%E5%8A%A8%E5%8A%9B%E5%AD%A6/%E7%AC%AC%E4%BA%8C%E7%AB%A0%E5%8D%95%E8%87%AA%E7%94%B1%E5%BA%A6%E7%B3%BB%E7%BB%9F%E8%87%AA%E7%94%B1%E6%8C%AF%E5%8A%A8-%E7%AC%AC%E4%BA%8C%E9%83%A8%E5%88%86/">第二章单自由度系统自由振动-第二部分</a></p><p class="categories"><a href="/categories/%E6%8C%AF%E5%8A%A8%E5%8A%9B%E5%AD%A6/">振动力学</a></p></div></article><article class="media"><figure class="media-left"><a class="image" href="/2022/03/03/%E7%A7%91%E7%A0%94%E5%85%A5%E9%97%A8%E7%AC%94%E8%AE%B0/%E8%AE%BA%E6%96%87%E5%86%99%E4%BD%9C%E6%8C%87%E5%AF%BC/"><img src="https://gitee.com/houdezaiwu2022/image-bed/raw/master/paper/202203032220322.png" alt="论文写作指导"></a></figure><div class="media-content"><p class="date"><time dateTime="2022-03-03T14:05:45.000Z">2022-03-03</time></p><p class="title"><a href="/2022/03/03/%E7%A7%91%E7%A0%94%E5%85%A5%E9%97%A8%E7%AC%94%E8%AE%B0/%E8%AE%BA%E6%96%87%E5%86%99%E4%BD%9C%E6%8C%87%E5%AF%BC/">论文写作指导</a></p><p class="categories"><a href="/categories/%E7%A7%91%E7%A0%94%E5%85%A5%E9%97%A8%E7%AC%94%E8%AE%B0/">科研入门笔记</a></p></div></article><article class="media"><figure class="media-left"><a class="image" href="/2022/02/24/Generative%20Adversarial%20Networks/pix2pix-GAN-%E8%AE%BA%E6%96%87%E5%8F%8A%E6%A8%A1%E5%9E%8B%E6%90%AD%E5%BB%BA/"><img src="https://gitee.com/houdezaiwu2022/image-bed/raw/master/GAN/202202112308879.JPEG" alt="Pix2pix GAN 论文及模型搭建"></a></figure><div class="media-content"><p class="date"><time dateTime="2022-02-24T11:17:46.000Z">2022-02-24</time></p><p class="title"><a href="/2022/02/24/Generative%20Adversarial%20Networks/pix2pix-GAN-%E8%AE%BA%E6%96%87%E5%8F%8A%E6%A8%A1%E5%9E%8B%E6%90%AD%E5%BB%BA/">Pix2pix GAN 论文及模型搭建</a></p><p class="categories"><a href="/categories/Generative-Adversarial-Networks/">Generative Adversarial Networks</a></p></div></article></div></div></div></div></div></section><footer class="footer"><div class="container"><div class="level"><div class="level-start"><a class="footer-logo is-block mb-2" href="/"><img src="/img/logo.svg" alt="houdezaiwu&#039;s blog" height="28"></a><p class="is-size-7"><span>&copy; 2022 czt</span>  Powered by <a href="https://hexo.io/" target="_blank" rel="noopener">Hexo</a> &amp; <a href="https://github.com/ppoffice/hexo-theme-icarus" target="_blank" rel="noopener">Icarus</a></p></div><div class="level-end"><div class="field has-addons"><p class="control"><a class="button is-transparent is-large" target="_blank" rel="noopener" title="Creative Commons" href="https://creativecommons.org/"><i class="fab fa-creative-commons"></i></a></p><p class="control"><a class="button is-transparent is-large" target="_blank" rel="noopener" title="Attribution 4.0 International" href="https://creativecommons.org/licenses/by/4.0/"><i class="fab fa-creative-commons-by"></i></a></p><p class="control"><a class="button is-transparent is-large" target="_blank" rel="noopener" title="Download on GitHub" href="https://github.com/ppoffice/hexo-theme-icarus"><i class="fab fa-github"></i></a></p></div></div></div></div></footer><script src="https://cdn.jsdelivr.net/npm/jquery@3.3.1/dist/jquery.min.js"></script><script src="https://cdn.jsdelivr.net/npm/moment@2.22.2/min/moment-with-locales.min.js"></script><script src="https://cdn.jsdelivr.net/npm/clipboard@2.0.4/dist/clipboard.min.js" defer></script><script>moment.locale("zh-CN");</script><script>var IcarusThemeSettings = {
+            article: {
+                highlight: {
+                    clipboard: true,
+                    fold: 'unfolded'
+                }
+            }
+        };</script><script src="/js/column.js"></script><script src="/js/animation.js"></script><a id="back-to-top" title="回到顶端" href="javascript:;"><i class="fas fa-chevron-up"></i></a><script src="/js/back_to_top.js" defer></script><!--!--><!--!--><!--!--><script src="https://cdn.jsdelivr.net/npm/cookieconsent@3.1.1/build/cookieconsent.min.js" defer></script><script>window.addEventListener("load", () => {
+      window.cookieconsent.initialise({
+        type: "info",
+        theme: "edgeless",
+        static: false,
+        position: "bottom-left",
+        content: {
+          message: "此网站使用Cookie来改善您的体验。",
+          dismiss: "知道了！",
+          allow: "允许使用Cookie",
+          deny: "拒绝",
+          link: "了解更多",
+          policy: "Cookie政策",
+          href: "https://www.cookiesandyou.com/",
+        },
+        palette: {
+          popup: {
+            background: "#edeff5",
+            text: "#838391"
+          },
+          button: {
+            background: "#4b81e8"
+          },
+        },
+      });
+    });</script><script src="https://cdn.jsdelivr.net/npm/lightgallery@1.10.0/dist/js/lightgallery.min.js" defer></script><script src="https://cdn.jsdelivr.net/npm/justifiedGallery@3.8.1/dist/js/jquery.justifiedGallery.min.js" defer></script><script>window.addEventListener("load", () => {
+            if (typeof $.fn.lightGallery === 'function') {
+                $('.article').lightGallery({ selector: '.gallery-item' });
+            }
+            if (typeof $.fn.justifiedGallery === 'function') {
+                if ($('.justified-gallery > p > .gallery-item').length) {
+                    $('.justified-gallery > p > .gallery-item').unwrap();
+                }
+                $('.justified-gallery').justifiedGallery();
+            }
+        });</script><!--!--><!--!--><script type="text/x-mathjax-config">MathJax.Hub.Config({
+            'HTML-CSS': {
+                matchFontHeight: false
+            },
+            SVG: {
+                matchFontHeight: false
+            },
+            CommonHTML: {
+                matchFontHeight: false
+            },
+            tex2jax: {
+                inlineMath: [
+                    ['$','$'],
+                    ['\\(','\\)']
+                ]
+            }
+        });</script><script src="https://cdn.jsdelivr.net/npm/mathjax@2.7.9/unpacked/MathJax.js?config=TeX-MML-AM_CHTML" defer></script><div id="outdated"><h6>Your browser is out-of-date!</h6><p>Update your browser to view this website correctly.&amp;npsb;<a id="btnUpdateBrowser" target="_blank" rel="noopener" href="http://outdatedbrowser.com/">Update my browser now </a></p><p class="last"><a href="#" id="btnCloseUpdateBrowser" title="Close">×</a></p></div><script src="https://cdn.jsdelivr.net/npm/outdatedbrowser@1.1.5/outdatedbrowser/outdatedbrowser.min.js" defer></script><script>window.addEventListener("load", function () {
+            outdatedBrowser({
+                bgColor: '#f25648',
+                color: '#ffffff',
+                lowerThan: 'object-fit' // display on IE11 or below
+            });
+        });</script><!--!--><!--!--><!--!--><script src="/js/main.js" defer></script><div class="searchbox"><div class="searchbox-container"><div class="searchbox-header"><div class="searchbox-input-container"><input class="searchbox-input" type="text" placeholder="想要查找什么..."></div><a class="searchbox-close" href="javascript:;">×</a></div><div class="searchbox-body"></div></div></div><script src="/js/insight.js" defer></script><script>document.addEventListener('DOMContentLoaded', function () {
+            loadInsight({"contentUrl":"/content.json"}, {"hint":"想要查找什么...","untitled":"(无标题)","posts":"文章","pages":"页面","categories":"分类","tags":"标签"});
+        });</script><!-- hexo-inject:begin --><!-- hexo-inject:end --></body></html>
