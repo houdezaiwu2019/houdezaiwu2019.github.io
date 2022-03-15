@@ -1,0 +1,210 @@
+<!doctype html>
+<html lang="zh"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"><meta><title>第五章 线性振动的近似计算方法 传递矩阵法 - houdezaiwu&#039;s blog</title><link rel="manifest" href="/manifest.json"><meta name="application-name" content="czt"><meta name="msapplication-TileImage" content="/img/favicon.svg"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-title" content="czt"><meta name="apple-mobile-web-app-status-bar-style" content="default"><meta name="description" content="hljs.initHighlightingOnLoad();  本文主要介绍的是线性振动的近似计算方法中传递矩阵法，主要从圆盘的扭转振动和梁的横向振动来介绍，主要的思想就是将结构转化成为基本的集中质量的结构，进而求解传递矩阵，最后利用边界条件来求解固有频率。"><meta property="og:type" content="blog"><meta property="og:title" content="第五章 线性振动的近似计算方法 传递矩阵法"><meta property="og:url" content="http://example.com/2022/03/15/%E6%8C%AF%E5%8A%A8%E5%8A%9B%E5%AD%A6/%E7%AC%AC%E4%BA%94%E7%AB%A0-%E7%BA%BF%E6%80%A7%E6%8C%AF%E5%8A%A8%E7%9A%84%E8%BF%91%E4%BC%BC%E8%AE%A1%E7%AE%97%E6%96%B9%E6%B3%95-%E4%BC%A0%E9%80%92%E7%9F%A9%E9%98%B5%E6%B3%95/"><meta property="og:site_name" content="houdezaiwu&#039;s blog"><meta property="og:description" content="hljs.initHighlightingOnLoad();  本文主要介绍的是线性振动的近似计算方法中传递矩阵法，主要从圆盘的扭转振动和梁的横向振动来介绍，主要的思想就是将结构转化成为基本的集中质量的结构，进而求解传递矩阵，最后利用边界条件来求解固有频率。"><meta property="og:locale" content="zh_CN"><meta property="og:image" content="https://gitee.com/houdezaiwu2022/image-bed/raw/master/vibration_mechanics/202201261133162.png"><meta property="article:published_time" content="2022-03-15T10:13:08.000Z"><meta property="article:modified_time" content="2022-03-15T10:18:51.247Z"><meta property="article:author" content="czt"><meta property="article:tag" content="机械振动"><meta property="twitter:card" content="summary"><meta property="twitter:image" content="https://gitee.com/houdezaiwu2022/image-bed/raw/master/vibration_mechanics/202201261133162.png"><script type="application/ld+json">{"@context":"https://schema.org","@type":"BlogPosting","mainEntityOfPage":{"@type":"WebPage","@id":"http://example.com/2022/03/15/%E6%8C%AF%E5%8A%A8%E5%8A%9B%E5%AD%A6/%E7%AC%AC%E4%BA%94%E7%AB%A0-%E7%BA%BF%E6%80%A7%E6%8C%AF%E5%8A%A8%E7%9A%84%E8%BF%91%E4%BC%BC%E8%AE%A1%E7%AE%97%E6%96%B9%E6%B3%95-%E4%BC%A0%E9%80%92%E7%9F%A9%E9%98%B5%E6%B3%95/"},"headline":"第五章 线性振动的近似计算方法 传递矩阵法","image":["https://gitee.com/houdezaiwu2022/image-bed/raw/master/vibration_mechanics/202201261133162.png"],"datePublished":"2022-03-15T10:13:08.000Z","dateModified":"2022-03-15T10:18:51.247Z","author":{"@type":"Person","name":"czt"},"publisher":{"@type":"Organization","name":"houdezaiwu's blog","logo":{"@type":"ImageObject","url":"http://example.com/img/logo.svg"}},"description":"hljs.initHighlightingOnLoad();  本文主要介绍的是线性振动的近似计算方法中传递矩阵法，主要从圆盘的扭转振动和梁的横向振动来介绍，主要的思想就是将结构转化成为基本的集中质量的结构，进而求解传递矩阵，最后利用边界条件来求解固有频率。"}</script><link rel="canonical" href="http://example.com/2022/03/15/%E6%8C%AF%E5%8A%A8%E5%8A%9B%E5%AD%A6/%E7%AC%AC%E4%BA%94%E7%AB%A0-%E7%BA%BF%E6%80%A7%E6%8C%AF%E5%8A%A8%E7%9A%84%E8%BF%91%E4%BC%BC%E8%AE%A1%E7%AE%97%E6%96%B9%E6%B3%95-%E4%BC%A0%E9%80%92%E7%9F%A9%E9%98%B5%E6%B3%95/"><link rel="icon" href="/img/favicon.svg"><link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.2/css/all.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@9.12.0/styles/atom-one-light.css"><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Ubuntu:wght@400;600&amp;family=Source+Code+Pro"><link rel="stylesheet" href="/css/default.css"><style>body>.footer,body>.navbar,body>.section{opacity:0}</style><!--!--><!--!--><!--!--><!--!--><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/cookieconsent@3.1.1/build/cookieconsent.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/lightgallery@1.10.0/dist/css/lightgallery.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/justifiedGallery@3.8.1/dist/css/justifiedGallery.min.css"><!--!--><!--!--><!--!--><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/outdatedbrowser@1.1.5/outdatedbrowser/outdatedbrowser.min.css"><style>.pace{-webkit-pointer-events:none;pointer-events:none;-webkit-user-select:none;-moz-user-select:none;user-select:none}.pace-inactive{display:none}.pace .pace-progress{background:#3273dc;position:fixed;z-index:2000;top:0;right:100%;width:100%;height:2px}</style><script src="https://cdn.jsdelivr.net/npm/pace-js@1.2.4/pace.min.js"></script><!--!--><!--!--><!-- hexo injector head_end start -->
+<!-- hexo-inject:begin --><!-- hexo-inject:end --><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css">
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/hexo-math@4.0.0/dist/style.css">
+<!-- hexo injector head_end end --><meta name="generator" content="Hexo 6.0.0"><!-- hexo-inject:begin --><!-- hexo-inject:end --><link rel="stylesheet" href="/css/prism-coy-without-shadows.css" type="text/css">
+<link rel="stylesheet" href="/css/prism-line-numbers.css" type="text/css"></head><body class="is-3-column"><nav class="navbar navbar-main"><div class="container"><div class="navbar-brand justify-content-center"><a class="navbar-item navbar-logo" href="/"><img src="/img/logo.svg" alt="houdezaiwu&#039;s blog" height="28"></a></div><div class="navbar-menu"><div class="navbar-start"><a class="navbar-item" href="/">主页</a><a class="navbar-item" href="/archives">归档</a><a class="navbar-item" href="/categories">分类</a><a class="navbar-item" href="/tags">标签</a><a class="navbar-item" href="/about">关于</a></div><div class="navbar-end"><a class="navbar-item" target="_blank" rel="noopener" title="Download on GitHub" href="https://github.com/ppoffice/hexo-theme-icarus"><i class="fab fa-github"></i></a><a class="navbar-item is-hidden-tablet catalogue" title="目录" href="javascript:;"><i class="fas fa-list-ul"></i></a><a class="navbar-item search" title="搜索" href="javascript:;"><i class="fas fa-search"></i></a></div></div></div></nav><section class="section"><div class="container"><div class="columns"><div class="column order-2 column-main is-8-tablet is-8-desktop is-6-widescreen"><div class="card"><div class="card-image"><span class="image is-7by3"><img class="fill" src="https://gitee.com/houdezaiwu2022/image-bed/raw/master/vibration_mechanics/202201261133162.png" alt="第五章 线性振动的近似计算方法 传递矩阵法"></span></div><article class="card-content article" role="article"><div class="article-meta is-size-7 is-uppercase level is-mobile"><div class="level-left"><span class="level-item"><time dateTime="2022-03-15T10:13:08.000Z" title="2022/3/15 下午6:13:08">2022-03-15</time>发表</span><span class="level-item"><time dateTime="2022-03-15T10:18:51.247Z" title="2022/3/15 下午6:18:51">2022-03-15</time>更新</span><span class="level-item"><a class="link-muted" href="/categories/%E6%8C%AF%E5%8A%A8%E5%8A%9B%E5%AD%A6/">振动力学</a></span><span class="level-item">17 分钟读完 (大约2518个字)</span></div></div><h1 class="title is-3 is-size-4-mobile">第五章 线性振动的近似计算方法 传递矩阵法</h1><div class="content"><link rel="stylesheet" href="//cdn.bootcss.com/highlight.js/9.2.0/styles/github.min.css">
+
+<!-- hexo-inject:begin --><!-- hexo-inject:end --><script src="//cdn.bootcss.com/highlight.js/9.2.0/highlight.min.js"></script>
+<script>hljs.initHighlightingOnLoad();</script>
+
+<p>本文主要介绍的是线性振动的近似计算方法中<strong>传递矩阵法</strong>，主要从<strong>圆盘的扭转振动和梁的横向振动</strong>来介绍，主要的思想就是将结构转化成为基本的集中质量的结构，进而求解传递矩阵，最后利用边界条件来求解固有频率。</p>
+<span id="more"></span>
+<ul>
+<li><p>传递矩阵法适用于计算链状结构的固有频率和主振型</p>
+<blockquote>
+<p>多个圆盘的扭振，连续梁，气轮机和发电机的转轴系统 </p>
+</blockquote>
+</li>
+<li><p>特征：可简化为无质量的梁上带有若干个集中质量的横向振动</p>
+<blockquote>
+<p>如将汽轮机轴的质量简化到轮盘上面。</p>
+</blockquote>
+</li>
+<li><p>特点：将链状结构划分为一系列单元，<strong>每对单元之间的传递矩阵的阶数等于单元的运动微分方程的阶数</strong>，因此传递矩阵法对全系统的计算分解为阶数很低的各个单元的计算，然后加以综合，从而大大减少计算工作量</p>
+</li>
+</ul>
+<h3 id="圆盘的扭转振动"><a href="#圆盘的扭转振动" class="headerlink" title="圆盘的扭转振动"></a><strong>圆盘的扭转振动</strong></h3><p><img src="https://gitee.com/houdezaiwu2022/image-bed/raw/master/vibration_mechanics/202203150932243.png" alt=""></p>
+<ul>
+<li>轴不计质量，只计刚度，圆盘和轴自左至右编号</li>
+<li>第 i-1 个和第 i 个圆盘以及连接两盘的轴段构成<strong>第 i 个单元</strong></li>
+<li>$J_{i-1}、J_{i}$ 圆盘转动惯量；$l_i$：轴段长度 ；$k_i$：轴段扭转刚度</li>
+</ul>
+<p><img src="https://gitee.com/houdezaiwu2022/image-bed/raw/master/vibration_mechanics/202203150936196.png" alt=""></p>
+<script type="math/tex; mode=display">
+\begin{aligned} {\left[\begin{array}{l}\theta \\ T\end{array}\right]_{i}^{R} } &=\left[\begin{array}{cc}1 & 0 \\ -\omega^{2} J_{i} & 1\end{array}\right]\left[\begin{array}{l}\theta \\ T\end{array}\right]_{i}^{L} \quad \boldsymbol{X}_{i}^{R}=\boldsymbol{S}_{i}^{P} \boldsymbol{X}_{i}^{L} \\ \boldsymbol{S}_{i}^{P} &=\left[\begin{array}{cc}1 & 0 \\ -\omega^{2} J_{i} & 1\end{array}\right] \quad \text { 点传递矩阵 } \end{aligned}</script><p>其中，$\boldsymbol{X}=(\theta,T)^T$为状态的变量。</p>
+<p><img src="https://gitee.com/houdezaiwu2022/image-bed/raw/master/vibration_mechanics/202203150949694.png" alt=""></p>
+<p>第 i 个轴段来分析：</p>
+<script type="math/tex; mode=display">
+\begin{aligned} {\left[\begin{array}{l}\theta \\ T\end{array}\right]_{i}^{L} } &=\left[\begin{array}{cc}1 & 1/k_i \\ 0  & 1\end{array}\right]\left[\begin{array}{l}\theta \\ T\end{array}\right]_{i-1}^{R} \quad \boldsymbol{X}_{i}^{L}=\boldsymbol{S}_{i}^{F} \boldsymbol{X}_{i-1}^{R} \\ \boldsymbol{S}_{i}^{F} &=\left[\begin{array}{cc}1 & 1/k_i \\ 0  & 1\end{array}\right] \quad \text { 场传递矩阵 } \end{aligned}</script><p><img src="https://gitee.com/houdezaiwu2022/image-bed/raw/master/vibration_mechanics/202203150950663.png" alt="image-20220315095057027"></p>
+<p>第 i-1 个圆盘右侧到第 i 个圆盘右侧的状态变量传递关系：</p>
+<script type="math/tex; mode=display">
+\boldsymbol{X}_{i}^{R}=\boldsymbol{S}_{i}^{P} \boldsymbol{S}_{i}^{F} \boldsymbol{X}_{i-1}^{R}=\boldsymbol{S}_{i} \boldsymbol{X}_{i-1}^{R} \\ S_{i}=S_{i}^{P} S_{i}^{F}  \Rightarrow 单元传递矩阵\\\boldsymbol{S}_{i}=\boldsymbol{S}_{i}^{P} \boldsymbol{S}_{i}^{F}=\left[\begin{array}{cc}1 & 0 \\ -\omega^{2} J_{i} & 1\end{array}\right]\left[\begin{array}{cc}1 & 1 / k_{i} \\ 0 & 1\end{array}\right]=\left[\begin{array}{cc}1 & 1 / k_{i} \\ -\omega^{2} J_{i} & 1-\omega^{2}\left(J_{i} / k_{i}\right)\end{array}\right]</script><p>n 个圆盘的轴系，最左端和最右端状态变量传递关系：$\boldsymbol{X}_n^R=S\boldsymbol{X}_1^R$</p>
+<p>S：第1至第n单元通路中所有单元传递矩阵的连乘积 $S=S_nS_{n-1}…S_1 \ (\omega)$的函数。 </p>
+<p>最后再去利用两端边界条件可确定固有频率和模态。</p>
+<p><img src="https://gitee.com/houdezaiwu2022/image-bed/raw/master/vibration_mechanics/202203151554318.png" alt=""></p>
+<p>第一个圆盘左端状态：${\left[\begin{array}{l}\theta \\ T\end{array}\right]_{1}^{L} } &amp;=\left[\begin{array}{c}1 \\  0 \end{array}\right]$</p>
+<p>第一个圆盘右端状态：${\left[\begin{array}{l}\theta \\ T\end{array}\right]_{1}^{R} } &amp;=\left[\begin{array}{cc}1 &amp; 0 \\ -\omega^{2} J &amp; 1\end{array}\right]\left[\begin{array}{c}1 \\  0 \end{array}\right]=\left[\begin{array}{c}1 \\ -\omega^2J \end{array}\right]$</p>
+<p><img src="https://gitee.com/houdezaiwu2022/image-bed/raw/master/vibration_mechanics/202203151618898.png" alt=""></p>
+<p><img src="https://gitee.com/houdezaiwu2022/image-bed/raw/master/vibration_mechanics/202203151618243.png" alt=""></p>
+<h3 id="梁的横向弯曲振动系统"><a href="#梁的横向弯曲振动系统" class="headerlink" title="梁的横向弯曲振动系统"></a><strong>梁的横向弯曲振动系统</strong></h3><p><img src="https://gitee.com/houdezaiwu2022/image-bed/raw/master/vibration_mechanics/202203151620758.png" alt=""></p>
+<ul>
+<li><p>传递矩阵法可用于分析梁的<strong>横向弯曲振动</strong>；</p>
+</li>
+<li><p>梁上有 n-1 个集中质量，即只考虑质量，而不考虑其形状 ；梁段质量不计，只计刚度；</p>
+</li>
+<li><p>支座、梁段、集中质量自左向右分别编号；</p>
+</li>
+<li><p><strong>第 i-1 个和第 i 个质量以及连接两质量的梁段构成第 i 个单元</strong></p>
+<p>梁段长$l_i$，抗弯刚度 $E_iI_i$，集中质量$m_{i-1}$、$m_i$</p>
+</li>
+<li><p>状态变量构成：$\boldsymbol{X} = (y \quad \theta\quad M\quad F_s)^T$ </p>
+<p>分别对应的是：<strong>集中质量处</strong>梁的横向位移<strong>(挠度)</strong>、截面转角、弯矩和剪力</p>
+<blockquote>
+<p>这几个是有一定对应的关系的，<strong>其中第一个$\theta=\partial y/\partial x$ ，$F_s=\partial M /\partial x$ ，弯矩M和挠度y是二阶曲率的关系。</strong></p>
+</blockquote>
+</li>
+</ul>
+<p><strong>第i个质量受力分析</strong></p>
+<p><img src="https://gitee.com/houdezaiwu2022/image-bed/raw/master/vibration_mechanics/202203151626096.png" alt=""></p>
+<p>由于几种质量，因此可以不考虑形状特征，此时的挠度、转角和弯矩是相同的，但是由于其质量无法无法忽略，因此其存在惯性力。</p>
+<p>当系统以频率 $\omega$ 作简谐振动时 ：$\ddot y_i=-\omega^2y_i$</p>
+<p>质量左右两侧的传递关系：$\boldsymbol{X}_{i}^{R}=\boldsymbol{S}_{i}^{P} \boldsymbol{X}_{i}^{L}$(点传递矩阵)</p>
+<script type="math/tex; mode=display">
+\left[\begin{array}{c}y \\ \theta \\ M \\ F_{s}\end{array}\right]_{i}^{R}=\left[\begin{array}{cccc}1 & 0 & 0 & 0 \\ 0 & 1 & 0 & 0 \\ 0 & 0 & 1 & 0 \\ \omega^{2} m_{i} & 0 & 0 & 1\end{array}\right]\left[\begin{array}{c}y \\ \theta \\ M \\ F_{s}\end{array}\right]_{i}^{L} \quad</script><p><strong>第 i 个梁段受力分析</strong></p>
+<blockquote>
+<p>由于两端没有质量，因此平衡的条件是两端的剪力相同。</p>
+<p>同时，材料力学和振动力学涉及的都是微小的变形，微振。</p>
+</blockquote>
+<p><img src="https://gitee.com/houdezaiwu2022/image-bed/raw/master/vibration_mechanics/202203151646602.png" alt=""></p>
+<p><strong>对于转角，由材料力学</strong>有：</p>
+<script type="math/tex; mode=display">
+\begin{aligned}\theta_{i}(x) &=\theta_{i-1}^{R}+\frac{1}{E_{i} I_{i}} \int_{0}^{x} M_{i}(x) d x \\&=\theta_{i-1}^{R}+\frac{1}{E_{i} I_{i}} M_{i-1}^{R} x+\frac{1}{2 E_{i} I_{i}} F_{s, i-1}^{R} x^{2}\end{aligned}</script><p><strong>对于挠度，有材料力学得:</strong> </p>
+<script type="math/tex; mode=display">
+y_{i}(x)=y_{i-1}^{R}+\int_{0}^{x} \theta_{i}(x) d x \\=y_{i-1}^{R}+\theta_{i-1}^{R} x+\frac{1}{2 E_{i} I_{i}} M_{i-1}^{R} x^{2}+\frac{1}{6 E_{i} I_{i}} F_{s, i-1}^{R} x^{3}</script><p>于是令$\theta_i(x)^L,\ y_i(x)^L,\ M_i(x)^L$ 中的$x=l_i$：</p>
+<script type="math/tex; mode=display">
+F_{s,i}^L=F_{s,i-1}^R\\
+M_i^L=M_i^R+F_{s,i-1}^Rl_i\\
+\theta_{i}^L =\theta_{i-1}^{R}+\frac{1}{E_{i} I_{i}} M_{i-1}^{R}l_i+\frac{1}{2 E_{i} I_{i}} F_{s, i-1}^{R} {l_i}^{2}\\
+y_{i}^L=y_{i-1}^{R}+\theta_{i-1}^{R} l_i+\frac{1}{2 E_{i} I_{i}} M_{i-1}^{R} {l_i}^{2}+\frac{1}{6 E_{i} I_{i}} F_{s, i-1}^{R} {l_i}^{3}</script><p>结合梁段受力平衡方程，第 i 个梁段左右两端状态变量的传递关系：</p>
+<p><img src="https://gitee.com/houdezaiwu2022/image-bed/raw/master/vibration_mechanics/202203151658774.png" alt=""></p>
+<p><img src="https://gitee.com/houdezaiwu2022/image-bed/raw/master/vibration_mechanics/202203151711045.png" alt=""></p>
+<p>第 i -1 个质量右侧至第 i个质量右侧的状态变量传递关系：</p>
+<script type="math/tex; mode=display">
+\boldsymbol{X}_{i}^{R}=\boldsymbol{S}_{i}^{P} \boldsymbol{S}_{i}^{F} \boldsymbol{X}_{i-1}^{R}=\boldsymbol{S}_{i} \boldsymbol{X}_{i-1}^{R} \\ S_{i}=S_{i}^{P} S_{i}^{F}  \Rightarrow 单元传递矩阵\\</script><p>对于带 n 个集中质量得梁，总能利用各单元传递矩阵的连乘积导出梁的最左端和最右端状态变量传递关系：$\boldsymbol{X}_n^R=S\boldsymbol{X}_1^R$ </p>
+<p>最后两端边界条件可确定固有频率和振型</p>
+<p><img src="https://gitee.com/houdezaiwu2022/image-bed/raw/master/vibration_mechanics/202203151713041.png" alt=""></p>
+<blockquote>
+<p>本节主要关注：</p>
+<ul>
+<li><p>一个初始条件：先对模型进行分段，将确定两边的边界条件。</p>
+</li>
+<li><p>两次受力分析：一次对集中质量，一次对轴段和两端。</p>
+</li>
+<li><p>三个传递矩阵：点传递矩阵、场传递矩阵、单元传递矩阵。</p>
+</li>
+</ul>
+</blockquote>
+<p><img src="https://gitee.com/houdezaiwu2022/image-bed/raw/master/vibration_mechanics/202203151715807.png" alt=""></p>
+<blockquote>
+<p>引入无量纲量的目的是方便计算</p>
+</blockquote>
+<p><img src="https://gitee.com/houdezaiwu2022/image-bed/raw/master/vibration_mechanics/202203151722496.png" alt=""></p>
+<p>之后使用传递矩阵法，计算每个两端和集中质量处的状态变量的值，最后我们将两边的结果代入即可。</p>
+<p><img src="https://gitee.com/houdezaiwu2022/image-bed/raw/master/vibration_mechanics/202203151722588.png" alt=""></p>
+<p>两支座之间的状态关系：$ \boldsymbol{X}_{3}^{L}=\overline{\boldsymbol{S}}_{0}^{R} \quad \overline{\boldsymbol{S}}=\overline{\boldsymbol{S}}_{3}^{F} \overline{\boldsymbol{S}}_{2}^{P} \overline{\boldsymbol{S}}_{2}^{F} \overline{\boldsymbol{S}}_{1}^{P} \overline{\boldsymbol{S}}_{1}^{F} $</p>
+<p>在初始条件下  $y_0^R=0,\ M_0^R=0$ 代入得到 $y_3^L,M_3^R$ 的表达式，在代入$y_3^L=0,\ M_3^L=0$ </p>
+<script type="math/tex; mode=display">
+\overline{\boldsymbol{S}}=\left[\begin{array}{llll}\alpha_{11} & \alpha_{12} & \alpha_{13} & \alpha_{14} \\ \alpha_{21} & \alpha_{22} & \alpha_{23} & \alpha_{24} \\ \alpha_{31} & \alpha_{32} & \alpha_{33} & \alpha_{34} \\ \alpha_{41} & \alpha_{42} & \alpha_{43} & \alpha_{44}\end{array}\right]\Rightarrow\left(\begin{array}{c}\bar{y} \\ \theta \\ \bar{M} \\ \overline{\bar{F}}\end{array}\right)_{3}^{L}=\left[\begin{array}{llll}\alpha_{11} & \alpha_{12} & \alpha_{13} & \alpha_{14} \\ \alpha_{21} & \alpha_{22} & \alpha_{23} & \alpha_{24} \\ \alpha_{31} & \alpha_{32} & \alpha_{33} & \alpha_{34} \\ \alpha_{41} & \alpha_{42} & \alpha_{43} & \alpha_{44}\end{array}\right]\left(\begin{array}{c}\bar{y} \\ \theta \\ \bar{M} \\ \overline{\bar{F}}\end{array}\right)_{0}^{R}</script><p>两端支座边界条件: </p>
+<script type="math/tex; mode=display">
+\left\{\begin{array}{l}\alpha_{12} \theta_{0}+\alpha_{14} \bar{F}_{s 0}=0 \\ \alpha_{32} \theta_{0}+\alpha_{34} \bar{F}_{s 0}=0\end{array}\right.</script><p> 非零解条件: $\quad \Delta \lambda(\omega)=\left|\begin{array}{ll}\alpha_{12} &amp; \alpha_{14} \\ \alpha_{32} &amp; \alpha_{34}\end{array}\right|=0 \quad $<strong>得出频率方程，求解可得系统的固有频率。</strong></p>
+<p><img src="https://gitee.com/houdezaiwu2022/image-bed/raw/master/vibration_mechanics/202203151732620.png" alt=""></p>
+<p>也可利用特征方程，采用数值方法求解固有频率。</p>
+<blockquote>
+<p>频率和模态是由边界决定，因为手动在这些连续体上面的传递可以看作是一种波的传递过程，这就是传递矩阵法的意义所在。</p>
+</blockquote>
+<p>下面看一个悬臂梁的例子。</p>
+<p><img src="https://gitee.com/houdezaiwu2022/image-bed/raw/master/vibration_mechanics/202203151743962.png" alt=""></p>
+<p>边界条件：</p>
+<ul>
+<li>最左边贴近固定端的一侧，其挠度和转角为0，允许有弯矩和剪力；</li>
+<li>对于自由端，由于没有约束其转角和挠度不为0，剪力和弯矩由于没有相关的约束，因此为0。</li>
+</ul>
+<p><img src="https://gitee.com/houdezaiwu2022/image-bed/raw/master/vibration_mechanics/202203151746816.png" alt=""></p>
+<blockquote>
+<p>最后的结果是第一阶模态的准确性还是可以的，但是第二阶就不准确了。</p>
+</blockquote>
+<ul>
+<li><p>原因是对于之前的简支梁来说，其左右两边是被固定住的，因此肯定是无法发生位移的，集中质量假设对该模型来说影响不大，即简化前后的模态大体上是相近的情况。</p>
+</li>
+<li><p>但是对于悬臂梁而言，其有一个自由端，之前是一个均匀的悬臂梁的振型和集中质量简化后的求出的模态有在自由端上出现差异。</p>
+</li>
+</ul>
+</div><div class="article-licensing box"><div class="licensing-title"><p>第五章 线性振动的近似计算方法 传递矩阵法</p><p><a href="http://example.com/2022/03/15/振动力学/第五章-线性振动的近似计算方法-传递矩阵法/">http://example.com/2022/03/15/振动力学/第五章-线性振动的近似计算方法-传递矩阵法/</a></p></div><div class="licensing-meta level is-mobile"><div class="level-left"><div class="level-item is-narrow"><div><h6>作者</h6><p>czt</p></div></div><div class="level-item is-narrow"><div><h6>发布于</h6><p>2022-03-15</p></div></div><div class="level-item is-narrow"><div><h6>更新于</h6><p>2022-03-15</p></div></div><div class="level-item is-narrow"><div><h6>许可协议</h6><p><a class="icons" rel="noopener" target="_blank" title="Creative Commons" href="https://creativecommons.org/"><i class="icon fab fa-creative-commons"></i></a><a class="icons" rel="noopener" target="_blank" title="Attribution" href="https://creativecommons.org/licenses/by/4.0/"><i class="icon fab fa-creative-commons-by"></i></a><a class="icons" rel="noopener" target="_blank" title="Noncommercial" href="https://creativecommons.org/licenses/by-nc/4.0/"><i class="icon fab fa-creative-commons-nc"></i></a></p></div></div></div></div></div><div class="article-tags is-size-7 mb-4"><span class="mr-2">#</span><a class="link-muted mr-2" rel="tag" href="/tags/%E6%9C%BA%E6%A2%B0%E6%8C%AF%E5%8A%A8/">机械振动</a></div><!--!--></article></div><!--!--><nav class="post-navigation mt-4 level is-mobile"><div class="level-end"><a class="article-nav-next level level-item link-muted" href="/2022/03/15/%E6%8C%AF%E5%8A%A8%E5%8A%9B%E5%AD%A6/%E7%AC%AC%E4%BA%94%E7%AB%A0-%E7%BA%BF%E6%80%A7%E6%8C%AF%E5%8A%A8%E7%9A%84%E8%BF%91%E4%BC%BC%E8%AE%A1%E7%AE%97%E6%96%B9%E6%B3%95-%E7%AC%AC%E4%B8%80%E9%83%A8%E5%88%86/"><span class="level-item">第五章 线性振动的近似计算方法 第一部分</span><i class="level-item fas fa-chevron-right"></i></a></div></nav><!--!--></div><div class="column column-left is-4-tablet is-4-desktop is-3-widescreen  order-1 is-sticky"><div class="card widget" data-type="profile"><div class="card-content"><nav class="level"><div class="level-item has-text-centered flex-shrink-1"><div><figure class="image is-128x128 mx-auto mb-2"><img class="avatar" src="https://gitee.com/houdezaiwu2022/image-bed/raw/master/hexoimg/202201222202112.jpg" alt="厚德载物"></figure><p class="title is-size-4 is-block" style="line-height:inherit;">厚德载物</p><p class="is-size-6 is-block">实事求是，敢为人先</p><p class="is-size-6 is-flex justify-content-center"><i class="fas fa-map-marker-alt mr-1"></i><span>中国 湖北 武汉</span></p></div></div></nav><nav class="level is-mobile"><div class="level-item has-text-centered is-marginless"><div><p class="heading">文章</p><a href="/archives"><p class="title">46</p></a></div></div><div class="level-item has-text-centered is-marginless"><div><p class="heading">分类</p><a href="/categories"><p class="title">10</p></a></div></div><div class="level-item has-text-centered is-marginless"><div><p class="heading">标签</p><a href="/tags"><p class="title">20</p></a></div></div></nav><div class="level"><a class="level-item button is-primary is-rounded" href="https://github.com/ppoffice" target="_blank" rel="noopener">关注我</a></div><div class="level is-mobile is-multiline"><a class="level-item button is-transparent is-marginless" target="_blank" rel="noopener" title="Github" href="https://github.com/ppoffice"><i class="fab fa-github"></i></a><a class="level-item button is-transparent is-marginless" target="_blank" rel="noopener" title="Facebook" href="https://facebook.com"><i class="fab fa-facebook"></i></a><a class="level-item button is-transparent is-marginless" target="_blank" rel="noopener" title="Twitter" href="https://twitter.com"><i class="fab fa-twitter"></i></a><a class="level-item button is-transparent is-marginless" target="_blank" rel="noopener" title="Dribbble" href="https://dribbble.com"><i class="fab fa-dribbble"></i></a><a class="level-item button is-transparent is-marginless" target="_blank" rel="noopener" title="RSS" href="/"><i class="fas fa-rss"></i></a></div></div></div><div class="card widget" data-type="links"><div class="card-content"><div class="menu"><h3 class="menu-label">链接</h3><ul class="menu-list"><li><a class="level is-mobile" href="https://hexo.io" target="_blank" rel="noopener"><span class="level-left"><span class="level-item">Hexo</span></span><span class="level-right"><span class="level-item tag">hexo.io</span></span></a></li><li><a class="level is-mobile" href="https://bulma.io" target="_blank" rel="noopener"><span class="level-left"><span class="level-item">Bulma</span></span><span class="level-right"><span class="level-item tag">bulma.io</span></span></a></li></ul></div></div></div><div class="card widget" data-type="archives"><div class="card-content"><div class="menu"><h3 class="menu-label">归档</h3><ul class="menu-list"><li><a class="level is-mobile" href="/archives/2022/03/"><span class="level-start"><span class="level-item">三月 2022</span></span><span class="level-end"><span class="level-item tag">14</span></span></a></li><li><a class="level is-mobile" href="/archives/2022/02/"><span class="level-start"><span class="level-item">二月 2022</span></span><span class="level-end"><span class="level-item tag">21</span></span></a></li><li><a class="level is-mobile" href="/archives/2022/01/"><span class="level-start"><span class="level-item">一月 2022</span></span><span class="level-end"><span class="level-item tag">11</span></span></a></li></ul></div></div></div><div class="card widget" data-type="tags"><div class="card-content"><div class="menu"><h3 class="menu-label">标签</h3><div class="field is-grouped is-grouped-multiline"><div class="control"><a class="tags has-addons" href="/tags/GAN%E5%AE%9E%E6%88%98/"><span class="tag">GAN实战</span><span class="tag">6</span></a></div><div class="control"><a class="tags has-addons" href="/tags/Generative-Adversarial-Networks/"><span class="tag">Generative Adversarial Networks</span><span class="tag">6</span></a></div><div class="control"><a class="tags has-addons" href="/tags/IEEE%E6%8A%95%E7%A8%BF/"><span class="tag">IEEE投稿</span><span class="tag">1</span></a></div><div class="control"><a class="tags has-addons" href="/tags/Latex/"><span class="tag">Latex</span><span class="tag">4</span></a></div><div class="control"><a class="tags has-addons" href="/tags/Markdown/"><span class="tag">Markdown</span><span class="tag">1</span></a></div><div class="control"><a class="tags has-addons" href="/tags/Typora/"><span class="tag">Typora</span><span class="tag">1</span></a></div><div class="control"><a class="tags has-addons" href="/tags/auto-encoder/"><span class="tag">auto-encoder</span><span class="tag">3</span></a></div><div class="control"><a class="tags has-addons" href="/tags/control-theory/"><span class="tag">control theory</span><span class="tag">1</span></a></div><div class="control"><a class="tags has-addons" href="/tags/latex/"><span class="tag">latex</span><span class="tag">1</span></a></div><div class="control"><a class="tags has-addons" href="/tags/object-detection/"><span class="tag">object detection</span><span class="tag">3</span></a></div><div class="control"><a class="tags has-addons" href="/tags/opencv/"><span class="tag">opencv</span><span class="tag">3</span></a></div><div class="control"><a class="tags has-addons" href="/tags/python/"><span class="tag">python</span><span class="tag">3</span></a></div><div class="control"><a class="tags has-addons" href="/tags/pytorch/"><span class="tag">pytorch</span><span class="tag">17</span></a></div><div class="control"><a class="tags has-addons" href="/tags/%E5%9B%BE%E5%83%8F%E5%88%86%E7%B1%BB/"><span class="tag">图像分类</span><span class="tag">6</span></a></div><div class="control"><a class="tags has-addons" href="/tags/%E6%8E%A7%E5%88%B6%E7%90%86%E8%AE%BA/"><span class="tag">控制理论</span><span class="tag">1</span></a></div><div class="control"><a class="tags has-addons" href="/tags/%E6%97%A0%E7%9B%91%E7%9D%A3%E5%AD%A6%E4%B9%A0/"><span class="tag">无监督学习</span><span class="tag">3</span></a></div><div class="control"><a class="tags has-addons" href="/tags/%E6%9C%BA%E6%A2%B0%E6%8C%AF%E5%8A%A8/"><span class="tag">机械振动</span><span class="tag">15</span></a></div><div class="control"><a class="tags has-addons" href="/tags/%E7%94%9F%E6%88%90%E6%A8%A1%E5%9E%8B/"><span class="tag">生成模型</span><span class="tag">3</span></a></div><div class="control"><a class="tags has-addons" href="/tags/%E7%A7%91%E7%A0%94/"><span class="tag">科研</span><span class="tag">1</span></a></div><div class="control"><a class="tags has-addons" href="/tags/%E8%AE%BA%E6%96%87%E5%86%99%E4%BD%9C/"><span class="tag">论文写作</span><span class="tag">1</span></a></div></div></div></div></div><div class="column-right-shadow is-hidden-widescreen is-sticky"></div></div><div class="column column-right is-4-tablet is-4-desktop is-3-widescreen is-hidden-touch is-hidden-desktop-only order-3 is-sticky"><div class="card widget" id="toc" data-type="toc"><div class="card-content"><div class="menu"><h3 class="menu-label">目录</h3><ul class="menu-list"><li><a class="level is-mobile" href="#圆盘的扭转振动"><span class="level-left"><span class="level-item">1</span><span class="level-item">圆盘的扭转振动</span></span></a></li><li><a class="level is-mobile" href="#梁的横向弯曲振动系统"><span class="level-left"><span class="level-item">2</span><span class="level-item">梁的横向弯曲振动系统</span></span></a></li></ul></div></div><script src="/js/toc.js" defer></script></div><div class="card widget" data-type="categories"><div class="card-content"><div class="menu"><h3 class="menu-label">分类</h3><ul class="menu-list"><li><a class="level is-mobile" href="/categories/Generative-Adversarial-Networks/"><span class="level-start"><span class="level-item">Generative Adversarial Networks</span></span><span class="level-end"><span class="level-item tag">6</span></span></a></li><li><a class="level is-mobile" href="/categories/Latex/"><span class="level-start"><span class="level-item">Latex</span></span><span class="level-end"><span class="level-item tag">4</span></span></a></li><li><a class="level is-mobile" href="/categories/PyTorch%E6%95%99%E7%A8%8B%E4%B8%8E%E6%BA%90%E7%A0%81%E8%AE%B2%E8%A7%A3/"><span class="level-start"><span class="level-item">PyTorch教程与源码讲解</span></span><span class="level-end"><span class="level-item tag">5</span></span></a></li><li><a class="level is-mobile" href="/categories/Typora/"><span class="level-start"><span class="level-item">Typora</span></span><span class="level-end"><span class="level-item tag">1</span></span></a></li><li><a class="level is-mobile" href="/categories/auto-encoder/"><span class="level-start"><span class="level-item">auto-encoder</span></span><span class="level-end"><span class="level-item tag">3</span></span></a></li><li><a class="level is-mobile" href="/categories/opencv/"><span class="level-start"><span class="level-item">opencv</span></span><span class="level-end"><span class="level-item tag">3</span></span></a></li><li><a class="level is-mobile" href="/categories/%E5%9B%BE%E5%83%8F%E5%88%86%E7%B1%BB%E7%BD%91%E7%BB%9C%E5%8F%8APytorch%E5%AE%9E%E7%8E%B0/"><span class="level-start"><span class="level-item">图像分类网络及Pytorch实现</span></span><span class="level-end"><span class="level-item tag">6</span></span></a></li><li><a class="level is-mobile" href="/categories/%E6%8C%AF%E5%8A%A8%E5%8A%9B%E5%AD%A6/"><span class="level-start"><span class="level-item">振动力学</span></span><span class="level-end"><span class="level-item tag">15</span></span></a></li><li><a class="level is-mobile" href="/categories/%E7%8E%B0%E4%BB%A3%E6%8E%A7%E5%88%B6%E7%90%86%E8%AE%BA/"><span class="level-start"><span class="level-item">现代控制理论</span></span><span class="level-end"><span class="level-item tag">1</span></span></a></li><li><a class="level is-mobile" href="/categories/%E7%A7%91%E7%A0%94%E5%85%A5%E9%97%A8%E7%AC%94%E8%AE%B0/"><span class="level-start"><span class="level-item">科研入门笔记</span></span><span class="level-end"><span class="level-item tag">1</span></span></a></li></ul></div></div></div><div class="card widget" data-type="recent-posts"><div class="card-content"><h3 class="menu-label">最新文章</h3><article class="media"><figure class="media-left"><a class="image" href="/2022/03/15/%E6%8C%AF%E5%8A%A8%E5%8A%9B%E5%AD%A6/%E7%AC%AC%E4%BA%94%E7%AB%A0-%E7%BA%BF%E6%80%A7%E6%8C%AF%E5%8A%A8%E7%9A%84%E8%BF%91%E4%BC%BC%E8%AE%A1%E7%AE%97%E6%96%B9%E6%B3%95-%E4%BC%A0%E9%80%92%E7%9F%A9%E9%98%B5%E6%B3%95/"><img src="https://gitee.com/houdezaiwu2022/image-bed/raw/master/vibration_mechanics/202201261133162.png" alt="第五章 线性振动的近似计算方法 传递矩阵法"></a></figure><div class="media-content"><p class="date"><time dateTime="2022-03-15T10:13:08.000Z">2022-03-15</time></p><p class="title"><a href="/2022/03/15/%E6%8C%AF%E5%8A%A8%E5%8A%9B%E5%AD%A6/%E7%AC%AC%E4%BA%94%E7%AB%A0-%E7%BA%BF%E6%80%A7%E6%8C%AF%E5%8A%A8%E7%9A%84%E8%BF%91%E4%BC%BC%E8%AE%A1%E7%AE%97%E6%96%B9%E6%B3%95-%E4%BC%A0%E9%80%92%E7%9F%A9%E9%98%B5%E6%B3%95/">第五章 线性振动的近似计算方法 传递矩阵法</a></p><p class="categories"><a href="/categories/%E6%8C%AF%E5%8A%A8%E5%8A%9B%E5%AD%A6/">振动力学</a></p></div></article><article class="media"><figure class="media-left"><a class="image" href="/2022/03/15/%E6%8C%AF%E5%8A%A8%E5%8A%9B%E5%AD%A6/%E7%AC%AC%E4%BA%94%E7%AB%A0-%E7%BA%BF%E6%80%A7%E6%8C%AF%E5%8A%A8%E7%9A%84%E8%BF%91%E4%BC%BC%E8%AE%A1%E7%AE%97%E6%96%B9%E6%B3%95-%E7%AC%AC%E4%B8%80%E9%83%A8%E5%88%86/"><img src="https://gitee.com/houdezaiwu2022/image-bed/raw/master/vibration_mechanics/202201261133162.png" alt="第五章 线性振动的近似计算方法 第一部分"></a></figure><div class="media-content"><p class="date"><time dateTime="2022-03-14T16:55:17.000Z">2022-03-15</time></p><p class="title"><a href="/2022/03/15/%E6%8C%AF%E5%8A%A8%E5%8A%9B%E5%AD%A6/%E7%AC%AC%E4%BA%94%E7%AB%A0-%E7%BA%BF%E6%80%A7%E6%8C%AF%E5%8A%A8%E7%9A%84%E8%BF%91%E4%BC%BC%E8%AE%A1%E7%AE%97%E6%96%B9%E6%B3%95-%E7%AC%AC%E4%B8%80%E9%83%A8%E5%88%86/">第五章 线性振动的近似计算方法 第一部分</a></p><p class="categories"><a href="/categories/%E6%8C%AF%E5%8A%A8%E5%8A%9B%E5%AD%A6/">振动力学</a></p></div></article><article class="media"><figure class="media-left"><a class="image" href="/2022/03/15/%E6%8C%AF%E5%8A%A8%E5%8A%9B%E5%AD%A6/%E7%AC%AC%E5%9B%9B%E7%AB%A0-%E5%A4%9A%E8%87%AA%E7%94%B1%E5%BA%A6%E7%B3%BB%E7%BB%9F%E6%8C%AF%E5%8A%A8-%E6%9C%89%E9%98%BB%E5%B0%BC%E7%9A%84%E5%A4%9A%E8%87%AA%E7%94%B1%E5%BA%A6%E7%B3%BB%E7%BB%9F/"><img src="https://gitee.com/houdezaiwu2022/image-bed/raw/master/vibration_mechanics/202201261133162.png" alt="第四章 多自由度系统振动 有阻尼的多自由度系统"></a></figure><div class="media-content"><p class="date"><time dateTime="2022-03-14T16:54:46.000Z">2022-03-15</time></p><p class="title"><a href="/2022/03/15/%E6%8C%AF%E5%8A%A8%E5%8A%9B%E5%AD%A6/%E7%AC%AC%E5%9B%9B%E7%AB%A0-%E5%A4%9A%E8%87%AA%E7%94%B1%E5%BA%A6%E7%B3%BB%E7%BB%9F%E6%8C%AF%E5%8A%A8-%E6%9C%89%E9%98%BB%E5%B0%BC%E7%9A%84%E5%A4%9A%E8%87%AA%E7%94%B1%E5%BA%A6%E7%B3%BB%E7%BB%9F/">第四章 多自由度系统振动 有阻尼的多自由度系统</a></p><p class="categories"><a href="/categories/%E6%8C%AF%E5%8A%A8%E5%8A%9B%E5%AD%A6/">振动力学</a></p></div></article><article class="media"><figure class="media-left"><a class="image" href="/2022/03/14/%E6%8C%AF%E5%8A%A8%E5%8A%9B%E5%AD%A6/%E7%AC%AC%E5%9B%9B%E7%AB%A0-%E5%A4%9A%E8%87%AA%E7%94%B1%E5%BA%A6%E7%B3%BB%E7%BB%9F%E6%8C%AF%E5%8A%A8-%E5%A4%9A%E8%87%AA%E7%94%B1%E7%B3%BB%E7%BB%9F%E7%9A%84%E5%8F%97%E8%BF%AB%E6%8C%AF%E5%8A%A8/"><img src="https://gitee.com/houdezaiwu2022/image-bed/raw/master/vibration_mechanics/202201261133162.png" alt="第四章 多自由度系统振动 多自由系统的受迫振动"></a></figure><div class="media-content"><p class="date"><time dateTime="2022-03-13T16:08:28.000Z">2022-03-14</time></p><p class="title"><a href="/2022/03/14/%E6%8C%AF%E5%8A%A8%E5%8A%9B%E5%AD%A6/%E7%AC%AC%E5%9B%9B%E7%AB%A0-%E5%A4%9A%E8%87%AA%E7%94%B1%E5%BA%A6%E7%B3%BB%E7%BB%9F%E6%8C%AF%E5%8A%A8-%E5%A4%9A%E8%87%AA%E7%94%B1%E7%B3%BB%E7%BB%9F%E7%9A%84%E5%8F%97%E8%BF%AB%E6%8C%AF%E5%8A%A8/">第四章 多自由度系统振动 多自由系统的受迫振动</a></p><p class="categories"><a href="/categories/%E6%8C%AF%E5%8A%A8%E5%8A%9B%E5%AD%A6/">振动力学</a></p></div></article><article class="media"><figure class="media-left"><a class="image" href="/2022/03/14/%E6%8C%AF%E5%8A%A8%E5%8A%9B%E5%AD%A6/%E7%AC%AC%E5%9B%9B%E7%AB%A0-%E5%A4%9A%E8%87%AA%E7%94%B1%E5%BA%A6%E7%B3%BB%E7%BB%9F%E6%8C%AF%E5%8A%A8-%E9%A2%91%E7%8E%87%E6%96%B9%E7%A8%8B%E7%9A%84%E9%9B%B6%E6%A0%B9%E5%92%8C%E9%87%8D%E6%A0%B9%E6%83%85%E5%BD%A2/"><img src="https://gitee.com/houdezaiwu2022/image-bed/raw/master/vibration_mechanics/202201261133162.png" alt="第四章 多自由度系统振动 频率方程的零根和重根情形"></a></figure><div class="media-content"><p class="date"><time dateTime="2022-03-13T16:07:41.000Z">2022-03-14</time></p><p class="title"><a href="/2022/03/14/%E6%8C%AF%E5%8A%A8%E5%8A%9B%E5%AD%A6/%E7%AC%AC%E5%9B%9B%E7%AB%A0-%E5%A4%9A%E8%87%AA%E7%94%B1%E5%BA%A6%E7%B3%BB%E7%BB%9F%E6%8C%AF%E5%8A%A8-%E9%A2%91%E7%8E%87%E6%96%B9%E7%A8%8B%E7%9A%84%E9%9B%B6%E6%A0%B9%E5%92%8C%E9%87%8D%E6%A0%B9%E6%83%85%E5%BD%A2/">第四章 多自由度系统振动 频率方程的零根和重根情形</a></p><p class="categories"><a href="/categories/%E6%8C%AF%E5%8A%A8%E5%8A%9B%E5%AD%A6/">振动力学</a></p></div></article></div></div></div></div></div></section><footer class="footer"><div class="container"><div class="level"><div class="level-start"><a class="footer-logo is-block mb-2" href="/"><img src="/img/logo.svg" alt="houdezaiwu&#039;s blog" height="28"></a><p class="is-size-7"><span>&copy; 2022 czt</span>  Powered by <a href="https://hexo.io/" target="_blank" rel="noopener">Hexo</a> &amp; <a href="https://github.com/ppoffice/hexo-theme-icarus" target="_blank" rel="noopener">Icarus</a></p></div><div class="level-end"><div class="field has-addons"><p class="control"><a class="button is-transparent is-large" target="_blank" rel="noopener" title="Creative Commons" href="https://creativecommons.org/"><i class="fab fa-creative-commons"></i></a></p><p class="control"><a class="button is-transparent is-large" target="_blank" rel="noopener" title="Attribution 4.0 International" href="https://creativecommons.org/licenses/by/4.0/"><i class="fab fa-creative-commons-by"></i></a></p><p class="control"><a class="button is-transparent is-large" target="_blank" rel="noopener" title="Download on GitHub" href="https://github.com/ppoffice/hexo-theme-icarus"><i class="fab fa-github"></i></a></p></div></div></div></div></footer><script src="https://cdn.jsdelivr.net/npm/jquery@3.3.1/dist/jquery.min.js"></script><script src="https://cdn.jsdelivr.net/npm/moment@2.22.2/min/moment-with-locales.min.js"></script><script src="https://cdn.jsdelivr.net/npm/clipboard@2.0.4/dist/clipboard.min.js" defer></script><script>moment.locale("zh-CN");</script><script>var IcarusThemeSettings = {
+            article: {
+                highlight: {
+                    clipboard: true,
+                    fold: 'unfolded'
+                }
+            }
+        };</script><script src="/js/column.js"></script><script src="/js/animation.js"></script><a id="back-to-top" title="回到顶端" href="javascript:;"><i class="fas fa-chevron-up"></i></a><script src="/js/back_to_top.js" defer></script><!--!--><!--!--><!--!--><script src="https://cdn.jsdelivr.net/npm/cookieconsent@3.1.1/build/cookieconsent.min.js" defer></script><script>window.addEventListener("load", () => {
+      window.cookieconsent.initialise({
+        type: "info",
+        theme: "edgeless",
+        static: false,
+        position: "bottom-left",
+        content: {
+          message: "此网站使用Cookie来改善您的体验。",
+          dismiss: "知道了！",
+          allow: "允许使用Cookie",
+          deny: "拒绝",
+          link: "了解更多",
+          policy: "Cookie政策",
+          href: "https://www.cookiesandyou.com/",
+        },
+        palette: {
+          popup: {
+            background: "#edeff5",
+            text: "#838391"
+          },
+          button: {
+            background: "#4b81e8"
+          },
+        },
+      });
+    });</script><script src="https://cdn.jsdelivr.net/npm/lightgallery@1.10.0/dist/js/lightgallery.min.js" defer></script><script src="https://cdn.jsdelivr.net/npm/justifiedGallery@3.8.1/dist/js/jquery.justifiedGallery.min.js" defer></script><script>window.addEventListener("load", () => {
+            if (typeof $.fn.lightGallery === 'function') {
+                $('.article').lightGallery({ selector: '.gallery-item' });
+            }
+            if (typeof $.fn.justifiedGallery === 'function') {
+                if ($('.justified-gallery > p > .gallery-item').length) {
+                    $('.justified-gallery > p > .gallery-item').unwrap();
+                }
+                $('.justified-gallery').justifiedGallery();
+            }
+        });</script><!--!--><!--!--><script type="text/x-mathjax-config">MathJax.Hub.Config({
+            'HTML-CSS': {
+                matchFontHeight: false
+            },
+            SVG: {
+                matchFontHeight: false
+            },
+            CommonHTML: {
+                matchFontHeight: false
+            },
+            tex2jax: {
+                inlineMath: [
+                    ['$','$'],
+                    ['\\(','\\)']
+                ]
+            }
+        });</script><script src="https://cdn.jsdelivr.net/npm/mathjax@2.7.9/unpacked/MathJax.js?config=TeX-MML-AM_CHTML" defer></script><div id="outdated"><h6>Your browser is out-of-date!</h6><p>Update your browser to view this website correctly.&amp;npsb;<a id="btnUpdateBrowser" target="_blank" rel="noopener" href="http://outdatedbrowser.com/">Update my browser now </a></p><p class="last"><a href="#" id="btnCloseUpdateBrowser" title="Close">×</a></p></div><script src="https://cdn.jsdelivr.net/npm/outdatedbrowser@1.1.5/outdatedbrowser/outdatedbrowser.min.js" defer></script><script>window.addEventListener("load", function () {
+            outdatedBrowser({
+                bgColor: '#f25648',
+                color: '#ffffff',
+                lowerThan: 'object-fit' // display on IE11 or below
+            });
+        });</script><!--!--><!--!--><!--!--><script src="/js/main.js" defer></script><div class="searchbox"><div class="searchbox-container"><div class="searchbox-header"><div class="searchbox-input-container"><input class="searchbox-input" type="text" placeholder="想要查找什么..."></div><a class="searchbox-close" href="javascript:;">×</a></div><div class="searchbox-body"></div></div></div><script src="/js/insight.js" defer></script><script>document.addEventListener('DOMContentLoaded', function () {
+            loadInsight({"contentUrl":"/content.json"}, {"hint":"想要查找什么...","untitled":"(无标题)","posts":"文章","pages":"页面","categories":"分类","tags":"标签"});
+        });</script><!-- hexo-inject:begin --><!-- hexo-inject:end --></body></html>
