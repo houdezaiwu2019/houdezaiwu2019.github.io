@@ -1,0 +1,320 @@
+<!doctype html>
+<html lang="zh"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"><meta><title>第六章 连续系统的振动  梁的弯曲振动 - houdezaiwu&#039;s blog</title><link rel="manifest" href="/manifest.json"><meta name="application-name" content="czt"><meta name="msapplication-TileImage" content="/img/favicon.svg"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-title" content="czt"><meta name="apple-mobile-web-app-status-bar-style" content="default"><meta name="description" content="hljs.initHighlightingOnLoad();  本文主要介绍的是连续系统振动的近似求解方法部分本文主要介绍的是连续系统振动的一维波动方程部分，主要从动力学方程、固有频率和模态函数、振型函数和正交性以及梁的纵向受迫振动等方面就行讲解。 弯曲振动即横向振动，轴向的振动相比横向的振动时可以忽略的。"><meta property="og:type" content="blog"><meta property="og:title" content="第六章 连续系统的振动  梁的弯曲振动"><meta property="og:url" content="http://example.com/2022/03/18/%E6%8C%AF%E5%8A%A8%E5%8A%9B%E5%AD%A6/%E7%AC%AC%E5%85%AD%E7%AB%A0-%E8%BF%9E%E7%BB%AD%E7%B3%BB%E7%BB%9F%E7%9A%84%E6%8C%AF%E5%8A%A8-%E6%A2%81%E7%9A%84%E5%BC%AF%E6%9B%B2%E6%8C%AF%E5%8A%A8/"><meta property="og:site_name" content="houdezaiwu&#039;s blog"><meta property="og:description" content="hljs.initHighlightingOnLoad();  本文主要介绍的是连续系统振动的近似求解方法部分本文主要介绍的是连续系统振动的一维波动方程部分，主要从动力学方程、固有频率和模态函数、振型函数和正交性以及梁的纵向受迫振动等方面就行讲解。 弯曲振动即横向振动，轴向的振动相比横向的振动时可以忽略的。"><meta property="og:locale" content="zh_CN"><meta property="og:image" content="https://gitee.com/houdezaiwu2022/image-bed/raw/master/vibration_mechanics/202201261133162.png"><meta property="article:published_time" content="2022-03-18T09:42:45.000Z"><meta property="article:modified_time" content="2022-03-18T09:56:12.509Z"><meta property="article:author" content="czt"><meta property="article:tag" content="机械振动"><meta property="twitter:card" content="summary"><meta property="twitter:image" content="https://gitee.com/houdezaiwu2022/image-bed/raw/master/vibration_mechanics/202201261133162.png"><script type="application/ld+json">{"@context":"https://schema.org","@type":"BlogPosting","mainEntityOfPage":{"@type":"WebPage","@id":"http://example.com/2022/03/18/%E6%8C%AF%E5%8A%A8%E5%8A%9B%E5%AD%A6/%E7%AC%AC%E5%85%AD%E7%AB%A0-%E8%BF%9E%E7%BB%AD%E7%B3%BB%E7%BB%9F%E7%9A%84%E6%8C%AF%E5%8A%A8-%E6%A2%81%E7%9A%84%E5%BC%AF%E6%9B%B2%E6%8C%AF%E5%8A%A8/"},"headline":"第六章 连续系统的振动  梁的弯曲振动","image":["https://gitee.com/houdezaiwu2022/image-bed/raw/master/vibration_mechanics/202201261133162.png"],"datePublished":"2022-03-18T09:42:45.000Z","dateModified":"2022-03-18T09:56:12.509Z","author":{"@type":"Person","name":"czt"},"publisher":{"@type":"Organization","name":"houdezaiwu's blog","logo":{"@type":"ImageObject","url":"http://example.com/img/logo.svg"}},"description":"hljs.initHighlightingOnLoad();  本文主要介绍的是连续系统振动的近似求解方法部分本文主要介绍的是连续系统振动的一维波动方程部分，主要从动力学方程、固有频率和模态函数、振型函数和正交性以及梁的纵向受迫振动等方面就行讲解。 弯曲振动即横向振动，轴向的振动相比横向的振动时可以忽略的。"}</script><link rel="canonical" href="http://example.com/2022/03/18/%E6%8C%AF%E5%8A%A8%E5%8A%9B%E5%AD%A6/%E7%AC%AC%E5%85%AD%E7%AB%A0-%E8%BF%9E%E7%BB%AD%E7%B3%BB%E7%BB%9F%E7%9A%84%E6%8C%AF%E5%8A%A8-%E6%A2%81%E7%9A%84%E5%BC%AF%E6%9B%B2%E6%8C%AF%E5%8A%A8/"><link rel="icon" href="/img/favicon.svg"><link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.2/css/all.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@9.12.0/styles/atom-one-light.css"><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Ubuntu:wght@400;600&amp;family=Source+Code+Pro"><link rel="stylesheet" href="/css/default.css"><style>body>.footer,body>.navbar,body>.section{opacity:0}</style><!--!--><!--!--><!--!--><!--!--><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/cookieconsent@3.1.1/build/cookieconsent.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/lightgallery@1.10.0/dist/css/lightgallery.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/justifiedGallery@3.8.1/dist/css/justifiedGallery.min.css"><!--!--><!--!--><!--!--><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/outdatedbrowser@1.1.5/outdatedbrowser/outdatedbrowser.min.css"><style>.pace{-webkit-pointer-events:none;pointer-events:none;-webkit-user-select:none;-moz-user-select:none;user-select:none}.pace-inactive{display:none}.pace .pace-progress{background:#3273dc;position:fixed;z-index:2000;top:0;right:100%;width:100%;height:2px}</style><script src="https://cdn.jsdelivr.net/npm/pace-js@1.2.4/pace.min.js"></script><!--!--><!--!--><!-- hexo injector head_end start -->
+<!-- hexo-inject:begin --><!-- hexo-inject:end --><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css">
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/hexo-math@4.0.0/dist/style.css">
+<!-- hexo injector head_end end --><meta name="generator" content="Hexo 6.0.0"><!-- hexo-inject:begin --><!-- hexo-inject:end --><link rel="stylesheet" href="/css/prism-coy-without-shadows.css" type="text/css">
+<link rel="stylesheet" href="/css/prism-line-numbers.css" type="text/css"></head><body class="is-3-column"><nav class="navbar navbar-main"><div class="container"><div class="navbar-brand justify-content-center"><a class="navbar-item navbar-logo" href="/"><img src="/img/logo.svg" alt="houdezaiwu&#039;s blog" height="28"></a></div><div class="navbar-menu"><div class="navbar-start"><a class="navbar-item" href="/">主页</a><a class="navbar-item" href="/archives">归档</a><a class="navbar-item" href="/categories">分类</a><a class="navbar-item" href="/tags">标签</a><a class="navbar-item" href="/about">关于</a></div><div class="navbar-end"><a class="navbar-item" target="_blank" rel="noopener" title="Download on GitHub" href="https://github.com/ppoffice/hexo-theme-icarus"><i class="fab fa-github"></i></a><a class="navbar-item is-hidden-tablet catalogue" title="目录" href="javascript:;"><i class="fas fa-list-ul"></i></a><a class="navbar-item search" title="搜索" href="javascript:;"><i class="fas fa-search"></i></a></div></div></div></nav><section class="section"><div class="container"><div class="columns"><div class="column order-2 column-main is-8-tablet is-8-desktop is-6-widescreen"><div class="card"><div class="card-image"><span class="image is-7by3"><img class="fill" src="https://gitee.com/houdezaiwu2022/image-bed/raw/master/vibration_mechanics/202201261133162.png" alt="第六章 连续系统的振动  梁的弯曲振动"></span></div><article class="card-content article" role="article"><div class="article-meta is-size-7 is-uppercase level is-mobile"><div class="level-left"><span class="level-item"><time dateTime="2022-03-18T09:42:45.000Z" title="2022/3/18 下午5:42:45">2022-03-18</time>发表</span><span class="level-item"><time dateTime="2022-03-18T09:56:12.509Z" title="2022/3/18 下午5:56:12">2022-03-18</time>更新</span><span class="level-item"><a class="link-muted" href="/categories/%E6%8C%AF%E5%8A%A8%E5%8A%9B%E5%AD%A6/">振动力学</a></span><span class="level-item">30 分钟读完 (大约4557个字)</span></div></div><h1 class="title is-3 is-size-4-mobile">第六章 连续系统的振动  梁的弯曲振动</h1><div class="content"><link rel="stylesheet" href="//cdn.bootcss.com/highlight.js/9.2.0/styles/github.min.css">
+
+<!-- hexo-inject:begin --><!-- hexo-inject:end --><script src="//cdn.bootcss.com/highlight.js/9.2.0/highlight.min.js"></script>
+<script>hljs.initHighlightingOnLoad();</script>
+
+<p>本文主要介绍的是连续系统振动的<strong>近似求解方法</strong>部分本文主要介绍的是连续系统振动的<strong>一维波动方程</strong>部分，主要从<strong>动力学方程</strong>、<strong>固有频率和模态函数</strong>、<strong>振型函数和正交性</strong>以及<strong>梁的纵向受迫振动</strong>等方面就行讲解。</p>
+<p>弯曲振动即横向振动，轴向的振动相比横向的振动时可以忽略的。</p>
+<span id="more"></span>
+<h3 id="动力学方程"><a href="#动力学方程" class="headerlink" title="动力学方程"></a><strong>动力学方程</strong></h3><p><img src="https://gitee.com/houdezaiwu2022/image-bed/raw/master/vibration_mechanics/202203162132590.png" alt=""></p>
+<blockquote>
+<p>对于微振来说，其变形比较小，<strong>变形前后在轴向上的投影时相同的</strong>。</p>
+</blockquote>
+<p>满足上述条件和假设的梁称为<strong>伯努利－欧拉梁（Bernoulli-Euler Beam）</strong>即长梁。<strong>对于短梁而言，就不能忽略剪切变形以及截面绕中性轴转动惯量的影响</strong></p>
+<p><img src="https://gitee.com/houdezaiwu2022/image-bed/raw/master/vibration_mechanics/202203162138876.png" alt=""></p>
+<p><img src="https://gitee.com/houdezaiwu2022/image-bed/raw/master/vibration_mechanics/202203162139736.png" alt=""></p>
+<blockquote>
+<p>著名的等截面假设：<strong>就是弯矩和挠度又二阶偏导的关系</strong></p>
+</blockquote>
+<p>变截面梁的动力学方程：</p>
+<script type="math/tex; mode=display">
+\frac{\partial^{2}}{\partial x^{2}}\left[E I \frac{\partial^{2} y(x, t)}{\partial x^{2}}\right]+\rho S \frac{\partial^{2} y(x, t)}{\partial t^{2}}=f(x, t)-\frac{\partial}{\partial x} m(x, t)</script><blockquote>
+<p>$EI$项为刚度项，$\rho S$项为惯性项，整体的量纲是<strong>力的量纲</strong>。</p>
+</blockquote>
+<p>等截面梁的动力学方程：</p>
+<script type="math/tex; mode=display">
+E I \frac{\partial^{4} y}{\partial x^{4}}+\rho S \frac{\partial^{2} y}{\partial t^{2}}=f(x, t)-\frac{\partial}{\partial x} m(x, t)</script><blockquote>
+<p>对于的截面而言，$I$ 是个定值，可以提出来。</p>
+</blockquote>
+<h3 id="固有频率和模态函数"><a href="#固有频率和模态函数" class="headerlink" title="固有频率和模态函数"></a><strong>固有频率和模态函数</strong></h3><h4 id="基本理论"><a href="#基本理论" class="headerlink" title="基本理论"></a><strong>基本理论</strong></h4><p><img src="https://gitee.com/houdezaiwu2022/image-bed/raw/master/vibration_mechanics/202203162152740.png" alt=""></p>
+<blockquote>
+<p>在自由振动的条件下，我们可以将时间的函数(模态坐标)写成简谐的。</p>
+</blockquote>
+<p>其中，$C_i(i=1,2,3,4)$ 和 $\omega$ 应该满足的频率方程形式是由<strong>梁的边界条件确定的</strong>。</p>
+<p><img src="https://gitee.com/houdezaiwu2022/image-bed/raw/master/vibration_mechanics/202203170936065.png" alt=""></p>
+<p>这里的$\omega_i \longleftrightarrow \phi_i(x)$ 有无穷多个且一一对应。</p>
+<p>第 $ i $ 阶主振动：$ \quad y^{(i)}(x, t)=a_{i} \phi_{i}(x) \sin \left(\omega_{i} t+\theta_{i}\right) $</p>
+<p>$a_{i}$ 和 $\theta_{i}$ 由<strong>系统的初始条件确定</strong>系统的自由振动是无穷多个主振动的叠加：</p>
+<script type="math/tex; mode=display">
+y(x, t)=\sum_{i=1}^{\infty} a_{i} \phi_{i}(x) \sin \left(\omega_{i} t+\theta_{i}\right)</script><h4 id="常见的约束和边界条件"><a href="#常见的约束和边界条件" class="headerlink" title="常见的约束和边界条件"></a><strong>常见的约束和边界条件</strong></h4><p><img src="https://gitee.com/houdezaiwu2022/image-bed/raw/master/vibration_mechanics/202203170943140.png" alt=""></p>
+<blockquote>
+<p>对于<strong>固定端</strong>，由于固定的一端是不受约束的，因此固定的那一端上的转角和位移都是0.</p>
+<p>对于<strong>简支端</strong>，由于其位移是别固定住的，因此位移是0，其次由于简支端是铰接的，可以随便的转动，因此弯矩是0。</p>
+<p>对于<strong>自由端</strong>，其弯矩和剪力都是0。</p>
+</blockquote>
+<p><img src="https://gitee.com/houdezaiwu2022/image-bed/raw/master/vibration_mechanics/202203170958149.png" alt=""></p>
+<p>首先，代入固定端的条件可得：$C_{1}=-C_{3} \quad C_{2}=-C_{4}$</p>
+<p>之后，代入自由端的条件可得：</p>
+<script type="math/tex; mode=display">
+\left\{\begin{array}{l}C_{1}(\cos \beta l+\cosh \beta l)+C_{2}(\sin \beta l+\sinh \beta l)=0 \\ -C_{1}(\sin \beta l-\sinh \beta l)+C_{2}(\cos \beta l+\cosh \beta l)=0\end{array}\right.</script><p> $ C_{1} 、 C_{2} $ 非零解条件: $ \left|\begin{array}{cc}\cos \beta l+\cosh \beta l &amp; \sin \beta l+\sinh \beta l \\ -\sin \beta l+\sinh \beta l &amp; \cos \beta l+\cosh \beta l\end{array}\right|=0 $</p>
+<p>等截面梁：$\phi^{(4)}(x)-\beta^{4} \phi(x)=0 \quad \beta^{4}=\dfrac{\omega^{2}}{a_{0}^{2}} \quad a_{0}^{2}=\dfrac{E I}{\rho S} $</p>
+<p>通解： $\phi(x)=C_{1} \cos \beta x+C_{2} \sin \beta x+C_{3} \cosh \beta x+C_{4} \sinh \beta x $</p>
+<p><img src="https://gitee.com/houdezaiwu2022/image-bed/raw/master/vibration_mechanics/202203171002489.png" alt=""></p>
+<p>代入$\beta^{4}=\dfrac{\omega^{2}}{a_{0}^{2}}$ 中可得，系统的各阶频率：</p>
+<script type="math/tex; mode=display">
+\omega_{i}=\left(\beta_{i} l\right)^{2} \sqrt{\frac{E I}{\rho S l^{4}}}, \quad(i=1,2, \cdots)</script><p>对应的各阶振型函数：</p>
+<script type="math/tex; mode=display">
+\phi_{i}(x)=\cos \beta_{i} x-\cosh \beta_{i} x+\underline{\xi_{i}}\left(\sin \beta_{i} x-\sinh \beta_{i} x\right), \quad(i=1,2, \cdots) \\\xi_{i}=\frac{\cos \beta_{i} l+\cosh \beta_{i} l}{\sin \beta_{i} l+\sinh \beta_{i} l}, \quad(i=1,2, \cdots) \quad \beta^{4}=\frac{\omega^{2}}{a_{0}^{2}} \quad a_{0}^{2}=\frac{E I}{\rho S}</script><p>这里的 $\xi_i$ 其实就是各阶模态下$C_1和C_3$的比值。</p>
+<p><img src="https://gitee.com/houdezaiwu2022/image-bed/raw/master/vibration_mechanics/202203171022480.png" alt=""></p>
+<p><img src="https://gitee.com/houdezaiwu2022/image-bed/raw/master/vibration_mechanics/202203171022501.png" alt=""></p>
+<blockquote>
+<p>测量的传感器要避开节点的位置。</p>
+</blockquote>
+<p><img src="https://gitee.com/houdezaiwu2022/image-bed/raw/master/vibration_mechanics/202203171027136.png" alt=""></p>
+<p>之后，代入边界条件可得：$C_{1}=C_{3}=0$</p>
+<script type="math/tex; mode=display">
+\begin{array}{l} \left\{\begin{array}{l}C_{2} \sin \beta l+C_{4} \sinh \beta l=0 \\-C_{2} \sin \beta l+C_{4} \sinh \beta l=0\end{array} \quad \Longrightarrow \quad C_{4}=0\right.\end{array}</script><p>频率方程:：$\sin \beta l=0 \quad \Rightarrow \quad \beta_{i} l=i \pi, \quad(i=1,2, \cdots) $ </p>
+<p>固有频率: $\quad \omega_{i}=\left(\dfrac{i \pi}{l}\right)^{2} \sqrt{\dfrac{E I}{\rho S}}, \quad(i=1,2, \cdots) $</p>
+<p><img src="https://gitee.com/houdezaiwu2022/image-bed/raw/master/vibration_mechanics/202203171032253.png" alt=""></p>
+<p>例：两端自由梁的固有频率和振型函数，背景：导弹飞行系统类别：半正定系统 、存在刚体模态。</p>
+<p><img src="https://gitee.com/houdezaiwu2022/image-bed/raw/master/vibration_mechanics/202203171039238.png" alt=""></p>
+<p><img src="https://gitee.com/houdezaiwu2022/image-bed/raw/master/vibration_mechanics/202203171040527.png" alt=""></p>
+<blockquote>
+<p>注意：这里第二阶的模态和静平衡位置有所不同，由于存在大范围的因此其存在两个结点，对于静平衡的结构来说应该不存在这种结构。</p>
+</blockquote>
+<p>之前是几个简单的结构，不存在重复约束的静定结构，下面我们来看一个静不定结构的例子。</p>
+<p>例：试用数值确定一根一端固定另一端简支的梁的频率方程，并且绘出第一阶振型和第二阶振型的挠度曲线。</p>
+<p><img src="https://gitee.com/houdezaiwu2022/image-bed/raw/master/vibration_mechanics/202203171051458.png" alt=""></p>
+<blockquote>
+<p>对于固定端来说，位移和转角的0；对于简支端来说，位移和弯矩为0，弯矩对于的是$M=EI\dfrac {\partial^2 y(x,t)} {\partial x^2}$ </p>
+</blockquote>
+<p>将边界条件代入到振型函数中去：</p>
+<script type="math/tex; mode=display">
+\phi(x)=C_{1} \cos \beta x+C_{2} \sin \beta x+C_{3} \cosh \beta x+C_{4} \sinh \beta x \\
+\phi(0)=0 \Longrightarrow C_{1}+C_{3}=0 \Longrightarrow C_{3}=-C_{1} \\
+\phi^{\prime}(0)=0 \Longrightarrow C_{2}+C_{4}=0 \Longrightarrow C_{4}=-C_{2} \\
+\phi(l)=0 \Longrightarrow C_{1}(\cos \beta l-\cosh \beta l)+C_{2}(\sin \beta l-\sinh \beta l)=0 \\
+\phi^{\prime \prime}(l)=0 \Longrightarrow C_{1}(\cos \beta l+\cosh \beta l)+C_{2}(\sin \beta l+\sinh \beta l)=0</script><p><img src="https://gitee.com/houdezaiwu2022/image-bed/raw/master/vibration_mechanics/202203171105716.png" alt=""></p>
+<p>解得：$\beta_1l=3.927,\beta_2l=7.069$</p>
+<p><img src="https://gitee.com/houdezaiwu2022/image-bed/raw/master/vibration_mechanics/202203171108777.png" alt=""></p>
+<p><img src="https://gitee.com/houdezaiwu2022/image-bed/raw/master/vibration_mechanics/202203171116554.png" alt=""></p>
+<p>首先，设弯曲变形方程为$y(x,t)=\phi(x)q(t)$</p>
+<p><strong>边界条件:</strong></p>
+<p>固定端：挠度和截面转角为零 $\phi(0)=0 \quad \phi^{\prime}(0)=0$</p>
+<p>弹性支撑端：剪力、弯矩分别与直线弹簧反力、卷簧反力矩相等</p>
+<p>剪力平衡条件：$ \dfrac{\partial}{\partial x}\left(E I \dfrac{\partial^{2} y(l, t)}{\partial x^{2}}\right)=k_{2} y(l, t) \Rightarrow E I \phi^{\prime \prime \prime}(l)=k_{2} \phi(l) $</p>
+<p>弯矩平衡条件：$E I \dfrac{\partial^{2} y(l, t)}{\partial x^{2}}=-k_{1} \dfrac{\partial y(l, t)}{\partial x} \Rightarrow E I \phi^{\prime \prime}(l)=-k_{1} \phi^{\prime}(l) $</p>
+<p><img src="https://gitee.com/houdezaiwu2022/image-bed/raw/master/vibration_mechanics/202203171120770.png" alt=""></p>
+<p>由弹性支撑固定端条件解得：</p>
+<script type="math/tex; mode=display">
+\begin{array}{l}C_{1}\left[E I \beta(\cos \beta l+\cosh \beta l)+k_{1}(\sin \beta l+\sinh \beta l)\right]+ \\C_{2}\left[E I \beta(\sin \beta l+\sinh \beta l)-k_{1}(\cos \beta l-\cosh \beta l)\right]=0 \\C_{1}\left[E I \beta^{3}(\sin \beta l-\sinh \beta l)-k_{2}(\cos \beta l-\cosh \beta l)\right]- \\C_{2}\left[E I \beta^{3}(\cos \beta l+\cosh \beta l)+k_{2}(\sin \beta l-\sinh \beta l)\right]=0\end{array}</script><p> $C_{1} 、 C_{2} $ 非零解条件导出频率方程：</p>
+<script type="math/tex; mode=display">
+\cos \beta l \cosh \beta l+1=-\frac{k_{1}}{E I \beta}(\cos \beta l \sinh \beta l+\sin \beta l \cosh \beta l), \quad\left(k_{2}=0\right) \\ \cos \beta l \cosh \beta l+1=-\frac{k_{2}}{E I \beta^{3}}(\cos \beta l \sinh \beta l-\sin \beta l \cosh \beta l), \quad\left(k_{1}=0\right)</script><blockquote>
+<p>$k_2=0$：代表没有直线弹簧只有扭簧的情况下，系统的振动方程。</p>
+<p>$k_1=0$：代表没有扭簧只有直线弹簧的情况下，系统的振动方程。</p>
+</blockquote>
+<p>讨论：</p>
+<ol>
+<li><p>若k1、k2 同时为零，则退化为<strong>悬臂梁</strong>的情形。$\cos\beta l\cosh \beta l+1=0$ </p>
+</li>
+<li><p>若k1＝0、k2 无穷大，则退化为一端固定另一端简支的情形</p>
+<p>$k_2=\dfrac a b \quad b=0 \quad \cos\beta l\sinh\beta l-\sin\beta\cosh \beta l=0$</p>
+</li>
+</ol>
+<blockquote>
+<p>所谓的有质量没尺寸的情况，此时集中质量没有弯矩。</p>
+</blockquote>
+<p><img src="https://gitee.com/houdezaiwu2022/image-bed/raw/master/vibration_mechanics/202203171130330.png" alt=""></p>
+<p><strong>说明：</strong></p>
+<p><img src="https://gitee.com/houdezaiwu2022/image-bed/raw/master/vibration_mechanics/202203171130649.png" alt=""></p>
+<p><strong>考虑剪切变形使得梁的刚度降低，考虑转动惯量使得梁的惯性增加，这两个因素都会使梁的固有频率降低</strong></p>
+<p>总结：梁的固有频率和模态是由边界来决定的；复杂边界，就是在梁的自由端增加集中质量、直线弹簧和卷簧。</p>
+<h3 id="振型函数的正交性"><a href="#振型函数的正交性" class="headerlink" title="振型函数的正交性"></a><strong>振型函数的正交性</strong></h3><p><img src="https://gitee.com/houdezaiwu2022/image-bed/raw/master/vibration_mechanics/202203171138504.png" alt=""></p>
+<p>于是设：$\omega_i \leftrightarrow \phi_i(x)$， $\omega_j \leftrightarrow \phi_j(x)$</p>
+<p><img src="https://gitee.com/houdezaiwu2022/image-bed/raw/master/vibration_mechanics/202203171142907.png" alt=""></p>
+<p><strong>在梁的简单边界上，总有挠度$\phi(x)$或剪力$\phi^{\prime\prime\prime}(x)$中的一个与转角或$\phi^{\prime}(x)$弯矩$\phi^{\prime\prime}(x)$中的一个同时为零</strong></p>
+<blockquote>
+<p>简单边界：自由端，固定端，简支端。</p>
+</blockquote>
+<p>代入边界条件可得：$\int_{0}^{l} \phi_{j}\left(E I \phi_{i}^{\prime \prime}\right)^{\prime \prime} d x=\int_{0}^{l} E I \phi_{i}^{\prime \prime} \phi_{j}^{\prime \prime} d x$</p>
+<p>代入 (3) 式：$\int_{0}^{l} E I \phi_{i}^{\prime \prime} \phi_{j}^{\prime \prime} d x=\omega_{i}^{2} \int_{0}^{l} \rho S \phi_{i} \phi_{j} d x$</p>
+<p>同理, (2)式两边乘 $ \phi_{i} $ 并沿梁长积分： $ \int_{0}^{l} E I \phi_{i}^{\prime \prime} \phi_{j}^{\prime \prime} d x=\omega_{j}^{2} \int_{0}^{l} \rho S \phi_{i} \phi_{j} d x $</p>
+<p>相减可得: $ \quad\left(\omega_{i}^{2}-\omega_{j}^{2}\right) \int_{0}^{l} \rho S \phi_{i} \phi_{j} d x=0 $</p>
+<p>讨论：</p>
+<p>当$ i \neq j $ 时，主振型关于质量的正交性为：</p>
+<script type="math/tex; mode=display">
+\omega_{i} \neq \omega_{j} \quad \int_{0}^{l} \rho S \phi_{i} \phi_{j} d x=0, \quad i \neq j</script><p>主振型关于刚度的正交性为： </p>
+<script type="math/tex; mode=display">
+\int_{0}^{l} \phi_{j}\left(E I \phi_{i}^{\prime \prime}\right)^{\prime \prime} d x=\int_{0}^{l} E I \phi_{i}^{\prime \prime} \phi_{j}^{\prime \prime} d x=0, \quad i \neq j</script><p>当$i=j$ 时，第  j  阶主质量：</p>
+<script type="math/tex; mode=display">
+\int_{0}^{l} \rho S \phi_{j}^{2} d x=m_{p j}</script><p>第  j  阶主刚度：</p>
+<script type="math/tex; mode=display">
+\int_{0}^{l} \phi_{j}\left(E I \phi_{j}^{\prime \prime}\right)^{\prime \prime} d x=\int_{0}^{l} E I\left(\phi_{j}^{\prime \prime}\right)^{2} d x=k_{p j}</script><p>第  j  阶固有频率为： $ \omega_{j}=k_{p j} / m_{p j} $</p>
+<p>主振型中的常数（$\phi_j$的系数）按<strong>归一化</strong>条件确定 ：$\int_{0}^{l} \rho S \phi_{j}^{2} d x=m_{p j}=1$</p>
+<p>正则振型的正交性：$\int_{0}^{l} \phi_{j}\left(E I \phi_{j}^{\prime \prime}\right)^{\prime \prime} d x=\int_{0}^{l} E I\left(\phi_{j}^{\prime \prime}\right)^{2} d x=k_{p j}=\delta_{ij}\omega_j^2$</p>
+<h3 id="梁横向振动的强迫响应"><a href="#梁横向振动的强迫响应" class="headerlink" title="梁横向振动的强迫响应"></a><strong>梁横向振动的强迫响应</strong></h3><p><img src="https://gitee.com/houdezaiwu2022/image-bed/raw/master/vibration_mechanics/202203171210937.png" alt=""></p>
+<blockquote>
+<p>这边其实默认积分和求和时可以换位置的，因为振动的方程满足一致连续的条件。</p>
+</blockquote>
+<p><img src="https://gitee.com/houdezaiwu2022/image-bed/raw/master/vibration_mechanics/202203171548324.png" alt=""></p>
+<p>得出$q_j(t)$之后，即可以得到梁的响应$y(x,t)$ 。</p>
+<p>如果作用在梁上的载荷不是分布力矩，而是集中力和集中力矩。</p>
+<p><img src="https://gitee.com/houdezaiwu2022/image-bed/raw/master/vibration_mechanics/202203171549170.png" alt=""></p>
+<script type="math/tex; mode=display">
+Q_{j}(t)= \int_{0}^{l}\left[f(x, t) \phi_{j}+m(x, t) \phi_{j}^{\prime}\right] d x \quad \int_{0}^{t} f(t) \delta(t-\tau) d t=f(\tau)</script><p>将其代入到上面的表达式可得：</p>
+<script type="math/tex; mode=display">
+\begin{aligned} Q_{j}(t) &=\int_{0}^{l}\left[F_{0}(t) \delta\left(x-\xi_{1}\right) \phi_{j}(x)+M_{0}(t) \delta\left(x-\xi_{2}\right) \phi_{j}^{\prime}(x)\right] d x \\ &=F_{0}(t) \phi_{j}\left(\xi_{1}\right)+M_{0}(t) \phi_{j}^{\prime}\left(\xi_{2}\right) \\  \end{aligned}</script><p><img src="https://gitee.com/houdezaiwu2022/image-bed/raw/master/vibration_mechanics/202203171559187.png" alt=""></p>
+<p>解： </p>
+<ul>
+<li><strong>首先，由材力得初始条件：</strong></li>
+</ul>
+<script type="math/tex; mode=display">
+y(x, 0)=f_{1}(x)=\left\{\begin{array}{ll}y_{s t}\left[3\left(\dfrac{x}{l}\right)-4\left(\dfrac{x}{l}\right)^{3}\right], & 0 \leq x \leq \dfrac{l}{2} \\y_{s t}\left[3\left(\dfrac{l-x}{x}\right)-4\left(\dfrac{l-x}{l}\right)^{3}\right], & \dfrac{l}{2} \leq x \leq l\end{array}\right.\\ \left.\frac{\partial y}{\partial t}\right|_{t=0}=f_{2}(x)=0 \quad y_{s t}=-\frac{P l^{3}}{48 E I} \quad  梁中点的静挠度</script><ul>
+<li><strong>其次，可以边界条件求解固有频率和模态函数：</strong></li>
+</ul>
+<p><img src="https://gitee.com/houdezaiwu2022/image-bed/raw/master/vibration_mechanics/202203171619478.png" alt=""></p>
+<ul>
+<li>归一化条件: </li>
+</ul>
+<script type="math/tex; mode=display">
+\int_{0}^{l} \rho S\left(C_{i} \sin \frac{i \pi x}{l}\right)^{2} d x=\frac{\rho S l}{2} C_{i}^{2}=1 \quad C_{i}=\sqrt{\frac{2}{\rho A l}}</script><ul>
+<li><p><strong>然后，根据初始条件求模态坐标</strong></p>
+<p>代入公式将外界广义力转化到模态坐标，这里的$f_1(x)$为初始条件下梁的变形曲线。</p>
+</li>
+</ul>
+<script type="math/tex; mode=display">
+q_{j}(0)=\int_{0}^{l} \rho S f_{1}(x) \phi_{j}(x) d x\\
+\dot{q}_{j}(0)=\int_{0}^{l} \rho S f_{2}(x) \phi_{j}(x) d x</script><p><strong>模态坐标</strong>初始条件下，当作用力刚刚撤去受到的力产生的位移，即正则广义力为：</p>
+<script type="math/tex; mode=display">
+\begin{align}
+q_{i}(0) &=\int_{0}^{\frac{l}{2}} \rho S y_{s t}\left[3\left(\frac{x}{l}\right)^{3}-4\left(\frac{x}{l}\right)^{3}\right] C_{i} \sin \frac{i \pi x}{l} d x + \int_{\frac{l}{2}}^{l} \rho S y_{s t}\left[3\left(\frac{l-x}{l}\right)-4\left(\frac{l-x}{l}\right)^{3}\right] C_{i} \sin \frac{i \pi x}{l} d x \\&=-\frac{P l^{4} \rho S}{i^{4} \pi^{4} E I} \qquad i=1,3,5, \cdots
+\end{align}</script><blockquote>
+<p>这里根据积分的表达式可得：在 i 为偶数的情况下积分的结果可能为0。</p>
+</blockquote>
+<p>初始条件下，由于外力是刚刚撤去的，因此此时的速度为0，没有激励，因此正则广义力为0：</p>
+<p>$\dot{q}_{i}(0)=0 \quad i=1,3,5, \cdots $</p>
+<ul>
+<li><p>最后，代入求解在物理空间的响应</p>
+<p>模态坐标响应: $ \quad q_{i}(t)=q_{i}(0) \cos \omega_{i} t $</p>
+<p>物理空间上的梁响应：</p>
+<script type="math/tex; mode=display">
+ y(x, t)=\sum_{i=1}^{\infty} \phi_{i}(x) q_{i}(t)=-\frac{2 P l^{3}}{\pi^{4} E I} \sum_{i=1,3,5 \cdots}^{\infty} \frac{(-1)^{\frac{i-1}{2}}}{i^{4}} \sin \frac{i \pi x}{l} \cos \omega_{i} t</script></li>
+</ul>
+<p>例：简支梁，中点受力矩作$M_0\sin\omega t$ 用，求：梁的响应</p>
+<p><img src="https://gitee.com/houdezaiwu2022/image-bed/raw/master/vibration_mechanics/202203171715876.png" alt=""></p>
+<p><strong>上面的两个题目都是直接求解，固有频率、振型方程、广义正则力，之后得出正则方程，求解正则方程，最后将求解的结果代入得到物理空间，得出最后的模态。</strong></p>
+<p>上述两题的方法总结：</p>
+<ol>
+<li>首先根据边界条件使用之前例题的一些结论直接得出<strong>固有频率和振型函数</strong>(<strong>刚才我们推导了不同边界下的振动过程</strong>)</li>
+<li>之后根据外力的公式，直接积分得出<strong>正则广义力</strong>即模态坐标</li>
+<li>最后根据模态函数和模态坐标相乘并累加</li>
+</ol>
+<blockquote>
+<p>其实直接法和定义法是差不多的，但是使用定义法不容易出错。</p>
+</blockquote>
+<p><img src="https://gitee.com/houdezaiwu2022/image-bed/raw/master/vibration_mechanics/202203171722367.png" alt=""></p>
+<p>求稳态强迫振动，以及梁自由端的响应。</p>
+<p><img src="https://gitee.com/houdezaiwu2022/image-bed/raw/master/vibration_mechanics/202203171839716.png" alt=""></p>
+<p>两边乘 $ \phi_{j} $ 并沿梁长对 x 积分：</p>
+<script type="math/tex; mode=display">
+\sum_{i=1}^{\infty}\left(q_{i} \int_{0}^{l} E I \phi_{i}^{\prime \prime \prime} \phi_{j} d x+\ddot{q}_{i} \int_{0}^{l} \rho S \phi_{i} \phi_{j} d x\right)=P \sin \omega t \int_{0}^{l} \delta(x-l) \phi_{j} d x</script><p>利用正则振型正交性条件 : </p>
+<script type="math/tex; mode=display">
+\ddot{q}_{i}+\omega_{i}^{2} q_{i}=P \phi_{i}(l) \sin \omega t</script><p>模态稳态解 : $q_{i}=\dfrac{P \phi_{i}(l)}{\omega_{i}^{2}\left[1-\left(\omega / \omega_{i}\right)^{2}\right]} \sin \omega t, \quad i=1,2, \ldots $</p>
+<p>梁的响应：</p>
+<script type="math/tex; mode=display">
+y(x, t) =\sum_\limits{i=1}^{\infty} \phi_{i}(x) q_{i}(t) =P \sin \omega t \sum_\limits{i=1}^{\infty} \dfrac{\phi_{i}(l) \phi_{i}(x)}{\omega_{i}^{2}\left[1-\left(\omega / \omega_{i}\right)^{2}\right]}, \quad i=1,2, \ldots</script><p>此时自由端的响应为：</p>
+<p>令 $ x=l: \quad y(l, t)=P \sin \omega t \sum_\limits{i=1}^{\infty} \dfrac{\phi_{i}^{2}(l)}{\omega_{i}^{2}\left[1-\left(\omega / \omega_{i}\right)^{2}\right]}, \quad i=1,2, \ldots $</p>
+<script type="math/tex; mode=display">
+\left.\phi_{i}(x)\right|_{x=l}=\cos \beta_{i} l-\cosh \beta_{i} l+\frac{\cos \beta_{i} l+\cosh \beta_{i} l}{\sin \beta_{i} l+\sinh \beta_{i} l}\left(\sin \beta_{i} l-\sinh \beta_{i} l\right), \quad(i=1,2, \cdots) \\ 
+\beta_{1} l=1.875 \quad \beta_{2} l=4.694 \quad \beta_{3} l=7.855 \quad \beta_{i} l \approx \frac{2 i-1}{2} \pi, \quad(i=3,4, \cdots) \\
+y(l, t)=\frac{4 P l^{3}}{E I}\left[\frac{\eta_{1}}{(1.875)^{4}}+\frac{\eta_{2}}{(4.694)^{4}}+\frac{\eta_{3}}{(7.855)^{4}}+\ldots . .\right] \sin \omega t \\
+\eta_{i}=\frac{1}{1-\left(\omega / \omega_{i}\right)^{2}}, \quad i=1,2, \ldots</script><p>例：简支梁，左端承受正弦支撑运动 $g(t)=y_0\sin(\omega t)$ 试求梁的响应。</p>
+<p><img src="https://gitee.com/houdezaiwu2022/image-bed/raw/master/vibration_mechanics/202203171909555.png" alt=""></p>
+<blockquote>
+<p>$y_g(x,t)$ 为参考基的位移，$y-y_g$ 代表相对位移，就是假设基础不动是的位移。</p>
+</blockquote>
+<p><img src="https://gitee.com/houdezaiwu2022/image-bed/raw/master/vibration_mechanics/202203171909916.png" alt=""></p>
+<p>以右截面上任一点为矩心，力矩平衡：</p>
+<script type="math/tex; mode=display">
+\left(M+\frac{\partial M}{\partial x} d x\right)-M-F_{s} d x+\rho S d x \frac{\partial^{2} y}{\partial t^{2}} \frac{d x}{2}=0</script><p>略去高阶无穷小量：$F_s=\dfrac {\partial M}{\partial x}$ </p>
+<p>材料力学的等截面假设，弯矩与挠度的关系：</p>
+<script type="math/tex; mode=display">
+M(x, t)=E I \dfrac{\partial^{2}\left[y(x, t)-y_{g}(x, t)\right]}{\partial x^{2}}</script><p>于是可得梁的振动方程为：</p>
+<script type="math/tex; mode=display">
+E I \frac{\partial^{4}\left(y-y_{g}\right)}{\partial x^{4}}+\rho S \frac{\partial^{2} y}{\partial t^{2}}=0</script><p>之后令 $y^{<em>}=y-y_{g},\quad y=y^{</em>}+y_{g}$ ，并代入$y_g(x,t)$ 得：</p>
+<p>代入方程： $E I y^{<em>(4)}+\rho S \dot{y}^{</em>}=-\rho S \dot{y}_{g}=-\rho S \omega^{2} y_{0} \sin \omega t\left(1-\dfrac{x}{l}\right)$ </p>
+<p>设解为: $y^{*}=\sum_\limits{i=1}^{\infty} {\phi_{i}(x) q_{i}(t)}$ 代入到方程中可得：</p>
+<script type="math/tex; mode=display">
+\quad \sum_{i=1}^{\infty}\left(E I q_{i} \phi_{i}^{\prime \prime \prime}+\rho S \ddot{q}_{i} \phi_{i}\right)=\rho S \omega^{2} y_{0}\left(1-\frac{x}{l}\right) \sin \omega t</script><p>其中，归一化正则振型为： $ \phi_{i}(x) =\sqrt{\dfrac{2}{l}} \sin \dfrac{i \pi x}{l}$</p>
+<p>用 $\phi_{j}(x)$ 乘上式, 并沿杆长积分:</p>
+<script type="math/tex; mode=display">
+\sum_{i=1}^{\infty}\left(q_{i} {\int_{0}^{l} E I \phi_{i}^{\prime \prime \prime} \phi_{j} d x}+{\left.\ddot{q}_{i} \int_{0}^{l} \rho S \phi_{i} \phi_{j} d x \right)}=\rho S \omega^{2} y_{0} \sin \omega t \int_{0}^{l} \phi_{j}\left(1-\frac{x}{l}\right) d x\right.</script><p>这里，$\int_{0}^{l} E I \phi_{i}^{\prime \prime \prime} \phi_{j} d x=\omega_i^2$ , $\int_{0}^{l} \rho S \phi_{i} \phi_{j} d x=1$.</p>
+<p>正交性: $\quad \ddot{q}_{i}+\omega_{i}^{2} q_{i}=\sqrt{\dfrac{2}{l}} \dfrac{l \omega^{2} y_{0} \sin \omega t}{i \pi}, \quad i=1,2, \ldots$</p>
+<p>模态坐标稳态解: </p>
+<script type="math/tex; mode=display">
+q_{i}=\sqrt{\frac{2}{l}} \frac{l \omega^{2} y_{0} \eta_{i}}{i \pi \omega_{i}^{2}} \sin \omega t =\sqrt{\frac{2}{l}} \frac{l^{5} \omega^{2} y_{0}}{i^{5} \pi^{5} a_{0}^{2}} \eta_{i} \sin \omega t, \quad i=1,2, \ldots\\ \eta_{i}=\frac{1}{1-\left(\omega / \omega_{i}\right)^{2}}</script><p>简支梁固有频率：$\omega_{i}=\left(\dfrac{i \pi}{l}\right)^{2} \sqrt{\dfrac{E I}{\rho S}}, \quad(i=1,2, \cdots), \quad a_{0}^{2}=\dfrac{E I}{\rho S}$$</p>
+<script type="math/tex; mode=display">
+y^{*}=\frac{2 l^{4} \omega^{2} y_{0} \sin \omega t}{\pi^{5} a_{0}^{2}} \sum_{i=1}^{\infty} \frac{\eta_{i}}{i^{5}} \sin \frac{i \pi x}{l}\\y=y^{*}+y_{g}=y_{0} \sin \omega t\left[1-\frac{x}{l}+\frac{2 l^{4} \omega^{2}}{\pi^{5} a_{0}^{2}} \sum_{i=1}^{\infty} \frac{\eta_{i}}{i^{5}} \sin \frac{i \pi x}{l}\right]</script><p><img src="https://gitee.com/houdezaiwu2022/image-bed/raw/master/vibration_mechanics/202203180040249.png" alt=""></p>
+</div><div class="article-licensing box"><div class="licensing-title"><p>第六章 连续系统的振动  梁的弯曲振动</p><p><a href="http://example.com/2022/03/18/振动力学/第六章-连续系统的振动-梁的弯曲振动/">http://example.com/2022/03/18/振动力学/第六章-连续系统的振动-梁的弯曲振动/</a></p></div><div class="licensing-meta level is-mobile"><div class="level-left"><div class="level-item is-narrow"><div><h6>作者</h6><p>czt</p></div></div><div class="level-item is-narrow"><div><h6>发布于</h6><p>2022-03-18</p></div></div><div class="level-item is-narrow"><div><h6>更新于</h6><p>2022-03-18</p></div></div><div class="level-item is-narrow"><div><h6>许可协议</h6><p><a class="icons" rel="noopener" target="_blank" title="Creative Commons" href="https://creativecommons.org/"><i class="icon fab fa-creative-commons"></i></a><a class="icons" rel="noopener" target="_blank" title="Attribution" href="https://creativecommons.org/licenses/by/4.0/"><i class="icon fab fa-creative-commons-by"></i></a><a class="icons" rel="noopener" target="_blank" title="Noncommercial" href="https://creativecommons.org/licenses/by-nc/4.0/"><i class="icon fab fa-creative-commons-nc"></i></a></p></div></div></div></div></div><div class="article-tags is-size-7 mb-4"><span class="mr-2">#</span><a class="link-muted mr-2" rel="tag" href="/tags/%E6%9C%BA%E6%A2%B0%E6%8C%AF%E5%8A%A8/">机械振动</a></div><!--!--></article></div><!--!--><nav class="post-navigation mt-4 level is-mobile"><div class="level-start"><a class="article-nav-prev level level-item link-muted" href="/2022/03/18/%E6%8C%AF%E5%8A%A8%E5%8A%9B%E5%AD%A6/%E7%AC%AC%E5%85%AD%E7%AB%A0-%E8%BF%9E%E7%BB%AD%E7%B3%BB%E7%BB%9F%E7%9A%84%E6%8C%AF%E5%8A%A8-%E8%BF%91%E4%BC%BC%E6%B1%82%E8%A7%A3%E6%96%B9%E6%B3%95-%E7%AC%AC%E4%B8%80%E9%83%A8%E5%88%86/"><i class="level-item fas fa-chevron-left"></i><span class="level-item">第六章 连续系统的振动 近似求解方法 第一部分</span></a></div><div class="level-end"><a class="article-nav-next level level-item link-muted" href="/2022/03/18/%E6%8C%AF%E5%8A%A8%E5%8A%9B%E5%AD%A6/%E7%AC%AC%E5%85%AD%E7%AB%A0-%E8%BF%9E%E7%BB%AD%E7%B3%BB%E7%BB%9F%E7%9A%84%E6%8C%AF%E5%8A%A8-%E4%B8%80%E7%BB%B4%E6%B3%A2%E5%8A%A8%E6%96%B9%E7%A8%8B/"><span class="level-item">第六章 连续系统的振动  一维波动方程</span><i class="level-item fas fa-chevron-right"></i></a></div></nav><!--!--></div><div class="column column-left is-4-tablet is-4-desktop is-3-widescreen  order-1 is-sticky"><div class="card widget" data-type="profile"><div class="card-content"><nav class="level"><div class="level-item has-text-centered flex-shrink-1"><div><figure class="image is-128x128 mx-auto mb-2"><img class="avatar" src="https://gitee.com/houdezaiwu2022/image-bed/raw/master/hexoimg/202201222202112.jpg" alt="厚德载物"></figure><p class="title is-size-4 is-block" style="line-height:inherit;">厚德载物</p><p class="is-size-6 is-block">实事求是，敢为人先</p><p class="is-size-6 is-flex justify-content-center"><i class="fas fa-map-marker-alt mr-1"></i><span>中国 湖北 武汉</span></p></div></div></nav><nav class="level is-mobile"><div class="level-item has-text-centered is-marginless"><div><p class="heading">文章</p><a href="/archives"><p class="title">49</p></a></div></div><div class="level-item has-text-centered is-marginless"><div><p class="heading">分类</p><a href="/categories"><p class="title">10</p></a></div></div><div class="level-item has-text-centered is-marginless"><div><p class="heading">标签</p><a href="/tags"><p class="title">20</p></a></div></div></nav><div class="level"><a class="level-item button is-primary is-rounded" href="https://github.com/ppoffice" target="_blank" rel="noopener">关注我</a></div><div class="level is-mobile is-multiline"><a class="level-item button is-transparent is-marginless" target="_blank" rel="noopener" title="Github" href="https://github.com/ppoffice"><i class="fab fa-github"></i></a><a class="level-item button is-transparent is-marginless" target="_blank" rel="noopener" title="Facebook" href="https://facebook.com"><i class="fab fa-facebook"></i></a><a class="level-item button is-transparent is-marginless" target="_blank" rel="noopener" title="Twitter" href="https://twitter.com"><i class="fab fa-twitter"></i></a><a class="level-item button is-transparent is-marginless" target="_blank" rel="noopener" title="Dribbble" href="https://dribbble.com"><i class="fab fa-dribbble"></i></a><a class="level-item button is-transparent is-marginless" target="_blank" rel="noopener" title="RSS" href="/"><i class="fas fa-rss"></i></a></div></div></div><div class="card widget" data-type="links"><div class="card-content"><div class="menu"><h3 class="menu-label">链接</h3><ul class="menu-list"><li><a class="level is-mobile" href="https://hexo.io" target="_blank" rel="noopener"><span class="level-left"><span class="level-item">Hexo</span></span><span class="level-right"><span class="level-item tag">hexo.io</span></span></a></li><li><a class="level is-mobile" href="https://bulma.io" target="_blank" rel="noopener"><span class="level-left"><span class="level-item">Bulma</span></span><span class="level-right"><span class="level-item tag">bulma.io</span></span></a></li></ul></div></div></div><div class="card widget" data-type="archives"><div class="card-content"><div class="menu"><h3 class="menu-label">归档</h3><ul class="menu-list"><li><a class="level is-mobile" href="/archives/2022/03/"><span class="level-start"><span class="level-item">三月 2022</span></span><span class="level-end"><span class="level-item tag">17</span></span></a></li><li><a class="level is-mobile" href="/archives/2022/02/"><span class="level-start"><span class="level-item">二月 2022</span></span><span class="level-end"><span class="level-item tag">21</span></span></a></li><li><a class="level is-mobile" href="/archives/2022/01/"><span class="level-start"><span class="level-item">一月 2022</span></span><span class="level-end"><span class="level-item tag">11</span></span></a></li></ul></div></div></div><div class="card widget" data-type="tags"><div class="card-content"><div class="menu"><h3 class="menu-label">标签</h3><div class="field is-grouped is-grouped-multiline"><div class="control"><a class="tags has-addons" href="/tags/GAN%E5%AE%9E%E6%88%98/"><span class="tag">GAN实战</span><span class="tag">6</span></a></div><div class="control"><a class="tags has-addons" href="/tags/Generative-Adversarial-Networks/"><span class="tag">Generative Adversarial Networks</span><span class="tag">6</span></a></div><div class="control"><a class="tags has-addons" href="/tags/IEEE%E6%8A%95%E7%A8%BF/"><span class="tag">IEEE投稿</span><span class="tag">1</span></a></div><div class="control"><a class="tags has-addons" href="/tags/Latex/"><span class="tag">Latex</span><span class="tag">4</span></a></div><div class="control"><a class="tags has-addons" href="/tags/Markdown/"><span class="tag">Markdown</span><span class="tag">1</span></a></div><div class="control"><a class="tags has-addons" href="/tags/Typora/"><span class="tag">Typora</span><span class="tag">1</span></a></div><div class="control"><a class="tags has-addons" href="/tags/auto-encoder/"><span class="tag">auto-encoder</span><span class="tag">3</span></a></div><div class="control"><a class="tags has-addons" href="/tags/control-theory/"><span class="tag">control theory</span><span class="tag">1</span></a></div><div class="control"><a class="tags has-addons" href="/tags/latex/"><span class="tag">latex</span><span class="tag">1</span></a></div><div class="control"><a class="tags has-addons" href="/tags/object-detection/"><span class="tag">object detection</span><span class="tag">3</span></a></div><div class="control"><a class="tags has-addons" href="/tags/opencv/"><span class="tag">opencv</span><span class="tag">3</span></a></div><div class="control"><a class="tags has-addons" href="/tags/python/"><span class="tag">python</span><span class="tag">3</span></a></div><div class="control"><a class="tags has-addons" href="/tags/pytorch/"><span class="tag">pytorch</span><span class="tag">17</span></a></div><div class="control"><a class="tags has-addons" href="/tags/%E5%9B%BE%E5%83%8F%E5%88%86%E7%B1%BB/"><span class="tag">图像分类</span><span class="tag">6</span></a></div><div class="control"><a class="tags has-addons" href="/tags/%E6%8E%A7%E5%88%B6%E7%90%86%E8%AE%BA/"><span class="tag">控制理论</span><span class="tag">1</span></a></div><div class="control"><a class="tags has-addons" href="/tags/%E6%97%A0%E7%9B%91%E7%9D%A3%E5%AD%A6%E4%B9%A0/"><span class="tag">无监督学习</span><span class="tag">3</span></a></div><div class="control"><a class="tags has-addons" href="/tags/%E6%9C%BA%E6%A2%B0%E6%8C%AF%E5%8A%A8/"><span class="tag">机械振动</span><span class="tag">18</span></a></div><div class="control"><a class="tags has-addons" href="/tags/%E7%94%9F%E6%88%90%E6%A8%A1%E5%9E%8B/"><span class="tag">生成模型</span><span class="tag">3</span></a></div><div class="control"><a class="tags has-addons" href="/tags/%E7%A7%91%E7%A0%94/"><span class="tag">科研</span><span class="tag">1</span></a></div><div class="control"><a class="tags has-addons" href="/tags/%E8%AE%BA%E6%96%87%E5%86%99%E4%BD%9C/"><span class="tag">论文写作</span><span class="tag">1</span></a></div></div></div></div></div><div class="column-right-shadow is-hidden-widescreen is-sticky"></div></div><div class="column column-right is-4-tablet is-4-desktop is-3-widescreen is-hidden-touch is-hidden-desktop-only order-3 is-sticky"><div class="card widget" id="toc" data-type="toc"><div class="card-content"><div class="menu"><h3 class="menu-label">目录</h3><ul class="menu-list"><li><a class="level is-mobile" href="#动力学方程"><span class="level-left"><span class="level-item">1</span><span class="level-item">动力学方程</span></span></a></li><li><a class="level is-mobile" href="#固有频率和模态函数"><span class="level-left"><span class="level-item">2</span><span class="level-item">固有频率和模态函数</span></span></a><ul class="menu-list"><li><a class="level is-mobile" href="#基本理论"><span class="level-left"><span class="level-item">2.1</span><span class="level-item">基本理论</span></span></a></li><li><a class="level is-mobile" href="#常见的约束和边界条件"><span class="level-left"><span class="level-item">2.2</span><span class="level-item">常见的约束和边界条件</span></span></a></li></ul></li><li><a class="level is-mobile" href="#振型函数的正交性"><span class="level-left"><span class="level-item">3</span><span class="level-item">振型函数的正交性</span></span></a></li><li><a class="level is-mobile" href="#梁横向振动的强迫响应"><span class="level-left"><span class="level-item">4</span><span class="level-item">梁横向振动的强迫响应</span></span></a></li></ul></div></div><script src="/js/toc.js" defer></script></div><div class="card widget" data-type="categories"><div class="card-content"><div class="menu"><h3 class="menu-label">分类</h3><ul class="menu-list"><li><a class="level is-mobile" href="/categories/Generative-Adversarial-Networks/"><span class="level-start"><span class="level-item">Generative Adversarial Networks</span></span><span class="level-end"><span class="level-item tag">6</span></span></a></li><li><a class="level is-mobile" href="/categories/Latex/"><span class="level-start"><span class="level-item">Latex</span></span><span class="level-end"><span class="level-item tag">4</span></span></a></li><li><a class="level is-mobile" href="/categories/PyTorch%E6%95%99%E7%A8%8B%E4%B8%8E%E6%BA%90%E7%A0%81%E8%AE%B2%E8%A7%A3/"><span class="level-start"><span class="level-item">PyTorch教程与源码讲解</span></span><span class="level-end"><span class="level-item tag">5</span></span></a></li><li><a class="level is-mobile" href="/categories/Typora/"><span class="level-start"><span class="level-item">Typora</span></span><span class="level-end"><span class="level-item tag">1</span></span></a></li><li><a class="level is-mobile" href="/categories/auto-encoder/"><span class="level-start"><span class="level-item">auto-encoder</span></span><span class="level-end"><span class="level-item tag">3</span></span></a></li><li><a class="level is-mobile" href="/categories/opencv/"><span class="level-start"><span class="level-item">opencv</span></span><span class="level-end"><span class="level-item tag">3</span></span></a></li><li><a class="level is-mobile" href="/categories/%E5%9B%BE%E5%83%8F%E5%88%86%E7%B1%BB%E7%BD%91%E7%BB%9C%E5%8F%8APytorch%E5%AE%9E%E7%8E%B0/"><span class="level-start"><span class="level-item">图像分类网络及Pytorch实现</span></span><span class="level-end"><span class="level-item tag">6</span></span></a></li><li><a class="level is-mobile" href="/categories/%E6%8C%AF%E5%8A%A8%E5%8A%9B%E5%AD%A6/"><span class="level-start"><span class="level-item">振动力学</span></span><span class="level-end"><span class="level-item tag">18</span></span></a></li><li><a class="level is-mobile" href="/categories/%E7%8E%B0%E4%BB%A3%E6%8E%A7%E5%88%B6%E7%90%86%E8%AE%BA/"><span class="level-start"><span class="level-item">现代控制理论</span></span><span class="level-end"><span class="level-item tag">1</span></span></a></li><li><a class="level is-mobile" href="/categories/%E7%A7%91%E7%A0%94%E5%85%A5%E9%97%A8%E7%AC%94%E8%AE%B0/"><span class="level-start"><span class="level-item">科研入门笔记</span></span><span class="level-end"><span class="level-item tag">1</span></span></a></li></ul></div></div></div><div class="card widget" data-type="recent-posts"><div class="card-content"><h3 class="menu-label">最新文章</h3><article class="media"><figure class="media-left"><a class="image" href="/2022/03/18/%E6%8C%AF%E5%8A%A8%E5%8A%9B%E5%AD%A6/%E7%AC%AC%E5%85%AD%E7%AB%A0-%E8%BF%9E%E7%BB%AD%E7%B3%BB%E7%BB%9F%E7%9A%84%E6%8C%AF%E5%8A%A8-%E8%BF%91%E4%BC%BC%E6%B1%82%E8%A7%A3%E6%96%B9%E6%B3%95-%E7%AC%AC%E4%B8%80%E9%83%A8%E5%88%86/"><img src="https://gitee.com/houdezaiwu2022/image-bed/raw/master/vibration_mechanics/202201261133162.png" alt="第六章 连续系统的振动 近似求解方法 第一部分"></a></figure><div class="media-content"><p class="date"><time dateTime="2022-03-18T09:43:08.000Z">2022-03-18</time></p><p class="title"><a href="/2022/03/18/%E6%8C%AF%E5%8A%A8%E5%8A%9B%E5%AD%A6/%E7%AC%AC%E5%85%AD%E7%AB%A0-%E8%BF%9E%E7%BB%AD%E7%B3%BB%E7%BB%9F%E7%9A%84%E6%8C%AF%E5%8A%A8-%E8%BF%91%E4%BC%BC%E6%B1%82%E8%A7%A3%E6%96%B9%E6%B3%95-%E7%AC%AC%E4%B8%80%E9%83%A8%E5%88%86/">第六章 连续系统的振动 近似求解方法 第一部分</a></p><p class="categories"><a href="/categories/%E6%8C%AF%E5%8A%A8%E5%8A%9B%E5%AD%A6/">振动力学</a></p></div></article><article class="media"><figure class="media-left"><a class="image" href="/2022/03/18/%E6%8C%AF%E5%8A%A8%E5%8A%9B%E5%AD%A6/%E7%AC%AC%E5%85%AD%E7%AB%A0-%E8%BF%9E%E7%BB%AD%E7%B3%BB%E7%BB%9F%E7%9A%84%E6%8C%AF%E5%8A%A8-%E6%A2%81%E7%9A%84%E5%BC%AF%E6%9B%B2%E6%8C%AF%E5%8A%A8/"><img src="https://gitee.com/houdezaiwu2022/image-bed/raw/master/vibration_mechanics/202201261133162.png" alt="第六章 连续系统的振动  梁的弯曲振动"></a></figure><div class="media-content"><p class="date"><time dateTime="2022-03-18T09:42:45.000Z">2022-03-18</time></p><p class="title"><a href="/2022/03/18/%E6%8C%AF%E5%8A%A8%E5%8A%9B%E5%AD%A6/%E7%AC%AC%E5%85%AD%E7%AB%A0-%E8%BF%9E%E7%BB%AD%E7%B3%BB%E7%BB%9F%E7%9A%84%E6%8C%AF%E5%8A%A8-%E6%A2%81%E7%9A%84%E5%BC%AF%E6%9B%B2%E6%8C%AF%E5%8A%A8/">第六章 连续系统的振动  梁的弯曲振动</a></p><p class="categories"><a href="/categories/%E6%8C%AF%E5%8A%A8%E5%8A%9B%E5%AD%A6/">振动力学</a></p></div></article><article class="media"><figure class="media-left"><a class="image" href="/2022/03/18/%E6%8C%AF%E5%8A%A8%E5%8A%9B%E5%AD%A6/%E7%AC%AC%E5%85%AD%E7%AB%A0-%E8%BF%9E%E7%BB%AD%E7%B3%BB%E7%BB%9F%E7%9A%84%E6%8C%AF%E5%8A%A8-%E4%B8%80%E7%BB%B4%E6%B3%A2%E5%8A%A8%E6%96%B9%E7%A8%8B/"><img src="https://gitee.com/houdezaiwu2022/image-bed/raw/master/vibration_mechanics/202201261133162.png" alt="第六章 连续系统的振动  一维波动方程"></a></figure><div class="media-content"><p class="date"><time dateTime="2022-03-18T09:42:36.000Z">2022-03-18</time></p><p class="title"><a href="/2022/03/18/%E6%8C%AF%E5%8A%A8%E5%8A%9B%E5%AD%A6/%E7%AC%AC%E5%85%AD%E7%AB%A0-%E8%BF%9E%E7%BB%AD%E7%B3%BB%E7%BB%9F%E7%9A%84%E6%8C%AF%E5%8A%A8-%E4%B8%80%E7%BB%B4%E6%B3%A2%E5%8A%A8%E6%96%B9%E7%A8%8B/">第六章 连续系统的振动  一维波动方程</a></p><p class="categories"><a href="/categories/%E6%8C%AF%E5%8A%A8%E5%8A%9B%E5%AD%A6/">振动力学</a></p></div></article><article class="media"><figure class="media-left"><a class="image" href="/2022/03/15/%E6%8C%AF%E5%8A%A8%E5%8A%9B%E5%AD%A6/%E7%AC%AC%E4%BA%94%E7%AB%A0-%E7%BA%BF%E6%80%A7%E6%8C%AF%E5%8A%A8%E7%9A%84%E8%BF%91%E4%BC%BC%E8%AE%A1%E7%AE%97%E6%96%B9%E6%B3%95-%E4%BC%A0%E9%80%92%E7%9F%A9%E9%98%B5%E6%B3%95/"><img src="https://gitee.com/houdezaiwu2022/image-bed/raw/master/vibration_mechanics/202201261133162.png" alt="第五章 线性振动的近似计算方法 传递矩阵法"></a></figure><div class="media-content"><p class="date"><time dateTime="2022-03-15T10:13:08.000Z">2022-03-15</time></p><p class="title"><a href="/2022/03/15/%E6%8C%AF%E5%8A%A8%E5%8A%9B%E5%AD%A6/%E7%AC%AC%E4%BA%94%E7%AB%A0-%E7%BA%BF%E6%80%A7%E6%8C%AF%E5%8A%A8%E7%9A%84%E8%BF%91%E4%BC%BC%E8%AE%A1%E7%AE%97%E6%96%B9%E6%B3%95-%E4%BC%A0%E9%80%92%E7%9F%A9%E9%98%B5%E6%B3%95/">第五章 线性振动的近似计算方法 传递矩阵法</a></p><p class="categories"><a href="/categories/%E6%8C%AF%E5%8A%A8%E5%8A%9B%E5%AD%A6/">振动力学</a></p></div></article><article class="media"><figure class="media-left"><a class="image" href="/2022/03/15/%E6%8C%AF%E5%8A%A8%E5%8A%9B%E5%AD%A6/%E7%AC%AC%E4%BA%94%E7%AB%A0-%E7%BA%BF%E6%80%A7%E6%8C%AF%E5%8A%A8%E7%9A%84%E8%BF%91%E4%BC%BC%E8%AE%A1%E7%AE%97%E6%96%B9%E6%B3%95-%E7%AC%AC%E4%B8%80%E9%83%A8%E5%88%86/"><img src="https://gitee.com/houdezaiwu2022/image-bed/raw/master/vibration_mechanics/202201261133162.png" alt="第五章 线性振动的近似计算方法 第一部分"></a></figure><div class="media-content"><p class="date"><time dateTime="2022-03-14T16:55:17.000Z">2022-03-15</time></p><p class="title"><a href="/2022/03/15/%E6%8C%AF%E5%8A%A8%E5%8A%9B%E5%AD%A6/%E7%AC%AC%E4%BA%94%E7%AB%A0-%E7%BA%BF%E6%80%A7%E6%8C%AF%E5%8A%A8%E7%9A%84%E8%BF%91%E4%BC%BC%E8%AE%A1%E7%AE%97%E6%96%B9%E6%B3%95-%E7%AC%AC%E4%B8%80%E9%83%A8%E5%88%86/">第五章 线性振动的近似计算方法 第一部分</a></p><p class="categories"><a href="/categories/%E6%8C%AF%E5%8A%A8%E5%8A%9B%E5%AD%A6/">振动力学</a></p></div></article></div></div></div></div></div></section><footer class="footer"><div class="container"><div class="level"><div class="level-start"><a class="footer-logo is-block mb-2" href="/"><img src="/img/logo.svg" alt="houdezaiwu&#039;s blog" height="28"></a><p class="is-size-7"><span>&copy; 2022 czt</span>  Powered by <a href="https://hexo.io/" target="_blank" rel="noopener">Hexo</a> &amp; <a href="https://github.com/ppoffice/hexo-theme-icarus" target="_blank" rel="noopener">Icarus</a></p></div><div class="level-end"><div class="field has-addons"><p class="control"><a class="button is-transparent is-large" target="_blank" rel="noopener" title="Creative Commons" href="https://creativecommons.org/"><i class="fab fa-creative-commons"></i></a></p><p class="control"><a class="button is-transparent is-large" target="_blank" rel="noopener" title="Attribution 4.0 International" href="https://creativecommons.org/licenses/by/4.0/"><i class="fab fa-creative-commons-by"></i></a></p><p class="control"><a class="button is-transparent is-large" target="_blank" rel="noopener" title="Download on GitHub" href="https://github.com/ppoffice/hexo-theme-icarus"><i class="fab fa-github"></i></a></p></div></div></div></div></footer><script src="https://cdn.jsdelivr.net/npm/jquery@3.3.1/dist/jquery.min.js"></script><script src="https://cdn.jsdelivr.net/npm/moment@2.22.2/min/moment-with-locales.min.js"></script><script src="https://cdn.jsdelivr.net/npm/clipboard@2.0.4/dist/clipboard.min.js" defer></script><script>moment.locale("zh-CN");</script><script>var IcarusThemeSettings = {
+            article: {
+                highlight: {
+                    clipboard: true,
+                    fold: 'unfolded'
+                }
+            }
+        };</script><script src="/js/column.js"></script><script src="/js/animation.js"></script><a id="back-to-top" title="回到顶端" href="javascript:;"><i class="fas fa-chevron-up"></i></a><script src="/js/back_to_top.js" defer></script><!--!--><!--!--><!--!--><script src="https://cdn.jsdelivr.net/npm/cookieconsent@3.1.1/build/cookieconsent.min.js" defer></script><script>window.addEventListener("load", () => {
+      window.cookieconsent.initialise({
+        type: "info",
+        theme: "edgeless",
+        static: false,
+        position: "bottom-left",
+        content: {
+          message: "此网站使用Cookie来改善您的体验。",
+          dismiss: "知道了！",
+          allow: "允许使用Cookie",
+          deny: "拒绝",
+          link: "了解更多",
+          policy: "Cookie政策",
+          href: "https://www.cookiesandyou.com/",
+        },
+        palette: {
+          popup: {
+            background: "#edeff5",
+            text: "#838391"
+          },
+          button: {
+            background: "#4b81e8"
+          },
+        },
+      });
+    });</script><script src="https://cdn.jsdelivr.net/npm/lightgallery@1.10.0/dist/js/lightgallery.min.js" defer></script><script src="https://cdn.jsdelivr.net/npm/justifiedGallery@3.8.1/dist/js/jquery.justifiedGallery.min.js" defer></script><script>window.addEventListener("load", () => {
+            if (typeof $.fn.lightGallery === 'function') {
+                $('.article').lightGallery({ selector: '.gallery-item' });
+            }
+            if (typeof $.fn.justifiedGallery === 'function') {
+                if ($('.justified-gallery > p > .gallery-item').length) {
+                    $('.justified-gallery > p > .gallery-item').unwrap();
+                }
+                $('.justified-gallery').justifiedGallery();
+            }
+        });</script><!--!--><!--!--><script type="text/x-mathjax-config">MathJax.Hub.Config({
+            'HTML-CSS': {
+                matchFontHeight: false
+            },
+            SVG: {
+                matchFontHeight: false
+            },
+            CommonHTML: {
+                matchFontHeight: false
+            },
+            tex2jax: {
+                inlineMath: [
+                    ['$','$'],
+                    ['\\(','\\)']
+                ]
+            }
+        });</script><script src="https://cdn.jsdelivr.net/npm/mathjax@2.7.9/unpacked/MathJax.js?config=TeX-MML-AM_CHTML" defer></script><div id="outdated"><h6>Your browser is out-of-date!</h6><p>Update your browser to view this website correctly.&amp;npsb;<a id="btnUpdateBrowser" target="_blank" rel="noopener" href="http://outdatedbrowser.com/">Update my browser now </a></p><p class="last"><a href="#" id="btnCloseUpdateBrowser" title="Close">×</a></p></div><script src="https://cdn.jsdelivr.net/npm/outdatedbrowser@1.1.5/outdatedbrowser/outdatedbrowser.min.js" defer></script><script>window.addEventListener("load", function () {
+            outdatedBrowser({
+                bgColor: '#f25648',
+                color: '#ffffff',
+                lowerThan: 'object-fit' // display on IE11 or below
+            });
+        });</script><!--!--><!--!--><!--!--><script src="/js/main.js" defer></script><div class="searchbox"><div class="searchbox-container"><div class="searchbox-header"><div class="searchbox-input-container"><input class="searchbox-input" type="text" placeholder="想要查找什么..."></div><a class="searchbox-close" href="javascript:;">×</a></div><div class="searchbox-body"></div></div></div><script src="/js/insight.js" defer></script><script>document.addEventListener('DOMContentLoaded', function () {
+            loadInsight({"contentUrl":"/content.json"}, {"hint":"想要查找什么...","untitled":"(无标题)","posts":"文章","pages":"页面","categories":"分类","tags":"标签"});
+        });</script><!-- hexo-inject:begin --><!-- hexo-inject:end --></body></html>
