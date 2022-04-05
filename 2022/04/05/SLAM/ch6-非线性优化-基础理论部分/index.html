@@ -1,0 +1,269 @@
+<!doctype html>
+<html lang="zh"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"><meta><title>Ch6 非线性优化 基础理论部分 - houdezaiwu&#039;s blog</title><link rel="manifest" href="/manifest.json"><meta name="application-name" content="czt"><meta name="msapplication-TileImage" content="/img/favicon.svg"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-title" content="czt"><meta name="apple-mobile-web-app-status-bar-style" content="default"><meta name="description" content="hljs.initHighlightingOnLoad();  在之前ch3、ch4中，主要介绍了运动方程的具体的形式，之后的ch5中主要基于针孔相机模型建立了一种观测模型，既然两个模型都已经建立完整。  \boldsymbol x_{k+1}&amp;#x3D;f(\boldsymbol x_k,\boldsymbol u_k,\boldsymbol \omega_k) \\ \boldsymbol z_{"><meta property="og:type" content="blog"><meta property="og:title" content="Ch6 非线性优化 基础理论部分"><meta property="og:url" content="http://example.com/2022/04/05/SLAM/ch6-%E9%9D%9E%E7%BA%BF%E6%80%A7%E4%BC%98%E5%8C%96-%E5%9F%BA%E7%A1%80%E7%90%86%E8%AE%BA%E9%83%A8%E5%88%86/"><meta property="og:site_name" content="houdezaiwu&#039;s blog"><meta property="og:description" content="hljs.initHighlightingOnLoad();  在之前ch3、ch4中，主要介绍了运动方程的具体的形式，之后的ch5中主要基于针孔相机模型建立了一种观测模型，既然两个模型都已经建立完整。  \boldsymbol x_{k+1}&amp;#x3D;f(\boldsymbol x_k,\boldsymbol u_k,\boldsymbol \omega_k) \\ \boldsymbol z_{"><meta property="og:locale" content="zh_CN"><meta property="og:image" content="https://raw.githubusercontent.com/houdezaiwu2019/image-bed/master/slam/202203201512822.png"><meta property="article:published_time" content="2022-04-05T14:51:30.000Z"><meta property="article:modified_time" content="2022-04-05T14:53:09.809Z"><meta property="article:author" content="czt"><meta property="article:tag" content="SLAM"><meta property="article:tag" content="Computer Vision"><meta property="article:tag" content="c++"><meta property="twitter:card" content="summary"><meta property="twitter:image" content="https://raw.githubusercontent.com/houdezaiwu2019/image-bed/master/slam/202203201512822.png"><script type="application/ld+json">{"@context":"https://schema.org","@type":"BlogPosting","mainEntityOfPage":{"@type":"WebPage","@id":"http://example.com/2022/04/05/SLAM/ch6-%E9%9D%9E%E7%BA%BF%E6%80%A7%E4%BC%98%E5%8C%96-%E5%9F%BA%E7%A1%80%E7%90%86%E8%AE%BA%E9%83%A8%E5%88%86/"},"headline":"Ch6 非线性优化 基础理论部分","image":["https://raw.githubusercontent.com/houdezaiwu2019/image-bed/master/slam/202203201512822.png"],"datePublished":"2022-04-05T14:51:30.000Z","dateModified":"2022-04-05T14:53:09.809Z","author":{"@type":"Person","name":"czt"},"publisher":{"@type":"Organization","name":"houdezaiwu's blog","logo":{"@type":"ImageObject","url":"http://example.com/img/logo.svg"}},"description":"hljs.initHighlightingOnLoad();  在之前ch3、ch4中，主要介绍了运动方程的具体的形式，之后的ch5中主要基于针孔相机模型建立了一种观测模型，既然两个模型都已经建立完整。  \\boldsymbol x_{k+1}&#x3D;f(\\boldsymbol x_k,\\boldsymbol u_k,\\boldsymbol \\omega_k) \\\\ \\boldsymbol z_{"}</script><link rel="canonical" href="http://example.com/2022/04/05/SLAM/ch6-%E9%9D%9E%E7%BA%BF%E6%80%A7%E4%BC%98%E5%8C%96-%E5%9F%BA%E7%A1%80%E7%90%86%E8%AE%BA%E9%83%A8%E5%88%86/"><link rel="icon" href="/img/favicon.svg"><link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.2/css/all.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@9.12.0/styles/atom-one-light.css"><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Ubuntu:wght@400;600&amp;family=Source+Code+Pro"><link rel="stylesheet" href="/css/default.css"><style>body>.footer,body>.navbar,body>.section{opacity:0}</style><!--!--><!--!--><!--!--><!--!--><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/cookieconsent@3.1.1/build/cookieconsent.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/lightgallery@1.10.0/dist/css/lightgallery.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/justifiedGallery@3.8.1/dist/css/justifiedGallery.min.css"><!--!--><!--!--><!--!--><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/outdatedbrowser@1.1.5/outdatedbrowser/outdatedbrowser.min.css"><style>.pace{-webkit-pointer-events:none;pointer-events:none;-webkit-user-select:none;-moz-user-select:none;user-select:none}.pace-inactive{display:none}.pace .pace-progress{background:#3273dc;position:fixed;z-index:2000;top:0;right:100%;width:100%;height:2px}</style><script src="https://cdn.jsdelivr.net/npm/pace-js@1.2.4/pace.min.js"></script><!--!--><!--!--><!-- hexo injector head_end start -->
+<!-- hexo-inject:begin --><!-- hexo-inject:end --><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css">
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/hexo-math@4.0.0/dist/style.css">
+<!-- hexo injector head_end end --><meta name="generator" content="Hexo 6.0.0"><!-- hexo-inject:begin --><!-- hexo-inject:end --><link rel="stylesheet" href="/css/prism-coy-without-shadows.css" type="text/css">
+<link rel="stylesheet" href="/css/prism-line-numbers.css" type="text/css"></head><body class="is-3-column"><nav class="navbar navbar-main"><div class="container"><div class="navbar-brand justify-content-center"><a class="navbar-item navbar-logo" href="/"><img src="/img/logo.svg" alt="houdezaiwu&#039;s blog" height="28"></a></div><div class="navbar-menu"><div class="navbar-start"><a class="navbar-item" href="/">主页</a><a class="navbar-item" href="/archives">归档</a><a class="navbar-item" href="/categories">分类</a><a class="navbar-item" href="/tags">标签</a><a class="navbar-item" href="/about">关于</a></div><div class="navbar-end"><a class="navbar-item" target="_blank" rel="noopener" title="Download on GitHub" href="https://github.com/ppoffice/hexo-theme-icarus"><i class="fab fa-github"></i></a><a class="navbar-item is-hidden-tablet catalogue" title="目录" href="javascript:;"><i class="fas fa-list-ul"></i></a><a class="navbar-item search" title="搜索" href="javascript:;"><i class="fas fa-search"></i></a></div></div></div></nav><section class="section"><div class="container"><div class="columns"><div class="column order-2 column-main is-8-tablet is-8-desktop is-6-widescreen"><div class="card"><div class="card-image"><span class="image is-7by3"><img class="fill" src="https://raw.githubusercontent.com/houdezaiwu2019/image-bed/master/slam/202203201512822.png" alt="Ch6 非线性优化 基础理论部分"></span></div><article class="card-content article" role="article"><div class="article-meta is-size-7 is-uppercase level is-mobile"><div class="level-left"><span class="level-item"><time dateTime="2022-04-05T14:51:30.000Z" title="2022/4/5 下午10:51:30">2022-04-05</time>发表</span><span class="level-item"><time dateTime="2022-04-05T14:53:09.809Z" title="2022/4/5 下午10:53:09">2022-04-05</time>更新</span><span class="level-item"><a class="link-muted" href="/categories/SLAM/">SLAM</a></span><span class="level-item">30 分钟读完 (大约4552个字)</span></div></div><h1 class="title is-3 is-size-4-mobile">Ch6 非线性优化 基础理论部分</h1><div class="content"><link rel="stylesheet" href="//cdn.bootcss.com/highlight.js/9.2.0/styles/github.min.css">
+
+<!-- hexo-inject:begin --><!-- hexo-inject:end --><script src="//cdn.bootcss.com/highlight.js/9.2.0/highlight.min.js"></script>
+<script>hljs.initHighlightingOnLoad();</script>
+
+<p>在之前ch3、ch4中，主要介绍了运动方程的具体的形式，之后的ch5中主要基于针孔相机模型建立了一种观测模型，既然两个模型都已经建立完整。</p>
+<script type="math/tex; mode=display">
+\boldsymbol x_{k+1}=f(\boldsymbol x_k,\boldsymbol u_k,\boldsymbol \omega_k) \\
+\boldsymbol z_{k,j}=h(\boldsymbol x_k,\boldsymbol y_j,\boldsymbol v_{k,j})</script><p>于是本讲开始主要介绍如何对非线性的状态空间进行状态估计，但是由于噪声的影响，对于状态的估计需要一定的优化的基础，因此本节主要介绍非线性优化以及状态估计的内容，并且介绍两个在非线性优化中比较常用的两个库，Ceres和g2o库。</p>
+<span id="more"></span>
+<h3 id="状态估计问题"><a href="#状态估计问题" class="headerlink" title="状态估计问题"></a><strong>状态估计问题</strong></h3><h4 id="批量估计和最大后验估计"><a href="#批量估计和最大后验估计" class="headerlink" title="批量估计和最大后验估计"></a><strong>批量估计和最大后验估计</strong></h4><h5 id="问题表述"><a href="#问题表述" class="headerlink" title="问题表述"></a><strong>问题表述</strong></h5><p>首先，我们回顾第二讲中那个经典的SLAM模型，由一个运动方程和一个观测方程组成：</p>
+<script type="math/tex; mode=display">
+\boldsymbol x_{k+1}=f(\boldsymbol x_k,\boldsymbol u_k)+\boldsymbol \omega_k \\
+\boldsymbol z_{k,j}=h(\boldsymbol x_k,\boldsymbol y_j)+\boldsymbol v_{k,j}</script><p>其中，这里的 $\boldsymbol x_k$ 代表相机的真实位姿，一般使用$SE(3)$ 来表示，运动方程其实对于视觉SLAM来说，都一般的方程差不多，暂时书里也没说太详细。</p>
+<p>观测方程就针孔模型的方程，这里假设 $\boldsymbol x_k$ 处对路标的 $\boldsymbol y_j$ 进行一次观测，对于在图像上的位置$\boldsymbol z_{k,j}$ ，此时观测方程为：</p>
+<script type="math/tex; mode=display">
+s\boldsymbol z_{k,j}=\boldsymbol K(\boldsymbol R_k \boldsymbol y_j+\boldsymbol t_k)</script><p>其中，这里的通过第五讲可知是个<strong>归一化的参数</strong>(第五讲中是Z，但是这里Z已经用过了，就用s)。K是<strong>内参矩阵</strong>。</p>
+<ul>
+<li><p>对于上述的问题有两种可能的情况：</p>
+<ul>
+<li>最简单的情况：线性系统，高斯噪声；<strong>kalmen filter</strong> 可以很好的解决这一类的问题。</li>
+<li>复杂的情况：非线性系统，非高斯噪声；这个问题很难解决，但也最贴近最真实的情况，而且控制专业会讲解这里包含的很多的情况。</li>
+</ul>
+</li>
+<li><p>一般情况下，还是假设两个的噪声满足高斯分布：</p>
+<script type="math/tex; mode=display">
+\boldsymbol \omega_k \sim \mathcal N(\boldsymbol 0,\boldsymbol R_k)\ ,\boldsymbol v_k \sim \mathcal N(\boldsymbol 0,\boldsymbol Q_{k,j}),</script></li>
+<li><p>因此状态估计问题就是通过带有噪声的数据$\boldsymbol z, \boldsymbol u$来估计位姿$\boldsymbol x$ 和地图$\boldsymbol y$ 。</p>
+</li>
+</ul>
+<h5 id="求解方法"><a href="#求解方法" class="headerlink" title="求解方法"></a><strong>求解方法</strong></h5><p>主要的求解方法由两种，一个是增量(incremental)的方法，另一个是批量(batch)的方法。</p>
+<ul>
+<li><strong>增量法又叫滤波器</strong>，其满足组马尔可夫性(其实卡尔曼滤波器就是线性高斯模型，就是HMM隐马尔可夫模型)，现在用的比较少了。</li>
+<li><strong>批量法</strong>就是通过攒数据，一起处理，预测的是这一段时间内的情况。极端情况就是sfm里，将将所有的情况全部取完之后再进行估计。</li>
+<li>但是SLAM还是要一定的实时性，因此采取<strong>滑动窗口法</strong>，对当前时刻一定的历史数据进行优化。</li>
+</ul>
+<p>下面主要介绍的是批量的方法，滤波法见第十章。</p>
+<p>首先，考虑从1到N的所有时刻，其中包含有一些M个路标信息。</p>
+<script type="math/tex; mode=display">
+\boldsymbol x=\{ x_1, x_2,...,x_N\},\ \boldsymbol y=\{ y_1, y_2,...,y_M\}</script><blockquote>
+<p>当我们忽略运动方程，即忽略u，之后忽略时间序列性，将输入看成一些的图片，于是问题就转化称为<strong>SFM</strong>问题，即根据一系列的点进行<strong>三维重建</strong>。</p>
+</blockquote>
+<p>此时问题转换为求解 $P(x,y\mid z,u)$，但是其分布很能求解。</p>
+<p>之后，忽略运行方程，并将输入位姿和路标信息合并为$\boldsymbol x$ ,为了估计上述的分布，我们使用了贝叶斯方法：</p>
+<script type="math/tex; mode=display">
+P(\boldsymbol{x}, \boldsymbol{y} \mid \boldsymbol{z}, \boldsymbol{u})=\frac{P(\boldsymbol{z}, \boldsymbol{u} \mid \boldsymbol{x}, \boldsymbol{y}) P(\boldsymbol{x}, \boldsymbol{y})}{P(\boldsymbol{z}, \boldsymbol{u})} \propto \underbrace{P(\boldsymbol{z}, \boldsymbol{u} \mid \boldsymbol{x}, \boldsymbol{y})}_{\text {似然 }} \underbrace{P(\boldsymbol{x}, \boldsymbol{y})}_{\text {先验 }} .</script><p>简化之后可得：</p>
+<script type="math/tex; mode=display">
+P(\boldsymbol{x} \mid \boldsymbol{z})=\frac{P(\boldsymbol{z} \mid \boldsymbol{x}) P(\boldsymbol{x})}{P(\boldsymbol{z})} \propto \underbrace{P(\boldsymbol{z} \mid \boldsymbol{x})}_{\text {似然 }} \underbrace{P(\boldsymbol{x})}_{\text {先验 }} .</script><p>贝叶斯法则左侧称为后验概率，右侧的$P(z|x)$称为似然(（Likehood )，另一部分$P(x)$称为先验( Prior )。</p>
+<p><strong>直接求后验分布是困难的，但是求一个状态最优估计，使得在该状态下后验概率最大化</strong>，则是可行的，以下为<strong>最大后验估计(MAP)：</strong></p>
+<script type="math/tex; mode=display">
+(\boldsymbol{x}, \boldsymbol{y})^{*}{ }_{\mathrm{MAP}}=\arg \max P(\boldsymbol{x}, \boldsymbol{y} \mid \boldsymbol{z}, \boldsymbol{u})=\arg \max P(\boldsymbol{z}, \boldsymbol{u} \mid \boldsymbol{x}, \boldsymbol{y}) P(\boldsymbol{x}, \boldsymbol{y}).</script><p>但当我们不知道先验信息时，可以求解<strong>最大似然估计(MLE)</strong>：</p>
+<script type="math/tex; mode=display">
+(\boldsymbol{x}, \boldsymbol{y})^{*}{ }_{\mathrm{MLE}}=\arg \max P(\boldsymbol{z}, \boldsymbol{u} \mid \boldsymbol{x}, \boldsymbol{y}).</script><p>由于我们知道观测数据 $\boldsymbol z, \boldsymbol u$ ,最大似然可以理解成：<strong>在什么样的状态下，最可能产生现在观测到的数据。</strong></p>
+<h4 id="最小二乘的引出"><a href="#最小二乘的引出" class="headerlink" title="最小二乘的引出"></a><strong>最小二乘的引出</strong></h4><p>在高斯分布的假设下，最大似然估计有比较简单的形式。回顾观测模型，对某一次估计有：</p>
+<script type="math/tex; mode=display">
+\boldsymbol z_{k,j}=h(\boldsymbol x_k,\boldsymbol y_j)+\boldsymbol v_{k,j}</script><p>其中假设噪声项符合高斯分布$\boldsymbol v_k \sim \mathcal N(\boldsymbol 0,\boldsymbol Q_{k,j})$ ，于是观测数据的条件概率分布依然为一个高斯分布，表达式为：</p>
+<script type="math/tex; mode=display">
+P(\boldsymbol z_{k,j} \mid x_k,y_j)=\mathcal N(h(\boldsymbol x_k,\boldsymbol y_j),\boldsymbol Q_{k,j})</script><p>对于一般的高斯分布：</p>
+<script type="math/tex; mode=display">
+P(\boldsymbol{x})=\frac{1}{\sqrt{(2 \pi)^{N} \operatorname{det}(\boldsymbol{\Sigma})}} \exp \left(-\frac{1}{2}(\boldsymbol{x}-\boldsymbol{\mu})^{\mathrm{T}} \boldsymbol{\Sigma}^{-1}(\boldsymbol{x}-\boldsymbol{\mu})\right)</script><p> 写成负对数形式可得：</p>
+<script type="math/tex; mode=display">
+-\ln (P(\boldsymbol{x}))=\frac{1}{2} \ln \left((2 \pi)^{N} \operatorname{det}(\boldsymbol{\Sigma})\right)+\frac{1}{2}(\boldsymbol{x}-\boldsymbol{\mu})^{\mathrm{T}} \boldsymbol{\Sigma}^{-1}(\boldsymbol{x}-\boldsymbol{\mu}) .</script><p>其中，第一项为常数，只有第二项和我们的$x$有关，这样可以将原问题转化成负对数最小化，即对一个二次型进行最小化。</p>
+<p>此时，原问题的最大似然为：</p>
+<script type="math/tex; mode=display">
+\begin{align}
+\left(\boldsymbol{x}_{k}, \boldsymbol{y}_{j}\right)^{*}&=\arg \max \mathcal{N}\left(h\left(\boldsymbol{y}_{j}, \boldsymbol{x}_{k}\right), \boldsymbol{Q}_{k, j}\right) \\ &=\arg \min \left(\left(\boldsymbol{z}_{k, j}-h\left(\boldsymbol{x}_{k}, \boldsymbol{y}_{j}\right)\right)^{\mathrm{T}} \boldsymbol{Q}_{k, j}^{-1}\left(\boldsymbol{z}_{k, j}-h\left(\boldsymbol{x}_{k}, \boldsymbol{y}_{j}\right)\right)\right) . 
+\end{align}</script><p>考虑批量输入的数据，假设输入$x_k$ 和 观测$z_{k,j}$之间是相互独立的，同时同一批次的数据之间相互也是独立的，于是可得：</p>
+<script type="math/tex; mode=display">
+P(\boldsymbol{z}, \boldsymbol{u} \mid \boldsymbol{x}, \boldsymbol{y})=\prod_{k} P\left(\boldsymbol{u}_{k} \mid \boldsymbol{x}_{k-1}, \boldsymbol{x}_{k}\right) \prod_{k, j} P\left(\boldsymbol{z}_{k, j} \mid \boldsymbol{x}_{k}, \boldsymbol{y}_{j}\right)</script><p>根据假设和上面的公式可得：</p>
+<script type="math/tex; mode=display">
+P(\boldsymbol{z}, \boldsymbol{u} \mid \boldsymbol{x}, \boldsymbol{y}) = P(\boldsymbol{z} \mid \boldsymbol{x}, \boldsymbol{y}, \boldsymbol{u})P(\boldsymbol{u} \mid \boldsymbol{x}, \boldsymbol{y})=P(\boldsymbol{u} \mid \boldsymbol{x}) P(\boldsymbol{z} \mid \boldsymbol{x}, \boldsymbol{y})</script><p>于是定义误差：</p>
+<script type="math/tex; mode=display">
+ e_{\boldsymbol{u}, k}=\boldsymbol{x}_{k}-f\left(\boldsymbol{x}_{k-1}, \boldsymbol{u}_{k}\right) \\\boldsymbol{e}_{\boldsymbol{z}, j, k}=\boldsymbol{z}_{k, j}-h\left(\boldsymbol{x}_{k}, \boldsymbol{y}_{j}\right)</script><p>则最小化误差的二范数可以转化为：</p>
+<script type="math/tex; mode=display">
+\min J(\boldsymbol{x}, \boldsymbol{y})=\sum_{k} \boldsymbol{e}_{\boldsymbol{u}, k}^{\mathrm{T}} \boldsymbol{R}_{k}^{-1} \boldsymbol{e}_{\boldsymbol{u}, k}+\sum_{k} \sum_{j} \boldsymbol{e}_{\boldsymbol{z}, k, j}^{\mathrm{T}} \boldsymbol{Q}_{k, j}^{-1} \boldsymbol{e}_{\boldsymbol{z}, k, j}.</script><p>这样就得到了一个<strong>最小二乘问题（Least Square Problem )</strong>,它的解等价于状态的最大似然估计。直观上看，由于噪声的存在，当我们把估计的轨迹与地图代入SLAM的运动、观测方程中时，它们并不会完美地成立。这时怎么办呢?我们对状态的估计值进行微调，使得整体的误差下降一些。当然，这个下降也有限度，它一般会到达一个极小值。这就是一个典型的非线性优化的过程。</p>
+<p>对于SLAM而言，其LSP问题有一定的特殊性：</p>
+<ul>
+<li>误差函数有多个误差的加权二次型组成。且由于独立性的特点，其关系式会比较稀疏。</li>
+<li>使用李代数表示增量们不会引入新的约束，因此该问题为一个无约束的非线性优化，但是如果用旋转矩阵，那会引入新的约束。。。还是别用了。</li>
+<li>由于其信息矩阵(协方差的逆)相当于误差的权重，因此误差的分布会对权重产生比较大的影响。</li>
+</ul>
+<h4 id="批量估计的案例"><a href="#批量估计的案例" class="headerlink" title="批量估计的案例"></a><strong>批量估计的案例</strong></h4><p><img src="https://raw.githubusercontent.com/houdezaiwu2019/image-bed/master/SLAM/image-20220405195210919.png" alt=""></p>
+<p><img src="https://raw.githubusercontent.com/houdezaiwu2019/image-bed/master/SLAM/image-20220405195235464.png" alt=""></p>
+<p><img src="https://raw.githubusercontent.com/houdezaiwu2019/image-bed/master/SLAM/image-20220405195252064.png" alt=""></p>
+<h3 id="非线性最小二乘"><a href="#非线性最小二乘" class="headerlink" title="非线性最小二乘"></a><strong>非线性最小二乘</strong></h3><p>考虑最简单的最小二乘问题：</p>
+<script type="math/tex; mode=display">
+\min\limits_{\boldsymbol x}F(x)=\dfrac 1 2 ||f(x)||^2_2\ ,x\in \mathbb R^n</script><p>其中，$f(x)$为非线性函数。</p>
+<p>当函数的新是很简单时，可以直接求导，令导数为0得出<strong>极值点或鞍点</strong>。</p>
+<script type="math/tex; mode=display">
+\dfrac {df} {dx} = 0 \Rightarrow x_0</script><p>但是，一般情况下，我们的不是$\dfrac {df} {dx}$ 不好求，就是$\dfrac {df} {dx}=0$方程不好解，于是解析解是不可能了，我们考虑数值解，通过给定一个初值，不断迭代来逼近。</p>
+<p><img src="https://raw.githubusercontent.com/houdezaiwu2019/image-bed/master/SLAM/image-20220405201132556.png" alt=""></p>
+<p>于是问题转换为寻找合适的增量 $\Delta x_k$ 。</p>
+<blockquote>
+<p>但是，数值方法求得的是局部问题的最小，而非全局的最小。</p>
+</blockquote>
+<h4 id="一阶和二阶梯度法"><a href="#一阶和二阶梯度法" class="headerlink" title="一阶和二阶梯度法"></a><strong>一阶和二阶梯度法</strong></h4><p>这里我们直接对目标函数整体进行泰勒展开的，这是用来去区别高斯牛顿法的。</p>
+<p>现在处于第k次迭代，假设我们在$x_k$处，要寻找 $\Delta x_k$ ,于是进行泰勒展开可得：</p>
+<script type="math/tex; mode=display">
+F\left(\boldsymbol{x}_{k}+\Delta \boldsymbol{x}_{k}\right) \approx F\left(\boldsymbol{x}_{k}\right)+\boldsymbol{J}\left(\boldsymbol{x}_{k}\right)^{\mathrm{T}} \Delta \boldsymbol{x}_{k}+\frac{1}{2} \Delta \boldsymbol{x}_{k}^{\mathrm{T}} \boldsymbol{H}\left(\boldsymbol{x}_{k}\right) \Delta \boldsymbol{x}_{k} .</script><p>其中，$\boldsymbol{J}(x)$ 为雅可比矩阵，$\boldsymbol{H}(x)$ 为海塞矩阵。</p>
+<ul>
+<li>如果仅仅保留一阶梯度，那其增量的方向就为反向梯度的方向，即为$\Delta x^<em>=-\boldsymbol J^T(x)$ ，并且还要计算步长，一阶方法又称<em>*最速下降法</em></em>。</li>
+</ul>
+<script type="math/tex; mode=display">
+\min\limits_{\boldsymbol \Delta x}||f(x)||^2_2 +\boldsymbol J(x)\Delta x</script><ul>
+<li><p>如果保留了二阶梯度，此时的增量方程为：</p>
+<script type="math/tex; mode=display">
+\Delta \boldsymbol{x}^{*}=\arg \min \left(F(\boldsymbol{x})+\boldsymbol{J}(\boldsymbol{x})^{\mathrm{T}} \Delta \boldsymbol{x}+\frac{1}{2} \Delta \boldsymbol{x}^{\mathrm{T}} \boldsymbol{H} \Delta \boldsymbol{x}\right) .</script><p>对右侧求导并将其等于可得：</p>
+<script type="math/tex; mode=display">
+\boldsymbol{J}+\boldsymbol{H} \Delta \boldsymbol{x}=\mathbf{0} \Rightarrow \boldsymbol{H} \Delta \boldsymbol{x}=-\boldsymbol{J}</script><p>这种方法又称牛顿法。</p>
+</li>
+<li><p>两种方法十分直观，并且易于操作，但是也存在一定的问题：</p>
+<ul>
+<li><p>对于<strong>最速下降法</strong>，其下降的时候过于贪婪，下降的轨迹呈现<strong>锯齿形</strong>，这样反而增多了迭代的次数，<strong>zigzag问题。</strong></p>
+<p><img src="https://raw.githubusercontent.com/houdezaiwu2019/image-bed/master/SLAM/image-20220405210614030.png" alt=""></p>
+</li>
+<li><p>对于<strong>牛顿法</strong>，虽然其迭代次数减少了，但是一方面<strong>Hessian 矩阵</strong>不是很好获得，另一方面就是求解上面的方程难度较大，对于大规模的矩阵很难求解，如果矩阵为非奇异，那就会直接无解。</p>
+</li>
+</ul>
+</li>
+<li><p>针对如何回避计算<strong>Hessian 矩阵</strong>的问题，有以下两种改进方法，Gauss-Newton 以及 Levenberg-Marquadt 方法。</p>
+</li>
+</ul>
+<h4 id="Gauss-Newton法"><a href="#Gauss-Newton法" class="headerlink" title="Gauss-Newton法"></a><strong>Gauss-Newton法</strong></h4><p>相比之前的牛顿法直接对$F(x)$进行展开，高斯牛顿法是先将里面的非线性函数进行一阶近似线性化操作：</p>
+<script type="math/tex; mode=display">
+f(\boldsymbol{x}+\Delta \boldsymbol{x}) \approx f(\boldsymbol{x})+\boldsymbol{J}(\boldsymbol{x}) \Delta \boldsymbol{x}</script><p>其中$J(x)$ 是一个$n \times1$的列向量，根据前面的框架，优化的目标变成使得 $||f(x+\Delta x)||^2=||f(\boldsymbol{x})+\boldsymbol{J}(\boldsymbol{x}) \Delta \boldsymbol{x}||^2$最小。</p>
+<p>于是平方误差变为：</p>
+<script type="math/tex; mode=display">
+\begin{aligned}\frac{1}{2}\|f(\boldsymbol{x})+\boldsymbol{J}(\boldsymbol{x}) \Delta \boldsymbol{x}\|^{2} &=\frac{1}{2}(f(\boldsymbol{x})+\boldsymbol{J}(\boldsymbol{x}) \Delta \boldsymbol{x})^{T}(f(\boldsymbol{x})+\boldsymbol{J}(\boldsymbol{x}) \Delta \boldsymbol{x}) \\&=\frac{1}{2}\left(\|f(\boldsymbol{x})\|_{2}^{2}+2 f(\boldsymbol{x})^{T} \boldsymbol{J}(\boldsymbol{x}) \Delta \boldsymbol{x}+\Delta \boldsymbol{x}^{T} \boldsymbol{J}(\boldsymbol{x})^{T} \boldsymbol{J}(\boldsymbol{x}) \Delta \boldsymbol{x}\right) .\end{aligned}</script><p>令关于 $\Delta x $ 导数为零：</p>
+<script type="math/tex; mode=display">
+\boldsymbol{J}(\boldsymbol{x})^{T} f(\boldsymbol{x})+2 \boldsymbol{J}(\boldsymbol{x})^{T} \boldsymbol{J}(\boldsymbol{x}) \Delta \boldsymbol{x}=\mathbf{0} \\
+\underbrace {\boldsymbol{J}(\boldsymbol{x})^{T} \boldsymbol{J}(\boldsymbol{x})}_{\boldsymbol{H(x)}} \Delta \boldsymbol{x}=\underbrace {-\boldsymbol{J}(\boldsymbol{x})^{T} f(\boldsymbol{x})}_{\boldsymbol{g(x)}}\\
+\Rightarrow \boldsymbol{H}\Delta x=\boldsymbol{g}</script><p>上述方程称为<strong>增量方程</strong>，又叫<strong>高斯牛顿方程</strong>和<strong>正规方程</strong>。</p>
+<p>这里把左侧记作H是有意义的。对比牛顿法可见，高斯牛顿法<strong>用$JJ^T$作为牛顿法中二阶Hessian矩阵的近似</strong>，从而省略了计算<strong>H</strong>的过程。<strong>求解增量方程是整个优化问题的核心所在。</strong>如果我们能够顺利解出该方程，那么高斯牛顿法的算法步骤可以写成：</p>
+<p><img src="https://raw.githubusercontent.com/houdezaiwu2019/image-bed/master/SLAM/image-20220405212926454.png" alt=""></p>
+<p>主要的问题：</p>
+<ul>
+<li>Gauss-Newton简单实用，但是没办法保证$H^{-1}$一定存在，因为$JJ^T$其实也只能保证是半正定的，而非正定的，因此可能会由于$JJ^T$的奇异或者病态而导致算法不收敛。</li>
+<li>其次是就算保证收敛，也可能由于其步长太长而导致无法保证迭代收敛。</li>
+<li>尽管有以上的问题，他在先搜索领域还是具有一定的指导意义，在其基础上出现了一大批的改进算法。</li>
+</ul>
+<h4 id="Levenberg-Marquadt-方法"><a href="#Levenberg-Marquadt-方法" class="headerlink" title="Levenberg-Marquadt 方法"></a><strong>Levenberg-Marquadt 方法</strong></h4><ul>
+<li><p>G-N属于<strong>线搜索方法</strong>：先找到方向，再确定长度</p>
+</li>
+<li><p>L-M属于<strong>信赖区域方法（Trust Region）</strong>，认为近似只在区域内二阶近似是可靠的，出了这个区域就会出现问题。</p>
+</li>
+</ul>
+<p>确定这个信赖区域的方法，就是比较我们的近似函数和实际函数的差别，如果差别小，即近似的效果好，于是要扩大近似的范围，否则就减小近似的范围。</p>
+<script type="math/tex; mode=display">
+\rho=\dfrac {f(\boldsymbol x+\boldsymbol {\Delta x})-f(\boldsymbol x)} {\boldsymbol J(x)^T \Delta x}</script><ul>
+<li>$\rho$的分子是实际函数下降的值，分母是近似模型下降的值。<ul>
+<li>如果$\rho$接近于1，则近似是好的。</li>
+<li>如果$\rho$太小，说明实际减小的值远少于近似减小的值，则认为近似比较差，需要缩小近似范围。</li>
+</ul>
+</li>
+<li>反之，如果$\rho$比较大，则说明实际下降的比预计的更大，我们可以放大近似范围。</li>
+</ul>
+<p><img src="https://raw.githubusercontent.com/houdezaiwu2019/image-bed/master/SLAM/image-20220405214834663.png" alt=""></p>
+<ul>
+<li>在列文伯格提出的优化方法中，把$D$取成单位阵$I$，相当于直接把$△x_k$。约束在一个球中。</li>
+<li><p>随后，马夸尔特提出将$D$取成非负数对角阵，即为一个椭球，实际中通常用$J^TJ$的对角元素平方根，使得在梯度小的维度上约束范围更大一些。</p>
+</li>
+<li><p>Trust Region内的优化，利用Lagrange乘子转化为无约束：</p>
+<script type="math/tex; mode=display">
+\min _{\Delta \boldsymbol{x}_{k}} \frac{1}{2}\left\|f\left(\boldsymbol{x}_{k}\right)+\boldsymbol{J}\left(\boldsymbol{x}_{k}\right) \Delta \boldsymbol{x}_{k}\right\|^{2}+\frac{\lambda}{2}\|\boldsymbol{D} \Delta \boldsymbol{x}\|^{2} .</script></li>
+<li><p>仍参照G-N展开，令拉格朗日函数关于$\Delta x$的函数为0，可得增量方程为：</p>
+<script type="math/tex; mode=display">
+\left(\boldsymbol{H}+\lambda \boldsymbol{D}^{T} \boldsymbol{D}\right) \Delta \boldsymbol{x}=\boldsymbol{g}</script></li>
+<li><p>考虑到简化的形式，在Levenberg方法中，这里令$D=I$可得：</p>
+<script type="math/tex; mode=display">
+(\boldsymbol{H}+\lambda \boldsymbol{I}) \Delta \boldsymbol{x}=\boldsymbol{g} .</script></li>
+<li><p>对于L-M法来说：</p>
+<ul>
+<li>一方面，当参数入比较小时，$H$占主要地位,这说明二次近似模型在该范围内是比较好的，列文伯格—-马夸尔特方法更接近于高斯牛顿法。</li>
+<li>另一方面，当入比较大时，入$I$占据主要地位，列文伯格一马夸尔特方法更接近于一阶梯度下降法（即最速下降)，这说明附近的二次近似不够好。</li>
+<li>L-M方法的求解方式，可在一定程度上避免线性方程组的系数矩阵的非奇异和病态问题,提供更稳定、更准确的增量$\Delta x_k$。</li>
+</ul>
+</li>
+<li><p>L-M法可以很好的保证增量方程的正定性，即认为近似只在一定的范围之内成立，如果近似不好则会缩小范围。</p>
+</li>
+<li>从增量方程的角度来看，可以看成是一阶和二阶的混合，其中<strong>Lagrange乘子</strong>控制着两边的权重。</li>
+</ul>
+<p><strong>小结：</strong></p>
+<ul>
+<li>非线性优化是个很大的主题，研究者们为之奋斗多年。</li>
+</ul>
+<ul>
+<li><strong>主要方法</strong>：最速下降、牛顿、G-N、L-M、DogLeg等，在实际的SLAM中，我们以G-N法和L-M法为主，优先使用的是G-N方法。</li>
+</ul>
+<ul>
+<li>与线性规划不同，非线性需要针对具体问题具体分析。</li>
+<li>问题非凸时，对初值敏感，会陷入局部最优。<ul>
+<li>目前没有非凸问题的通用最优值的寻找办法；</li>
+<li>问题凸时，二阶方法通常一两步就能收敛。</li>
+</ul>
+</li>
+</ul>
+</div><div class="article-licensing box"><div class="licensing-title"><p>Ch6 非线性优化 基础理论部分</p><p><a href="http://example.com/2022/04/05/SLAM/ch6-非线性优化-基础理论部分/">http://example.com/2022/04/05/SLAM/ch6-非线性优化-基础理论部分/</a></p></div><div class="licensing-meta level is-mobile"><div class="level-left"><div class="level-item is-narrow"><div><h6>作者</h6><p>czt</p></div></div><div class="level-item is-narrow"><div><h6>发布于</h6><p>2022-04-05</p></div></div><div class="level-item is-narrow"><div><h6>更新于</h6><p>2022-04-05</p></div></div><div class="level-item is-narrow"><div><h6>许可协议</h6><p><a class="icons" rel="noopener" target="_blank" title="Creative Commons" href="https://creativecommons.org/"><i class="icon fab fa-creative-commons"></i></a><a class="icons" rel="noopener" target="_blank" title="Attribution" href="https://creativecommons.org/licenses/by/4.0/"><i class="icon fab fa-creative-commons-by"></i></a><a class="icons" rel="noopener" target="_blank" title="Noncommercial" href="https://creativecommons.org/licenses/by-nc/4.0/"><i class="icon fab fa-creative-commons-nc"></i></a></p></div></div></div></div></div><div class="article-tags is-size-7 mb-4"><span class="mr-2">#</span><a class="link-muted mr-2" rel="tag" href="/tags/SLAM/">SLAM</a><a class="link-muted mr-2" rel="tag" href="/tags/Computer-Vision/">Computer Vision</a><a class="link-muted mr-2" rel="tag" href="/tags/c/">c++</a></div><!--!--></article></div><!--!--><nav class="post-navigation mt-4 level is-mobile"><div class="level-end"><a class="article-nav-next level level-item link-muted" href="/2022/04/03/SLAM/ch5-%E7%9B%B8%E6%9C%BA%E5%92%8C%E5%9B%BE%E5%83%8F/"><span class="level-item">Ch5 相机和图像</span><i class="level-item fas fa-chevron-right"></i></a></div></nav><!--!--></div><div class="column column-left is-4-tablet is-4-desktop is-3-widescreen  order-1 is-sticky"><div class="card widget" data-type="profile"><div class="card-content"><nav class="level"><div class="level-item has-text-centered flex-shrink-1"><div><figure class="image is-128x128 mx-auto mb-2"><img class="avatar" src="https://raw.githubusercontent.com/houdezaiwu2019/image-bed/master/hexoimg/202201222202112.jpg" alt="厚德载物"></figure><p class="title is-size-4 is-block" style="line-height:inherit;">厚德载物</p><p class="is-size-6 is-block">实事求是，敢为人先</p><p class="is-size-6 is-flex justify-content-center"><i class="fas fa-map-marker-alt mr-1"></i><span>中国 湖北 武汉</span></p></div></div></nav><nav class="level is-mobile"><div class="level-item has-text-centered is-marginless"><div><p class="heading">文章</p><a href="/archives"><p class="title">61</p></a></div></div><div class="level-item has-text-centered is-marginless"><div><p class="heading">分类</p><a href="/categories"><p class="title">13</p></a></div></div><div class="level-item has-text-centered is-marginless"><div><p class="heading">标签</p><a href="/tags"><p class="title">30</p></a></div></div></nav><div class="level"><a class="level-item button is-primary is-rounded" href="https://github.com/ppoffice" target="_blank" rel="noopener">关注我</a></div><div class="level is-mobile is-multiline"><a class="level-item button is-transparent is-marginless" target="_blank" rel="noopener" title="Github" href="https://github.com/ppoffice"><i class="fab fa-github"></i></a><a class="level-item button is-transparent is-marginless" target="_blank" rel="noopener" title="Facebook" href="https://facebook.com"><i class="fab fa-facebook"></i></a><a class="level-item button is-transparent is-marginless" target="_blank" rel="noopener" title="Twitter" href="https://twitter.com"><i class="fab fa-twitter"></i></a><a class="level-item button is-transparent is-marginless" target="_blank" rel="noopener" title="Dribbble" href="https://dribbble.com"><i class="fab fa-dribbble"></i></a><a class="level-item button is-transparent is-marginless" target="_blank" rel="noopener" title="RSS" href="/"><i class="fas fa-rss"></i></a></div></div></div><div class="card widget" data-type="links"><div class="card-content"><div class="menu"><h3 class="menu-label">链接</h3><ul class="menu-list"><li><a class="level is-mobile" href="https://hexo.io" target="_blank" rel="noopener"><span class="level-left"><span class="level-item">Hexo</span></span><span class="level-right"><span class="level-item tag">hexo.io</span></span></a></li><li><a class="level is-mobile" href="https://bulma.io" target="_blank" rel="noopener"><span class="level-left"><span class="level-item">Bulma</span></span><span class="level-right"><span class="level-item tag">bulma.io</span></span></a></li><li><a class="level is-mobile" href="https://arxiv.org/" target="_blank" rel="noopener"><span class="level-left"><span class="level-item">arxiv</span></span><span class="level-right"><span class="level-item tag">arxiv.org</span></span></a></li><li><a class="level is-mobile" href="https://leetcode-cn.com/problemset/algorithms/" target="_blank" rel="noopener"><span class="level-left"><span class="level-item">leetcode</span></span><span class="level-right"><span class="level-item tag">leetcode-cn.com</span></span></a></li><li><a class="level is-mobile" href="https://mathf.itewqq.cn/" target="_blank" rel="noopener"><span class="level-left"><span class="level-item">mathf</span></span><span class="level-right"><span class="level-item tag">mathf.itewqq.cn</span></span></a></li><li><a class="level is-mobile" href="https://scholar.google.com.hk/?hl=zh-CN" target="_blank" rel="noopener"><span class="level-left"><span class="level-item">google_scholar</span></span><span class="level-right"><span class="level-item tag">scholar.google.com.hk</span></span></a></li><li><a class="level is-mobile" href="https://qwerty.kaiyi.cool/" target="_blank" rel="noopener"><span class="level-left"><span class="level-item">qwerty</span></span><span class="level-right"><span class="level-item tag">qwerty.kaiyi.cool</span></span></a></li><li><a class="level is-mobile" href="https://www.overleaf.com/" target="_blank" rel="noopener"><span class="level-left"><span class="level-item">overleaf</span></span><span class="level-right"><span class="level-item tag">www.overleaf.com</span></span></a></li><li><a class="level is-mobile" href="http://www.pipioj.online/" target="_blank" rel="noopener"><span class="level-left"><span class="level-item">pipioj</span></span><span class="level-right"><span class="level-item tag">www.pipioj.online</span></span></a></li></ul></div></div></div><div class="card widget" data-type="archives"><div class="card-content"><div class="menu"><h3 class="menu-label">归档</h3><ul class="menu-list"><li><a class="level is-mobile" href="/archives/2022/04/"><span class="level-start"><span class="level-item">四月 2022</span></span><span class="level-end"><span class="level-item tag">4</span></span></a></li><li><a class="level is-mobile" href="/archives/2022/03/"><span class="level-start"><span class="level-item">三月 2022</span></span><span class="level-end"><span class="level-item tag">25</span></span></a></li><li><a class="level is-mobile" href="/archives/2022/02/"><span class="level-start"><span class="level-item">二月 2022</span></span><span class="level-end"><span class="level-item tag">21</span></span></a></li><li><a class="level is-mobile" href="/archives/2022/01/"><span class="level-start"><span class="level-item">一月 2022</span></span><span class="level-end"><span class="level-item tag">11</span></span></a></li></ul></div></div></div><div class="card widget" data-type="tags"><div class="card-content"><div class="menu"><h3 class="menu-label">标签</h3><div class="field is-grouped is-grouped-multiline"><div class="control"><a class="tags has-addons" href="/tags/Computer-Vision/"><span class="tag">Computer Vision</span><span class="tag">5</span></a></div><div class="control"><a class="tags has-addons" href="/tags/GAN%E5%AE%9E%E6%88%98/"><span class="tag">GAN实战</span><span class="tag">6</span></a></div><div class="control"><a class="tags has-addons" href="/tags/Generative-Adversarial-Networks/"><span class="tag">Generative Adversarial Networks</span><span class="tag">6</span></a></div><div class="control"><a class="tags has-addons" href="/tags/Graph/"><span class="tag">Graph</span><span class="tag">3</span></a></div><div class="control"><a class="tags has-addons" href="/tags/IEEE%E6%8A%95%E7%A8%BF/"><span class="tag">IEEE投稿</span><span class="tag">1</span></a></div><div class="control"><a class="tags has-addons" href="/tags/Latex/"><span class="tag">Latex</span><span class="tag">4</span></a></div><div class="control"><a class="tags has-addons" href="/tags/Markdown/"><span class="tag">Markdown</span><span class="tag">1</span></a></div><div class="control"><a class="tags has-addons" href="/tags/NLP/"><span class="tag">NLP</span><span class="tag">1</span></a></div><div class="control"><a class="tags has-addons" href="/tags/Neural-Networks/"><span class="tag">Neural Networks</span><span class="tag">3</span></a></div><div class="control"><a class="tags has-addons" href="/tags/Pytorch/"><span class="tag">Pytorch</span><span class="tag">1</span></a></div><div class="control"><a class="tags has-addons" href="/tags/SLAM/"><span class="tag">SLAM</span><span class="tag">5</span></a></div><div class="control"><a class="tags has-addons" href="/tags/Transformer/"><span class="tag">Transformer</span><span class="tag">1</span></a></div><div class="control"><a class="tags has-addons" href="/tags/Typora/"><span class="tag">Typora</span><span class="tag">1</span></a></div><div class="control"><a class="tags has-addons" href="/tags/auto-encoder/"><span class="tag">auto-encoder</span><span class="tag">4</span></a></div><div class="control"><a class="tags has-addons" href="/tags/c/"><span class="tag">c++</span><span class="tag">5</span></a></div><div class="control"><a class="tags has-addons" href="/tags/control-theory/"><span class="tag">control theory</span><span class="tag">1</span></a></div><div class="control"><a class="tags has-addons" href="/tags/latex/"><span class="tag">latex</span><span class="tag">1</span></a></div><div class="control"><a class="tags has-addons" href="/tags/object-detection/"><span class="tag">object detection</span><span class="tag">3</span></a></div><div class="control"><a class="tags has-addons" href="/tags/opencv/"><span class="tag">opencv</span><span class="tag">3</span></a></div><div class="control"><a class="tags has-addons" href="/tags/python/"><span class="tag">python</span><span class="tag">3</span></a></div><div class="control"><a class="tags has-addons" href="/tags/pytorch/"><span class="tag">pytorch</span><span class="tag">17</span></a></div><div class="control"><a class="tags has-addons" href="/tags/%E5%9B%BE%E5%83%8F%E5%88%86%E7%B1%BB/"><span class="tag">图像分类</span><span class="tag">6</span></a></div><div class="control"><a class="tags has-addons" href="/tags/%E5%9B%BE%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C/"><span class="tag">图神经网络</span><span class="tag">3</span></a></div><div class="control"><a class="tags has-addons" href="/tags/%E6%8E%A7%E5%88%B6%E7%90%86%E8%AE%BA/"><span class="tag">控制理论</span><span class="tag">1</span></a></div><div class="control"><a class="tags has-addons" href="/tags/%E6%97%A0%E7%9B%91%E7%9D%A3%E5%AD%A6%E4%B9%A0/"><span class="tag">无监督学习</span><span class="tag">4</span></a></div><div class="control"><a class="tags has-addons" href="/tags/%E6%9C%BA%E6%A2%B0%E6%8C%AF%E5%8A%A8/"><span class="tag">机械振动</span><span class="tag">20</span></a></div><div class="control"><a class="tags has-addons" href="/tags/%E7%94%9F%E6%88%90%E6%A8%A1%E5%9E%8B/"><span class="tag">生成模型</span><span class="tag">4</span></a></div><div class="control"><a class="tags has-addons" href="/tags/%E7%A7%91%E7%A0%94/"><span class="tag">科研</span><span class="tag">1</span></a></div><div class="control"><a class="tags has-addons" href="/tags/%E8%87%AA%E6%B3%A8%E6%84%8F%E5%8A%9B%E6%9C%BA%E5%88%B6/"><span class="tag">自注意力机制</span><span class="tag">1</span></a></div><div class="control"><a class="tags has-addons" href="/tags/%E8%AE%BA%E6%96%87%E5%86%99%E4%BD%9C/"><span class="tag">论文写作</span><span class="tag">1</span></a></div></div></div></div></div><div class="column-right-shadow is-hidden-widescreen is-sticky"></div></div><div class="column column-right is-4-tablet is-4-desktop is-3-widescreen is-hidden-touch is-hidden-desktop-only order-3 is-sticky"><div class="card widget" id="toc" data-type="toc"><div class="card-content"><div class="menu"><h3 class="menu-label">目录</h3><ul class="menu-list"><li><a class="level is-mobile" href="#状态估计问题"><span class="level-left"><span class="level-item">1</span><span class="level-item">状态估计问题</span></span></a><ul class="menu-list"><li><a class="level is-mobile" href="#批量估计和最大后验估计"><span class="level-left"><span class="level-item">1.1</span><span class="level-item">批量估计和最大后验估计</span></span></a><ul class="menu-list"><li><a class="level is-mobile" href="#问题表述"><span class="level-left"><span class="level-item">1.1.1</span><span class="level-item">问题表述</span></span></a></li><li><a class="level is-mobile" href="#求解方法"><span class="level-left"><span class="level-item">1.1.2</span><span class="level-item">求解方法</span></span></a></li></ul></li><li><a class="level is-mobile" href="#最小二乘的引出"><span class="level-left"><span class="level-item">1.2</span><span class="level-item">最小二乘的引出</span></span></a></li><li><a class="level is-mobile" href="#批量估计的案例"><span class="level-left"><span class="level-item">1.3</span><span class="level-item">批量估计的案例</span></span></a></li></ul></li><li><a class="level is-mobile" href="#非线性最小二乘"><span class="level-left"><span class="level-item">2</span><span class="level-item">非线性最小二乘</span></span></a><ul class="menu-list"><li><a class="level is-mobile" href="#一阶和二阶梯度法"><span class="level-left"><span class="level-item">2.1</span><span class="level-item">一阶和二阶梯度法</span></span></a></li><li><a class="level is-mobile" href="#Gauss-Newton法"><span class="level-left"><span class="level-item">2.2</span><span class="level-item">Gauss-Newton法</span></span></a></li><li><a class="level is-mobile" href="#Levenberg-Marquadt-方法"><span class="level-left"><span class="level-item">2.3</span><span class="level-item">Levenberg-Marquadt 方法</span></span></a></li></ul></li></ul></div></div><script src="/js/toc.js" defer></script></div><div class="card widget" data-type="categories"><div class="card-content"><div class="menu"><h3 class="menu-label">分类</h3><ul class="menu-list"><li><a class="level is-mobile" href="/categories/Generative-Adversarial-Networks/"><span class="level-start"><span class="level-item">Generative Adversarial Networks</span></span><span class="level-end"><span class="level-item tag">6</span></span></a></li><li><a class="level is-mobile" href="/categories/Latex/"><span class="level-start"><span class="level-item">Latex</span></span><span class="level-end"><span class="level-item tag">4</span></span></a></li><li><a class="level is-mobile" href="/categories/PyTorch%E6%95%99%E7%A8%8B%E4%B8%8E%E6%BA%90%E7%A0%81%E8%AE%B2%E8%A7%A3/"><span class="level-start"><span class="level-item">PyTorch教程与源码讲解</span></span><span class="level-end"><span class="level-item tag">5</span></span></a></li><li><a class="level is-mobile" href="/categories/SLAM/"><span class="level-start"><span class="level-item">SLAM</span></span><span class="level-end"><span class="level-item tag">5</span></span></a></li><li><a class="level is-mobile" href="/categories/Typora/"><span class="level-start"><span class="level-item">Typora</span></span><span class="level-end"><span class="level-item tag">1</span></span></a></li><li><a class="level is-mobile" href="/categories/auto-encoder/"><span class="level-start"><span class="level-item">auto-encoder</span></span><span class="level-end"><span class="level-item tag">4</span></span></a></li><li><a class="level is-mobile" href="/categories/opencv/"><span class="level-start"><span class="level-item">opencv</span></span><span class="level-end"><span class="level-item tag">3</span></span></a></li><li><a class="level is-mobile" href="/categories/%E5%9B%BE%E5%83%8F%E5%88%86%E7%B1%BB%E7%BD%91%E7%BB%9C%E5%8F%8APytorch%E5%AE%9E%E7%8E%B0/"><span class="level-start"><span class="level-item">图像分类网络及Pytorch实现</span></span><span class="level-end"><span class="level-item tag">6</span></span></a></li><li><a class="level is-mobile" href="/categories/%E5%9B%BE%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C/"><span class="level-start"><span class="level-item">图神经网络</span></span><span class="level-end"><span class="level-item tag">3</span></span></a></li><li><a class="level is-mobile" href="/categories/%E6%8C%AF%E5%8A%A8%E5%8A%9B%E5%AD%A6/"><span class="level-start"><span class="level-item">振动力学</span></span><span class="level-end"><span class="level-item tag">20</span></span></a></li><li><a class="level is-mobile" href="/categories/%E7%8E%B0%E4%BB%A3%E6%8E%A7%E5%88%B6%E7%90%86%E8%AE%BA/"><span class="level-start"><span class="level-item">现代控制理论</span></span><span class="level-end"><span class="level-item tag">1</span></span></a></li><li><a class="level is-mobile" href="/categories/%E7%A7%91%E7%A0%94%E5%85%A5%E9%97%A8%E7%AC%94%E8%AE%B0/"><span class="level-start"><span class="level-item">科研入门笔记</span></span><span class="level-end"><span class="level-item tag">1</span></span></a></li><li><a class="level is-mobile" href="/categories/%E8%87%AA%E6%B3%A8%E6%84%8F%E5%8A%9B%E6%9C%BA%E5%88%B6%E5%92%8CTransformer/"><span class="level-start"><span class="level-item">自注意力机制和Transformer</span></span><span class="level-end"><span class="level-item tag">1</span></span></a></li></ul></div></div></div><div class="card widget" data-type="recent-posts"><div class="card-content"><h3 class="menu-label">最新文章</h3><article class="media"><figure class="media-left"><a class="image" href="/2022/04/05/SLAM/ch6-%E9%9D%9E%E7%BA%BF%E6%80%A7%E4%BC%98%E5%8C%96-%E5%9F%BA%E7%A1%80%E7%90%86%E8%AE%BA%E9%83%A8%E5%88%86/"><img src="https://raw.githubusercontent.com/houdezaiwu2019/image-bed/master/slam/202203201501475.png" alt="Ch6 非线性优化 基础理论部分"></a></figure><div class="media-content"><p class="date"><time dateTime="2022-04-05T14:51:30.000Z">2022-04-05</time></p><p class="title"><a href="/2022/04/05/SLAM/ch6-%E9%9D%9E%E7%BA%BF%E6%80%A7%E4%BC%98%E5%8C%96-%E5%9F%BA%E7%A1%80%E7%90%86%E8%AE%BA%E9%83%A8%E5%88%86/">Ch6 非线性优化 基础理论部分</a></p><p class="categories"><a href="/categories/SLAM/">SLAM</a></p></div></article><article class="media"><figure class="media-left"><a class="image" href="/2022/04/03/SLAM/ch5-%E7%9B%B8%E6%9C%BA%E5%92%8C%E5%9B%BE%E5%83%8F/"><img src="https://raw.githubusercontent.com/houdezaiwu2019/image-bed/master/slam/202203201501475.png" alt="Ch5 相机和图像"></a></figure><div class="media-content"><p class="date"><time dateTime="2022-04-03T15:33:37.000Z">2022-04-03</time></p><p class="title"><a href="/2022/04/03/SLAM/ch5-%E7%9B%B8%E6%9C%BA%E5%92%8C%E5%9B%BE%E5%83%8F/">Ch5 相机和图像</a></p><p class="categories"><a href="/categories/SLAM/">SLAM</a></p></div></article><article class="media"><figure class="media-left"><a class="image" href="/2022/04/03/SLAM/ch3-%E4%B8%89%E7%BB%B4%E7%A9%BA%E9%97%B4%E7%9A%84%E5%88%9A%E4%BD%93%E8%BF%90%E5%8A%A8-%E7%AC%AC%E4%BA%8C%E9%83%A8%E5%88%86/"><img src="https://raw.githubusercontent.com/houdezaiwu2019/image-bed/master/slam/202203201501475.png" alt="Ch3 三维空间的刚体运动 第二部分"></a></figure><div class="media-content"><p class="date"><time dateTime="2022-04-02T16:01:57.000Z">2022-04-03</time></p><p class="title"><a href="/2022/04/03/SLAM/ch3-%E4%B8%89%E7%BB%B4%E7%A9%BA%E9%97%B4%E7%9A%84%E5%88%9A%E4%BD%93%E8%BF%90%E5%8A%A8-%E7%AC%AC%E4%BA%8C%E9%83%A8%E5%88%86/">Ch3 三维空间的刚体运动 第二部分</a></p><p class="categories"><a href="/categories/SLAM/">SLAM</a></p></div></article><article class="media"><figure class="media-left"><a class="image" href="/2022/04/02/SLAM/ch3-%E4%B8%89%E7%BB%B4%E7%A9%BA%E9%97%B4%E7%9A%84%E5%88%9A%E4%BD%93%E8%BF%90%E5%8A%A8-%E7%AC%AC%E4%B8%80%E9%83%A8%E5%88%86/"><img src="https://raw.githubusercontent.com/houdezaiwu2019/image-bed/master/slam/202203201501475.png" alt="Ch3 三维空间的刚体运动 第一部分"></a></figure><div class="media-content"><p class="date"><time dateTime="2022-04-02T15:59:19.000Z">2022-04-02</time></p><p class="title"><a href="/2022/04/02/SLAM/ch3-%E4%B8%89%E7%BB%B4%E7%A9%BA%E9%97%B4%E7%9A%84%E5%88%9A%E4%BD%93%E8%BF%90%E5%8A%A8-%E7%AC%AC%E4%B8%80%E9%83%A8%E5%88%86/">Ch3 三维空间的刚体运动 第一部分</a></p><p class="categories"><a href="/categories/SLAM/">SLAM</a></p></div></article><article class="media"><figure class="media-left"><a class="image" href="/2022/03/30/%E5%9B%BE%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C/%E5%9B%BE%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C%E7%9A%84%E9%80%9A%E4%BF%97%E7%90%86%E8%A7%A3-%E5%AE%9E%E9%AA%8C%E5%92%8C%E7%9B%B8%E5%85%B3%E6%8A%80%E6%9C%AF/"><img src="https://raw.githubusercontent.com/houdezaiwu2019/image-bed/master/%E5%9B%BE%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C/202203300021761.png" alt="图神经网络的通俗理解-实验和相关技术"></a></figure><div class="media-content"><p class="date"><time dateTime="2022-03-29T16:07:38.000Z">2022-03-30</time></p><p class="title"><a href="/2022/03/30/%E5%9B%BE%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C/%E5%9B%BE%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C%E7%9A%84%E9%80%9A%E4%BF%97%E7%90%86%E8%A7%A3-%E5%AE%9E%E9%AA%8C%E5%92%8C%E7%9B%B8%E5%85%B3%E6%8A%80%E6%9C%AF/">图神经网络的通俗理解-实验和相关技术</a></p><p class="categories"><a href="/categories/%E5%9B%BE%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C/">图神经网络</a></p></div></article></div></div></div></div></div></section><footer class="footer"><div class="container"><div class="level"><div class="level-start"><a class="footer-logo is-block mb-2" href="/"><img src="/img/logo.svg" alt="houdezaiwu&#039;s blog" height="28"></a><p class="is-size-7"><span>&copy; 2022 czt</span>  Powered by <a href="https://hexo.io/" target="_blank" rel="noopener">Hexo</a> &amp; <a href="https://github.com/ppoffice/hexo-theme-icarus" target="_blank" rel="noopener">Icarus</a></p></div><div class="level-end"><div class="field has-addons"><p class="control"><a class="button is-transparent is-large" target="_blank" rel="noopener" title="Creative Commons" href="https://creativecommons.org/"><i class="fab fa-creative-commons"></i></a></p><p class="control"><a class="button is-transparent is-large" target="_blank" rel="noopener" title="Attribution 4.0 International" href="https://creativecommons.org/licenses/by/4.0/"><i class="fab fa-creative-commons-by"></i></a></p><p class="control"><a class="button is-transparent is-large" target="_blank" rel="noopener" title="Download on GitHub" href="https://github.com/ppoffice/hexo-theme-icarus"><i class="fab fa-github"></i></a></p></div></div></div></div></footer><script src="https://cdn.jsdelivr.net/npm/jquery@3.3.1/dist/jquery.min.js"></script><script src="https://cdn.jsdelivr.net/npm/moment@2.22.2/min/moment-with-locales.min.js"></script><script src="https://cdn.jsdelivr.net/npm/clipboard@2.0.4/dist/clipboard.min.js" defer></script><script>moment.locale("zh-CN");</script><script>var IcarusThemeSettings = {
+            article: {
+                highlight: {
+                    clipboard: true,
+                    fold: 'unfolded'
+                }
+            }
+        };</script><script src="/js/column.js"></script><script src="/js/animation.js"></script><a id="back-to-top" title="回到顶端" href="javascript:;"><i class="fas fa-chevron-up"></i></a><script src="/js/back_to_top.js" defer></script><!--!--><!--!--><!--!--><script src="https://cdn.jsdelivr.net/npm/cookieconsent@3.1.1/build/cookieconsent.min.js" defer></script><script>window.addEventListener("load", () => {
+      window.cookieconsent.initialise({
+        type: "info",
+        theme: "edgeless",
+        static: false,
+        position: "bottom-left",
+        content: {
+          message: "此网站使用Cookie来改善您的体验。",
+          dismiss: "知道了！",
+          allow: "允许使用Cookie",
+          deny: "拒绝",
+          link: "了解更多",
+          policy: "Cookie政策",
+          href: "https://www.cookiesandyou.com/",
+        },
+        palette: {
+          popup: {
+            background: "#edeff5",
+            text: "#838391"
+          },
+          button: {
+            background: "#4b81e8"
+          },
+        },
+      });
+    });</script><script src="https://cdn.jsdelivr.net/npm/lightgallery@1.10.0/dist/js/lightgallery.min.js" defer></script><script src="https://cdn.jsdelivr.net/npm/justifiedGallery@3.8.1/dist/js/jquery.justifiedGallery.min.js" defer></script><script>window.addEventListener("load", () => {
+            if (typeof $.fn.lightGallery === 'function') {
+                $('.article').lightGallery({ selector: '.gallery-item' });
+            }
+            if (typeof $.fn.justifiedGallery === 'function') {
+                if ($('.justified-gallery > p > .gallery-item').length) {
+                    $('.justified-gallery > p > .gallery-item').unwrap();
+                }
+                $('.justified-gallery').justifiedGallery();
+            }
+        });</script><!--!--><!--!--><script type="text/x-mathjax-config">MathJax.Hub.Config({
+            'HTML-CSS': {
+                matchFontHeight: false
+            },
+            SVG: {
+                matchFontHeight: false
+            },
+            CommonHTML: {
+                matchFontHeight: false
+            },
+            tex2jax: {
+                inlineMath: [
+                    ['$','$'],
+                    ['\\(','\\)']
+                ]
+            }
+        });</script><script src="https://cdn.jsdelivr.net/npm/mathjax@2.7.9/unpacked/MathJax.js?config=TeX-MML-AM_CHTML" defer></script><div id="outdated"><h6>Your browser is out-of-date!</h6><p>Update your browser to view this website correctly.&amp;npsb;<a id="btnUpdateBrowser" target="_blank" rel="noopener" href="http://outdatedbrowser.com/">Update my browser now </a></p><p class="last"><a href="#" id="btnCloseUpdateBrowser" title="Close">×</a></p></div><script src="https://cdn.jsdelivr.net/npm/outdatedbrowser@1.1.5/outdatedbrowser/outdatedbrowser.min.js" defer></script><script>window.addEventListener("load", function () {
+            outdatedBrowser({
+                bgColor: '#f25648',
+                color: '#ffffff',
+                lowerThan: 'object-fit' // display on IE11 or below
+            });
+        });</script><!--!--><!--!--><!--!--><script src="/js/main.js" defer></script><div class="searchbox"><div class="searchbox-container"><div class="searchbox-header"><div class="searchbox-input-container"><input class="searchbox-input" type="text" placeholder="想要查找什么..."></div><a class="searchbox-close" href="javascript:;">×</a></div><div class="searchbox-body"></div></div></div><script src="/js/insight.js" defer></script><script>document.addEventListener('DOMContentLoaded', function () {
+            loadInsight({"contentUrl":"/content.json"}, {"hint":"想要查找什么...","untitled":"(无标题)","posts":"文章","pages":"页面","categories":"分类","tags":"标签"});
+        });</script><!-- hexo-inject:begin --><!-- hexo-inject:end --></body></html>
