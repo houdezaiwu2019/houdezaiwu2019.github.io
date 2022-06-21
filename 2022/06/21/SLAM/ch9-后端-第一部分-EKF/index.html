@@ -1,0 +1,246 @@
+<!doctype html>
+<html lang="zh"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"><meta><title>Ch9 后端 第一部分 EKF - houdezaiwu&#039;s blog</title><link rel="manifest" href="/manifest.json"><meta name="application-name" content="czt"><meta name="msapplication-TileImage" content="/img/favicon.svg"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-title" content="czt"><meta name="apple-mobile-web-app-status-bar-style" content="default"><meta name="description" content="hljs.initHighlightingOnLoad();  之前的视觉里程计只有连续两张图片的短暂的记忆，而我们希望的是在整个运动轨迹上保持最优，需要使用新进的信息来更新系统的状态。 本讲主要介绍的常用后端中的第一种EKF扩展卡尔曼滤波的方法。"><meta property="og:type" content="blog"><meta property="og:title" content="Ch9 后端 第一部分 EKF"><meta property="og:url" content="http://example.com/2022/06/21/SLAM/ch9-%E5%90%8E%E7%AB%AF-%E7%AC%AC%E4%B8%80%E9%83%A8%E5%88%86-EKF/"><meta property="og:site_name" content="houdezaiwu&#039;s blog"><meta property="og:description" content="hljs.initHighlightingOnLoad();  之前的视觉里程计只有连续两张图片的短暂的记忆，而我们希望的是在整个运动轨迹上保持最优，需要使用新进的信息来更新系统的状态。 本讲主要介绍的常用后端中的第一种EKF扩展卡尔曼滤波的方法。"><meta property="og:locale" content="zh_CN"><meta property="og:image" content="https://fastly.jsdelivr.net/gh/houdezaiwu2019/image-bed/slam/202203201512822.png"><meta property="article:published_time" content="2022-06-21T02:15:30.000Z"><meta property="article:modified_time" content="2022-06-21T02:22:53.078Z"><meta property="article:author" content="czt"><meta property="article:tag" content="SLAM"><meta property="article:tag" content="Computer Vision"><meta property="article:tag" content="c++"><meta property="twitter:card" content="summary"><meta property="twitter:image" content="https://fastly.jsdelivr.net/gh/houdezaiwu2019/image-bed/slam/202203201512822.png"><script type="application/ld+json">{"@context":"https://schema.org","@type":"BlogPosting","mainEntityOfPage":{"@type":"WebPage","@id":"http://example.com/2022/06/21/SLAM/ch9-%E5%90%8E%E7%AB%AF-%E7%AC%AC%E4%B8%80%E9%83%A8%E5%88%86-EKF/"},"headline":"Ch9 后端 第一部分 EKF","image":["https://fastly.jsdelivr.net/gh/houdezaiwu2019/image-bed/slam/202203201512822.png"],"datePublished":"2022-06-21T02:15:30.000Z","dateModified":"2022-06-21T02:22:53.078Z","author":{"@type":"Person","name":"czt"},"publisher":{"@type":"Organization","name":"houdezaiwu's blog","logo":{"@type":"ImageObject","url":"http://example.com/img/logo.svg"}},"description":"hljs.initHighlightingOnLoad();  之前的视觉里程计只有连续两张图片的短暂的记忆，而我们希望的是在整个运动轨迹上保持最优，需要使用新进的信息来更新系统的状态。 本讲主要介绍的常用后端中的第一种EKF扩展卡尔曼滤波的方法。"}</script><link rel="canonical" href="http://example.com/2022/06/21/SLAM/ch9-%E5%90%8E%E7%AB%AF-%E7%AC%AC%E4%B8%80%E9%83%A8%E5%88%86-EKF/"><link rel="icon" href="/img/favicon.svg"><link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.2/css/all.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@9.12.0/styles/atom-one-light.css"><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Ubuntu:wght@400;600&amp;family=Source+Code+Pro"><link rel="stylesheet" href="/css/default.css"><style>body>.footer,body>.navbar,body>.section{opacity:0}</style><!--!--><!--!--><!--!--><!--!--><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/cookieconsent@3.1.1/build/cookieconsent.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/lightgallery@1.10.0/dist/css/lightgallery.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/justifiedGallery@3.8.1/dist/css/justifiedGallery.min.css"><!--!--><!--!--><!--!--><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/outdatedbrowser@1.1.5/outdatedbrowser/outdatedbrowser.min.css"><style>.pace{-webkit-pointer-events:none;pointer-events:none;-webkit-user-select:none;-moz-user-select:none;user-select:none}.pace-inactive{display:none}.pace .pace-progress{background:#3273dc;position:fixed;z-index:2000;top:0;right:100%;width:100%;height:2px}</style><script src="https://cdn.jsdelivr.net/npm/pace-js@1.2.4/pace.min.js"></script><!--!--><!--!--><!-- hexo injector head_end start -->
+<!-- hexo-inject:begin --><!-- hexo-inject:end --><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css">
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/hexo-math@4.0.0/dist/style.css">
+<!-- hexo injector head_end end --><meta name="generator" content="Hexo 6.0.0"><link rel="stylesheet" href="/css/prism-coy-without-shadows.css" type="text/css">
+<link rel="stylesheet" href="/css/prism-line-numbers.css" type="text/css"><!-- hexo-inject:begin --><!-- hexo-inject:end --></head><body class="is-3-column"><nav class="navbar navbar-main"><div class="container"><div class="navbar-brand justify-content-center"><a class="navbar-item navbar-logo" href="/"><img src="/img/logo.svg" alt="houdezaiwu&#039;s blog" height="28"></a></div><div class="navbar-menu"><div class="navbar-start"><a class="navbar-item" href="/">主页</a><a class="navbar-item" href="/archives">归档</a><a class="navbar-item" href="/categories">分类</a><a class="navbar-item" href="/tags">标签</a><a class="navbar-item" href="/about">关于</a></div><div class="navbar-end"><a class="navbar-item" target="_blank" rel="noopener" title="Download on GitHub" href="https://github.com/ppoffice/hexo-theme-icarus"><i class="fab fa-github"></i></a><a class="navbar-item is-hidden-tablet catalogue" title="目录" href="javascript:;"><i class="fas fa-list-ul"></i></a><a class="navbar-item search" title="搜索" href="javascript:;"><i class="fas fa-search"></i></a></div></div></div></nav><section class="section"><div class="container"><div class="columns"><div class="column order-2 column-main is-8-tablet is-8-desktop is-6-widescreen"><div class="card"><div class="card-image"><span class="image is-7by3"><img class="fill" src="https://fastly.jsdelivr.net/gh/houdezaiwu2019/image-bed/slam/202203201512822.png" alt="Ch9 后端 第一部分 EKF"></span></div><article class="card-content article" role="article"><div class="article-meta is-size-7 is-uppercase level is-mobile"><div class="level-left"><span class="level-item"><time dateTime="2022-06-21T02:15:30.000Z" title="2022/6/21 上午10:15:30">2022-06-21</time>发表</span><span class="level-item"><time dateTime="2022-06-21T02:22:53.078Z" title="2022/6/21 上午10:22:53">2022-06-21</time>更新</span><span class="level-item"><a class="link-muted" href="/categories/SLAM/">SLAM</a></span><span class="level-item">25 分钟读完 (大约3713个字)</span></div></div><h1 class="title is-3 is-size-4-mobile">Ch9 后端 第一部分 EKF</h1><div class="content"><link rel="stylesheet" href="//cdn.bootcss.com/highlight.js/9.2.0/styles/github.min.css">
+
+<!-- hexo-inject:begin --><!-- hexo-inject:end --><script src="//cdn.bootcss.com/highlight.js/9.2.0/highlight.min.js"></script>
+<script>hljs.initHighlightingOnLoad();</script>
+
+<p>之前的视觉里程计只有连续两张图片的短暂的记忆，而我们希望的是在整个运动轨迹上保持最优，需要使用新进的信息来更新系统的状态。</p>
+<p>本讲主要介绍的常用后端中的第一种EKF扩展卡尔曼滤波的方法。</p>
+<span id="more"></span>
+<h2 id="概述与滤波方法"><a href="#概述与滤波方法" class="headerlink" title="概述与滤波方法"></a><strong>概述与滤波方法</strong></h2><h3 id="状态估计问题的概率解释"><a href="#状态估计问题的概率解释" class="headerlink" title="状态估计问题的概率解释"></a><strong>状态估计问题的概率解释</strong></h3><p>对于后端问题，其实可以理解成：</p>
+<ul>
+<li><p><strong>从带有噪声的数据来估计内在的状态的问题；</strong></p>
+</li>
+<li><p>第一章建立的状态方程和运动方程可知，其主要就是使用$u,z$ 来估计$x_k,y_j$ 的值；</p>
+<script type="math/tex; mode=display">
+\boldsymbol x_{k+1}=f(\boldsymbol x_k,\boldsymbol u_k)+\boldsymbol \omega_k \\
+\boldsymbol z_{k,j}=h(\boldsymbol x_k,\boldsymbol y_j)+\boldsymbol v_{k,j}</script></li>
+<li><p>这里数据噪声通常被认为是高斯噪声。</p>
+</li>
+<li><p>通过MLE，MAP等方法转换成为一个非线性优化的问题。</p>
+</li>
+</ul>
+<p>在后端优化的过程中，我们会考虑一段较长的时间内的状态估计问题，其中不仅要使用过去的时间来更新自己的状态，同时也需要未来的信息来进行更新于是可以分为渐进式和批量式的方法。</p>
+<ul>
+<li><p>渐进式/增量式</p>
+<ul>
+<li><p>保持当前状态的估计，在加入新的信息是，更新已有的估计<strong>(滤波)</strong>。</p>
+</li>
+<li><p>线性系统+高斯噪声=Kalmen filter;</p>
+</li>
+<li><p>非线性系统+高斯噪声+线性近似=EKF；</p>
+<blockquote>
+<p><strong>相机模型就是一个非线性的模型。</strong></p>
+</blockquote>
+</li>
+<li><p>非线性系统+非高斯噪声+非参数化=粒子滤波器；</p>
+<blockquote>
+<p><strong>视觉里程计的特张点过多，因此滤波器很难承受视觉SLAM的计算量，在激光里用的可能比较多。</strong></p>
+</blockquote>
+</li>
+<li><p>Sliding window filter &amp; multiple state Kalman (MSCKF) 滑动窗口法是批量法和滤波方法相结合的一种方法。其主要的想法是在一段滑动窗口内求解最值。</p>
+</li>
+</ul>
+</li>
+<li><p>批量式</p>
+<ul>
+<li>其主要式给定<strong>一定规模</strong>的数据，这部分数据<strong>不仅有过去的也有未来的</strong>，批量法是计算该组数据下的状态估计问题。</li>
+</ul>
+</li>
+</ul>
+<p><img src="https://fastly.jsdelivr.net/gh/houdezaiwu2019/image-bed/SLAM/image-20220612113424584.png" alt=""></p>
+<ul>
+<li>左侧仅仅只有运动方程，其运动是发散的，不确定度很大。因为其输入的数据是纯在噪声的，会不断的积累，导致下一时刻的估计相比前一时刻误差越积越大。</li>
+<li><p>其实就相当于蒙着眼走路：</p>
+<ul>
+<li>一开始我们知道自己在哪；</li>
+<li>能粗略估计每步的距离，但不确定</li>
+<li>不确定性随时间累积</li>
+<li>导致自身的位置不确定性越来越大</li>
+</ul>
+</li>
+<li><p>右侧是存在路标点的情况下，其不确定性会迅速的减小，</p>
+</li>
+<li><p>此时就相当于在某个时刻睁开一下眼睛：</p>
+<ul>
+<li>能够观测到周围；</li>
+<li>尽管也有不确定性，但比估计步长小很多；</li>
+<li>能够将不确定性保持在一定范围内。</li>
+</ul>
+</li>
+</ul>
+<p>我们SLAM主要解决的是未知环境信息下的状态估计问题，即我们对路标点在环境当中的未知也是一无所知的，这个问题是有一定难度的。</p>
+<p>在第六讲中，介绍的主要是极大似然估计问题，就是<strong>批量式的状态估计问题可以转换为最大似然估计问题，并使用最小二乘法来估计求解。</strong> 在本章主要想解决的是如何解决渐进式的问题。</p>
+<p>首先，需要明确的是运动和观测都受到噪声的影响，其次就是有可能没有运动方程，纯视觉的SLAM。下面我们使用贝叶斯滤波器的方法来推到卡尔曼滤波器。</p>
+<script type="math/tex; mode=display">
+\left\{\begin{array}{l}\boldsymbol{x}_{k}=f\left(\boldsymbol{x}_{k-1}, \boldsymbol{u}_{k}\right)+\boldsymbol{w}_{k} \\ \boldsymbol{z}_{k, j}=h\left(\boldsymbol{y}_{j}, \boldsymbol{x}_{k}\right)+\boldsymbol{v}_{k, j}\end{array} \quad k=1, \ldots, N, j=1, \ldots, M\right.</script><p><img src="https://fastly.jsdelivr.net/gh/houdezaiwu2019/image-bed/SLAM/image-20220612170341704.png" alt=""></p>
+<blockquote>
+<p> <strong>需要强调的是，姿态 $x$ 和路标 $y$ 其实可以看成服从某种状态分布的随机变量，不是一个单独的数。其不确定度主要是指的方差的大小。其估计值指的是随机变量的均值。</strong></p>
+</blockquote>
+<p>为了简化上述的表达式，我们将 k 时刻所有待估计的量组成 k 时刻的状态，其中暴扣当前时刻的姿态和m个路标点。</p>
+<script type="math/tex; mode=display">
+\boldsymbol{x}_{k} \triangleq\left\{\boldsymbol{x}_{k}, \boldsymbol{y}_{1}, \ldots, \boldsymbol{y}_{m}\right\}</script><p>同时，我们将观测统一写成$z_k$ 此时状态方程和运动方程的表达形式可以更加的简洁。表达式如下：</p>
+<script type="math/tex; mode=display">
+\left\{\begin{array}{l}x_{k}=f\left(x_{k-1}, \boldsymbol{u}_{k}\right)+\boldsymbol{w}_{k} \\ \boldsymbol{z}_{k}=h\left(\boldsymbol{x}_{k}\right)+\boldsymbol{v}_{k}\end{array} \quad k=1, \ldots, N\right.</script><p>现在考虑k时刻的情况，希望使用过去从0到k中的数据来估计现在的状态分布情况，即$P\left(\boldsymbol{x}_{k} \mid \boldsymbol{x}_{0}, \boldsymbol{u}_{1: k}, \boldsymbol{z}_{1: k}\right)$.</p>
+<p>其中$0:k$ 表示从0到k 时刻的所有数据。注意$z_k$ 表示所有在 k 时刻的观测数据，可能不止一个，只是这种记法比较方便。<strong>$x_k$ 其实和$x_{k-1},x_{k-2}$ 这些变量都相关但是此式并没有将其显示的表现出来。</strong></p>
+<p>使用Bayes公式可得：</p>
+<script type="math/tex; mode=display">
+P\left(\boldsymbol{x}_{k} \mid \boldsymbol{x}_{0}, \boldsymbol{u}_{1: k}, \boldsymbol{z}_{1: k}\right) \propto P\left(\boldsymbol{z}_k|\boldsymbol{x}_k \right)P\left(\boldsymbol{x}_{k} \mid \boldsymbol{x}_{0}, \boldsymbol{u}_{1: k}, \boldsymbol{z}_{1: k-1}\right)</script><p>其中，第一项被称为似然，后一项被称为先验，其中的<strong>似然可以通过观测来给出</strong>，而对于先验部分，$x_k$ 会受到 $x_{k-1}$ 的影响，于是使用条件展开可得：</p>
+<script type="math/tex; mode=display">
+P\left(x_{k} \mid x_{0}, u_{1: k}, z_{1: k-1}\right)=\int P\left(x_{k} \mid x_{k-1}, x_{0}, u_{1: k}, z_{1: k-1}\right) P\left(x_{k-1} \mid x_{0}, u_{1: k}, z_{1: k-1}\right) \mathrm{d} x_{k-1}</script><p>上面式子中的第二项可以通过上一轮迭代得出，是k-1时刻的状态估计。</p>
+<p>对于第一项，k时刻受先前状态的影响，有两种主要的解决方法：</p>
+<ul>
+<li>一种可以假设k时刻状态仅仅和k-1时刻有关，<strong>使用一阶马尔可夫性</strong>，基于此假设可以推出<strong>扩展卡尔曼滤波EKF</strong>。</li>
+<li>另一种可以假设k时刻和先前所有时刻均有关，此时采用非线性优化的方法求解。</li>
+</ul>
+<p>接下来我们将分别介绍上述两个框架的原理。</p>
+<h3 id="线性系统与KF"><a href="#线性系统与KF" class="headerlink" title="线性系统与KF"></a><strong>线性系统与KF</strong></h3><p>我们首先来看滤波器模型。当我们假设了马尔可夫的情况时，其表达式可以简化：</p>
+<script type="math/tex; mode=display">
+P\left(\boldsymbol x_{k} \mid \boldsymbol x_{k-1}, \boldsymbol x_{0}, \boldsymbol u_{1: k}, \boldsymbol z_{1: k-1}\right)=P\left(\boldsymbol x_{k} \mid \boldsymbol x_{k-1}, \boldsymbol x_{0}, \boldsymbol u_{1: k}\ \right)</script><p>针对第二项,由于$u_k$和k-1时刻的状态无关，于是可得：</p>
+<script type="math/tex; mode=display">
+P\left(x_{k-1} \mid x_{0}, u_{1: k}, z_{1: k-1}\right)=P\left(x_{k-1} \mid x_{0}, u_{1: k-1}, z_{1: k-1}\right) .</script><p>于是这就成了一个递推的问题，一直k-1时刻状态变量的<strong>均值和协方差</strong>，给出一个输入来更新并求出第k时刻的<strong>状态变量和协方差</strong>。</p>
+<p>下面来从最简单的线性高斯系统出发，来推到出卡尔曼滤波器。</p>
+<p>首先，介绍线性高斯系统的数学表达，其中包含观测方程和运动方程如下：</p>
+<script type="math/tex; mode=display">
+\left\{\begin{array}{l}\boldsymbol{x}_{k}=\boldsymbol{A}_{k} \boldsymbol{x}_{k-1}+\boldsymbol{u}_{k}+\boldsymbol{w}_{k} \\ \boldsymbol{z}_{k}=\boldsymbol{C}_{k} \boldsymbol{x}_{k}+\boldsymbol{v}_{k}\end{array} \quad k=1, \ldots, N\right.</script><p>其中，假设所有的噪声都满足高斯分布：</p>
+<script type="math/tex; mode=display">
+\boldsymbol{w}_{k} \sim N(\mathbf{0}, \boldsymbol{R}) . \quad \boldsymbol{v}_{k} \sim N(\mathbf{0}, \boldsymbol{Q})</script><p>于是问题转化成已知 k-1时刻后验的状态估计 $\hat{x}_{k-1}$ 和协方差 $\hat{P}_{k}$  ，以及k 时刻的输入$u_k$ 和观测 $z_k$ ，来确定$x_k$ 的后验。</p>
+<blockquote>
+<p><strong>这里，我们记上帽为后验$\hat {x_k}$，下帽为先验$\check {x_k}$</strong></p>
+</blockquote>
+<p>于是可得$x_k$ 的先验，<strong>此步并成为预测。</strong></p>
+<script type="math/tex; mode=display">
+P\left(x_{k} \mid x_{0}, u_{1: k}, z_{1: k-1}\right)=N\left(A_{k} \hat{x}_{k-1}+u_{k}, A_{k} \hat{P}_{k} A_{k}^{\mathrm{T}}+R\right) .</script><p>即有，其先验的表达式为：</p>
+<script type="math/tex; mode=display">
+\check{\boldsymbol{x}}_{k}=\boldsymbol{A}_{k} \hat{\boldsymbol{x}}_{k-1}+\boldsymbol{u}_{k}, \quad \check{\boldsymbol{P}}_{k}=\boldsymbol{A}_{k} \hat{\boldsymbol{P}}_{k-1} \boldsymbol{A}_{k}^{\mathrm{T}}+\boldsymbol{R}</script><p><strong>由于本系统为加了噪声的系统，因此先验的不确定性会增大。需要引入似然/观测来进行减小。</strong></p>
+<p>之后代入观测方程可得：$\boldsymbol{P}(z_k|x_k)=\boldsymbol{N}(C_kx_k,\boldsymbol Q)$</p>
+<p>根据前面的Bayes展开可得<strong>后验=似然$\times$先验</strong>：</p>
+<script type="math/tex; mode=display">
+\boldsymbol P\left(x_{k} \mid x_{0}, u_{1: k}, z_{1: k}\right) \propto \boldsymbol P\left(z_{k} \mid x_{k}\right) \ \boldsymbol P\left(x_{k} \mid x_{0}, u_{1: k}, z_{1: k-1}\right)</script><p>由于高斯过程的乘积还是高斯过程，于是就有：</p>
+<script type="math/tex; mode=display">
+N\left(\hat{x}_{k}, \hat{P}_{k}\right)=N\left(C_{k} x_{k}, Q\right) \cdot N\left(\check{x}_{k}, \check{P}_{k}\right)</script><p>既然都是高斯分布，我们比较指数部分的二次项和一次项部分即可。</p>
+<script type="math/tex; mode=display">
+\left(x_{k}-\hat{x}_{k}\right)^{\mathrm{T}} \widehat{P}_{k}^{-1}\left(x_{k}-\hat{x}_{k}\right)=\left(z_{k}-C_{k} x_{k}\right)^{\mathrm{T}} Q^{-1}\left(z_{k}-C_{k} x_{k}\right)+\left(x_{k}-\bar{x}_{k}\right)^{\mathrm{T}} \bar{P}_{k}^{-1}\left(x_{k}-\bar{x}_{k}\right)</script><p>对比二次项的系数可得：</p>
+<script type="math/tex; mode=display">
+\hat{P}_{k}^{-1}=C_{k}^{\mathrm{T}} Q^{-1} C_{k}+\check{P}_{k}^{-1}</script><p>接下来对比一次项的系数可得：</p>
+<script type="math/tex; mode=display">
+-2 \hat{x}_{k}^{\mathrm{T}} \hat{P}_{k}^{-1} x_{k}=-2 z_{k}^{\mathrm{T}} Q^{-1} C_{k} x_{k}-2 \check{x}_{k}^{\mathrm{T}} \check{P}_{k}^{-1} x_{k}\\
+\Rightarrow 
+\hat{P}_{k}^{-1} \hat{x}_{k}=C_{k}^{\mathrm{T}} Q^{-1} z_{k}+\check{P}_{k}^{-1} \bar{x}_{k}</script><p>将两边同时乘以$\hat{P}_{k}$ 并定义：$K=\hat{P}_{k}C^T_kQ^{-1}$</p>
+<script type="math/tex; mode=display">
+\begin{align}
+\hat{x}_{k}&=\hat{P}_{k} C_{k}^{\mathrm{T}} Q^{-1} z_{k}+\check{P}_{k} \check{P}_{k}^{-1} \check{x}_{k}\\
+&=K z_{k}+\left(I-K C_{k}\right) \check{x}_{k}=\bar{x}_{k}+K\left(z_{k}-C_{k} \check{x}_{k}\right)
+\end{align}</script><p>上式称为卡尔曼滤波的更新式，第二项称为修正量，K称为卡尔曼滤波的增益。</p>
+<p><img src="https://fastly.jsdelivr.net/gh/houdezaiwu2019/image-bed/SLAM/image-20220614164749474.png" alt=""></p>
+<blockquote>
+<p><strong>注意上面式子的K的表达式和我们一般的刚才的$K=\hat{P}_{k}C^T_kQ^{-1}$ 其实等价的，其一般称为SMB恒等式。</strong></p>
+</blockquote>
+<p>方便理解但是具体的细节还要参考其他的资料。</p>
+<p>以上为<strong>经典的卡尔曼滤波器的公式</strong>，其给出了线性高斯系统的最优无偏估计，但是其主要是基于了以下的经典的假设：</p>
+<ul>
+<li>线性假设：即运动方程和观测方程基本都是线性的变换；</li>
+<li>高斯分布假设：主要是所有的<strong>状态变量</strong>、<strong>观测变量</strong>以及<strong>系统的噪声</strong>都满足高斯分布，因为其比较好估计 <strong>[仅仅只有一阶矩(均值)和二阶矩(协方差矩阵)两个变量]</strong>，而且高斯分布的参数较少，适用的范围比较广。</li>
+<li>马尔可夫假设。</li>
+</ul>
+<h3 id="非线性系统和扩展卡尔曼滤波"><a href="#非线性系统和扩展卡尔曼滤波" class="headerlink" title="非线性系统和扩展卡尔曼滤波"></a><strong>非线性系统和扩展卡尔曼滤波</strong></h3><p>在视觉SLAM的应用场景下，大多是非线性的情况，因此将Kalman Filter进行非线性扩展EKF。</p>
+<p>当 观测方程和运动方程都为非线性函数时：</p>
+<script type="math/tex; mode=display">
+\left\{\begin{array}{l}x_{k}=f\left(x_{k-1}, \boldsymbol{u}_{k}\right)+\boldsymbol{w}_{k} \\ \boldsymbol{z}_{k}=h\left(\boldsymbol{x}_{k}\right)+\boldsymbol{v}_{k}\end{array} \quad k=1, \ldots, N\right.</script><p>我们的做法时将其在某个点处进行一阶展开，</p>
+<script type="math/tex; mode=display">
+x_{k} \approx f\left(\hat{\boldsymbol{x}}_{k-1}, \boldsymbol u_{k}\right)+\left.\frac{\partial f}{\partial \boldsymbol x_{k-1}}\right|_{\hat{\boldsymbol{x}}_{k-1}}\left(\boldsymbol x_{k-1}-\hat{\boldsymbol{x}}_{k-1}\right)+\boldsymbol w_{k} .\\
+\boldsymbol{z}_{k} \approx h\left(\check{\boldsymbol{x}}_{k}\right)+\left.\frac{\partial h}{\partial \boldsymbol{x}_{k}}\right|_{\check{\boldsymbol{x}}_{k}}\left(\boldsymbol{x}_{k}-\hat{\boldsymbol{x}}_{k}\right)+\boldsymbol{n}_{k}.</script><p>这里我们记$\boldsymbol F=\left. \dfrac{\partial f}{\partial \boldsymbol x_{k-1}}\right|_{\hat{\boldsymbol{x}}_{k-1}}$，$\boldsymbol H=\left. \dfrac{\partial f}{\partial \boldsymbol x_{k-1}}\right|_{\check{\boldsymbol{x}}_{k-1}}$ .</p>
+<p>那么在<strong>预测</strong>步骤中，根据运动方程有：</p>
+<script type="math/tex; mode=display">
+P\left(\boldsymbol{x}_{k} \mid \boldsymbol{x}_{0}, \boldsymbol{u}_{1: k}, \boldsymbol{z}_{0: k-1}\right)=N\left(f\left(\hat{\boldsymbol{x}}_{k-1}, \boldsymbol{u}_{k}\right), \boldsymbol{F} \hat{\boldsymbol{P}}_{k-1} \boldsymbol{F}^{\mathrm{T}}+\boldsymbol{R}_{k}\right)</script><p>这里将先验和协方差记为：</p>
+<script type="math/tex; mode=display">
+\check{\boldsymbol{x}}_{k}=f\left(\hat{\boldsymbol{x}}_{k-1}, \boldsymbol{u}_{k}\right), \quad \check{\boldsymbol{P}}_{k}=\boldsymbol{F} \hat{\boldsymbol{P}}_{k-1} \boldsymbol{F}^{\mathrm{T}}+\boldsymbol{R}_{k}</script><p>之后再观测中我们有：</p>
+<script type="math/tex; mode=display">
+P\left(\boldsymbol{z}_{k} \mid \boldsymbol{x}_{k}\right)=N\left(h\left(\check{\boldsymbol{x}}_{k}\right)+\boldsymbol{H}\left(\boldsymbol{x}_{k}-\check{\boldsymbol{x}}_{k}\right), \boldsymbol{Q}_{k}\right)</script><p>最后，根据最开始的Bayes展开式可得$\hat{x_k}$ 的后验形式为：</p>
+<script type="math/tex; mode=display">
+\hat{\boldsymbol{x}}_{k}=\check{\boldsymbol{x}}_{k}+\boldsymbol{K}_{k}\left(\boldsymbol{z}_{k}-h\left(\check{\boldsymbol{x}}_{k}\right)\right), \hat{\boldsymbol{P}}_{k}=\left(\boldsymbol{I}-\boldsymbol{K}_{k} \boldsymbol{H}\right) \check{\boldsymbol{P}}_{k}</script><p>其中卡尔曼增益为：</p>
+<script type="math/tex; mode=display">
+\boldsymbol{K}_{k}=\check{\boldsymbol{P}}_{k} \boldsymbol{H}^{\mathrm{T}}\left(\boldsymbol{H} \check{\boldsymbol{P}}_{k} \boldsymbol{H}^{\mathrm{T}}+\boldsymbol{Q}_{k}\right)^{-1}</script><h3 id="关于EKF的讨论"><a href="#关于EKF的讨论" class="headerlink" title="关于EKF的讨论"></a><strong>关于EKF的讨论</strong></h3><p>主要的优点：</p>
+<ul>
+<li>推导简单清楚，适用于各种传感器的形式；</li>
+<li>易于做多传感器融合，在比较的简答的场合比较适用。</li>
+</ul>
+<p>主要的缺点：</p>
+<ul>
+<li>首先，一阶的马尔可夫性比较简单，假设过于强，会损失很多信息。很难进行回环检测，回环检测中主要两者看到了近似的事物就代表其存在一定的关系(<strong>共视图</strong>)。</li>
+<li>其次，其没有误差检测机制，就是我们的不可以有outliner，如果我们在视觉里程计这边出现了一些误匹配等错误很可能导致其出现发散。</li>
+<li>然后，具有很大的线性化误差，其不像优化算法，非线性优化时进行了多次的迭代才完成上述的操作的，而EKF就进行一次线性化的处理，无法完成相关的操作。</li>
+<li>最后，其存储的成本过大，<strong>因为其主要保存的为均值和协方差矩阵，当路标点过多时，其协方差矩阵的维度过大。</strong></li>
+</ul>
+</div><div class="article-licensing box"><div class="licensing-title"><p>Ch9 后端 第一部分 EKF</p><p><a href="http://example.com/2022/06/21/SLAM/ch9-后端-第一部分-EKF/">http://example.com/2022/06/21/SLAM/ch9-后端-第一部分-EKF/</a></p></div><div class="licensing-meta level is-mobile"><div class="level-left"><div class="level-item is-narrow"><div><h6>作者</h6><p>czt</p></div></div><div class="level-item is-narrow"><div><h6>发布于</h6><p>2022-06-21</p></div></div><div class="level-item is-narrow"><div><h6>更新于</h6><p>2022-06-21</p></div></div><div class="level-item is-narrow"><div><h6>许可协议</h6><p><a class="icons" rel="noopener" target="_blank" title="Creative Commons" href="https://creativecommons.org/"><i class="icon fab fa-creative-commons"></i></a><a class="icons" rel="noopener" target="_blank" title="Attribution" href="https://creativecommons.org/licenses/by/4.0/"><i class="icon fab fa-creative-commons-by"></i></a><a class="icons" rel="noopener" target="_blank" title="Noncommercial" href="https://creativecommons.org/licenses/by-nc/4.0/"><i class="icon fab fa-creative-commons-nc"></i></a></p></div></div></div></div></div><div class="article-tags is-size-7 mb-4"><span class="mr-2">#</span><a class="link-muted mr-2" rel="tag" href="/tags/SLAM/">SLAM</a><a class="link-muted mr-2" rel="tag" href="/tags/Computer-Vision/">Computer Vision</a><a class="link-muted mr-2" rel="tag" href="/tags/c/">c++</a></div><!--!--></article></div><!--!--><nav class="post-navigation mt-4 level is-mobile"><div class="level-end"><a class="article-nav-next level level-item link-muted" href="/2022/06/13/PyTorch%E6%95%99%E7%A8%8B%E4%B8%8E%E6%BA%90%E7%A0%81%E8%AE%B2%E8%A7%A3/%E5%A4%9AGPU%E5%B9%B6%E8%A1%8C%E8%AE%AD%E7%BB%83%E7%AE%80%E6%98%93%E6%95%99%E7%A8%8B/"><span class="level-item">多GPU并行训练简易教程</span><i class="level-item fas fa-chevron-right"></i></a></div></nav><!--!--></div><div class="column column-left is-4-tablet is-4-desktop is-3-widescreen  order-1 is-sticky"><div class="card widget" data-type="profile"><div class="card-content"><nav class="level"><div class="level-item has-text-centered flex-shrink-1"><div><figure class="image is-128x128 mx-auto mb-2"><img class="avatar" src="https://cdn.jsdelivr.net/gh/houdezaiwu2019/image-bed/hexoimg/202201222202112.jpg" alt="厚德载物"></figure><p class="title is-size-4 is-block" style="line-height:inherit;">厚德载物</p><p class="is-size-6 is-block">实事求是，敢为人先</p><p class="is-size-6 is-flex justify-content-center"><i class="fas fa-map-marker-alt mr-1"></i><span>中国 湖北 武汉</span></p></div></div></nav><nav class="level is-mobile"><div class="level-item has-text-centered is-marginless"><div><p class="heading">文章</p><a href="/archives"><p class="title">78</p></a></div></div><div class="level-item has-text-centered is-marginless"><div><p class="heading">分类</p><a href="/categories"><p class="title">14</p></a></div></div><div class="level-item has-text-centered is-marginless"><div><p class="heading">标签</p><a href="/tags"><p class="title">31</p></a></div></div></nav><div class="level"><a class="level-item button is-primary is-rounded" href="https://monumental-tarsier-a544f3.netlify.app" target="_blank" rel="noopener">关注我</a></div><div class="level is-mobile is-multiline"><a class="level-item button is-transparent is-marginless" target="_blank" rel="noopener" title="Github" href="https://github.com/ppoffice"><i class="fab fa-github"></i></a><a class="level-item button is-transparent is-marginless" target="_blank" rel="noopener" title="Facebook" href="https://facebook.com"><i class="fab fa-facebook"></i></a><a class="level-item button is-transparent is-marginless" target="_blank" rel="noopener" title="Twitter" href="https://twitter.com"><i class="fab fa-twitter"></i></a><a class="level-item button is-transparent is-marginless" target="_blank" rel="noopener" title="Dribbble" href="https://dribbble.com"><i class="fab fa-dribbble"></i></a><a class="level-item button is-transparent is-marginless" target="_blank" rel="noopener" title="RSS" href="/"><i class="fas fa-rss"></i></a></div></div></div><div class="card widget" data-type="links"><div class="card-content"><div class="menu"><h3 class="menu-label">链接</h3><ul class="menu-list"><li><a class="level is-mobile" href="https://hexo.io" target="_blank" rel="noopener"><span class="level-left"><span class="level-item">Hexo</span></span><span class="level-right"><span class="level-item tag">hexo.io</span></span></a></li><li><a class="level is-mobile" href="https://bulma.io" target="_blank" rel="noopener"><span class="level-left"><span class="level-item">Bulma</span></span><span class="level-right"><span class="level-item tag">bulma.io</span></span></a></li><li><a class="level is-mobile" href="https://arxiv.org/" target="_blank" rel="noopener"><span class="level-left"><span class="level-item">arxiv</span></span><span class="level-right"><span class="level-item tag">arxiv.org</span></span></a></li><li><a class="level is-mobile" href="https://leetcode-cn.com/problemset/algorithms/" target="_blank" rel="noopener"><span class="level-left"><span class="level-item">leetcode</span></span><span class="level-right"><span class="level-item tag">leetcode-cn.com</span></span></a></li><li><a class="level is-mobile" href="https://mathf.itewqq.cn/" target="_blank" rel="noopener"><span class="level-left"><span class="level-item">mathf</span></span><span class="level-right"><span class="level-item tag">mathf.itewqq.cn</span></span></a></li><li><a class="level is-mobile" href="https://scholar.google.com.hk/?hl=zh-CN" target="_blank" rel="noopener"><span class="level-left"><span class="level-item">google_scholar</span></span><span class="level-right"><span class="level-item tag">scholar.google.com.hk</span></span></a></li><li><a class="level is-mobile" href="https://qwerty.kaiyi.cool/" target="_blank" rel="noopener"><span class="level-left"><span class="level-item">qwerty</span></span><span class="level-right"><span class="level-item tag">qwerty.kaiyi.cool</span></span></a></li><li><a class="level is-mobile" href="https://www.overleaf.com/" target="_blank" rel="noopener"><span class="level-left"><span class="level-item">overleaf</span></span><span class="level-right"><span class="level-item tag">www.overleaf.com</span></span></a></li><li><a class="level is-mobile" href="http://www.pipioj.online/" target="_blank" rel="noopener"><span class="level-left"><span class="level-item">pipioj</span></span><span class="level-right"><span class="level-item tag">www.pipioj.online</span></span></a></li><li><a class="level is-mobile" href="https://monumental-tarsier-a544f3.netlify.app" target="_blank" rel="noopener"><span class="level-left"><span class="level-item">hugocvofczt</span></span><span class="level-right"><span class="level-item tag">monumental-tarsier-a544f3.netlify.app</span></span></a></li><li><a class="level is-mobile" href="https://app.netlify.com/sites/monumental-tarsier-a544f3/overview" target="_blank" rel="noopener"><span class="level-left"><span class="level-item">netlify</span></span><span class="level-right"><span class="level-item tag">app.netlify.com</span></span></a></li></ul></div></div></div><div class="card widget" data-type="archives"><div class="card-content"><div class="menu"><h3 class="menu-label">归档</h3><ul class="menu-list"><li><a class="level is-mobile" href="/archives/2022/06/"><span class="level-start"><span class="level-item">六月 2022</span></span><span class="level-end"><span class="level-item tag">11</span></span></a></li><li><a class="level is-mobile" href="/archives/2022/05/"><span class="level-start"><span class="level-item">五月 2022</span></span><span class="level-end"><span class="level-item tag">1</span></span></a></li><li><a class="level is-mobile" href="/archives/2022/04/"><span class="level-start"><span class="level-item">四月 2022</span></span><span class="level-end"><span class="level-item tag">9</span></span></a></li><li><a class="level is-mobile" href="/archives/2022/03/"><span class="level-start"><span class="level-item">三月 2022</span></span><span class="level-end"><span class="level-item tag">25</span></span></a></li><li><a class="level is-mobile" href="/archives/2022/02/"><span class="level-start"><span class="level-item">二月 2022</span></span><span class="level-end"><span class="level-item tag">21</span></span></a></li><li><a class="level is-mobile" href="/archives/2022/01/"><span class="level-start"><span class="level-item">一月 2022</span></span><span class="level-end"><span class="level-item tag">11</span></span></a></li></ul></div></div></div><div class="card widget" data-type="tags"><div class="card-content"><div class="menu"><h3 class="menu-label">标签</h3><div class="field is-grouped is-grouped-multiline"><div class="control"><a class="tags has-addons" href="/tags/Computer-Vision/"><span class="tag">Computer Vision</span><span class="tag">16</span></a></div><div class="control"><a class="tags has-addons" href="/tags/GAN%E5%AE%9E%E6%88%98/"><span class="tag">GAN实战</span><span class="tag">6</span></a></div><div class="control"><a class="tags has-addons" href="/tags/Generative-Adversarial-Networks/"><span class="tag">Generative Adversarial Networks</span><span class="tag">6</span></a></div><div class="control"><a class="tags has-addons" href="/tags/Graph/"><span class="tag">Graph</span><span class="tag">3</span></a></div><div class="control"><a class="tags has-addons" href="/tags/IEEE%E6%8A%95%E7%A8%BF/"><span class="tag">IEEE投稿</span><span class="tag">1</span></a></div><div class="control"><a class="tags has-addons" href="/tags/Latex/"><span class="tag">Latex</span><span class="tag">4</span></a></div><div class="control"><a class="tags has-addons" href="/tags/Machine-Learning/"><span class="tag">Machine Learning</span><span class="tag">3</span></a></div><div class="control"><a class="tags has-addons" href="/tags/Markdown/"><span class="tag">Markdown</span><span class="tag">1</span></a></div><div class="control"><a class="tags has-addons" href="/tags/NLP/"><span class="tag">NLP</span><span class="tag">3</span></a></div><div class="control"><a class="tags has-addons" href="/tags/Neural-Networks/"><span class="tag">Neural Networks</span><span class="tag">3</span></a></div><div class="control"><a class="tags has-addons" href="/tags/Pytorch/"><span class="tag">Pytorch</span><span class="tag">3</span></a></div><div class="control"><a class="tags has-addons" href="/tags/SLAM/"><span class="tag">SLAM</span><span class="tag">16</span></a></div><div class="control"><a class="tags has-addons" href="/tags/Transformer/"><span class="tag">Transformer</span><span class="tag">3</span></a></div><div class="control"><a class="tags has-addons" href="/tags/Typora/"><span class="tag">Typora</span><span class="tag">1</span></a></div><div class="control"><a class="tags has-addons" href="/tags/auto-encoder/"><span class="tag">auto-encoder</span><span class="tag">4</span></a></div><div class="control"><a class="tags has-addons" href="/tags/c/"><span class="tag">c++</span><span class="tag">16</span></a></div><div class="control"><a class="tags has-addons" href="/tags/control-theory/"><span class="tag">control theory</span><span class="tag">1</span></a></div><div class="control"><a class="tags has-addons" href="/tags/latex/"><span class="tag">latex</span><span class="tag">1</span></a></div><div class="control"><a class="tags has-addons" href="/tags/object-detection/"><span class="tag">object detection</span><span class="tag">3</span></a></div><div class="control"><a class="tags has-addons" href="/tags/opencv/"><span class="tag">opencv</span><span class="tag">3</span></a></div><div class="control"><a class="tags has-addons" href="/tags/python/"><span class="tag">python</span><span class="tag">3</span></a></div><div class="control"><a class="tags has-addons" href="/tags/pytorch/"><span class="tag">pytorch</span><span class="tag">18</span></a></div><div class="control"><a class="tags has-addons" href="/tags/%E5%9B%BE%E5%83%8F%E5%88%86%E7%B1%BB/"><span class="tag">图像分类</span><span class="tag">6</span></a></div><div class="control"><a class="tags has-addons" href="/tags/%E5%9B%BE%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C/"><span class="tag">图神经网络</span><span class="tag">3</span></a></div><div class="control"><a class="tags has-addons" href="/tags/%E6%8E%A7%E5%88%B6%E7%90%86%E8%AE%BA/"><span class="tag">控制理论</span><span class="tag">1</span></a></div><div class="control"><a class="tags has-addons" href="/tags/%E6%97%A0%E7%9B%91%E7%9D%A3%E5%AD%A6%E4%B9%A0/"><span class="tag">无监督学习</span><span class="tag">4</span></a></div><div class="control"><a class="tags has-addons" href="/tags/%E6%9C%BA%E6%A2%B0%E6%8C%AF%E5%8A%A8/"><span class="tag">机械振动</span><span class="tag">20</span></a></div><div class="control"><a class="tags has-addons" href="/tags/%E7%94%9F%E6%88%90%E6%A8%A1%E5%9E%8B/"><span class="tag">生成模型</span><span class="tag">4</span></a></div><div class="control"><a class="tags has-addons" href="/tags/%E7%A7%91%E7%A0%94/"><span class="tag">科研</span><span class="tag">1</span></a></div><div class="control"><a class="tags has-addons" href="/tags/%E8%87%AA%E6%B3%A8%E6%84%8F%E5%8A%9B%E6%9C%BA%E5%88%B6/"><span class="tag">自注意力机制</span><span class="tag">3</span></a></div><div class="control"><a class="tags has-addons" href="/tags/%E8%AE%BA%E6%96%87%E5%86%99%E4%BD%9C/"><span class="tag">论文写作</span><span class="tag">1</span></a></div></div></div></div></div><div class="column-right-shadow is-hidden-widescreen is-sticky"></div></div><div class="column column-right is-4-tablet is-4-desktop is-3-widescreen is-hidden-touch is-hidden-desktop-only order-3 is-sticky"><div class="card widget" id="toc" data-type="toc"><div class="card-content"><div class="menu"><h3 class="menu-label">目录</h3><ul class="menu-list"><li><a class="level is-mobile" href="#概述与滤波方法"><span class="level-left"><span class="level-item">1</span><span class="level-item">概述与滤波方法</span></span></a><ul class="menu-list"><li><a class="level is-mobile" href="#状态估计问题的概率解释"><span class="level-left"><span class="level-item">1.1</span><span class="level-item">状态估计问题的概率解释</span></span></a></li><li><a class="level is-mobile" href="#线性系统与KF"><span class="level-left"><span class="level-item">1.2</span><span class="level-item">线性系统与KF</span></span></a></li><li><a class="level is-mobile" href="#非线性系统和扩展卡尔曼滤波"><span class="level-left"><span class="level-item">1.3</span><span class="level-item">非线性系统和扩展卡尔曼滤波</span></span></a></li><li><a class="level is-mobile" href="#关于EKF的讨论"><span class="level-left"><span class="level-item">1.4</span><span class="level-item">关于EKF的讨论</span></span></a></li></ul></li></ul></div></div><script src="/js/toc.js" defer></script></div><div class="card widget" data-type="categories"><div class="card-content"><div class="menu"><h3 class="menu-label">分类</h3><ul class="menu-list"><li><a class="level is-mobile" href="/categories/Generative-Adversarial-Networks/"><span class="level-start"><span class="level-item">Generative Adversarial Networks</span></span><span class="level-end"><span class="level-item tag">6</span></span></a></li><li><a class="level is-mobile" href="/categories/Latex/"><span class="level-start"><span class="level-item">Latex</span></span><span class="level-end"><span class="level-item tag">4</span></span></a></li><li><a class="level is-mobile" href="/categories/PyTorch%E6%95%99%E7%A8%8B%E4%B8%8E%E6%BA%90%E7%A0%81%E8%AE%B2%E8%A7%A3/"><span class="level-start"><span class="level-item">PyTorch教程与源码讲解</span></span><span class="level-end"><span class="level-item tag">6</span></span></a></li><li><a class="level is-mobile" href="/categories/SLAM/"><span class="level-start"><span class="level-item">SLAM</span></span><span class="level-end"><span class="level-item tag">16</span></span></a></li><li><a class="level is-mobile" href="/categories/Typora/"><span class="level-start"><span class="level-item">Typora</span></span><span class="level-end"><span class="level-item tag">1</span></span></a></li><li><a class="level is-mobile" href="/categories/auto-encoder/"><span class="level-start"><span class="level-item">auto-encoder</span></span><span class="level-end"><span class="level-item tag">4</span></span></a></li><li><a class="level is-mobile" href="/categories/opencv/"><span class="level-start"><span class="level-item">opencv</span></span><span class="level-end"><span class="level-item tag">3</span></span></a></li><li><a class="level is-mobile" href="/categories/%E5%9B%BE%E5%83%8F%E5%88%86%E7%B1%BB%E7%BD%91%E7%BB%9C%E5%8F%8APytorch%E5%AE%9E%E7%8E%B0/"><span class="level-start"><span class="level-item">图像分类网络及Pytorch实现</span></span><span class="level-end"><span class="level-item tag">6</span></span></a></li><li><a class="level is-mobile" href="/categories/%E5%9B%BE%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C/"><span class="level-start"><span class="level-item">图神经网络</span></span><span class="level-end"><span class="level-item tag">3</span></span></a></li><li><a class="level is-mobile" href="/categories/%E6%8C%AF%E5%8A%A8%E5%8A%9B%E5%AD%A6/"><span class="level-start"><span class="level-item">振动力学</span></span><span class="level-end"><span class="level-item tag">20</span></span></a></li><li><a class="level is-mobile" href="/categories/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E5%9F%BA%E7%9F%B3/"><span class="level-start"><span class="level-item">机器学习基石</span></span><span class="level-end"><span class="level-item tag">3</span></span></a></li><li><a class="level is-mobile" href="/categories/%E7%8E%B0%E4%BB%A3%E6%8E%A7%E5%88%B6%E7%90%86%E8%AE%BA/"><span class="level-start"><span class="level-item">现代控制理论</span></span><span class="level-end"><span class="level-item tag">1</span></span></a></li><li><a class="level is-mobile" href="/categories/%E7%A7%91%E7%A0%94%E5%85%A5%E9%97%A8%E7%AC%94%E8%AE%B0/"><span class="level-start"><span class="level-item">科研入门笔记</span></span><span class="level-end"><span class="level-item tag">1</span></span></a></li><li><a class="level is-mobile" href="/categories/%E8%87%AA%E6%B3%A8%E6%84%8F%E5%8A%9B%E6%9C%BA%E5%88%B6%E5%92%8CTransformer/"><span class="level-start"><span class="level-item">自注意力机制和Transformer</span></span><span class="level-end"><span class="level-item tag">3</span></span></a></li></ul></div></div></div><div class="card widget" data-type="recent-posts"><div class="card-content"><h3 class="menu-label">最新文章</h3><article class="media"><figure class="media-left"><a class="image" href="/2022/06/21/SLAM/ch9-%E5%90%8E%E7%AB%AF-%E7%AC%AC%E4%B8%80%E9%83%A8%E5%88%86-EKF/"><img src="https://fastly.jsdelivr.net/gh/houdezaiwu2019/image-bed/slam/202203201501475.png" alt="Ch9 后端 第一部分 EKF"></a></figure><div class="media-content"><p class="date"><time dateTime="2022-06-21T02:15:30.000Z">2022-06-21</time></p><p class="title"><a href="/2022/06/21/SLAM/ch9-%E5%90%8E%E7%AB%AF-%E7%AC%AC%E4%B8%80%E9%83%A8%E5%88%86-EKF/">Ch9 后端 第一部分 EKF</a></p><p class="categories"><a href="/categories/SLAM/">SLAM</a></p></div></article><article class="media"><figure class="media-left"><a class="image" href="/2022/06/13/PyTorch%E6%95%99%E7%A8%8B%E4%B8%8E%E6%BA%90%E7%A0%81%E8%AE%B2%E8%A7%A3/%E5%A4%9AGPU%E5%B9%B6%E8%A1%8C%E8%AE%AD%E7%BB%83%E7%AE%80%E6%98%93%E6%95%99%E7%A8%8B/"><img src="https://cdn.jsdelivr.net/gh/houdezaiwu2019/image-bed/pytorch/202201271155098.png" alt="多GPU并行训练简易教程"></a></figure><div class="media-content"><p class="date"><time dateTime="2022-06-13T08:25:37.000Z">2022-06-13</time></p><p class="title"><a href="/2022/06/13/PyTorch%E6%95%99%E7%A8%8B%E4%B8%8E%E6%BA%90%E7%A0%81%E8%AE%B2%E8%A7%A3/%E5%A4%9AGPU%E5%B9%B6%E8%A1%8C%E8%AE%AD%E7%BB%83%E7%AE%80%E6%98%93%E6%95%99%E7%A8%8B/">多GPU并行训练简易教程</a></p><p class="categories"><a href="/categories/PyTorch%E6%95%99%E7%A8%8B%E4%B8%8E%E6%BA%90%E7%A0%81%E8%AE%B2%E8%A7%A3/">PyTorch教程与源码讲解</a></p></div></article><article class="media"><figure class="media-left"><a class="image" href="/2022/06/12/SLAM/ch8-%E8%A7%86%E8%A7%89%E9%87%8C%E7%A8%8B%E8%AE%A1-%E7%AC%AC%E4%BA%8C%E9%83%A8%E5%88%86-%E7%9B%B4%E6%8E%A5%E6%B3%95/"><img src="https://fastly.jsdelivr.net/gh/houdezaiwu2019/image-bed/slam/202203201501475.png" alt="Ch8 视觉里程计 第二部分 直接法"></a></figure><div class="media-content"><p class="date"><time dateTime="2022-06-11T17:28:23.000Z">2022-06-12</time></p><p class="title"><a href="/2022/06/12/SLAM/ch8-%E8%A7%86%E8%A7%89%E9%87%8C%E7%A8%8B%E8%AE%A1-%E7%AC%AC%E4%BA%8C%E9%83%A8%E5%88%86-%E7%9B%B4%E6%8E%A5%E6%B3%95/">Ch8 视觉里程计 第二部分 直接法</a></p><p class="categories"><a href="/categories/SLAM/">SLAM</a></p></div></article><article class="media"><figure class="media-left"><a class="image" href="/2022/06/11/SLAM/ch8-%E8%A7%86%E8%A7%89%E9%87%8C%E7%A8%8B%E8%AE%A1-%E7%AC%AC%E4%B8%80%E9%83%A8%E5%88%86-%E5%85%89%E6%B5%81%E6%B3%95/"><img src="https://fastly.jsdelivr.net/gh/houdezaiwu2019/image-bed/slam/202203201501475.png" alt="Ch8 视觉里程计 第一部分 光流法"></a></figure><div class="media-content"><p class="date"><time dateTime="2022-06-11T02:44:26.000Z">2022-06-11</time></p><p class="title"><a href="/2022/06/11/SLAM/ch8-%E8%A7%86%E8%A7%89%E9%87%8C%E7%A8%8B%E8%AE%A1-%E7%AC%AC%E4%B8%80%E9%83%A8%E5%88%86-%E5%85%89%E6%B5%81%E6%B3%95/">Ch8 视觉里程计 第一部分 光流法</a></p><p class="categories"><a href="/categories/SLAM/">SLAM</a></p></div></article><article class="media"><figure class="media-left"><a class="image" href="/2022/06/11/SLAM/ch7-%E8%A7%86%E8%A7%89%E9%87%8C%E7%A8%8B%E8%AE%A1-%E7%AC%AC%E5%9B%9B%E9%83%A8%E5%88%86-ICP/"><img src="https://fastly.jsdelivr.net/gh/houdezaiwu2019/image-bed/slam/202203201501475.png" alt="Ch7 视觉里程计 第四部分 ICP"></a></figure><div class="media-content"><p class="date"><time dateTime="2022-06-11T02:44:02.000Z">2022-06-11</time></p><p class="title"><a href="/2022/06/11/SLAM/ch7-%E8%A7%86%E8%A7%89%E9%87%8C%E7%A8%8B%E8%AE%A1-%E7%AC%AC%E5%9B%9B%E9%83%A8%E5%88%86-ICP/">Ch7 视觉里程计 第四部分 ICP</a></p><p class="categories"><a href="/categories/SLAM/">SLAM</a></p></div></article></div></div></div></div></div></section><footer class="footer"><div class="container"><div class="level"><div class="level-start"><a class="footer-logo is-block mb-2" href="/"><img src="/img/logo.svg" alt="houdezaiwu&#039;s blog" height="28"></a><p class="is-size-7"><span>&copy; 2022 czt</span>  Powered by <a href="https://hexo.io/" target="_blank" rel="noopener">Hexo</a> &amp; <a href="https://github.com/ppoffice/hexo-theme-icarus" target="_blank" rel="noopener">Icarus</a></p></div><div class="level-end"><div class="field has-addons"><p class="control"><a class="button is-transparent is-large" target="_blank" rel="noopener" title="Creative Commons" href="https://creativecommons.org/"><i class="fab fa-creative-commons"></i></a></p><p class="control"><a class="button is-transparent is-large" target="_blank" rel="noopener" title="Attribution 4.0 International" href="https://creativecommons.org/licenses/by/4.0/"><i class="fab fa-creative-commons-by"></i></a></p><p class="control"><a class="button is-transparent is-large" target="_blank" rel="noopener" title="Download on GitHub" href="https://github.com/ppoffice/hexo-theme-icarus"><i class="fab fa-github"></i></a></p></div></div></div></div></footer><script src="https://cdn.jsdelivr.net/npm/jquery@3.3.1/dist/jquery.min.js"></script><script src="https://cdn.jsdelivr.net/npm/moment@2.22.2/min/moment-with-locales.min.js"></script><script src="https://cdn.jsdelivr.net/npm/clipboard@2.0.4/dist/clipboard.min.js" defer></script><script>moment.locale("zh-CN");</script><script>var IcarusThemeSettings = {
+            article: {
+                highlight: {
+                    clipboard: true,
+                    fold: 'unfolded'
+                }
+            }
+        };</script><script src="/js/column.js"></script><script src="/js/animation.js"></script><a id="back-to-top" title="回到顶端" href="javascript:;"><i class="fas fa-chevron-up"></i></a><script src="/js/back_to_top.js" defer></script><!--!--><!--!--><!--!--><script src="https://cdn.jsdelivr.net/npm/cookieconsent@3.1.1/build/cookieconsent.min.js" defer></script><script>window.addEventListener("load", () => {
+      window.cookieconsent.initialise({
+        type: "info",
+        theme: "edgeless",
+        static: false,
+        position: "bottom-left",
+        content: {
+          message: "此网站使用Cookie来改善您的体验。",
+          dismiss: "知道了！",
+          allow: "允许使用Cookie",
+          deny: "拒绝",
+          link: "了解更多",
+          policy: "Cookie政策",
+          href: "https://www.cookiesandyou.com/",
+        },
+        palette: {
+          popup: {
+            background: "#edeff5",
+            text: "#838391"
+          },
+          button: {
+            background: "#4b81e8"
+          },
+        },
+      });
+    });</script><script src="https://cdn.jsdelivr.net/npm/lightgallery@1.10.0/dist/js/lightgallery.min.js" defer></script><script src="https://cdn.jsdelivr.net/npm/justifiedGallery@3.8.1/dist/js/jquery.justifiedGallery.min.js" defer></script><script>window.addEventListener("load", () => {
+            if (typeof $.fn.lightGallery === 'function') {
+                $('.article').lightGallery({ selector: '.gallery-item' });
+            }
+            if (typeof $.fn.justifiedGallery === 'function') {
+                if ($('.justified-gallery > p > .gallery-item').length) {
+                    $('.justified-gallery > p > .gallery-item').unwrap();
+                }
+                $('.justified-gallery').justifiedGallery();
+            }
+        });</script><!--!--><!--!--><script type="text/x-mathjax-config">MathJax.Hub.Config({
+            'HTML-CSS': {
+                matchFontHeight: false
+            },
+            SVG: {
+                matchFontHeight: false
+            },
+            CommonHTML: {
+                matchFontHeight: false
+            },
+            tex2jax: {
+                inlineMath: [
+                    ['$','$'],
+                    ['\\(','\\)']
+                ]
+            }
+        });</script><script src="https://cdn.jsdelivr.net/npm/mathjax@2.7.9/unpacked/MathJax.js?config=TeX-MML-AM_CHTML" defer></script><div id="outdated"><h6>Your browser is out-of-date!</h6><p>Update your browser to view this website correctly.&amp;npsb;<a id="btnUpdateBrowser" target="_blank" rel="noopener" href="http://outdatedbrowser.com/">Update my browser now </a></p><p class="last"><a href="#" id="btnCloseUpdateBrowser" title="Close">×</a></p></div><script src="https://cdn.jsdelivr.net/npm/outdatedbrowser@1.1.5/outdatedbrowser/outdatedbrowser.min.js" defer></script><script>window.addEventListener("load", function () {
+            outdatedBrowser({
+                bgColor: '#f25648',
+                color: '#ffffff',
+                lowerThan: 'object-fit' // display on IE11 or below
+            });
+        });</script><!--!--><!--!--><!--!--><script src="/js/main.js" defer></script><div class="searchbox"><div class="searchbox-container"><div class="searchbox-header"><div class="searchbox-input-container"><input class="searchbox-input" type="text" placeholder="想要查找什么..."></div><a class="searchbox-close" href="javascript:;">×</a></div><div class="searchbox-body"></div></div></div><script src="/js/insight.js" defer></script><script>document.addEventListener('DOMContentLoaded', function () {
+            loadInsight({"contentUrl":"/content.json"}, {"hint":"想要查找什么...","untitled":"(无标题)","posts":"文章","pages":"页面","categories":"分类","tags":"标签"});
+        });</script><!-- hexo-inject:begin --><!-- hexo-inject:end --></body></html>
