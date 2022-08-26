@@ -1,0 +1,507 @@
+<!doctype html>
+<html lang="zh"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"><meta><title>图神经网络——中科院课程 - houdezaiwu&#039;s blog</title><link rel="manifest" href="/manifest.json"><meta name="application-name" content="czt"><meta name="msapplication-TileImage" content="/img/favicon.svg"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-title" content="czt"><meta name="apple-mobile-web-app-status-bar-style" content="default"><meta name="description" content="hljs.initHighlightingOnLoad();  本文主要是参考的中科院沈老师的课程，主要是从CNN向GNN过渡，讨论了一些基础的理论已经图网络的表达能力。"><meta property="og:type" content="blog"><meta property="og:title" content="图神经网络——中科院课程"><meta property="og:url" content="http://example.com/2022/08/26/%E5%9B%BE%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C/%E5%9B%BE%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C%E2%80%94%E2%80%94%E4%B8%AD%E7%A7%91%E9%99%A2%E8%AF%BE%E7%A8%8B/"><meta property="og:site_name" content="houdezaiwu&#039;s blog"><meta property="og:description" content="hljs.initHighlightingOnLoad();  本文主要是参考的中科院沈老师的课程，主要是从CNN向GNN过渡，讨论了一些基础的理论已经图网络的表达能力。"><meta property="og:locale" content="zh_CN"><meta property="og:image" content="https://fastly.jsdelivr.net/gh/houdezaiwu2019/image-bed/pointnet/3394486.3403088.key.jpg"><meta property="article:published_time" content="2022-08-26T10:36:02.000Z"><meta property="article:modified_time" content="2022-08-26T10:46:10.241Z"><meta property="article:author" content="czt"><meta property="article:tag" content="图神经网络"><meta property="article:tag" content="Graph"><meta property="article:tag" content="Neural Networks"><meta property="twitter:card" content="summary"><meta property="twitter:image" content="https://fastly.jsdelivr.net/gh/houdezaiwu2019/image-bed/pointnet/3394486.3403088.key.jpg"><script type="application/ld+json">{"@context":"https://schema.org","@type":"BlogPosting","mainEntityOfPage":{"@type":"WebPage","@id":"http://example.com/2022/08/26/%E5%9B%BE%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C/%E5%9B%BE%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C%E2%80%94%E2%80%94%E4%B8%AD%E7%A7%91%E9%99%A2%E8%AF%BE%E7%A8%8B/"},"headline":"图神经网络——中科院课程","image":["https://fastly.jsdelivr.net/gh/houdezaiwu2019/image-bed/pointnet/3394486.3403088.key.jpg"],"datePublished":"2022-08-26T10:36:02.000Z","dateModified":"2022-08-26T10:46:10.241Z","author":{"@type":"Person","name":"czt"},"publisher":{"@type":"Organization","name":"houdezaiwu's blog","logo":{"@type":"ImageObject","url":"http://example.com/img/logo.svg"}},"description":"hljs.initHighlightingOnLoad();  本文主要是参考的中科院沈老师的课程，主要是从CNN向GNN过渡，讨论了一些基础的理论已经图网络的表达能力。"}</script><link rel="canonical" href="http://example.com/2022/08/26/%E5%9B%BE%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C/%E5%9B%BE%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C%E2%80%94%E2%80%94%E4%B8%AD%E7%A7%91%E9%99%A2%E8%AF%BE%E7%A8%8B/"><link rel="icon" href="/img/favicon.svg"><link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.2/css/all.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@9.12.0/styles/atom-one-light.css"><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Ubuntu:wght@400;600&amp;family=Source+Code+Pro"><link rel="stylesheet" href="/css/default.css"><style>body>.footer,body>.navbar,body>.section{opacity:0}</style><!--!--><!--!--><!--!--><!--!--><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/cookieconsent@3.1.1/build/cookieconsent.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/lightgallery@1.10.0/dist/css/lightgallery.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/justifiedGallery@3.8.1/dist/css/justifiedGallery.min.css"><!--!--><!--!--><!--!--><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/outdatedbrowser@1.1.5/outdatedbrowser/outdatedbrowser.min.css"><style>.pace{-webkit-pointer-events:none;pointer-events:none;-webkit-user-select:none;-moz-user-select:none;user-select:none}.pace-inactive{display:none}.pace .pace-progress{background:#3273dc;position:fixed;z-index:2000;top:0;right:100%;width:100%;height:2px}</style><script src="https://cdn.jsdelivr.net/npm/pace-js@1.2.4/pace.min.js"></script><!--!--><!--!--><!-- hexo injector head_end start -->
+<!-- hexo-inject:begin --><!-- hexo-inject:end --><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css">
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/hexo-math@4.0.0/dist/style.css">
+<!-- hexo injector head_end end --><meta name="generator" content="Hexo 6.0.0"><link rel="stylesheet" href="/css/prism-coy-without-shadows.css" type="text/css">
+<link rel="stylesheet" href="/css/prism-line-numbers.css" type="text/css"><!-- hexo-inject:begin --><!-- hexo-inject:end --></head><body class="is-3-column"><nav class="navbar navbar-main"><div class="container"><div class="navbar-brand justify-content-center"><a class="navbar-item navbar-logo" href="/"><img src="/img/logo.svg" alt="houdezaiwu&#039;s blog" height="28"></a></div><div class="navbar-menu"><div class="navbar-start"><a class="navbar-item" href="/">主页</a><a class="navbar-item" href="/archives">归档</a><a class="navbar-item" href="/categories">分类</a><a class="navbar-item" href="/tags">标签</a><a class="navbar-item" href="/about">关于</a></div><div class="navbar-end"><a class="navbar-item" target="_blank" rel="noopener" title="Download on GitHub" href="https://github.com/ppoffice/hexo-theme-icarus"><i class="fab fa-github"></i></a><a class="navbar-item is-hidden-tablet catalogue" title="目录" href="javascript:;"><i class="fas fa-list-ul"></i></a><a class="navbar-item search" title="搜索" href="javascript:;"><i class="fas fa-search"></i></a></div></div></div></nav><section class="section"><div class="container"><div class="columns"><div class="column order-2 column-main is-8-tablet is-8-desktop is-6-widescreen"><div class="card"><div class="card-image"><span class="image is-7by3"><img class="fill" src="https://fastly.jsdelivr.net/gh/houdezaiwu2019/image-bed/pointnet/3394486.3403088.key.jpg" alt="图神经网络——中科院课程"></span></div><article class="card-content article" role="article"><div class="article-meta is-size-7 is-uppercase level is-mobile"><div class="level-left"><span class="level-item"><time dateTime="2022-08-26T10:36:02.000Z" title="2022/8/26 下午6:36:02">2022-08-26</time>发表</span><span class="level-item"><time dateTime="2022-08-26T10:46:10.241Z" title="2022/8/26 下午6:46:10">2022-08-26</time>更新</span><span class="level-item"><a class="link-muted" href="/categories/%E5%9B%BE%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C/">图神经网络</a></span><span class="level-item">1 小时读完 (大约9617个字)</span></div></div><h1 class="title is-3 is-size-4-mobile">图神经网络——中科院课程</h1><div class="content"><link rel="stylesheet" href="//cdn.bootcss.com/highlight.js/9.2.0/styles/github.min.css">
+
+<!-- hexo-inject:begin --><!-- hexo-inject:end --><script src="//cdn.bootcss.com/highlight.js/9.2.0/highlight.min.js"></script>
+<script>hljs.initHighlightingOnLoad();</script>
+
+<p>本文主要是参考的中科院沈老师的课程，主要是从CNN向GNN过渡，讨论了一些基础的理论已经图网络的表达能力。</p>
+<span id="more"></span>
+<h2 id="CNN基本理论"><a href="#CNN基本理论" class="headerlink" title="CNN基本理论"></a><strong>CNN基本理论</strong></h2><h3 id="CNN的产生和发展"><a href="#CNN的产生和发展" class="headerlink" title="CNN的产生和发展"></a><strong>CNN的产生和发展</strong></h3><p>卷积神经网络是在全连接网络的基础上发展的，因为全连接层的自由度太大，卷积网络相当于给其增加了很多先验的信息，使其方便训练，并且在图片领域获得很好的发展。</p>
+<p>主要早图像分类、目标识别、机器翻译等欧式空间的数据中获得巨大的成功。</p>
+<p><img src="https://fastly.jsdelivr.net/gh/houdezaiwu2019/image-bed/%E5%9B%BE%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C/image-20220728110708711.png" alt=""></p>
+<ul>
+<li>之后TCNN在时间序列数据上的表现超越了之前的RNN，总结发现CNN其实可以学习到很多的局部特征的信息，之后将这些局部的信息进行堆叠成为一个层次化的结构。</li>
+</ul>
+<p><img src="https://fastly.jsdelivr.net/gh/houdezaiwu2019/image-bed/%E5%9B%BE%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C/image-20220728111233338.png" alt=""></p>
+<ul>
+<li><p>尽管卷积神经网路的最希望学习到的是东西是具有平移不变性、旋转不变性和尺度不变性，但是在实际的学习的过程中，其仅仅可以保证平移不变性，不过仅仅平移不变性的满足就已经使得网络具有强大的学习功能了。</p>
+<p><img src="https://fastly.jsdelivr.net/gh/houdezaiwu2019/image-bed/%E5%9B%BE%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C/image-20220728111836643.png" alt=""></p>
+</li>
+<li><p>如上图所示，其卷积核的形状如有图所示，当遇到相似的结构进行学习的时候，就会卷积乘除一个较大的值，这里就相当于做了<strong>目标提取的工作</strong>。</p>
+</li>
+<li><p>但是上述的讨论其实都是基于欧式空间的，Hinton和LeCun思考，如何让网络去适应非欧式空间的数据。</p>
+</li>
+<li><p>其中非欧空间里面具有代表性的结构是：</p>
+<ul>
+<li>图结构Graph；</li>
+<li>流形Manifold；</li>
+</ul>
+</li>
+<li><p>欧式空间：是由<strong>欧式距离</strong>定义出来的空间上连个点的距离叫做欧式空间。</p>
+<ul>
+<li>其中的<strong>欧式距离</strong>具有三个主要的性质，包括<strong>非负</strong>，<strong>对称</strong>和<strong>三角不等式</strong>。</li>
+<li>但是图上面使用最短路径来定于距离的时候，其不满足<strong>三角不等式</strong>的性质，因此其是非欧的距离。</li>
+<li>于是非欧的数据给卷积的定义提出了挑战。</li>
+</ul>
+</li>
+</ul>
+<p><img src="https://fastly.jsdelivr.net/gh/houdezaiwu2019/image-bed/%E5%9B%BE%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C/image-20220728113305730.png" alt=""></p>
+<h3 id="从CNN到GNN"><a href="#从CNN到GNN" class="headerlink" title="从CNN到GNN"></a><strong>从CNN到GNN</strong></h3><p>对于欧式空间来说，卷积很好的定义计算欧式空间数据<strong>(如网格)</strong>的算子。但是对所有非欧式空间的算子而言，卷积还是无法作为运算的算子来对非欧式空间进行计算。</p>
+<p><img src="https://fastly.jsdelivr.net/gh/houdezaiwu2019/image-bed/%E5%9B%BE%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C/image-20220728143101117.png" alt=""></p>
+<ul>
+<li>其实，对于图像而言就是一个标准的格子网络如上图所示，其满足欧式距离的全部的要求。</li>
+<li>我们PS进行图像处理其实就是和卷积的本质是类似的，就是对图像的局部和全局进行操作。</li>
+</ul>
+<h3 id="卷积的定义"><a href="#卷积的定义" class="headerlink" title="卷积的定义"></a><strong>卷积的定义</strong></h3><p>卷积本质是就是一个数学上的操作，将两个函数$f,g$进行卷积可以的得出另一个函数$h$，这里$h$相比$f$更加平滑。</p>
+<p><img src="https://fastly.jsdelivr.net/gh/houdezaiwu2019/image-bed/%E5%9B%BE%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C/image-20220728145731364.png" alt=""></p>
+<ul>
+<li><p>首先是一个信号与系统中的例子，其本质就是一个一维的连续卷积。</p>
+</li>
+<li><p>之后是一个图像处理中的例子，其本质是一个二维的连续卷积。</p>
+<blockquote>
+<p><strong>这里其实有个误区，在真实的卷积的上将卷积的右下角来乘以图像的左上角的值，反着来乘的，而不是一般理解上的对应位相乘。不过其实对应学习算法来说，其卷积核的数值是可变的，通过学习获取的，因此这里其实就随便了。</strong></p>
+</blockquote>
+</li>
+<li><p>如果是单单的使用使用CNN，其实并不需要对卷积理解太多。</p>
+</li>
+</ul>
+<h2 id="图卷积GNN的基本理论"><a href="#图卷积GNN的基本理论" class="headerlink" title="图卷积GNN的基本理论"></a><strong>图卷积GNN的基本理论</strong></h2><h3 id="GNN的定义"><a href="#GNN的定义" class="headerlink" title="GNN的定义"></a><strong>GNN的定义</strong></h3><p>目前的现有的定义方法存在两种，一种是基于谱的方法，另外一种是基于离散空间的方法。但是经过了几年的发展，发现两种方法其实是一样的，基于谱的方法其实是基于卷积的方法的特殊的情况。</p>
+<ul>
+<li>谱方法：其实谱的本质就是一种空间变换。<ul>
+<li>谱方法的主要思路：通过<strong>图上的傅里叶变换</strong>来定义的卷积核。</li>
+<li>缺点：卷积核在<strong>谱域里面是连续的</strong>，但是在<strong>节点域里面不是局部化的</strong>，这一点导致这个方法逐渐被弃用。</li>
+</ul>
+</li>
+</ul>
+<p><img src="https://fastly.jsdelivr.net/gh/houdezaiwu2019/image-bed/%E5%9B%BE%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C/image-20220728152048452.png" alt=""></p>
+<ul>
+<li>空间域的方法：定义了在节点域的卷积。<ul>
+<li>主要的挑战：节点域的邻接节点的相邻个数是不同的。</li>
+<li>空间域方法的主要思路：通过求一个节点和其邻接点的加权平均值，来定义其节点上的卷积。</li>
+</ul>
+</li>
+</ul>
+<p><img src="https://fastly.jsdelivr.net/gh/houdezaiwu2019/image-bed/%E5%9B%BE%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C/image-20220728152105661.png" alt=""></p>
+<h3 id="谱方法"><a href="#谱方法" class="headerlink" title="谱方法"></a><strong>谱方法</strong></h3><h4 id="基本定义"><a href="#基本定义" class="headerlink" title="基本定义"></a><strong>基本定义</strong></h4><p><img src="https://fastly.jsdelivr.net/gh/houdezaiwu2019/image-bed/%E5%9B%BE%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C/image-20220728155414697.png" alt=""></p>
+<p>首先，定义一个图结构，其主要有三个元素节点$V$，边$E$，权重$W$三个部分。</p>
+<ul>
+<li>其中，定义节点的个数为$n=|V|$，于是得到加权的邻接矩阵$R^{n\times n}$，其中权重$W\in R^{n\times n}$。</li>
+<li>每个节点都有一个属于自己的属性向量，这里设属性向量是一个$R^{d\times1}$ 的矩阵值，将其合并可得$X\in R^{n \times d}$ ，即每个行向量为一个节点对应的属性向量，每个列向量为定义在节点上的一个信号。</li>
+</ul>
+<p><img src="https://fastly.jsdelivr.net/gh/houdezaiwu2019/image-bed/%E5%9B%BE%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C/image-20220728160801095.png" alt=""></p>
+<p>之后，来定义图的Laplacian矩阵。</p>
+<ul>
+<li>首先，定义矩阵$D$，其本质上就是一个对角阵。<ul>
+<li>当定义的图是有向图时，$D_{ii}=\sum_jW_{ij}$，即和$i$节点相连的边发权重之和；</li>
+<li>当定义的图为无向图时，$D_{ii}$就是这个节点的度。</li>
+</ul>
+</li>
+<li>然后，定义拉普拉斯矩阵 $L=D-W$。<ul>
+<li>$L$ 本质上时一个Laplace算子，其在图上沿着边的方向进行求导之后的矩阵。</li>
+<li>$L$ 算子主要刻画的是信号的平滑性。</li>
+</ul>
+</li>
+<li>之后，对矩阵进行标准化处理，主要的操作方法有两种：<ul>
+<li>$L=I-WD^{-1}$ 单边标准化，在随机行走用的很多。</li>
+<li>$L=I-D^{-\frac 1 2}WD^{-\frac 1 2}$  对称标准化，数学性质更好。</li>
+</ul>
+</li>
+</ul>
+<h4 id="图傅里叶变换"><a href="#图傅里叶变换" class="headerlink" title="图傅里叶变换"></a><strong>图傅里叶变换</strong></h4><p><img src="https://fastly.jsdelivr.net/gh/houdezaiwu2019/image-bed/%E5%9B%BE%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C/image-20220728163701341.png" alt=""></p>
+<p>傅里叶变化的<strong>主要思想</strong>：就是将所有的时域上的信号都换成一系列<strong>周期信号的叠加</strong>。在这里面仅仅只有每个信号上的系数不同，相当于是使用一系列的周期信号作为基底。</p>
+<p>对应传统的傅里叶变换是主要针对的是时域上的数据，对应图上的傅里叶变换则处理的就是图上的信息。</p>
+<ul>
+<li><p>对于图的傅里叶变换来说，首先是对 $L$ 矩阵进行求特征值的处理</p>
+<ul>
+<li>由于$L$的对称性，则为设对称矩阵，于是其对应的特征向量为相互正交的orthonormal，记为$\{ u_l\}^n_{l=1}$ ；</li>
+<li>每个基对应的频率就为$\{\lambda_l \}^n_{l=1}$ 是个非负数；</li>
+<li>这里特征向量对应的特征值越大的，对应的信号的频率就越高，于是就成为了所谓的频率。</li>
+</ul>
+</li>
+<li><p>于是就可以将图的Laplace矩阵对角化可得：$L=U\Lambda U^T$ </p>
+<p>  其中，$U=[u_1,u_2,…u_n]$，并且$\Lambda=diag([\lambda_1,…,\lambda_n])$ </p>
+</li>
+<li><p>观察可得，当我们将Laplace矩阵  $L=D-W$ 乘以一个$[1,1,…,1]$的矩阵后，就可以为0，于是就有$L[1,1,….,1]^T=0\cdot[1,1,….,1]^T$。</p>
+<ul>
+<li>因此对应Laplace矩阵，一定会有一个特征值为0，对应的特征向量为全1矩阵。 </li>
+<li>由于这个特征向量为全一，于是对应的频率就为0，对应的特征值为0，因此就有可以将频率等效特征值了。</li>
+</ul>
+</li>
+</ul>
+<p>在得到傅里叶变化的基之后，这里就将给出的向量的坐标，通过图傅里叶变换转化到谱域上，得到谱域上的坐标值。</p>
+<p><img src="https://fastly.jsdelivr.net/gh/houdezaiwu2019/image-bed/%E5%9B%BE%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C/image-20220728192549348.png" alt=""></p>
+<p>上面分别给出了傅里叶的正变换和逆变换过程。</p>
+<p><strong>卷积定理：</strong>两个信号的卷积可以看成两个信号的傅里叶变换后的带点积。</p>
+<p><img src="https://fastly.jsdelivr.net/gh/houdezaiwu2019/image-bed/%E5%9B%BE%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C/image-20220728193736815.png" alt=""></p>
+<p>于是，这里根据上述的卷积定理可得，一个给定的信号$x$，另一个信号$y$作为滤波器，其实就是定义卷积神经网络里面的卷积核，于是将卷积计算可以转化成频域的点积运算。</p>
+<p><img src="https://fastly.jsdelivr.net/gh/houdezaiwu2019/image-bed/%E5%9B%BE%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C/image-20220728193720910.png" alt=""></p>
+<p>其实本质上是因为在谱域的计算比较简单，转化成谱域方便计算，之后再通过线性变换将其转换回去即可。</p>
+<p>这里$U^Ty$就是对应的参数，基于上述，将上述式子进项相应的化简可得：</p>
+<script type="math/tex; mode=display">
+x*_Gy=U((U^Tx)\cdot(U^Ty))\\
+\Rightarrow x*_Gy=Ug_\theta U^Tx</script><p><img src="https://fastly.jsdelivr.net/gh/houdezaiwu2019/image-bed/%E5%9B%BE%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C/image-20220728195126618.png" alt=""></p>
+<p>这里首先定义$U^Ty=[\theta_0,\theta_1…,\theta_{n-1}]^T$ ，其是一个向量值，对应的点程可以将其转化成为一个矩阵乘法的过程，设矩阵为$g_\theta=diag([\theta_0,…,\theta_n-1])$ 。于是就会有上图中的三个步骤。这里的$g_\theta$其实就要学习的参数。</p>
+<ul>
+<li>首先，将节点域转化为谱域；</li>
+<li>之后，在谱域里面进行卷积操作；</li>
+<li>最后，使用图卷积的逆变换将谱域上的卷积结果转换到节点域上面。</li>
+</ul>
+<p><img src="https://fastly.jsdelivr.net/gh/houdezaiwu2019/image-bed/%E5%9B%BE%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C/image-20220728200551196.png" alt=""></p>
+<p>于是就诞生了基于谱的卷积神经网路领域。</p>
+<h4 id="谱方法缺点"><a href="#谱方法缺点" class="headerlink" title="谱方法缺点"></a><strong>谱方法缺点</strong></h4><ul>
+<li>求基特征向量和特征矩阵其本质就是一个比较复杂的问题，不是特别的容易，这点极大的限制了这个方法的推广。</li>
+</ul>
+<p><img src="https://fastly.jsdelivr.net/gh/houdezaiwu2019/image-bed/%E5%9B%BE%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C/image-20220728200924499.png" alt=""></p>
+<ul>
+<li>其次就算可以计算的出来对应的特征向量，但是其特征向量拼成的矩阵U也是一个满的矩阵，将节点域转换到谱域的计算也是$O(n^2)$的复杂度。</li>
+</ul>
+<p><img src="https://fastly.jsdelivr.net/gh/houdezaiwu2019/image-bed/%E5%9B%BE%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C/image-20220728201130702.png" alt=""></p>
+<ul>
+<li>最后在节点域上是不是局部的。打个比方，相对照片上的人修改一下眉毛，就会造成其修改出来的图片鼻子也被修改的了，而卷积操作的时候，其仅仅会对周围的一个3x3的小的邻域上面就是一定的修改，不会出现牵一发而动全身的现象。</li>
+</ul>
+<p><img src="https://fastly.jsdelivr.net/gh/houdezaiwu2019/image-bed/%E5%9B%BE%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C/image-20220728201619479.png" alt=""></p>
+<h4 id="对谱方法的改进ChebyNet"><a href="#对谱方法的改进ChebyNet" class="headerlink" title="对谱方法的改进ChebyNet"></a><strong>对谱方法的改进ChebyNet</strong></h4><p>这里我们使用多项式方法，来将滤波器进行参数近似，于是得到</p>
+<p><img src="https://fastly.jsdelivr.net/gh/houdezaiwu2019/image-bed/%E5%9B%BE%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C/image-20220728203430331.png" alt=""></p>
+<ul>
+<li>其中，当$K\ge n$时，等号就成立了；当$K &lt; n$ 时，此时仅能保证约等于，因为参数的次数不够。</li>
+<li>这里可以训练的参数为$\beta_k$，代入化简时可以将变换的$U$矩阵约掉。</li>
+</ul>
+<p>在改进之后，出现了以下的有点：</p>
+<ul>
+<li><p>首先，不需要求解邻接矩阵了，这对于减小计算量来说是十分有客观的。</p>
+</li>
+<li><p>其次，由于$L$ 矩阵是系数的矩阵，因此其对于计算复杂度的减小来说是十分客观，从$O(n^2)$ 转化成为 $O(|E|)$ ，即对应的复杂度仅仅和网络里边的个数有关，和节点的个数无关。</p>
+</li>
+<li><p>最后，就是可以实现在节点域上的局部化，这里卷积被严格的限制在一个半径为K的一个球里面。</p>
+<blockquote>
+<p><strong>$k=1$时代表他对应的一阶邻居，k=0是代表的就是他自身。这边有时间可以看一下Laplace的矩阵对应的理论。</strong></p>
+</blockquote>
+</li>
+</ul>
+<p><img src="https://fastly.jsdelivr.net/gh/houdezaiwu2019/image-bed/%E5%9B%BE%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C/image-20220728211201717.png" alt=""></p>
+<p>这里CheyNet相当于对之前滤波器空间进行了一定的限制包括：</p>
+<ul>
+<li>将滤波器的形式仅仅控制到多项式的形式；</li>
+<li>其次将参数的个数进行限制，一般的情况下，其参数的个数$k&lt;n$，这就使得其自由度极大的减小。</li>
+</ul>
+<h4 id="谱方法进一步的改进"><a href="#谱方法进一步的改进" class="headerlink" title="谱方法进一步的改进"></a><strong>谱方法进一步的改进</strong></h4><p><img src="https://fastly.jsdelivr.net/gh/houdezaiwu2019/image-bed/%E5%9B%BE%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C/image-20220728212551086.png" alt=""></p>
+<ul>
+<li>之前是对滤波器的形式进行限制，于是就使得变换矩阵$U$被消去，这里我们的关注待点放到了U的上面。</li>
+<li>适应小波变换的基来代替正弦变换的基，来进一步改进U的形式。</li>
+</ul>
+<p><img src="https://fastly.jsdelivr.net/gh/houdezaiwu2019/image-bed/%E5%9B%BE%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C/image-20220728213305153.png" alt=""></p>
+<ul>
+<li>这里可以看出，小波是稀疏的，仅仅在对应的位置上是非0的，其他的部分都是0；而傅里叶变换是稠密的，周期变化的。</li>
+<li>由于小波的稀疏性，于是就会有其具有一定的局部性，就是其仅仅可以控制离他很近的一小片的区域，对应的很大的区域是无法进行控制的。而傅里叶则相反。</li>
+<li>于是基于上述的表述，将傅里叶变换的偏置换算成为小波的偏置。</li>
+</ul>
+<p><img src="https://fastly.jsdelivr.net/gh/houdezaiwu2019/image-bed/%E5%9B%BE%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C/image-20220728214024181.png" alt=""></p>
+<p>于是就得出了一个新的神经网络的形式，为图小波神经网络。</p>
+<p><img src="https://fastly.jsdelivr.net/gh/houdezaiwu2019/image-bed/%E5%9B%BE%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C/image-20220728214123513.png" alt=""></p>
+<p>这里p为上一层特征参数的维度，q是下一层特征参数的维度，于是计算的复杂度就是为$O(n<em>p</em>q)$是十分复杂的参数的维度。在实际训练的过程中效果驱使不怎么样。</p>
+<p>需要进一步的改进，因为之前的卷积是和特征变换放在一起来完成的，这里就将卷积和特征变换分开来做，即进行进一步的解耦，具体的结构如下图所示。</p>
+<p><img src="https://fastly.jsdelivr.net/gh/houdezaiwu2019/image-bed/%E5%9B%BE%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C/image-20220728214851551.png" alt=""></p>
+<ul>
+<li>先进行的是特征的变换，就是将其维度进行转换。</li>
+<li>后进行的是图卷积的变换。</li>
+</ul>
+<p>于是计算的复杂度，就从原来的$O(n<em>p</em>q)$转换成为$O(n+p*q)$了。</p>
+<p>实验的效果如下：</p>
+<p><img src="https://fastly.jsdelivr.net/gh/houdezaiwu2019/image-bed/%E5%9B%BE%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C/image-20220728215437404.png" alt=""></p>
+<p>实现论文中的结果如下图所示。</p>
+<p><img src="https://fastly.jsdelivr.net/gh/houdezaiwu2019/image-bed/%E5%9B%BE%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C/image-20220728215830432.png" alt=""></p>
+<h3 id="空间方法"><a href="#空间方法" class="headerlink" title="空间方法"></a><strong>空间方法</strong></h3><p>相比谱方法，空间方法的数学公式没有太多，比较适合工程师应用。其本质是基于类比的方法。</p>
+<h4 id="基于CNN的空间方法"><a href="#基于CNN的空间方法" class="headerlink" title="基于CNN的空间方法"></a><strong>基于CNN的空间方法</strong></h4><p><img src="https://fastly.jsdelivr.net/gh/houdezaiwu2019/image-bed/%E5%9B%BE%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C/image-20220729083844070.png" alt=""></p>
+<p>这个方法的本质就是将CNN进行分解，提取出来他主要的做的几个步骤，看哪些步骤可以为图网络来使用，将可以使用的步骤保留，修改不可以适应的步骤。</p>
+<ul>
+<li>Step1：确定邻域，这里如上图所示邻域的大小为3x3。</li>
+<li>Step2：在邻域的内部确定顺序，其实我们默认是从上到下、从左向右的顺序，预定俗称的顺序，因此对这一步其实并没有感觉。</li>
+<li>Step3：参数共享，相当于卷积神经网络在全连接的基础上增加对卷积核结构的上的限制，于是其才会有较好的结构好训练，但是在其表达上是弱于全连接的神经网络的。</li>
+</ul>
+<p>对应图神经网络来说：</p>
+<ul>
+<li><p>Step1：确定邻居，这里上对每个点选择固定数量的邻居，就是从和这个节点直接相连的节点里面，选出距离最近的n个节点，因此只要度量距离的定义一出来就确定了一种邻域的划分。</p>
+<blockquote>
+<p><strong>如果一阶邻接点的个数不足，就使用二阶和三阶来凑数即可。但是前提是要先对距离进行定义。</strong></p>
+</blockquote>
+</li>
+<li><p>Step2：邻域的顺序的确定，首先要确定距离的度量指标，然后分别是先一阶邻接点开始遍历排序，由小到大排列，如果有二阶邻接点的话，就继续往后排列。</p>
+</li>
+<li><p>Srep3：最后参数共享即可。</p>
+</li>
+</ul>
+<p><img src="https://fastly.jsdelivr.net/gh/houdezaiwu2019/image-bed/%E5%9B%BE%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C/image-20220729085548911.png" alt=""></p>
+<h4 id="进一步的改进——Graph-SAGE"><a href="#进一步的改进——Graph-SAGE" class="headerlink" title="进一步的改进——Graph SAGE"></a><strong>进一步的改进——Graph SAGE</strong></h4><p>问题的由来是排序的问题会比较的复杂，比如户口本上的户主的问题，以及领导名字排序的问题(解决的办法是如果领导名字的笔划少，就按照笔划的顺序来进行排列，否则如果姓名的拼音字母小就按照拼音字母来排序)。</p>
+<p><img src="https://fastly.jsdelivr.net/gh/houdezaiwu2019/image-bed/%E5%9B%BE%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C/image-20220729092708115.png" alt=""></p>
+<p>由于定义顺序比较的复杂，这里采取GraphSAGE的方法，主要包含两步：</p>
+<ul>
+<li>首先，对应节点的选择上，采取的是随机游走采样的方法进行采样。</li>
+<li>之后，将采样获得的点进行聚合，其实就是求平均。<ul>
+<li>具有的公式见上图所示，就是这里的上一层的所有<strong>邻接点的信号</strong>进行聚合；</li>
+<li>然后将上一层的<strong>邻接点节点值</strong>和<strong>聚会后的聚合值一起合并</strong>，组成新的节点值。</li>
+</ul>
+</li>
+<li>这里的聚合值其实有很多的表示方法，可以是$\max,\min,\sum,mean$ 等等，也可以使用LSTM或Transformer模型。</li>
+</ul>
+<p>这篇文章的Idea还不错，但是支撑其高引用的是其图网络的数据集。</p>
+<p>于是在此基础上，有提出了GCN的方法。</p>
+<h4 id="图卷积神经网络——GCN的提出"><a href="#图卷积神经网络——GCN的提出" class="headerlink" title="图卷积神经网络——GCN的提出"></a><strong>图卷积神经网络——GCN的提出</strong></h4><p>这篇文章的主体的结构是十分的简单的，但是其为了显得他的工作看起来很有深度，于是其说自己是从谱方法的ChebyNet里面一路推理得出的，其主要是ChebyNet的一阶$k=1$近似的方法。</p>
+<blockquote>
+<p>但是其并不是完全参考的谱方法，这篇文章被记住的原因是简单。</p>
+</blockquote>
+<p><img src="https://fastly.jsdelivr.net/gh/houdezaiwu2019/image-bed/%E5%9B%BE%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C/image-20220729100655057.png" alt=""></p>
+<p>这边主要的步骤有两个：</p>
+<ul>
+<li>首先，进行特征变换，其实就是变换矩阵的维度，其中$X \in R^{n\times d_0},W^{(0)} \in R^{d_0 \times d_1},W^{(1)}\in R^{d_1\times d_2}$</li>
+<li>之后，做完一层特征变换要过一次激活函数。</li>
+<li>最后，这里的$\hat{A}$ 是代表一次聚合，可以是对邻居求最大/最小/平均。</li>
+</ul>
+<p>类比CNN，CNN里面的卷积核其实就是一种特征提取器或者是滤波器，<strong>是一个3x3的参数但是其可以堆叠成多个通道</strong>。</p>
+<p>但是图网络GCN是刻画的是对应中心节点而言周围节点对其的重要性，即权重值，是固定的没有参数可以学，而且仅仅只有一个通道。于是可以学习的参数只有特征变化的参数，而且聚合的范围仅仅只有邻接的一个节点。</p>
+<blockquote>
+<p><strong>尽管这篇文章有以上的缺点，但是其比较的简单，好理解，并且其效果比较查，因此经常被拿来做Baseline来对比。</strong></p>
+</blockquote>
+<h4 id="GCN的进一步改进——GAT"><a href="#GCN的进一步改进——GAT" class="headerlink" title="GCN的进一步改进——GAT"></a><strong>GCN的进一步改进——GAT</strong></h4><p>在GCN中，由于$\hat{A}$ 编码是硬编码的，无法修改，于是GAT通过引入Attention机制来对其进行参数化，进而提高使用的具体的效果。</p>
+<p><img src="https://fastly.jsdelivr.net/gh/houdezaiwu2019/image-bed/%E5%9B%BE%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C/image-20220729154616847.png" alt=""></p>
+<ul>
+<li>在之前分析中，其聚合矩阵或Laplacian的固定的，在GAT中时通过学习获取的。</li>
+<li>在GAT中，首先将每个节点的特征向量进行特征变换统一维度，之后将变换之后的特征向量进行self-Attention机制的自监督学习操作，学习两者之间的相似度$\alpha_{ij}$来作为权重值 。</li>
+<li>这里为了防止学习权重值过大，这里进行归一化处理。</li>
+</ul>
+<p>这里有两个参数，一个是卷积变换的参数，另一个是特征变换的参数。并且由于卷积和特征变换可以将其做成多头的注意力机制。只有数据量足够多，其就可以有很好的效果。</p>
+<h4 id="另一种改进——MoNet"><a href="#另一种改进——MoNet" class="headerlink" title="另一种改进——MoNet"></a><strong>另一种改进——MoNet</strong></h4><ul>
+<li><p>这篇文章上2018年CVPR上的一篇文章，其中主要的贡献是给空间方法一个一般化的定义方式；</p>
+</li>
+<li><p>所谓的空间方法就是定义多个核函数，之后测量每个节点之间的相似度。</p>
+</li>
+<li>之前的几篇文章其实都是在度量节点之间的相似度指标，这里可以将上述的核方法建立一个混合的模型。</li>
+<li>计算卷积的过程可以看成：不同的方法乘以自己权重值的和，并通过学习来获取这些权重值。</li>
+</ul>
+<p><img src="https://fastly.jsdelivr.net/gh/houdezaiwu2019/image-bed/%E5%9B%BE%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C/image-20220729195636017.png" alt=""></p>
+<h3 id="谱方法和空间方法的关系"><a href="#谱方法和空间方法的关系" class="headerlink" title="谱方法和空间方法的关系"></a><strong>谱方法和空间方法的关系</strong></h3><p>这里基于MoNet给出来的主要的想法，我们类比SVM中定义相似度和核方法来对比分析中</p>
+<p><img src="https://fastly.jsdelivr.net/gh/houdezaiwu2019/image-bed/%E5%9B%BE%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C/image-20220729202356796.png" alt=""></p>
+<ul>
+<li><p>主要的区别：</p>
+<ul>
+<li><p>对于<strong>谱方法</strong>其本质相当于是通过<strong>核函数</strong>来进行<strong>显示的空间变换</strong>，将其转化到一个线性(欧式)空间上去处理，之后又将其换算回到之前的节点空间上，即<strong>逆变换</strong>。</p>
+<blockquote>
+<p>不仅知道变换的核函数，<strong>知道如何转换到对应的空间上</strong>，同时又要知道<strong>如何将结果从对应空间上变回来</strong>。</p>
+</blockquote>
+</li>
+<li><p>对于<strong>空间方法</strong>其本质就是<strong>在现有的空间上定义出来一个相似度的公式</strong>，即kernel matrix (又叫做知识嵌入矩阵)，<strong>直接计算相似度</strong>即可。</p>
+<blockquote>
+<p>在SVM里面其实也是，进行<strong>空间上的变换</strong>其实和<strong>直接定义相似度函数</strong>(相似度矩阵)是一样的，只要保证定义<strong>在原空间定义的相似度函数</strong>满足一定的要求就行，不需要进行变换和逆变换。</p>
+</blockquote>
+</li>
+</ul>
+</li>
+<li><p>于是回看上述的MoNet的方法，其代表的空间方法其本质就是定义很多kernel function，定义的相似度函数其实就是上述kernel function的加权，其中这个权重向量需要学习获取。</p>
+</li>
+</ul>
+<p>下面将上述的谱方法的公式进行化简：</p>
+<p><img src="https://fastly.jsdelivr.net/gh/houdezaiwu2019/image-bed/%E5%9B%BE%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C/image-20220729205518878.png" alt=""></p>
+<ul>
+<li><p><strong>谱CNN：</strong>其可以将矩阵分解成n个基底，于是就化简成为多个基底相乘的加权和，权重可以理解成在不同谱空间上的坐标。于是就化简成MoNet的表达形式。</p>
+</li>
+<li><p><strong>ChebyNet：</strong>将多项式进行展开，于是也可以化简成为MoNet的形式。</p>
+</li>
+<li><p><strong>GCN：</strong>其本质就是仅仅使用ChebyNet前面的两阶参数，于是就形成上述MoNet的形式。但是值得注意的是，这两项的权重值是共享的。</p>
+<blockquote>
+<p>值得思考的是，GCN的参数最少，但是其效果确实最好的，为什么？</p>
+</blockquote>
+<p><strong>搞研究多让自己的脑子转，少让自己的GPU转。</strong></p>
+</li>
+</ul>
+<p>下面来解释为什么上面的两个方法不如下面的GCN好的原因。</p>
+<p><img src="https://fastly.jsdelivr.net/gh/houdezaiwu2019/image-bed/%E5%9B%BE%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C/image-20220729212917702.png" alt=""></p>
+<ul>
+<li>引入平滑滤波器的概念，定义了上述的描述平滑性的公式。其中$L$ 标注化之后的Laplacian矩阵。如果是标准化之前，就可以在右边去掉对应的分母项。<ul>
+<li>$x_u,x_v$可以看成是$x$的分量，$x$是一串信号向量。</li>
+<li>$A_{uv}$ 对应的是邻接矩阵在对应位置上的系数，右边相连为1，否则就为0。</li>
+</ul>
+</li>
+<li>因此可得，在有边相连的两个节点的取值相差越小，越相似，则计算值就越小，越平滑。反之，二者取值相差越大，计算值越大，平滑性越差。</li>
+<li>也可以解释为连边的节点尽可能的要相似。</li>
+<li>根据特征值的定义：$u_i\lambda_i=Lu_i\ \Rightarrow \ \lambda_i=u_i^TLu_i$ 。<ul>
+<li>于是$\lambda_i$就可以看作是$u_i$的频率，或平滑度。</li>
+<li>eg. $u_i=(1,1,…,1)^T$对应的$\lambda_i=0$，即由于信号全称都没有变化，对应物理意义就是频率。</li>
+</ul>
+</li>
+</ul>
+<p>于是就引出了基础滤波器的概念，将 $u_iu_i^T$ 作为基础滤波器。</p>
+<p><img src="https://fastly.jsdelivr.net/gh/houdezaiwu2019/image-bed/%E5%9B%BE%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C/image-20220729213001915.png" alt=""></p>
+<ul>
+<li><p>首先，可以将图信号$x$分解为上述的形式。</p>
+</li>
+<li><p>之后，将上述的基础滤波器乘到$x$上，由于正交性就将其他信号过滤，仅仅留下当前的信号基下的分量$\alpha_iu_i$。</p>
+</li>
+<li><p>于是回到之前的谱CNN上：</p>
+<p><img src="https://fastly.jsdelivr.net/gh/houdezaiwu2019/image-bed/%E5%9B%BE%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C/image-20220730202741154.png" alt=""></p>
+<p>这里的谱CNN就相当于一系列的基础滤波器的加权之和。</p>
+</li>
+</ul>
+<p><img src="https://fastly.jsdelivr.net/gh/houdezaiwu2019/image-bed/%E5%9B%BE%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C/image-20220730202957501.png" alt=""></p>
+<ul>
+<li>那么ChebyNet这种滤波的效果不好？<ul>
+<li>因为这里使用的$L^k$对应的特征值就为$\lambda_i^k$，相当于是个高通的滤波器。</li>
+<li>在ChebyNet里面有很多的高通项，这样就会造成低频信号被过滤，导致整体的效果变差。</li>
+</ul>
+</li>
+</ul>
+<p><img src="https://fastly.jsdelivr.net/gh/houdezaiwu2019/image-bed/%E5%9B%BE%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C/image-20220730204754783.png" alt=""></p>
+<ul>
+<li>于是GCN设计了低通滤波器，仅仅保留前两项，在实际的实验效果是很好的。<ul>
+<li>谱CNN其本质上是一个单元的过滤器。</li>
+<li>ChebyNet是一个高通的过滤器，阻止低频信号的通过。</li>
+<li>GCN的一种低通滤波器，阻止高频信号的通过。</li>
+</ul>
+</li>
+</ul>
+<p><img src="https://fastly.jsdelivr.net/gh/houdezaiwu2019/image-bed/%E5%9B%BE%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C/image-20220730204419801.png" alt=""></p>
+<p><img src="https://fastly.jsdelivr.net/gh/houdezaiwu2019/image-bed/%E5%9B%BE%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C/image-20220730204906307.png" alt=""></p>
+<h2 id="Graph-Pooling"><a href="#Graph-Pooling" class="headerlink" title="Graph Pooling"></a><strong>Graph Pooling</strong></h2><p>在神经网络里面不仅仅只有卷积，还有Pooling池化，<strong>也叫下采样</strong>。在图神经网络中也叫<strong>聚合</strong>操作。目前主要的研究方法分为两种，一种是图的粗化，将相似度高的节点进行合并，另一种是节点的选择法，计算节点的重要性指标，将重要性强的节点选出来，来取代这一组节点。</p>
+<p><img src="https://fastly.jsdelivr.net/gh/houdezaiwu2019/image-bed/%E5%9B%BE%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C/image-20220730205935804.png" alt=""></p>
+<ul>
+<li>原先的方法是先对图上的节点进行一次聚类，然后将类型的节点进行聚合操作。其中聚合的办法包括求最大最小以及求平均等。<strong>于是这个阶段人们乐此不疲的尝试各种图聚类的方法来提高Pooling的效果。</strong></li>
+<li>后来一篇论文Hierarchical graph representation的方法主要是将聚类的部分和聚合部分合二为一，然后进行端对端的学习，<strong>相当于是一种软聚类来学习一种相似性的参数来将表示是否进行聚类</strong>。<strong>于是之前对聚类方法的研究就没了意义。</strong></li>
+</ul>
+<p><img src="https://fastly.jsdelivr.net/gh/houdezaiwu2019/image-bed/%E5%9B%BE%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C/image-20220730211302825.png" alt=""></p>
+<ul>
+<li>具体的操作就是训练一个MLP，将节点的属性特征作为输入值，输出的是一个重要性的参数值。</li>
+<li>比较子图的重要性参数，用参数值最高的节点来表征整个子图，放到原来的图中。</li>
+</ul>
+<p>但是目前这个聚合比较有争议，因为有些任务如节点级别的任务，Image上的像素分类是不需要pooling的，但是如果做的是整个图的分类是需要pooling的。近年来，如化学结构的发现，蛋白质结构的发现，交通流识别等都是图分类的任务，是需要Pooling。</p>
+<h2 id="图神经网络的表达能力"><a href="#图神经网络的表达能力" class="headerlink" title="图神经网络的表达能力"></a><strong>图神经网络的表达能力</strong></h2><h3 id="概述"><a href="#概述" class="headerlink" title="概述"></a><strong>概述</strong></h3><p>Expressive Power of Graph Nerual Networks——图神经网络以外的故事。在表达性方面，确实在一定程度上掀起了一些讨论，本来以为其和卷积神经网络一样可以掀起一次热潮，但是其仅仅掀起了一波论文，因为对其带来改变的领域里面。</p>
+<p>图半监督学习是图网络标准研究的问题，就是一些节点上有内容，一些节点上没有内容，于是通过半监督学习来给没有内容的节点打上标签。在电商和社交网络上有较多的引用，但是在知识图谱上的效果目前还是未知。</p>
+<p><img src="https://fastly.jsdelivr.net/gh/houdezaiwu2019/image-bed/%E5%9B%BE%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C/image-20220730215042526.png" alt=""></p>
+<p>目前，图网络的研究还是基于经验(先验知识)，启发式(瞎想瞎猜)，实验试错(就是运气好试出来)，其实这也会是科研的基本套路，当年神经网络、CNN等也是被人们称为炼金术被人质疑。</p>
+<p>截至目前也没有很好的对表达性的解释，而对于神经网络而言，当年是先研究的他的表达性，先使用单层的神经网络来进行逻辑上符号的解释，什么“或”、“与”、“非”，但是单层无法表示“异或”的逻辑，而将其变成双层之后就可以表达，进而证明了在一定的条件下，<strong>神经网络可以拟合满足一定条件的任何函数</strong>，即神经网络具有很强的表达性，于是就将其作为一种通用的表示器来使用。</p>
+<p><img src="https://fastly.jsdelivr.net/gh/houdezaiwu2019/image-bed/%E5%9B%BE%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C/image-20220730220925441.png" alt=""></p>
+<p>曾经图网络被用做经验性的化学性质预测，就是给定一个分子式和化学分子中每个原子的属性，对应的将是否有毒等标签输入进行训练，预测给定化学分子式来判读其是否有毒。一度在Nature上面发了数篇，引发了一定的争议。还有做地震预测的，证明其表达能力还可以。</p>
+<h3 id="表达能力的定义"><a href="#表达能力的定义" class="headerlink" title="表达能力的定义"></a><strong>表达能力的定义</strong></h3><p>于是很多人就会问，何为表达能力，这里有两种解释。</p>
+<p>第一种就是利用编码能力来表征，通过看网络以表征多少东西，即可以用多少位的二进制编码来表示。eg. 5个bits可以表征32个类别状态。</p>
+<p><img src="https://fastly.jsdelivr.net/gh/houdezaiwu2019/image-bed/%E5%9B%BE%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C/image-20220730221822815.png" alt=""></p>
+<p>另一种就是用近似器的近似能力来进行理解，这里以神经网络为例：</p>
+<ul>
+<li>一层感知机不是一个通用的近似器，他连异或都搞不定。</li>
+<li>多层感知机给我们提供了一个通用的近似器，并且其表征能力是随着层数呈现指数上升的特点，如果增加节点的数目则是呈现线性上升，这也就是为什么深度学习可以这么成功。</li>
+</ul>
+<p><img src="https://fastly.jsdelivr.net/gh/houdezaiwu2019/image-bed/%E5%9B%BE%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C/image-20220730223333546.png" alt=""></p>
+<h3 id="应用"><a href="#应用" class="headerlink" title="应用"></a><strong>应用</strong></h3><p>下图是利用不同层数的GCN进行分类的问题，如果使用单层的GCN是没办法区分上述这么多的节点。</p>
+<p><img src="https://fastly.jsdelivr.net/gh/houdezaiwu2019/image-bed/%E5%9B%BE%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C/image-20220730223519453.png" alt=""></p>
+<p>如果将GCN的层数增加到两层，于是就可以将上述多有的节点进行区分。</p>
+<p><img src="https://fastly.jsdelivr.net/gh/houdezaiwu2019/image-bed/%E5%9B%BE%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C/image-20220730223737719.png" alt=""></p>
+<p>同时存在一种网络，无论你的GCN层数有多深，都是没办法区分所以的节点。</p>
+<p><img src="https://fastly.jsdelivr.net/gh/houdezaiwu2019/image-bed/%E5%9B%BE%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C/image-20220730223935080.png" alt=""></p>
+<p>具体的例子如下图所示，给出的两种结构是不一样的，但是GCN不管怎么做也无法区分上述的两种网络。</p>
+<p>原因是GCN主要刻画的是一个以一个节点为中心展开的树状结构，相当于是用一个树来刻画一个图结构，上述以每个节点展开的树形结构都是相同的。其表达能力是存在上限的。</p>
+<p><img src="https://fastly.jsdelivr.net/gh/houdezaiwu2019/image-bed/%E5%9B%BE%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C/image-20220730224033303.png" alt=""></p>
+<p>下面如何检测两个图是同构的，怎样检测出来？这里使用比较多的方法是WL测试。</p>
+<p><img src="https://fastly.jsdelivr.net/gh/houdezaiwu2019/image-bed/%E5%9B%BE%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C/image-20220730224741769.png" alt=""></p>
+<p>WL测试(同构测试) 主要的方法的步骤为：</p>
+<ul>
+<li>使用TF方法，信息检索里面的一种办法：<ul>
+<li>首先比较的是每个节点的节点值的频次，如第一个图有1个1、3个2、2个6，第二个图2个1、1个2、3个6，于是结构都不需要比九已经判断出两个图不一样，不是同构的。</li>
+<li>之后如果频次相同，就将节点值的旁边标记上各个邻接节点值，然后再次进行比较。</li>
+<li>如果一阶邻居也相同，就比较二阶、三阶等邻居，不断重复下去。</li>
+</ul>
+</li>
+<li>如果不断重复无穷大次还是没有比较出来，于是就是同构，但是如果中间有一次对不上，于是就不同构了。<strong>因此这个测试的主要目的是证伪，不是证实。</strong></li>
+</ul>
+<p><img src="https://fastly.jsdelivr.net/gh/houdezaiwu2019/image-bed/%E5%9B%BE%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C/image-20220731091115661.png" alt=""></p>
+<p>由上面的图可知，WL测试的内核其实是一个树状的结构，其是一个<strong>rooted subtre</strong>e的结构，就是求邻接点求导二阶邻接点就又得到的是自己本身的情况。</p>
+<p>基于这种情况GCN在设计是就没有求一阶邻接点以上的节点，其实不想卷积网络不断增加深度可以是表达能力指数上升，图卷积的随着邻接点的阶数不断升高，其表达存在上限。</p>
+<h3 id="Connection-Between-GNN-and-WL-test"><a href="#Connection-Between-GNN-and-WL-test" class="headerlink" title="Connection Between GNN and WL test"></a><strong>Connection Between GNN and WL test</strong></h3><p>学有余力的同学可以来看一下。</p>
+<p><img src="https://fastly.jsdelivr.net/gh/houdezaiwu2019/image-bed/%E5%9B%BE%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C/image-20220731093232981.png" alt=""></p>
+<p><img src="https://fastly.jsdelivr.net/gh/houdezaiwu2019/image-bed/%E5%9B%BE%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C/image-20220731093409803.png" alt=""></p>
+<p><img src="https://fastly.jsdelivr.net/gh/houdezaiwu2019/image-bed/%E5%9B%BE%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C/image-20220731093611331.png" alt=""></p>
+<ul>
+<li>在论文里又个很重要的概念，即表达能力如何验证，就是看在<strong>训练集</strong>的准确性。</li>
+<li>表达能力强的网络，<strong>在训练集上拟合的效果就是越强</strong>，来一个更复杂的东西就可以拟合的更近。如二次函数的表达能力就超越一次函数，在训练集上拟合的更好。</li>
+<li>随着训练次数的增加，看<strong>训练集</strong>最后的结果拟合的能力能力上限越高，其表达性就越强。</li>
+</ul>
+<p><img src="https://fastly.jsdelivr.net/gh/houdezaiwu2019/image-bed/%E5%9B%BE%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C/image-20220731094818708.png" alt=""></p>
+<p>而整理泛化能力的效果是看的是建立在<strong>测试集test set</strong> 上的结构。<strong>(不是验证集也不是训练集)</strong>。</p>
+<p>对应一些神经网络，其表达能力强，但是现在的优化技术不是很强，导致其train不好，在测试集上的泛化能力很差，即过拟合了，典型的例子就是<strong>全连接神经网络。</strong></p>
+<p>表达能力是网络能力的上限，随着优化理论的深入，训练能力的不算增强，其泛化能力会越来越好，于是就网络的表达能力才是衡量网络能力的最终标准。</p>
+<blockquote>
+<p>科研可以随风起舞，但是不能跟风跑。</p>
+</blockquote>
+<p>这里对表达能力的研究其实就是让我们对GNN的能力有个客观的理论上的理解。</p>
+<p><img src="https://fastly.jsdelivr.net/gh/houdezaiwu2019/image-bed/%E5%9B%BE%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C/image-20220731095942873.png" alt=""></p>
+<ul>
+<li>GNN对于图分类来说，已经被证实是无法做到通用近似器。</li>
+<li>GNN对于节点的分类来说，是可以做到通用的分类器的。对于真实世界的图来说，就算不用节点处的属性特征也是可以通过WL test区分出来的，并做到通用的分类器的。</li>
+</ul>
+<p>对于<strong>特定类型的任务来</strong>说，追求通用的表达能力其实也是不现实的，因为在通用的表达能力上CNN要比GCN高很多，但是对于这种特殊的问题来说，GCN的效果会更好。</p>
+<p><img src="https://fastly.jsdelivr.net/gh/houdezaiwu2019/image-bed/%E5%9B%BE%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C/image-20220731101340289.png" alt=""></p>
+<blockquote>
+<p>对于比较卷的红海来说，要思考是否要继续内卷，自己的优势在能力，什么时候全身而退。</p>
+</blockquote>
+<ul>
+<li>我们真正需要的是，通过相似的对象，映射处一个相似的表达，方便下游任务的图神经网络，如图上的预训练、对比学习、自监督等。</li>
+<li>有人可能会问，不同的图之间可否实现迁移学习？从工程师的角度来看，就是二话不说直接GPU去试试，一般情况是又效果的额，但是效果不一定好，因为毕竟图结构相差过大的话，迁移过去一样不是很大。</li>
+</ul>
+<p>图神经网络的发展其实近期也走到了尾声，这五年是蓬勃发展的时期。如果你是搞理论的，很不幸现在肯就剩下几个难啃的骨头问题了，但是如果你是搞应用的，那么现在才是刚刚开始，未来可期。</p>
+</div><div class="article-licensing box"><div class="licensing-title"><p>图神经网络——中科院课程</p><p><a href="http://example.com/2022/08/26/图神经网络/图神经网络——中科院课程/">http://example.com/2022/08/26/图神经网络/图神经网络——中科院课程/</a></p></div><div class="licensing-meta level is-mobile"><div class="level-left"><div class="level-item is-narrow"><div><h6>作者</h6><p>czt</p></div></div><div class="level-item is-narrow"><div><h6>发布于</h6><p>2022-08-26</p></div></div><div class="level-item is-narrow"><div><h6>更新于</h6><p>2022-08-26</p></div></div><div class="level-item is-narrow"><div><h6>许可协议</h6><p><a class="icons" rel="noopener" target="_blank" title="Creative Commons" href="https://creativecommons.org/"><i class="icon fab fa-creative-commons"></i></a><a class="icons" rel="noopener" target="_blank" title="Attribution" href="https://creativecommons.org/licenses/by/4.0/"><i class="icon fab fa-creative-commons-by"></i></a><a class="icons" rel="noopener" target="_blank" title="Noncommercial" href="https://creativecommons.org/licenses/by-nc/4.0/"><i class="icon fab fa-creative-commons-nc"></i></a></p></div></div></div></div></div><div class="article-tags is-size-7 mb-4"><span class="mr-2">#</span><a class="link-muted mr-2" rel="tag" href="/tags/%E5%9B%BE%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C/">图神经网络</a><a class="link-muted mr-2" rel="tag" href="/tags/Graph/">Graph</a><a class="link-muted mr-2" rel="tag" href="/tags/Neural-Networks/">Neural Networks</a></div><!--!--></article></div><!--!--><nav class="post-navigation mt-4 level is-mobile"><div class="level-start"><a class="article-nav-prev level level-item link-muted" href="/2022/08/26/%E6%9C%89%E9%99%90%E5%85%83%E6%96%B9%E6%B3%95/%E6%9C%89%E9%99%90%E5%85%83%E5%88%86%E6%9E%90%E4%B8%8E%E5%BA%94%E7%94%A8%E2%80%94%E2%80%94%E7%90%86%E8%AE%BA%E9%83%A8%E5%88%86/"><i class="level-item fas fa-chevron-left"></i><span class="level-item">有限元分析与应用——理论部分</span></a></div><div class="level-end"><a class="article-nav-next level level-item link-muted" href="/2022/08/26/%E5%9B%BE%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C/%E5%9B%BE%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C%E2%80%94%E2%80%94%E4%BA%BA%E5%A4%A7%E8%AF%BE%E7%A8%8B/"><span class="level-item">图神经网络——人大课程</span><i class="level-item fas fa-chevron-right"></i></a></div></nav><!--!--></div><div class="column column-left is-4-tablet is-4-desktop is-3-widescreen  order-1 is-sticky"><div class="card widget" data-type="profile"><div class="card-content"><nav class="level"><div class="level-item has-text-centered flex-shrink-1"><div><figure class="image is-128x128 mx-auto mb-2"><img class="avatar" src="https://cdn.jsdelivr.net/gh/houdezaiwu2019/image-bed/hexoimg/202201222202112.jpg" alt="厚德载物"></figure><p class="title is-size-4 is-block" style="line-height:inherit;">厚德载物</p><p class="is-size-6 is-block">实事求是，敢为人先</p><p class="is-size-6 is-flex justify-content-center"><i class="fas fa-map-marker-alt mr-1"></i><span>中国 湖北 武汉</span></p></div></div></nav><nav class="level is-mobile"><div class="level-item has-text-centered is-marginless"><div><p class="heading">文章</p><a href="/archives"><p class="title">98</p></a></div></div><div class="level-item has-text-centered is-marginless"><div><p class="heading">分类</p><a href="/categories"><p class="title">19</p></a></div></div><div class="level-item has-text-centered is-marginless"><div><p class="heading">标签</p><a href="/tags"><p class="title">37</p></a></div></div></nav><div class="level"><a class="level-item button is-primary is-rounded" href="https://monumental-tarsier-a544f3.netlify.app" target="_blank" rel="noopener">关注我</a></div><div class="level is-mobile is-multiline"><a class="level-item button is-transparent is-marginless" target="_blank" rel="noopener" title="Github" href="https://github.com/ppoffice"><i class="fab fa-github"></i></a><a class="level-item button is-transparent is-marginless" target="_blank" rel="noopener" title="Facebook" href="https://facebook.com"><i class="fab fa-facebook"></i></a><a class="level-item button is-transparent is-marginless" target="_blank" rel="noopener" title="Twitter" href="https://twitter.com"><i class="fab fa-twitter"></i></a><a class="level-item button is-transparent is-marginless" target="_blank" rel="noopener" title="Dribbble" href="https://dribbble.com"><i class="fab fa-dribbble"></i></a><a class="level-item button is-transparent is-marginless" target="_blank" rel="noopener" title="RSS" href="/"><i class="fas fa-rss"></i></a></div></div></div><div class="card widget" data-type="links"><div class="card-content"><div class="menu"><h3 class="menu-label">链接</h3><ul class="menu-list"><li><a class="level is-mobile" href="https://paperswithcode.com/" target="_blank" rel="noopener"><span class="level-left"><span class="level-item">paperwithcode</span></span><span class="level-right"><span class="level-item tag">paperswithcode.com</span></span></a></li><li><a class="level is-mobile" href="https://scholar.google.com.hk/?hl=zh-CN" target="_blank" rel="noopener"><span class="level-left"><span class="level-item">google_scholar</span></span><span class="level-right"><span class="level-item tag">scholar.google.com.hk</span></span></a></li><li><a class="level is-mobile" href="https://arxiv.org/" target="_blank" rel="noopener"><span class="level-left"><span class="level-item">arxiv</span></span><span class="level-right"><span class="level-item tag">arxiv.org</span></span></a></li><li><a class="level is-mobile" href="https://leetcode-cn.com/problemset/algorithms/" target="_blank" rel="noopener"><span class="level-left"><span class="level-item">leetcode</span></span><span class="level-right"><span class="level-item tag">leetcode-cn.com</span></span></a></li><li><a class="level is-mobile" href="https://mathf.itewqq.cn/" target="_blank" rel="noopener"><span class="level-left"><span class="level-item">mathf</span></span><span class="level-right"><span class="level-item tag">mathf.itewqq.cn</span></span></a></li><li><a class="level is-mobile" href="https://qwerty.kaiyi.cool/" target="_blank" rel="noopener"><span class="level-left"><span class="level-item">qwerty</span></span><span class="level-right"><span class="level-item tag">qwerty.kaiyi.cool</span></span></a></li><li><a class="level is-mobile" href="https://www.overleaf.com/" target="_blank" rel="noopener"><span class="level-left"><span class="level-item">overleaf</span></span><span class="level-right"><span class="level-item tag">www.overleaf.com</span></span></a></li><li><a class="level is-mobile" href="http://www.pipioj.online/" target="_blank" rel="noopener"><span class="level-left"><span class="level-item">pipioj</span></span><span class="level-right"><span class="level-item tag">www.pipioj.online</span></span></a></li><li><a class="level is-mobile" href="https://monumental-tarsier-a544f3.netlify.app" target="_blank" rel="noopener"><span class="level-left"><span class="level-item">hugocvofczt</span></span><span class="level-right"><span class="level-item tag">monumental-tarsier-a544f3.netlify.app</span></span></a></li><li><a class="level is-mobile" href="https://app.netlify.com/sites/monumental-tarsier-a544f3/overview" target="_blank" rel="noopener"><span class="level-left"><span class="level-item">netlify</span></span><span class="level-right"><span class="level-item tag">app.netlify.com</span></span></a></li><li><a class="level is-mobile" href="https://hexo.io" target="_blank" rel="noopener"><span class="level-left"><span class="level-item">Hexo</span></span><span class="level-right"><span class="level-item tag">hexo.io</span></span></a></li><li><a class="level is-mobile" href="https://bulma.io" target="_blank" rel="noopener"><span class="level-left"><span class="level-item">Bulma</span></span><span class="level-right"><span class="level-item tag">bulma.io</span></span></a></li></ul></div></div></div><div class="card widget" data-type="archives"><div class="card-content"><div class="menu"><h3 class="menu-label">归档</h3><ul class="menu-list"><li><a class="level is-mobile" href="/archives/2022/08/"><span class="level-start"><span class="level-item">八月 2022</span></span><span class="level-end"><span class="level-item tag">6</span></span></a></li><li><a class="level is-mobile" href="/archives/2022/07/"><span class="level-start"><span class="level-item">七月 2022</span></span><span class="level-end"><span class="level-item tag">9</span></span></a></li><li><a class="level is-mobile" href="/archives/2022/06/"><span class="level-start"><span class="level-item">六月 2022</span></span><span class="level-end"><span class="level-item tag">16</span></span></a></li><li><a class="level is-mobile" href="/archives/2022/05/"><span class="level-start"><span class="level-item">五月 2022</span></span><span class="level-end"><span class="level-item tag">1</span></span></a></li><li><a class="level is-mobile" href="/archives/2022/04/"><span class="level-start"><span class="level-item">四月 2022</span></span><span class="level-end"><span class="level-item tag">9</span></span></a></li><li><a class="level is-mobile" href="/archives/2022/03/"><span class="level-start"><span class="level-item">三月 2022</span></span><span class="level-end"><span class="level-item tag">25</span></span></a></li><li><a class="level is-mobile" href="/archives/2022/02/"><span class="level-start"><span class="level-item">二月 2022</span></span><span class="level-end"><span class="level-item tag">21</span></span></a></li><li><a class="level is-mobile" href="/archives/2022/01/"><span class="level-start"><span class="level-item">一月 2022</span></span><span class="level-end"><span class="level-item tag">11</span></span></a></li></ul></div></div></div><div class="card widget" data-type="tags"><div class="card-content"><div class="menu"><h3 class="menu-label">标签</h3><div class="field is-grouped is-grouped-multiline"><div class="control"><a class="tags has-addons" href="/tags/Computer-Vision/"><span class="tag">Computer Vision</span><span class="tag">21</span></a></div><div class="control"><a class="tags has-addons" href="/tags/Deep-learning/"><span class="tag">Deep learning</span><span class="tag">1</span></a></div><div class="control"><a class="tags has-addons" href="/tags/Finite-Element-Analysis/"><span class="tag">Finite Element Analysis</span><span class="tag">2</span></a></div><div class="control"><a class="tags has-addons" href="/tags/GAN%E5%AE%9E%E6%88%98/"><span class="tag">GAN实战</span><span class="tag">6</span></a></div><div class="control"><a class="tags has-addons" href="/tags/Generative-Adversarial-Networks/"><span class="tag">Generative Adversarial Networks</span><span class="tag">6</span></a></div><div class="control"><a class="tags has-addons" href="/tags/Graph/"><span class="tag">Graph</span><span class="tag">5</span></a></div><div class="control"><a class="tags has-addons" href="/tags/IEEE%E6%8A%95%E7%A8%BF/"><span class="tag">IEEE投稿</span><span class="tag">1</span></a></div><div class="control"><a class="tags has-addons" href="/tags/Latex/"><span class="tag">Latex</span><span class="tag">4</span></a></div><div class="control"><a class="tags has-addons" href="/tags/Machine-Learning/"><span class="tag">Machine Learning</span><span class="tag">3</span></a></div><div class="control"><a class="tags has-addons" href="/tags/Machine-learning/"><span class="tag">Machine learning</span><span class="tag">1</span></a></div><div class="control"><a class="tags has-addons" href="/tags/Markdown/"><span class="tag">Markdown</span><span class="tag">1</span></a></div><div class="control"><a class="tags has-addons" href="/tags/NLP/"><span class="tag">NLP</span><span class="tag">3</span></a></div><div class="control"><a class="tags has-addons" href="/tags/Neural-Networks/"><span class="tag">Neural Networks</span><span class="tag">5</span></a></div><div class="control"><a class="tags has-addons" href="/tags/Pytorch/"><span class="tag">Pytorch</span><span class="tag">9</span></a></div><div class="control"><a class="tags has-addons" href="/tags/SLAM/"><span class="tag">SLAM</span><span class="tag">21</span></a></div><div class="control"><a class="tags has-addons" href="/tags/Transformer/"><span class="tag">Transformer</span><span class="tag">3</span></a></div><div class="control"><a class="tags has-addons" href="/tags/Typora/"><span class="tag">Typora</span><span class="tag">1</span></a></div><div class="control"><a class="tags has-addons" href="/tags/auto-encoder/"><span class="tag">auto-encoder</span><span class="tag">4</span></a></div><div class="control"><a class="tags has-addons" href="/tags/c/"><span class="tag">c++</span><span class="tag">21</span></a></div><div class="control"><a class="tags has-addons" href="/tags/control-theory/"><span class="tag">control theory</span><span class="tag">2</span></a></div><div class="control"><a class="tags has-addons" href="/tags/latex/"><span class="tag">latex</span><span class="tag">1</span></a></div><div class="control"><a class="tags has-addons" href="/tags/object-detection/"><span class="tag">object detection</span><span class="tag">3</span></a></div><div class="control"><a class="tags has-addons" href="/tags/opencv/"><span class="tag">opencv</span><span class="tag">3</span></a></div><div class="control"><a class="tags has-addons" href="/tags/point-cloud/"><span class="tag">point cloud</span><span class="tag">1</span></a></div><div class="control"><a class="tags has-addons" href="/tags/python/"><span class="tag">python</span><span class="tag">3</span></a></div><div class="control"><a class="tags has-addons" href="/tags/pytorch/"><span class="tag">pytorch</span><span class="tag">20</span></a></div><div class="control"><a class="tags has-addons" href="/tags/%E5%9B%BE%E5%83%8F%E5%88%86%E7%B1%BB/"><span class="tag">图像分类</span><span class="tag">6</span></a></div><div class="control"><a class="tags has-addons" href="/tags/%E5%9B%BE%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C/"><span class="tag">图神经网络</span><span class="tag">5</span></a></div><div class="control"><a class="tags has-addons" href="/tags/%E6%8E%A7%E5%88%B6%E7%90%86%E8%AE%BA/"><span class="tag">控制理论</span><span class="tag">2</span></a></div><div class="control"><a class="tags has-addons" href="/tags/%E6%97%A0%E7%9B%91%E7%9D%A3%E5%AD%A6%E4%B9%A0/"><span class="tag">无监督学习</span><span class="tag">4</span></a></div><div class="control"><a class="tags has-addons" href="/tags/%E6%9C%BA%E6%A2%B0%E6%8C%AF%E5%8A%A8/"><span class="tag">机械振动</span><span class="tag">20</span></a></div><div class="control"><a class="tags has-addons" href="/tags/%E7%94%9F%E6%88%90%E6%A8%A1%E5%9E%8B/"><span class="tag">生成模型</span><span class="tag">4</span></a></div><div class="control"><a class="tags has-addons" href="/tags/%E7%9B%AE%E6%A0%87%E6%A3%80%E6%B5%8B/"><span class="tag">目标检测</span><span class="tag">2</span></a></div><div class="control"><a class="tags has-addons" href="/tags/%E7%A7%91%E7%A0%94/"><span class="tag">科研</span><span class="tag">1</span></a></div><div class="control"><a class="tags has-addons" href="/tags/%E8%87%AA%E6%B3%A8%E6%84%8F%E5%8A%9B%E6%9C%BA%E5%88%B6/"><span class="tag">自注意力机制</span><span class="tag">3</span></a></div><div class="control"><a class="tags has-addons" href="/tags/%E8%AE%BA%E6%96%87%E5%86%99%E4%BD%9C/"><span class="tag">论文写作</span><span class="tag">1</span></a></div><div class="control"><a class="tags has-addons" href="/tags/%E8%AF%AD%E4%B9%89%E5%88%86%E5%89%B2/"><span class="tag">语义分割</span><span class="tag">6</span></a></div></div></div></div></div><div class="column-right-shadow is-hidden-widescreen is-sticky"></div></div><div class="column column-right is-4-tablet is-4-desktop is-3-widescreen is-hidden-touch is-hidden-desktop-only order-3 is-sticky"><div class="card widget" id="toc" data-type="toc"><div class="card-content"><div class="menu"><h3 class="menu-label">目录</h3><ul class="menu-list"><li><a class="level is-mobile" href="#CNN基本理论"><span class="level-left"><span class="level-item">1</span><span class="level-item">CNN基本理论</span></span></a><ul class="menu-list"><li><a class="level is-mobile" href="#CNN的产生和发展"><span class="level-left"><span class="level-item">1.1</span><span class="level-item">CNN的产生和发展</span></span></a></li><li><a class="level is-mobile" href="#从CNN到GNN"><span class="level-left"><span class="level-item">1.2</span><span class="level-item">从CNN到GNN</span></span></a></li><li><a class="level is-mobile" href="#卷积的定义"><span class="level-left"><span class="level-item">1.3</span><span class="level-item">卷积的定义</span></span></a></li></ul></li><li><a class="level is-mobile" href="#图卷积GNN的基本理论"><span class="level-left"><span class="level-item">2</span><span class="level-item">图卷积GNN的基本理论</span></span></a><ul class="menu-list"><li><a class="level is-mobile" href="#GNN的定义"><span class="level-left"><span class="level-item">2.1</span><span class="level-item">GNN的定义</span></span></a></li><li><a class="level is-mobile" href="#谱方法"><span class="level-left"><span class="level-item">2.2</span><span class="level-item">谱方法</span></span></a><ul class="menu-list"><li><a class="level is-mobile" href="#基本定义"><span class="level-left"><span class="level-item">2.2.1</span><span class="level-item">基本定义</span></span></a></li><li><a class="level is-mobile" href="#图傅里叶变换"><span class="level-left"><span class="level-item">2.2.2</span><span class="level-item">图傅里叶变换</span></span></a></li><li><a class="level is-mobile" href="#谱方法缺点"><span class="level-left"><span class="level-item">2.2.3</span><span class="level-item">谱方法缺点</span></span></a></li><li><a class="level is-mobile" href="#对谱方法的改进ChebyNet"><span class="level-left"><span class="level-item">2.2.4</span><span class="level-item">对谱方法的改进ChebyNet</span></span></a></li><li><a class="level is-mobile" href="#谱方法进一步的改进"><span class="level-left"><span class="level-item">2.2.5</span><span class="level-item">谱方法进一步的改进</span></span></a></li></ul></li><li><a class="level is-mobile" href="#空间方法"><span class="level-left"><span class="level-item">2.3</span><span class="level-item">空间方法</span></span></a><ul class="menu-list"><li><a class="level is-mobile" href="#基于CNN的空间方法"><span class="level-left"><span class="level-item">2.3.1</span><span class="level-item">基于CNN的空间方法</span></span></a></li><li><a class="level is-mobile" href="#进一步的改进——Graph-SAGE"><span class="level-left"><span class="level-item">2.3.2</span><span class="level-item">进一步的改进——Graph SAGE</span></span></a></li><li><a class="level is-mobile" href="#图卷积神经网络——GCN的提出"><span class="level-left"><span class="level-item">2.3.3</span><span class="level-item">图卷积神经网络——GCN的提出</span></span></a></li><li><a class="level is-mobile" href="#GCN的进一步改进——GAT"><span class="level-left"><span class="level-item">2.3.4</span><span class="level-item">GCN的进一步改进——GAT</span></span></a></li><li><a class="level is-mobile" href="#另一种改进——MoNet"><span class="level-left"><span class="level-item">2.3.5</span><span class="level-item">另一种改进——MoNet</span></span></a></li></ul></li><li><a class="level is-mobile" href="#谱方法和空间方法的关系"><span class="level-left"><span class="level-item">2.4</span><span class="level-item">谱方法和空间方法的关系</span></span></a></li></ul></li><li><a class="level is-mobile" href="#Graph-Pooling"><span class="level-left"><span class="level-item">3</span><span class="level-item">Graph Pooling</span></span></a></li><li><a class="level is-mobile" href="#图神经网络的表达能力"><span class="level-left"><span class="level-item">4</span><span class="level-item">图神经网络的表达能力</span></span></a><ul class="menu-list"><li><a class="level is-mobile" href="#概述"><span class="level-left"><span class="level-item">4.1</span><span class="level-item">概述</span></span></a></li><li><a class="level is-mobile" href="#表达能力的定义"><span class="level-left"><span class="level-item">4.2</span><span class="level-item">表达能力的定义</span></span></a></li><li><a class="level is-mobile" href="#应用"><span class="level-left"><span class="level-item">4.3</span><span class="level-item">应用</span></span></a></li><li><a class="level is-mobile" href="#Connection-Between-GNN-and-WL-test"><span class="level-left"><span class="level-item">4.4</span><span class="level-item">Connection Between GNN and WL test</span></span></a></li></ul></li></ul></div></div><script src="/js/toc.js" defer></script></div><div class="card widget" data-type="categories"><div class="card-content"><div class="menu"><h3 class="menu-label">分类</h3><ul class="menu-list"><li><a class="level is-mobile" href="/categories/Finite-Element-Analysis/"><span class="level-start"><span class="level-item">Finite Element Analysis</span></span><span class="level-end"><span class="level-item tag">2</span></span></a></li><li><a class="level is-mobile" href="/categories/Generative-Adversarial-Networks/"><span class="level-start"><span class="level-item">Generative Adversarial Networks</span></span><span class="level-end"><span class="level-item tag">6</span></span></a></li><li><a class="level is-mobile" href="/categories/Latex/"><span class="level-start"><span class="level-item">Latex</span></span><span class="level-end"><span class="level-item tag">4</span></span></a></li><li><a class="level is-mobile" href="/categories/Point-Cloud/"><span class="level-start"><span class="level-item">Point Cloud</span></span><span class="level-end"><span class="level-item tag">1</span></span></a></li><li><a class="level is-mobile" href="/categories/PyTorch%E6%95%99%E7%A8%8B%E4%B8%8E%E6%BA%90%E7%A0%81%E8%AE%B2%E8%A7%A3/"><span class="level-start"><span class="level-item">PyTorch教程与源码讲解</span></span><span class="level-end"><span class="level-item tag">6</span></span></a></li><li><a class="level is-mobile" href="/categories/SLAM/"><span class="level-start"><span class="level-item">SLAM</span></span><span class="level-end"><span class="level-item tag">21</span></span></a></li><li><a class="level is-mobile" href="/categories/Typora/"><span class="level-start"><span class="level-item">Typora</span></span><span class="level-end"><span class="level-item tag">1</span></span></a></li><li><a class="level is-mobile" href="/categories/auto-encoder/"><span class="level-start"><span class="level-item">auto-encoder</span></span><span class="level-end"><span class="level-item tag">4</span></span></a></li><li><a class="level is-mobile" href="/categories/opencv/"><span class="level-start"><span class="level-item">opencv</span></span><span class="level-end"><span class="level-item tag">3</span></span></a></li><li><a class="level is-mobile" href="/categories/%E5%9B%BE%E5%83%8F%E5%88%86%E7%B1%BB%E7%BD%91%E7%BB%9C%E5%8F%8APytorch%E5%AE%9E%E7%8E%B0/"><span class="level-start"><span class="level-item">图像分类网络及Pytorch实现</span></span><span class="level-end"><span class="level-item tag">6</span></span></a></li><li><a class="level is-mobile" href="/categories/%E5%9B%BE%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C/"><span class="level-start"><span class="level-item">图神经网络</span></span><span class="level-end"><span class="level-item tag">5</span></span></a></li><li><a class="level is-mobile" href="/categories/%E6%8C%AF%E5%8A%A8%E5%8A%9B%E5%AD%A6/"><span class="level-start"><span class="level-item">振动力学</span></span><span class="level-end"><span class="level-item tag">20</span></span></a></li><li><a class="level is-mobile" href="/categories/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E5%9F%BA%E7%9F%B3/"><span class="level-start"><span class="level-item">机器学习基石</span></span><span class="level-end"><span class="level-item tag">3</span></span></a></li><li><a class="level is-mobile" href="/categories/%E7%8E%B0%E4%BB%A3%E6%8E%A7%E5%88%B6%E7%90%86%E8%AE%BA/"><span class="level-start"><span class="level-item">现代控制理论</span></span><span class="level-end"><span class="level-item tag">2</span></span></a></li><li><a class="level is-mobile" href="/categories/%E7%9B%AE%E6%A0%87%E6%A3%80%E6%B5%8B%E4%B8%8Epytorch%E5%AE%9E%E7%8E%B0/"><span class="level-start"><span class="level-item">目标检测与pytorch实现</span></span><span class="level-end"><span class="level-item tag">2</span></span></a></li><li><a class="level is-mobile" href="/categories/%E7%A7%91%E7%A0%94%E5%85%A5%E9%97%A8%E7%AC%94%E8%AE%B0/"><span class="level-start"><span class="level-item">科研入门笔记</span></span><span class="level-end"><span class="level-item tag">1</span></span></a></li><li><a class="level is-mobile" href="/categories/%E8%87%AA%E6%B3%A8%E6%84%8F%E5%8A%9B%E6%9C%BA%E5%88%B6%E5%92%8CTransformer/"><span class="level-start"><span class="level-item">自注意力机制和Transformer</span></span><span class="level-end"><span class="level-item tag">3</span></span></a></li><li><a class="level is-mobile" href="/categories/%E8%AF%AD%E4%B9%89%E5%88%86%E5%89%B2%E5%8F%8APytorch%E5%AE%9E%E7%8E%B0/"><span class="level-start"><span class="level-item">语义分割及Pytorch实现</span></span><span class="level-end"><span class="level-item tag">6</span></span></a></li><li><a class="level is-mobile" href="/categories/%E9%AB%98%E7%BA%A7%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/"><span class="level-start"><span class="level-item">高级机器学习</span></span><span class="level-end"><span class="level-item tag">1</span></span></a></li></ul></div></div></div><div class="card widget" data-type="recent-posts"><div class="card-content"><h3 class="menu-label">最新文章</h3><article class="media"><figure class="media-left"><a class="image" href="/2022/08/26/%E7%8E%B0%E4%BB%A3%E6%8E%A7%E5%88%B6%E7%90%86%E8%AE%BA/%E7%AC%AC1%E7%AB%A0-%E6%8E%A7%E5%88%B6%E7%B3%BB%E7%BB%9F%E7%8A%B6%E6%80%81%E7%A9%BA%E9%97%B4%E8%A1%A8%E8%BE%BE%E5%BC%8F/"><img src="https://cdn.jsdelivr.net/gh/houdezaiwu2019/image-bed/control/202202081546323.png" alt="第1章 控制系统状态空间表达式"></a></figure><div class="media-content"><p class="date"><time dateTime="2022-08-26T12:48:35.000Z">2022-08-26</time></p><p class="title"><a href="/2022/08/26/%E7%8E%B0%E4%BB%A3%E6%8E%A7%E5%88%B6%E7%90%86%E8%AE%BA/%E7%AC%AC1%E7%AB%A0-%E6%8E%A7%E5%88%B6%E7%B3%BB%E7%BB%9F%E7%8A%B6%E6%80%81%E7%A9%BA%E9%97%B4%E8%A1%A8%E8%BE%BE%E5%BC%8F/">第1章 控制系统状态空间表达式</a></p><p class="categories"><a href="/categories/%E7%8E%B0%E4%BB%A3%E6%8E%A7%E5%88%B6%E7%90%86%E8%AE%BA/">现代控制理论</a></p></div></article><article class="media"><figure class="media-left"><a class="image" href="/2022/08/26/%E6%9C%89%E9%99%90%E5%85%83%E6%96%B9%E6%B3%95/%E6%9C%89%E9%99%90%E5%85%83%E5%88%86%E6%9E%90%E4%B8%8E%E5%BA%94%E7%94%A8%E2%80%94%E2%80%94%E5%BA%94%E7%94%A8%E9%83%A8%E5%88%86/"><img src="https://fastly.jsdelivr.net/gh/houdezaiwu2019/image-bed/pointnet/aaa.jpg" alt="有限元分析与应用——应用部分"></a></figure><div class="media-content"><p class="date"><time dateTime="2022-08-26T10:37:41.000Z">2022-08-26</time></p><p class="title"><a href="/2022/08/26/%E6%9C%89%E9%99%90%E5%85%83%E6%96%B9%E6%B3%95/%E6%9C%89%E9%99%90%E5%85%83%E5%88%86%E6%9E%90%E4%B8%8E%E5%BA%94%E7%94%A8%E2%80%94%E2%80%94%E5%BA%94%E7%94%A8%E9%83%A8%E5%88%86/">有限元分析与应用——应用部分</a></p><p class="categories"><a href="/categories/Finite-Element-Analysis/">Finite Element Analysis</a></p></div></article><article class="media"><figure class="media-left"><a class="image" href="/2022/08/26/%E6%9C%89%E9%99%90%E5%85%83%E6%96%B9%E6%B3%95/%E6%9C%89%E9%99%90%E5%85%83%E5%88%86%E6%9E%90%E4%B8%8E%E5%BA%94%E7%94%A8%E2%80%94%E2%80%94%E7%90%86%E8%AE%BA%E9%83%A8%E5%88%86/"><img src="https://fastly.jsdelivr.net/gh/houdezaiwu2019/image-bed/pointnet/aaa.jpg" alt="有限元分析与应用——理论部分"></a></figure><div class="media-content"><p class="date"><time dateTime="2022-08-26T10:37:16.000Z">2022-08-26</time></p><p class="title"><a href="/2022/08/26/%E6%9C%89%E9%99%90%E5%85%83%E6%96%B9%E6%B3%95/%E6%9C%89%E9%99%90%E5%85%83%E5%88%86%E6%9E%90%E4%B8%8E%E5%BA%94%E7%94%A8%E2%80%94%E2%80%94%E7%90%86%E8%AE%BA%E9%83%A8%E5%88%86/">有限元分析与应用——理论部分</a></p><p class="categories"><a href="/categories/Finite-Element-Analysis/">Finite Element Analysis</a></p></div></article><article class="media"><figure class="media-left"><a class="image" href="/2022/08/26/%E5%9B%BE%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C/%E5%9B%BE%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C%E2%80%94%E2%80%94%E4%B8%AD%E7%A7%91%E9%99%A2%E8%AF%BE%E7%A8%8B/"><img src="https://cdn.jsdelivr.net/gh/houdezaiwu2019/image-bed/%E5%9B%BE%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C/202203300021761.png" alt="图神经网络——中科院课程"></a></figure><div class="media-content"><p class="date"><time dateTime="2022-08-26T10:36:02.000Z">2022-08-26</time></p><p class="title"><a href="/2022/08/26/%E5%9B%BE%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C/%E5%9B%BE%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C%E2%80%94%E2%80%94%E4%B8%AD%E7%A7%91%E9%99%A2%E8%AF%BE%E7%A8%8B/">图神经网络——中科院课程</a></p><p class="categories"><a href="/categories/%E5%9B%BE%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C/">图神经网络</a></p></div></article><article class="media"><figure class="media-left"><a class="image" href="/2022/08/26/%E5%9B%BE%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C/%E5%9B%BE%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C%E2%80%94%E2%80%94%E4%BA%BA%E5%A4%A7%E8%AF%BE%E7%A8%8B/"><img src="https://cdn.jsdelivr.net/gh/houdezaiwu2019/image-bed/%E5%9B%BE%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C/202203300021761.png" alt="图神经网络——人大课程"></a></figure><div class="media-content"><p class="date"><time dateTime="2022-08-26T10:35:21.000Z">2022-08-26</time></p><p class="title"><a href="/2022/08/26/%E5%9B%BE%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C/%E5%9B%BE%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C%E2%80%94%E2%80%94%E4%BA%BA%E5%A4%A7%E8%AF%BE%E7%A8%8B/">图神经网络——人大课程</a></p><p class="categories"><a href="/categories/%E5%9B%BE%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C/">图神经网络</a></p></div></article></div></div></div></div></div></section><footer class="footer"><div class="container"><div class="level"><div class="level-start"><a class="footer-logo is-block mb-2" href="/"><img src="/img/logo.svg" alt="houdezaiwu&#039;s blog" height="28"></a><p class="is-size-7"><span>&copy; 2022 czt</span>  Powered by <a href="https://hexo.io/" target="_blank" rel="noopener">Hexo</a> &amp; <a href="https://github.com/ppoffice/hexo-theme-icarus" target="_blank" rel="noopener">Icarus</a></p></div><div class="level-end"><div class="field has-addons"><p class="control"><a class="button is-transparent is-large" target="_blank" rel="noopener" title="Creative Commons" href="https://creativecommons.org/"><i class="fab fa-creative-commons"></i></a></p><p class="control"><a class="button is-transparent is-large" target="_blank" rel="noopener" title="Attribution 4.0 International" href="https://creativecommons.org/licenses/by/4.0/"><i class="fab fa-creative-commons-by"></i></a></p><p class="control"><a class="button is-transparent is-large" target="_blank" rel="noopener" title="Download on GitHub" href="https://github.com/ppoffice/hexo-theme-icarus"><i class="fab fa-github"></i></a></p></div></div></div></div></footer><script src="https://cdn.jsdelivr.net/npm/jquery@3.3.1/dist/jquery.min.js"></script><script src="https://cdn.jsdelivr.net/npm/moment@2.22.2/min/moment-with-locales.min.js"></script><script src="https://cdn.jsdelivr.net/npm/clipboard@2.0.4/dist/clipboard.min.js" defer></script><script>moment.locale("zh-CN");</script><script>var IcarusThemeSettings = {
+            article: {
+                highlight: {
+                    clipboard: true,
+                    fold: 'unfolded'
+                }
+            }
+        };</script><script src="/js/column.js"></script><script src="/js/animation.js"></script><a id="back-to-top" title="回到顶端" href="javascript:;"><i class="fas fa-chevron-up"></i></a><script src="/js/back_to_top.js" defer></script><!--!--><!--!--><!--!--><script src="https://cdn.jsdelivr.net/npm/cookieconsent@3.1.1/build/cookieconsent.min.js" defer></script><script>window.addEventListener("load", () => {
+      window.cookieconsent.initialise({
+        type: "info",
+        theme: "edgeless",
+        static: false,
+        position: "bottom-left",
+        content: {
+          message: "此网站使用Cookie来改善您的体验。",
+          dismiss: "知道了！",
+          allow: "允许使用Cookie",
+          deny: "拒绝",
+          link: "了解更多",
+          policy: "Cookie政策",
+          href: "https://www.cookiesandyou.com/",
+        },
+        palette: {
+          popup: {
+            background: "#edeff5",
+            text: "#838391"
+          },
+          button: {
+            background: "#4b81e8"
+          },
+        },
+      });
+    });</script><script src="https://cdn.jsdelivr.net/npm/lightgallery@1.10.0/dist/js/lightgallery.min.js" defer></script><script src="https://cdn.jsdelivr.net/npm/justifiedGallery@3.8.1/dist/js/jquery.justifiedGallery.min.js" defer></script><script>window.addEventListener("load", () => {
+            if (typeof $.fn.lightGallery === 'function') {
+                $('.article').lightGallery({ selector: '.gallery-item' });
+            }
+            if (typeof $.fn.justifiedGallery === 'function') {
+                if ($('.justified-gallery > p > .gallery-item').length) {
+                    $('.justified-gallery > p > .gallery-item').unwrap();
+                }
+                $('.justified-gallery').justifiedGallery();
+            }
+        });</script><!--!--><!--!--><script type="text/x-mathjax-config">MathJax.Hub.Config({
+            'HTML-CSS': {
+                matchFontHeight: false
+            },
+            SVG: {
+                matchFontHeight: false
+            },
+            CommonHTML: {
+                matchFontHeight: false
+            },
+            tex2jax: {
+                inlineMath: [
+                    ['$','$'],
+                    ['\\(','\\)']
+                ]
+            }
+        });</script><script src="https://cdn.jsdelivr.net/npm/mathjax@2.7.9/unpacked/MathJax.js?config=TeX-MML-AM_CHTML" defer></script><div id="outdated"><h6>Your browser is out-of-date!</h6><p>Update your browser to view this website correctly.&amp;npsb;<a id="btnUpdateBrowser" target="_blank" rel="noopener" href="http://outdatedbrowser.com/">Update my browser now </a></p><p class="last"><a href="#" id="btnCloseUpdateBrowser" title="Close">×</a></p></div><script src="https://cdn.jsdelivr.net/npm/outdatedbrowser@1.1.5/outdatedbrowser/outdatedbrowser.min.js" defer></script><script>window.addEventListener("load", function () {
+            outdatedBrowser({
+                bgColor: '#f25648',
+                color: '#ffffff',
+                lowerThan: 'object-fit' // display on IE11 or below
+            });
+        });</script><!--!--><!--!--><!--!--><script src="/js/main.js" defer></script><div class="searchbox"><div class="searchbox-container"><div class="searchbox-header"><div class="searchbox-input-container"><input class="searchbox-input" type="text" placeholder="想要查找什么..."></div><a class="searchbox-close" href="javascript:;">×</a></div><div class="searchbox-body"></div></div></div><script src="/js/insight.js" defer></script><script>document.addEventListener('DOMContentLoaded', function () {
+            loadInsight({"contentUrl":"/content.json"}, {"hint":"想要查找什么...","untitled":"(无标题)","posts":"文章","pages":"页面","categories":"分类","tags":"标签"});
+        });</script><!-- hexo-inject:begin --><!-- hexo-inject:end --></body></html>

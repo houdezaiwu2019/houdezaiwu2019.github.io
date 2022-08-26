@@ -1,0 +1,412 @@
+<!doctype html>
+<html lang="zh"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"><meta><title>有限元分析与应用——理论部分 - houdezaiwu&#039;s blog</title><link rel="manifest" href="/manifest.json"><meta name="application-name" content="czt"><meta name="msapplication-TileImage" content="/img/favicon.svg"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-title" content="czt"><meta name="apple-mobile-web-app-status-bar-style" content="default"><meta name="description" content="hljs.initHighlightingOnLoad();"><meta property="og:type" content="blog"><meta property="og:title" content="有限元分析与应用——理论部分"><meta property="og:url" content="http://example.com/2022/08/26/%E6%9C%89%E9%99%90%E5%85%83%E6%96%B9%E6%B3%95/%E6%9C%89%E9%99%90%E5%85%83%E5%88%86%E6%9E%90%E4%B8%8E%E5%BA%94%E7%94%A8%E2%80%94%E2%80%94%E7%90%86%E8%AE%BA%E9%83%A8%E5%88%86/"><meta property="og:site_name" content="houdezaiwu&#039;s blog"><meta property="og:description" content="hljs.initHighlightingOnLoad();"><meta property="og:locale" content="zh_CN"><meta property="og:image" content="https://fastly.jsdelivr.net/gh/houdezaiwu2019/image-bed/pointnet/fan_blade.zh_CN.png"><meta property="article:published_time" content="2022-08-26T10:37:16.000Z"><meta property="article:modified_time" content="2022-08-26T12:43:32.664Z"><meta property="article:author" content="czt"><meta property="article:tag" content="Finite Element Analysis"><meta property="twitter:card" content="summary"><meta property="twitter:image" content="https://fastly.jsdelivr.net/gh/houdezaiwu2019/image-bed/pointnet/fan_blade.zh_CN.png"><script type="application/ld+json">{"@context":"https://schema.org","@type":"BlogPosting","mainEntityOfPage":{"@type":"WebPage","@id":"http://example.com/2022/08/26/%E6%9C%89%E9%99%90%E5%85%83%E6%96%B9%E6%B3%95/%E6%9C%89%E9%99%90%E5%85%83%E5%88%86%E6%9E%90%E4%B8%8E%E5%BA%94%E7%94%A8%E2%80%94%E2%80%94%E7%90%86%E8%AE%BA%E9%83%A8%E5%88%86/"},"headline":"有限元分析与应用——理论部分","image":["https://fastly.jsdelivr.net/gh/houdezaiwu2019/image-bed/pointnet/fan_blade.zh_CN.png"],"datePublished":"2022-08-26T10:37:16.000Z","dateModified":"2022-08-26T12:43:32.664Z","author":{"@type":"Person","name":"czt"},"publisher":{"@type":"Organization","name":"houdezaiwu's blog","logo":{"@type":"ImageObject","url":"http://example.com/img/logo.svg"}},"description":"hljs.initHighlightingOnLoad();"}</script><link rel="canonical" href="http://example.com/2022/08/26/%E6%9C%89%E9%99%90%E5%85%83%E6%96%B9%E6%B3%95/%E6%9C%89%E9%99%90%E5%85%83%E5%88%86%E6%9E%90%E4%B8%8E%E5%BA%94%E7%94%A8%E2%80%94%E2%80%94%E7%90%86%E8%AE%BA%E9%83%A8%E5%88%86/"><link rel="icon" href="/img/favicon.svg"><link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.2/css/all.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@9.12.0/styles/atom-one-light.css"><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Ubuntu:wght@400;600&amp;family=Source+Code+Pro"><link rel="stylesheet" href="/css/default.css"><style>body>.footer,body>.navbar,body>.section{opacity:0}</style><!--!--><!--!--><!--!--><!--!--><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/cookieconsent@3.1.1/build/cookieconsent.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/lightgallery@1.10.0/dist/css/lightgallery.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/justifiedGallery@3.8.1/dist/css/justifiedGallery.min.css"><!--!--><!--!--><!--!--><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/outdatedbrowser@1.1.5/outdatedbrowser/outdatedbrowser.min.css"><style>.pace{-webkit-pointer-events:none;pointer-events:none;-webkit-user-select:none;-moz-user-select:none;user-select:none}.pace-inactive{display:none}.pace .pace-progress{background:#3273dc;position:fixed;z-index:2000;top:0;right:100%;width:100%;height:2px}</style><script src="https://cdn.jsdelivr.net/npm/pace-js@1.2.4/pace.min.js"></script><!--!--><!--!--><!-- hexo injector head_end start -->
+<!-- hexo-inject:begin --><!-- hexo-inject:end --><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css">
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/hexo-math@4.0.0/dist/style.css">
+<!-- hexo injector head_end end --><meta name="generator" content="Hexo 6.0.0"><link rel="stylesheet" href="/css/prism-coy-without-shadows.css" type="text/css">
+<link rel="stylesheet" href="/css/prism-line-numbers.css" type="text/css"><!-- hexo-inject:begin --><!-- hexo-inject:end --></head><body class="is-3-column"><nav class="navbar navbar-main"><div class="container"><div class="navbar-brand justify-content-center"><a class="navbar-item navbar-logo" href="/"><img src="/img/logo.svg" alt="houdezaiwu&#039;s blog" height="28"></a></div><div class="navbar-menu"><div class="navbar-start"><a class="navbar-item" href="/">主页</a><a class="navbar-item" href="/archives">归档</a><a class="navbar-item" href="/categories">分类</a><a class="navbar-item" href="/tags">标签</a><a class="navbar-item" href="/about">关于</a></div><div class="navbar-end"><a class="navbar-item" target="_blank" rel="noopener" title="Download on GitHub" href="https://github.com/ppoffice/hexo-theme-icarus"><i class="fab fa-github"></i></a><a class="navbar-item is-hidden-tablet catalogue" title="目录" href="javascript:;"><i class="fas fa-list-ul"></i></a><a class="navbar-item search" title="搜索" href="javascript:;"><i class="fas fa-search"></i></a></div></div></div></nav><section class="section"><div class="container"><div class="columns"><div class="column order-2 column-main is-8-tablet is-8-desktop is-6-widescreen"><div class="card"><div class="card-image"><span class="image is-7by3"><img class="fill" src="https://fastly.jsdelivr.net/gh/houdezaiwu2019/image-bed/pointnet/fan_blade.zh_CN.png" alt="有限元分析与应用——理论部分"></span></div><article class="card-content article" role="article"><div class="article-meta is-size-7 is-uppercase level is-mobile"><div class="level-left"><span class="level-item"><time dateTime="2022-08-26T10:37:16.000Z" title="2022/8/26 下午6:37:16">2022-08-26</time>发表</span><span class="level-item"><time dateTime="2022-08-26T12:43:32.664Z" title="2022/8/26 下午8:43:32">2022-08-26</time>更新</span><span class="level-item"><a class="link-muted" href="/categories/Finite-Element-Analysis/">Finite Element Analysis</a></span><span class="level-item">42 分钟读完 (大约6300个字)</span></div></div><h1 class="title is-3 is-size-4-mobile">有限元分析与应用——理论部分</h1><div class="content"><link rel="stylesheet" href="//cdn.bootcss.com/highlight.js/9.2.0/styles/github.min.css">
+
+<!-- hexo-inject:begin --><!-- hexo-inject:end --><script src="//cdn.bootcss.com/highlight.js/9.2.0/highlight.min.js"></script>
+<script>hljs.initHighlightingOnLoad();</script>
+
+<span id="more"></span>
+<p>本课程主要来源于清华大学曾攀老师的网课，这部分是第一部分理论的部分。</p>
+<h2 id="Chapter-1-引论"><a href="#Chapter-1-引论" class="headerlink" title="Chapter 1 引论"></a><strong>Chapter 1</strong> 引论</h2><h3 id="1-1-力学的分类：质点、刚体、变形体"><a href="#1-1-力学的分类：质点、刚体、变形体" class="headerlink" title="1.1 力学的分类：质点、刚体、变形体"></a><strong>1.1 力学的分类：质点、刚体、变形体</strong></h3><p><img src="https://fastly.jsdelivr.net/gh/houdezaiwu2019/image-bed/FEA/image-20220816202959270.png" alt=""></p>
+<p>质点力学主要是将物体简化成为一个点。</p>
+<p><img src="https://fastly.jsdelivr.net/gh/houdezaiwu2019/image-bed/FEA/image-20220816203202091.png" alt=""></p>
+<p>由于分析的对象变成刚体，在将其简化到质心的同时，也要考虑物体的转动。</p>
+<p>以下我们要分析变形的特性，对应变形体而言其主要分成简单形状和复杂形状两个性质。</p>
+<p>首先来分析<strong>简单形状构件</strong>，包括材料力学和结构力学。</p>
+<p><img src="https://fastly.jsdelivr.net/gh/houdezaiwu2019/image-bed/FEA/image-20220816210027366.png" alt=""></p>
+<p>材料力学主要是分析简单的变形体在微小变形的下的情况。</p>
+<p><img src="https://fastly.jsdelivr.net/gh/houdezaiwu2019/image-bed/FEA/image-20220816210506808.png" alt=""></p>
+<p>结构力学和材料力学基本相似，就是结构力学的构建数量更多，并且因此得到的线性方程组的数量更大。</p>
+<p>其次来分析<strong>复杂形状构件</strong>，包括弹性力学和弹塑性力学。</p>
+<p><img src="https://fastly.jsdelivr.net/gh/houdezaiwu2019/image-bed/FEA/image-20220816210901104.png" alt=""></p>
+<p>弹性力学对应的在小变形的情况，取出一个微元体来分析，但是一般是得不到解析解的，一般是数值方法得到数值解。</p>
+<p><img src="https://fastly.jsdelivr.net/gh/houdezaiwu2019/image-bed/FEA/image-20220816212244801.png" alt=""></p>
+<p>弹塑性力学在弹性力学的基础上还考虑了弹性变化范围以外的部分，其求解更加困难。</p>
+<h3 id="1-2-变形体力学的要点"><a href="#1-2-变形体力学的要点" class="headerlink" title="1.2 变形体力学的要点"></a><strong>1.2 变形体力学的要点</strong></h3><p><img src="https://fastly.jsdelivr.net/gh/houdezaiwu2019/image-bed/FEA/image-20220816212527458.png" alt=""></p>
+<p>对材料的力学分析上，需要进行材料的拉伸实验，进而得到拉伸的曲线。</p>
+<p><img src="https://fastly.jsdelivr.net/gh/houdezaiwu2019/image-bed/FEA/image-20220816213059573.png" alt=""></p>
+<p>在进行实验设计时，这里设计三组实验，通过上面的实验得出了三个曲线，然后定义了应力$\sigma$和应变$\varepsilon$ ，于是上述的三个曲线就可以合并形成一条曲线，<strong>这条曲线就很好的刻画了材料的力学性质。</strong>  </p>
+<p>其中$E$代表的是原来的一维材料的杨氏模量。</p>
+<p><img src="https://fastly.jsdelivr.net/gh/houdezaiwu2019/image-bed/FEA/image-20220816213822935.png" alt=""></p>
+<p>下面得到了变形体的三大变量：<strong>位移、应力、应变。</strong></p>
+<p>同时也得到了三大力学方程：<strong>平衡方程、物理方程、几何方程。</strong></p>
+<p>这三大类方程主要是微分方程。</p>
+<h3 id="1-3-微分方程求解的方法"><a href="#1-3-微分方程求解的方法" class="headerlink" title="1.3 微分方程求解的方法"></a><strong>1.3 微分方程求解的方法</strong></h3><p><img src="https://fastly.jsdelivr.net/gh/houdezaiwu2019/image-bed/FEA/image-20220816222107382.png" alt=""></p>
+<p>根据上面的问题得到方程式如图所示。</p>
+<p><strong>方法一：解析法</strong></p>
+<p>根据上述的结果可得一个位移的二次方程如图所示，然后根据边界条件计算待定的系数。</p>
+<p><img src="https://fastly.jsdelivr.net/gh/houdezaiwu2019/image-bed/FEA/image-20220816222227570.png" alt=""></p>
+<p><strong>方法二：近似方法(差分)</strong></p>
+<p>将其分成五个节点，对每个节点来列出一维的差分方程如下。</p>
+<p><img src="https://fastly.jsdelivr.net/gh/houdezaiwu2019/image-bed/FEA/image-20220816222541085.png" alt=""></p>
+<p>将得到的边界条件代入到对应的节点中：</p>
+<p><img src="https://fastly.jsdelivr.net/gh/houdezaiwu2019/image-bed/FEA/image-20220816223150907.png" alt=""></p>
+<p>解得上述节点出的解为：</p>
+<script type="math/tex; mode=display">
+(u_1,u_2,u_3,u_4)^T=\dfrac {PL^2} {AE}(0.16, 0.28, 0.36,0.4)^T</script><p> 这里为了提高精度可以增加节点的数量。</p>
+<p><img src="https://fastly.jsdelivr.net/gh/houdezaiwu2019/image-bed/FEA/image-20220816223618160.png" alt=""></p>
+<p>这里位移矩阵的n-1行n-1列处的值为-1，于是接出来的结果如图所示。</p>
+<p><img src="https://fastly.jsdelivr.net/gh/houdezaiwu2019/image-bed/FEA/image-20220816223744083.png" alt=""></p>
+<p><strong>方法三：近似方法(试函数)</strong></p>
+<p>其实就是给定一个满足边界条件的待定系数函数，将其代入到控制方程里，优化参数使得残差函数最小。</p>
+<p><img src="https://fastly.jsdelivr.net/gh/houdezaiwu2019/image-bed/FEA/image-20220816223942322.png" alt=""></p>
+<p><img src="https://fastly.jsdelivr.net/gh/houdezaiwu2019/image-bed/FEA/image-20220816224052482.png" alt=""></p>
+<p>和之前的节点法相同，其也是可以使用多个试函数来进行逼近。</p>
+<p><img src="https://fastly.jsdelivr.net/gh/houdezaiwu2019/image-bed/FEA/image-20220816224601538.png" alt=""></p>
+<p><strong>总结</strong></p>
+<p>将上述的几种方法进行对比可得，下面的从求解的精度和特点进行比较。</p>
+<p><img src="https://fastly.jsdelivr.net/gh/houdezaiwu2019/image-bed/FEA/image-20220816224819473.png" alt=""></p>
+<p><img src="https://fastly.jsdelivr.net/gh/houdezaiwu2019/image-bed/FEA/image-20220816225121239.png" alt=""></p>
+<p>对于是函数而言其使用的难点就是获得可以满足全局边界条件的试函数，只要试函数确定，后面就很简单了。</p>
+<h3 id="1-4-函数逼近问题"><a href="#1-4-函数逼近问题" class="headerlink" title="1.4 函数逼近问题"></a><strong>1.4 函数逼近问题</strong></h3><p><img src="https://fastly.jsdelivr.net/gh/houdezaiwu2019/image-bed/FEA/image-20220816225509164.png" alt=""></p>
+<p>这种方法类似于<strong>函数拟合</strong>。</p>
+<p><img src="https://fastly.jsdelivr.net/gh/houdezaiwu2019/image-bed/FEA/image-20220816225627221.png" alt=""></p>
+<p>这种方法类似于<strong>分段线性插值。</strong></p>
+<p><strong>分析和讨论</strong></p>
+<p><img src="https://fastly.jsdelivr.net/gh/houdezaiwu2019/image-bed/FEA/image-20220816225950227.png" alt=""></p>
+<ul>
+<li>全域展开：对于1D问题，其基底函数还是比较好找的，但是对于2D、3D问题，其基底函数就不是很容易获得了。</li>
+<li>子域展开：在分段点处的连续性和可导性较差，其逼近的效果还是不错的。这个方法的主要问题是如何针对2D、3D问题来构造合适的试函数。</li>
+</ul>
+<h3 id="1-5-针对复杂域上的构造函数或级数"><a href="#1-5-针对复杂域上的构造函数或级数" class="headerlink" title="1.5 针对复杂域上的构造函数或级数"></a><strong>1.5 针对复杂域上的构造函数或级数</strong></h3><p><img src="https://fastly.jsdelivr.net/gh/houdezaiwu2019/image-bed/FEA/image-20220816233831341.png" alt=""></p>
+<ul>
+<li>对于2D的问题而言。<ul>
+<li>规则的几何域上可以使用全域的方法，其试函数的构造是比较容易的，也可以使用子域的方法；</li>
+<li>复杂的不规则问题就仅仅只能使用一般的子域的方法，因为全域的试函数无法找到。</li>
+</ul>
+</li>
+<li>对于3D的问题和2D问题类似。</li>
+</ul>
+<h3 id="1-6-有限元的核心：针对复杂几何域的分片函数逼近"><a href="#1-6-有限元的核心：针对复杂几何域的分片函数逼近" class="headerlink" title="1.6 有限元的核心：针对复杂几何域的分片函数逼近"></a><strong>1.6 有限元的核心：针对复杂几何域的分片函数逼近</strong></h3><p><img src="https://fastly.jsdelivr.net/gh/houdezaiwu2019/image-bed/FEA/image-20220816234255775.png" alt=""></p>
+<ul>
+<li>将上述规范化的子域叫做单元，其中包括两节点的杆，三节点的三角形和八节点的3D块。</li>
+<li>利用上述单元来拼出规范化的形状。</li>
+<li>将常用的1D、2D、3D单元构建单元库。</li>
+</ul>
+<p><img src="https://fastly.jsdelivr.net/gh/houdezaiwu2019/image-bed/FEA/image-20220817000030161.png" alt=""></p>
+<h3 id="1-7-发展历史"><a href="#1-7-发展历史" class="headerlink" title="1.7 发展历史"></a><strong>1.7 发展历史</strong></h3><p><img src="https://fastly.jsdelivr.net/gh/houdezaiwu2019/image-bed/FEA/image-20220817000412137.png" alt=""></p>
+<p><img src="https://fastly.jsdelivr.net/gh/houdezaiwu2019/image-bed/FEA/image-20220817000623217.png" alt=""></p>
+<h2 id="Chapter-2-基于直接刚度法的杆系有限元方法"><a href="#Chapter-2-基于直接刚度法的杆系有限元方法" class="headerlink" title="Chapter 2 基于直接刚度法的杆系有限元方法"></a><strong>Chapter 2 基于直接刚度法的杆系有限元方法</strong></h2><h3 id="2-1-弹簧的力学分析原理"><a href="#2-1-弹簧的力学分析原理" class="headerlink" title="2.1 弹簧的力学分析原理"></a><strong>2.1 弹簧的力学分析原理</strong></h3><p>首先定义了基于端点的描述，之后定义节点的描述方法来描述弹簧微元的受力。</p>
+<p><img src="https://fastly.jsdelivr.net/gh/houdezaiwu2019/image-bed/FEA/image-20220817082128626.png" alt=""></p>
+<p>下面方程里面从左向右依次是矩阵系数，节点位移，节点力。</p>
+<p><img src="https://fastly.jsdelivr.net/gh/houdezaiwu2019/image-bed/FEA/image-20220817082457429.png" alt=""></p>
+<p>以下给出一个实际分析的例子。</p>
+<p><img src="https://fastly.jsdelivr.net/gh/houdezaiwu2019/image-bed/FEA/image-20220817083021690.png" alt=""></p>
+<p>这里的$F_2$为外部作用到B点是的外力，之后将这些转化称为矩阵方程并进行合并，组成一个系统。</p>
+<p><img src="https://fastly.jsdelivr.net/gh/houdezaiwu2019/image-bed/FEA/image-20220817083254762.png" alt=""></p>
+<p><img src="https://fastly.jsdelivr.net/gh/houdezaiwu2019/image-bed/FEA/image-20220817083520098.png" alt=""></p>
+<p>这里由于$u_1,u_3=0$于是就将对应的矩阵系数的行和列划掉。</p>
+<p><img src="https://fastly.jsdelivr.net/gh/houdezaiwu2019/image-bed/FEA/image-20220817083703079.png" alt=""></p>
+<h3 id="2-2-弹簧单元和杆单元的比较"><a href="#2-2-弹簧单元和杆单元的比较" class="headerlink" title="2.2 弹簧单元和杆单元的比较"></a><strong>2.2 弹簧单元和杆单元的比较</strong></h3><p>首先，来看整体的端点上的物理方程如下。</p>
+<p><img src="https://fastly.jsdelivr.net/gh/houdezaiwu2019/image-bed/FEA/image-20220817083937802.png" alt=""></p>
+<p>可以通过刚度系数的转换来用弹簧的平衡方程计算杆的平衡方程。</p>
+<p>接下来根据上述的关系来推广到弹簧单元和杆单元。</p>
+<p><img src="https://fastly.jsdelivr.net/gh/houdezaiwu2019/image-bed/FEA/image-20220817084403885.png" alt=""></p>
+<p>对比弹簧来分析杆的受力情况。</p>
+<p><img src="https://fastly.jsdelivr.net/gh/houdezaiwu2019/image-bed/FEA/image-20220817084506487.png" alt=""></p>
+<h3 id="2-3-杆单元的坐标变换"><a href="#2-3-杆单元的坐标变换" class="headerlink" title="2.3 杆单元的坐标变换"></a><strong>2.3 杆单元的坐标变换</strong></h3><p><img src="https://fastly.jsdelivr.net/gh/houdezaiwu2019/image-bed/FEA/image-20220817084639830.png" alt=""></p>
+<p>以上我们的坐标系取得是杆的轴线方向，但是在实际的结构功，我们需要将整体合成到一个方程里面去就需要获得将所有的杆的坐标系进行统一。</p>
+<p><img src="https://fastly.jsdelivr.net/gh/houdezaiwu2019/image-bed/FEA/image-20220817085952444.png" alt=""></p>
+<p><img src="https://fastly.jsdelivr.net/gh/houdezaiwu2019/image-bed/FEA/image-20220817090046647.png" alt=""></p>
+<p>将坐标变换之后结果写成矩阵形式可得如下表达式。</p>
+<p><img src="https://fastly.jsdelivr.net/gh/houdezaiwu2019/image-bed/FEA/image-20220817090333162.png" alt=""></p>
+<p><img src="https://fastly.jsdelivr.net/gh/houdezaiwu2019/image-bed/FEA/image-20220817090505256-16606983124671.png" alt=""></p>
+<p>下面将2D的情况向着3D情况推广可得。</p>
+<p><img src="https://fastly.jsdelivr.net/gh/houdezaiwu2019/image-bed/FEA/image-20220817090806383.png" alt=""></p>
+<p><img src="https://fastly.jsdelivr.net/gh/houdezaiwu2019/image-bed/FEA/image-20220817090856569.png" alt=""></p>
+<h3 id="2-4-四杆结构的有限元分析"><a href="#2-4-四杆结构的有限元分析" class="headerlink" title="2.4 四杆结构的有限元分析"></a><strong>2.4 四杆结构的有限元分析</strong></h3><p><img src="https://fastly.jsdelivr.net/gh/houdezaiwu2019/image-bed/FEA/image-20220817092906626.png" alt=""></p>
+<p>将每个杆看作是一个单元，将其和节点的编号对应的表格列出如下。</p>
+<p><img src="https://fastly.jsdelivr.net/gh/houdezaiwu2019/image-bed/FEA/image-20220817093004906.png" alt=""></p>
+<p>由于第二根杆是由节点3指向节点2的，于是就会由其节点的余弦为-1的情况。</p>
+<p>下面对每个单元进行矩阵描述，得到对应的刚度矩阵。</p>
+<p><img src="https://fastly.jsdelivr.net/gh/houdezaiwu2019/image-bed/FEA/image-20220817093523811.png" alt=""></p>
+<p>尽管二号矩阵和4号矩阵的形式一样，但是其对应的自由度是不一样的，对应的节点是不一样的。</p>
+<p><img src="https://fastly.jsdelivr.net/gh/houdezaiwu2019/image-bed/FEA/image-20220817093836045.png" alt=""></p>
+<p>其实这里也就是将刚度矩阵按照节点的顺序进行拼接，这里的主要多的方法是先确定好节点的排列顺序，之后按照节点来拼接矩阵，接着将计算节点力，这里主要计算的是节点处的外力，因为内力都被消去了。</p>
+<p><img src="https://fastly.jsdelivr.net/gh/houdezaiwu2019/image-bed/FEA/image-20220817094201761.png" alt=""></p>
+<p>下面进行的是节点方程的求解过程。</p>
+<p><img src="https://fastly.jsdelivr.net/gh/houdezaiwu2019/image-bed/FEA/image-20220817094343391.png" alt=""></p>
+<p>这里代入边界条件，支座处的位移为0，将位移为0的相关的行和列划去可得简化后的方程，然后进行求解即可。</p>
+<p><img src="https://fastly.jsdelivr.net/gh/houdezaiwu2019/image-bed/FEA/image-20220817094608449.png" alt=""></p>
+<h2 id="Chapter-3-针对复杂几何变形体的力学描述"><a href="#Chapter-3-针对复杂几何变形体的力学描述" class="headerlink" title="Chapter 3  针对复杂几何变形体的力学描述"></a><strong>Chapter 3  针对复杂几何变形体的力学描述</strong></h2><h3 id="3-1-力学描述的基本思路及变形基本假设"><a href="#3-1-力学描述的基本思路及变形基本假设" class="headerlink" title="3.1 力学描述的基本思路及变形基本假设"></a><strong>3.1 力学描述的基本思路及变形基本假设</strong></h3><p>变形体可以按照结合形状来划分可以分为简单几何形状和复杂几何形状，针对的是材料力学和弹性力学的主要的研究。</p>
+<p><img src="%E6%9C%89%E9%99%90%E5%85%83%E5%88%86%E6%9E%90%E4%B8%8E%E5%BA%94%E7%94%A8%E2%80%94%E2%80%94%E7%90%86%E8%AE%BA%E9%83%A8%E5%88%86.assets/image-20220817095334279.png" alt="image-20220817095334279"></p>
+<p>为了将注意力几种在处理复杂几何形状上，这里将针对材料的性质进行假定。</p>
+<p><img src="https://fastly.jsdelivr.net/gh/houdezaiwu2019/image-bed/FEA/image-20220817095838878.png" alt=""></p>
+<p>但是针对复合材料，我们可以将各向异性进行放松；针对弹塑性材料，我们可以将线弹性的假设进行放松等。</p>
+<h3 id="3-2-指标记法"><a href="#3-2-指标记法" class="headerlink" title="3.2 指标记法"></a><strong>3.2 指标记法</strong></h3><p><img src="https://fastly.jsdelivr.net/gh/houdezaiwu2019/image-bed/FEA/image-20220817101440522.png" alt=""></p>
+<p>这里使用的是默认的表示法，$F_1$就对应$x_1$轴的分量，$F_2$就对应$x_2$轴的分量，$F_3$就对应$x_3$轴的分量。</p>
+<p><img src="https://fastly.jsdelivr.net/gh/houdezaiwu2019/image-bed/FEA/image-20220817101932899.png" alt=""></p>
+<p>对于哑指标来说，有默认的爱因斯坦求和约定。</p>
+<p><img src="https://fastly.jsdelivr.net/gh/houdezaiwu2019/image-bed/FEA/image-20220817102157013.png" alt=""></p>
+<p>voigit标记法，就是将一个高维的张量简写称为一个低维的形式，如下面就将一个二维的张量转换为一维的列阵。</p>
+<p><img src="https://fastly.jsdelivr.net/gh/houdezaiwu2019/image-bed/FEA/image-20220817102410373.png" alt=""></p>
+<p><img src="https://fastly.jsdelivr.net/gh/houdezaiwu2019/image-bed/FEA/image-20220817102724781.png" alt=""></p>
+<p>这里的Voigt准则仅仅是规则的一种，也可以按照习惯的顺序来进行书写。</p>
+<h3 id="3-3-复杂变形体描述的建模思路"><a href="#3-3-复杂变形体描述的建模思路" class="headerlink" title="3.3 复杂变形体描述的建模思路"></a><strong>3.3 复杂变形体描述的建模思路</strong></h3><p><img src="https://fastly.jsdelivr.net/gh/houdezaiwu2019/image-bed/FEA/image-20220817103506049.png" alt=""></p>
+<p>这里将复杂的变形体分成了内部的描述和外部的描述，对于内部就是建立对于的微元体，对于外部表面则要根据其几何边界和受力边界来构建三大变量和三大方程。</p>
+<p><strong>2D问题的应力的建模</strong></p>
+<p><img src="https://fastly.jsdelivr.net/gh/houdezaiwu2019/image-bed/FEA/image-20220817104307166.png" alt=""></p>
+<p>第一个下标是方向，第二个下标是受力面的法线方向。</p>
+<p><strong>3D问题的应力建模</strong></p>
+<p><img src="https://fastly.jsdelivr.net/gh/houdezaiwu2019/image-bed/FEA/image-20220817104516357.png" alt=""></p>
+<p><img src="https://fastly.jsdelivr.net/gh/houdezaiwu2019/image-bed/FEA/image-20220817105223501.png" alt=""></p>
+<h3 id="3-4-平衡方程的构建"><a href="#3-4-平衡方程的构建" class="headerlink" title="3.4 平衡方程的构建"></a><strong>3.4 平衡方程的构建</strong></h3><p>以下对微元体进行受力分析可得下图，其中由于微元取得足够小，因此其微元体内部的材料可以看成是均匀分布的。</p>
+<p><img src="https://fastly.jsdelivr.net/gh/houdezaiwu2019/image-bed/FEA/image-20220817105758103.png" alt=""></p>
+<p>对于平面来说，可以在两个方向和一个转动方向来建立力学平衡方程式。</p>
+<p><img src="https://fastly.jsdelivr.net/gh/houdezaiwu2019/image-bed/FEA/image-20220817110153215.png" alt=""></p>
+<p>其中方程中带有坐标增量的部分可以使用Talyor展开。</p>
+<p><img src="https://fastly.jsdelivr.net/gh/houdezaiwu2019/image-bed/FEA/image-20220817110529431.png" alt=""></p>
+<p>使用Tayor展开，消去高次项。</p>
+<p><img src="https://fastly.jsdelivr.net/gh/houdezaiwu2019/image-bed/FEA/image-20220817110640206.png" alt=""></p>
+<p>以上为在x方向上的受力分析，下面来进行y方向的进行分析。</p>
+<p>其中前面两项式由于$x,y$坐标引起的梯度变化引起的，他们由跟微元的体积力达到平衡。</p>
+<p><img src="https://fastly.jsdelivr.net/gh/houdezaiwu2019/image-bed/FEA/image-20220817111408046.png" alt=""></p>
+<p>对于力矩平衡，这里取的式微元的中心求力矩的，这样就可以将体积力约去，于是化简的结果就是剪应力互等定律。</p>
+<p><img src="https://fastly.jsdelivr.net/gh/houdezaiwu2019/image-bed/FEA/image-20220817111801903.png" alt=""></p>
+<p>这里将其整理成指标的形式，在加上哑变量的自定求和于是得到了指标形式的表达式。</p>
+<h3 id="3-5-几何方程的构建"><a href="#3-5-几何方程的构建" class="headerlink" title="3.5 几何方程的构建"></a><strong>3.5 几何方程的构建</strong></h3><p>如下图所示，为变形前后的对比图，首先计算的是相对伸长量，这里由于是微元，因此$PA,P’A’$的角度造成的横向的位移就可以忽略不记。</p>
+<p><img src="https://fastly.jsdelivr.net/gh/houdezaiwu2019/image-bed/FEA/image-20220817143108627.png" alt=""></p>
+<p>然后计算的是夹角的变换，需要计算角度$\alpha,\beta$ 的值。这里就是利用的小角近似，用$\tan \alpha$来近似$\alpha$ 。</p>
+<p><img src="https://fastly.jsdelivr.net/gh/houdezaiwu2019/image-bed/FEA/image-20220817143440157.png" alt=""></p>
+<p>对上上面得到计算的结构进行总结可得：</p>
+<p><img src="https://fastly.jsdelivr.net/gh/houdezaiwu2019/image-bed/FEA/image-20220817143650617.png" alt=""></p>
+<p>上述的三个分量中，仅仅由两个是独立的，另一个是相关的。</p>
+<p><img src="https://fastly.jsdelivr.net/gh/houdezaiwu2019/image-bed/FEA/image-20220817143911595.png" alt=""></p>
+<p><img src="https://fastly.jsdelivr.net/gh/houdezaiwu2019/image-bed/FEA/image-20220817144108813.png" alt=""></p>
+<p>上述的方程里面仅仅只有满足这个变形的协调条件的才是实际变形的情况，在下图里面只有第4个才是真正的变形情况。</p>
+<h3 id="3-6-物理方程的构建"><a href="#3-6-物理方程的构建" class="headerlink" title="3.6 物理方程的构建"></a><strong>3.6 物理方程的构建</strong></h3><p>物理方程的本质就是<strong>广义的胡克定律</strong>。</p>
+<p>在分母位置上的是泊松效应的主方向，如图所示主方向是$x$方向。</p>
+<p><img src="https://fastly.jsdelivr.net/gh/houdezaiwu2019/image-bed/FEA/image-20220817144535535.png" alt=""></p>
+<p>将实际的应力一分为3，进而得到了2D问题的本构方程。</p>
+<p><img src="https://fastly.jsdelivr.net/gh/houdezaiwu2019/image-bed/FEA/image-20220817144844747.png" alt=""></p>
+<p><img src="https://fastly.jsdelivr.net/gh/houdezaiwu2019/image-bed/FEA/image-20220817145019598.png" alt=""></p>
+<p>于是将上述的形式化成指标形式可得：</p>
+<p><img src="https://fastly.jsdelivr.net/gh/houdezaiwu2019/image-bed/FEA/image-20220817145247175.png" alt=""></p>
+<p>其逆行式转化为指标形式可得：</p>
+<p><img src="https://fastly.jsdelivr.net/gh/houdezaiwu2019/image-bed/FEA/image-20220817145417622.png" alt=""></p>
+<p><img src="https://fastly.jsdelivr.net/gh/houdezaiwu2019/image-bed/FEA/image-20220817145618099.png" alt=""></p>
+<p><img src="https://fastly.jsdelivr.net/gh/houdezaiwu2019/image-bed/FEA/image-20220817145644276.png" alt=""></p>
+<p><img src="https://fastly.jsdelivr.net/gh/houdezaiwu2019/image-bed/FEA/image-20220817145719807.png" alt=""></p>
+<p><img src="https://fastly.jsdelivr.net/gh/houdezaiwu2019/image-bed/FEA/image-20220817145729796.png" alt=""></p>
+<p><img src="https://fastly.jsdelivr.net/gh/houdezaiwu2019/image-bed/FEA/image-20220817145805054.png" alt=""></p>
+<p><img src="https://fastly.jsdelivr.net/gh/houdezaiwu2019/image-bed/FEA/image-20220817145818193.png" alt=""></p>
+<p><img src="https://fastly.jsdelivr.net/gh/houdezaiwu2019/image-bed/FEA/image-20220817145840218.png" alt=""></p>
+<p>上述张量的表达在纸上是写不出来的，只能用下标来进行表示。</p>
+<h3 id="3-7-边界条件"><a href="#3-7-边界条件" class="headerlink" title="3.7 边界条件"></a><strong>3.7 边界条件</strong></h3><p>这里的边界分为<strong>力的边界</strong>和<strong>位移的边界</strong>，一般也将空的地方也认为成是里的边界，只不过对应的力为0.</p>
+<p><img src="https://fastly.jsdelivr.net/gh/houdezaiwu2019/image-bed/FEA/image-20220817150426099.png" alt=""></p>
+<p>上面表达式的意思是，上述的两个边界没有搭接也没有间隙。</p>
+<p><strong>位移边界</strong></p>
+<p><img src="https://fastly.jsdelivr.net/gh/houdezaiwu2019/image-bed/FEA/image-20220817150619581.png" alt=""></p>
+<p><strong>力的边界</strong></p>
+<p>在$x$方向的平衡条件，同理可以$y$方向和力矩平衡的方向。</p>
+<p><img src="https://fastly.jsdelivr.net/gh/houdezaiwu2019/image-bed/FEA/image-20220817150833018.png" alt=""></p>
+<p><img src="https://fastly.jsdelivr.net/gh/houdezaiwu2019/image-bed/FEA/image-20220817151118959.png" alt=""></p>
+<h2 id="Chapter-4-针对复杂几何形状变形体的力学描述2"><a href="#Chapter-4-针对复杂几何形状变形体的力学描述2" class="headerlink" title="Chapter 4 针对复杂几何形状变形体的力学描述2"></a><strong>Chapter 4 针对复杂几何形状变形体的力学描述2</strong></h2><h3 id="4-1-几种问题的讨论"><a href="#4-1-几种问题的讨论" class="headerlink" title="4.1 几种问题的讨论"></a><strong>4.1 几种问题的讨论</strong></h3><p>首先对之前学习的有关问题如给定的问题、三大类变量、三大类方程、边界条件进行复习和总结。</p>
+<p><img src="https://fastly.jsdelivr.net/gh/houdezaiwu2019/image-bed/FEA/image-20220817153056010.png" alt=""></p>
+<p><img src="https://fastly.jsdelivr.net/gh/houdezaiwu2019/image-bed/FEA/image-20220817153116732.png" alt=""></p>
+<p><img src="https://fastly.jsdelivr.net/gh/houdezaiwu2019/image-bed/FEA/image-20220817153140415.png" alt=""></p>
+<p><img src="https://fastly.jsdelivr.net/gh/houdezaiwu2019/image-bed/FEA/image-20220817153154840.png" alt=""></p>
+<p>下面来引出主要讨论的三大问题：<strong>平面应力、平面应变、刚体位移。</strong></p>
+<p><strong>平面应力</strong></p>
+<p><img src="https://fastly.jsdelivr.net/gh/houdezaiwu2019/image-bed/FEA/image-20220817154303770.png" alt=""></p>
+<p>由于在全部的力都作用到$xoy$ 因此其在平面上面的变形为0，但是由于考虑到泊松效应，其$z$方向上可能会产生形变——应变$\varepsilon_{zz}$ 。</p>
+<p>简单归纳以下平面问题的基本变量。</p>
+<p><img src="https://fastly.jsdelivr.net/gh/houdezaiwu2019/image-bed/FEA/image-20220817201935112.png" alt=""></p>
+<p><strong>平面应变</strong></p>
+<p><img src="https://fastly.jsdelivr.net/gh/houdezaiwu2019/image-bed/FEA/image-20220817202739648.png" alt=""></p>
+<p>由于是一个无限长的边等截面柱体，因此其在$z$方向上的位移为0，应变为0，于是就对应的剪切力也就为0，但是其对应的应力就不一定为0了。</p>
+<p>下面来简单的归纳上述的平面应变问题。</p>
+<p><img src="https://fastly.jsdelivr.net/gh/houdezaiwu2019/image-bed/FEA/image-20220817203105243.png" alt=""></p>
+<p>上述两种问题直接的联系。</p>
+<p><img src="https://fastly.jsdelivr.net/gh/houdezaiwu2019/image-bed/FEA/image-20220817203253624.png" alt=""></p>
+<p><strong>平面的刚体位移</strong></p>
+<p>刚体在平面移动时，其内部不存在应变仅仅在外部有力的作用。</p>
+<p><img src="https://fastly.jsdelivr.net/gh/houdezaiwu2019/image-bed/FEA/image-20220817203629362.png" alt=""></p>
+<p><img src="https://fastly.jsdelivr.net/gh/houdezaiwu2019/image-bed/FEA/image-20220817203955882.png" alt=""></p>
+<h3 id="4-2-简单拉杆问题的完整弹性力学求解"><a href="#4-2-简单拉杆问题的完整弹性力学求解" class="headerlink" title="4.2 简单拉杆问题的完整弹性力学求解"></a><strong>4.2 简单拉杆问题的完整弹性力学求解</strong></h3><p>这里使用前面的三大类变量和三大类方程来完整的解决这个简单的拉杆问题。</p>
+<p><img src="https://fastly.jsdelivr.net/gh/houdezaiwu2019/image-bed/FEA/image-20220817210351881.png" alt=""></p>
+<p>上面的问题是一个简单的一维问题，于是将可得：</p>
+<p><img src="https://fastly.jsdelivr.net/gh/houdezaiwu2019/image-bed/FEA/image-20220817210444194.png" alt=""></p>
+<p><img src="https://fastly.jsdelivr.net/gh/houdezaiwu2019/image-bed/FEA/image-20220817210530985.png" alt=""></p>
+<p>下面分别使用材料力学和弹性力学的三大类变量和三大类方程来求解的结果。</p>
+<p><img src="https://fastly.jsdelivr.net/gh/houdezaiwu2019/image-bed/FEA/image-20220817210930841.png" alt=""></p>
+<p><img src="https://fastly.jsdelivr.net/gh/houdezaiwu2019/image-bed/FEA/image-20220817210815696.png" alt=""></p>
+<p>弹性力学的解是一个分布，而材料力学仅仅求得的时右端的结果。</p>
+<h3 id="4-3-平面纯弯梁的描述及求解"><a href="#4-3-平面纯弯梁的描述及求解" class="headerlink" title="4.3 平面纯弯梁的描述及求解"></a><strong>4.3 平面纯弯梁的描述及求解</strong></h3><p><img src="https://fastly.jsdelivr.net/gh/houdezaiwu2019/image-bed/FEA/image-20220817212004162.png" alt=""></p>
+<p>这一部分和材料力学里面求解的情况时一样。</p>
+<p><img src="https://fastly.jsdelivr.net/gh/houdezaiwu2019/image-bed/FEA/image-20220817212120018.png" alt=""></p>
+<p>确定了基本的变量之后，下面我们来建立三大方程。</p>
+<p>首先是<strong>平衡方程</strong>的建立</p>
+<p><img src="https://fastly.jsdelivr.net/gh/houdezaiwu2019/image-bed/FEA/image-20220817212410032.png" alt=""></p>
+<p>之后是<strong>几何方程</strong>的建立</p>
+<p><img src="https://fastly.jsdelivr.net/gh/houdezaiwu2019/image-bed/FEA/image-20220817212654083.png" alt=""></p>
+<p><img src="https://fastly.jsdelivr.net/gh/houdezaiwu2019/image-bed/FEA/image-20220817212726947.png" alt=""></p>
+<p><img src="https://fastly.jsdelivr.net/gh/houdezaiwu2019/image-bed/FEA/image-20220817212831412.png" alt=""></p>
+<p>由于我们在前面进行微元分析的时候已经使用的了均布载荷了，于是这里的边界仅仅考虑在支座处的受力。</p>
+<p><img src="https://fastly.jsdelivr.net/gh/houdezaiwu2019/image-bed/FEA/image-20220817213404265.png" alt=""></p>
+<p><img src="https://fastly.jsdelivr.net/gh/houdezaiwu2019/image-bed/FEA/image-20220817214202154.png" alt=""></p>
+<h3 id="4-4-空间弹性问题的完整描述"><a href="#4-4-空间弹性问题的完整描述" class="headerlink" title="4.4 空间弹性问题的完整描述"></a><strong>4.4 空间弹性问题的完整描述</strong></h3><p><img src="https://fastly.jsdelivr.net/gh/houdezaiwu2019/image-bed/FEA/image-20220817214407778.png" alt=""></p>
+<p>这里解决空间问题的主要的方法是一种是取出微元体来进行分析，另一种是将2D问题进行三维推广。</p>
+<p>首先是在变量方面。</p>
+<p><img src="https://fastly.jsdelivr.net/gh/houdezaiwu2019/image-bed/FEA/image-20220817214731446.png" alt=""><br>之后是平衡方程的方面。</p>
+<p><img src="https://fastly.jsdelivr.net/gh/houdezaiwu2019/image-bed/FEA/image-20220817214828941.png" alt=""></p>
+<p>然后是几何方程方面。</p>
+<p><img src="https://fastly.jsdelivr.net/gh/houdezaiwu2019/image-bed/FEA/image-20220817215007675.png" alt=""></p>
+<p>接下来是物理方程上面。</p>
+<p><img src="https://fastly.jsdelivr.net/gh/houdezaiwu2019/image-bed/FEA/image-20220817215102629.png" alt=""></p>
+<p>最后是在边界条件方面。</p>
+<p><img src="https://fastly.jsdelivr.net/gh/houdezaiwu2019/image-bed/FEA/image-20220817215307894.png" alt=""></p>
+<p><img src="https://fastly.jsdelivr.net/gh/houdezaiwu2019/image-bed/FEA/image-20220817215320304.png" alt=""></p>
+<p>3D问题的指标形式的书写。</p>
+<p><img src="https://fastly.jsdelivr.net/gh/houdezaiwu2019/image-bed/FEA/image-20220817215521957.png" alt=""></p>
+<h3 id="4-5-关于张量的理解"><a href="#4-5-关于张量的理解" class="headerlink" title="4.5 关于张量的理解"></a><strong>4.5 关于张量的理解</strong></h3><p><img src="https://fastly.jsdelivr.net/gh/houdezaiwu2019/image-bed/FEA/image-20220817215700610.png" alt=""></p>
+<p><img src="https://fastly.jsdelivr.net/gh/houdezaiwu2019/image-bed/FEA/image-20220817215836815.png" alt=""></p>
+<p><img src="https://fastly.jsdelivr.net/gh/houdezaiwu2019/image-bed/FEA/image-20220817215947680.png" alt=""></p>
+<p><img src="https://fastly.jsdelivr.net/gh/houdezaiwu2019/image-bed/FEA/image-20220817220048097.png" alt=""></p>
+<p>在这里向量的模长其实就是一个不变量，利用整个不变量来定义强度的准则。</p>
+<p><img src="https://fastly.jsdelivr.net/gh/houdezaiwu2019/image-bed/FEA/image-20220817220304481.png" alt=""></p>
+<p><img src="https://fastly.jsdelivr.net/gh/houdezaiwu2019/image-bed/FEA/image-20220817220343057.png" alt=""></p>
+<p>将上述的2D的坐标变换问题转换成3D的情况。</p>
+<p><img src="https://fastly.jsdelivr.net/gh/houdezaiwu2019/image-bed/FEA/image-20220817220431549.png" alt=""></p>
+<p><img src="https://fastly.jsdelivr.net/gh/houdezaiwu2019/image-bed/FEA/image-20220817220701343.png" alt=""></p>
+<h2 id="Chapter-5-变形体方程求解的试函数方法的原理"><a href="#Chapter-5-变形体方程求解的试函数方法的原理" class="headerlink" title="Chapter 5 变形体方程求解的试函数方法的原理"></a><strong>Chapter 5 变形体方程求解的试函数方法的原理</strong></h2><h3 id="5-1-变形体-弹性-力学方程求解方法分类及试函数方法"><a href="#5-1-变形体-弹性-力学方程求解方法分类及试函数方法" class="headerlink" title="5.1 变形体(弹性)力学方程求解方法分类及试函数方法"></a><strong>5.1 变形体(弹性)力学方程求解方法分类及试函数方法</strong></h3><p><img src="https://fastly.jsdelivr.net/gh/houdezaiwu2019/image-bed/FEA/image-20220818081252768.png" alt=""></p>
+<p><img src="https://fastly.jsdelivr.net/gh/houdezaiwu2019/image-bed/FEA/image-20220818081634438.png" alt=""></p>
+<p><img src="https://fastly.jsdelivr.net/gh/houdezaiwu2019/image-bed/FEA/image-20220818081755343.png" alt=""></p>
+<p><img src="https://fastly.jsdelivr.net/gh/houdezaiwu2019/image-bed/FEA/image-20220818081853236.png" alt=""></p>
+<p><img src="https://fastly.jsdelivr.net/gh/houdezaiwu2019/image-bed/FEA/image-20220818081904704.png" alt=""></p>
+<p>下面为几个主要的误差计算方法。</p>
+<p><img src="https://fastly.jsdelivr.net/gh/houdezaiwu2019/image-bed/FEA/image-20220818082127209.png" alt=""></p>
+<p><img src="https://fastly.jsdelivr.net/gh/houdezaiwu2019/image-bed/FEA/image-20220818082223797.png" alt=""></p>
+<p><img src="https://fastly.jsdelivr.net/gh/houdezaiwu2019/image-bed/FEA/image-20220818082342494.png" alt=""></p>
+<h3 id="5-2-平面弯曲梁的求解的试函数方法——残值处理法"><a href="#5-2-平面弯曲梁的求解的试函数方法——残值处理法" class="headerlink" title="5.2 平面弯曲梁的求解的试函数方法——残值处理法"></a><strong>5.2 平面弯曲梁的求解的试函数方法——残值处理法</strong></h3><p><img src="https://fastly.jsdelivr.net/gh/houdezaiwu2019/image-bed/FEA/image-20220818084243245.png" alt=""></p>
+<p><img src="https://fastly.jsdelivr.net/gh/houdezaiwu2019/image-bed/FEA/image-20220818084310835.png" alt=""></p>
+<p><strong>Galerkin加权方法</strong></p>
+<p><img src="https://fastly.jsdelivr.net/gh/houdezaiwu2019/image-bed/FEA/image-20220818084350379.png" alt=""></p>
+<p><img src="https://fastly.jsdelivr.net/gh/houdezaiwu2019/image-bed/FEA/image-20220818084410094.png" alt=""></p>
+<p><strong>残值最小二乘法</strong></p>
+<p><img src="https://fastly.jsdelivr.net/gh/houdezaiwu2019/image-bed/FEA/image-20220818084528329.png" alt=""></p>
+<p><img src="https://fastly.jsdelivr.net/gh/houdezaiwu2019/image-bed/FEA/image-20220818084557682.png" alt=""></p>
+<p>由于所取的基底是相同的，于是就两种方法最后求得的结果是相同的。</p>
+<h3 id="5-3-如何降低对试函数的高阶导数及边界条件的要求"><a href="#5-3-如何降低对试函数的高阶导数及边界条件的要求" class="headerlink" title="5.3 如何降低对试函数的高阶导数及边界条件的要求"></a><strong>5.3 如何降低对试函数的高阶导数及边界条件的要求</strong></h3><p><img src="https://fastly.jsdelivr.net/gh/houdezaiwu2019/image-bed/FEA/image-20220818084920833.png" alt=""></p>
+<p>前面的问题取得是正弦和余弦，因此可导性是很好的。</p>
+<p><img src="https://fastly.jsdelivr.net/gh/houdezaiwu2019/image-bed/FEA/image-20220818085612647.png" alt=""></p>
+<p>这里是将所有的变量全部代入换算成位移。</p>
+<p><img src="https://fastly.jsdelivr.net/gh/houdezaiwu2019/image-bed/FEA/image-20220818085548806.png" alt=""></p>
+<p><img src="https://fastly.jsdelivr.net/gh/houdezaiwu2019/image-bed/FEA/image-20220818091135283.png" alt=""></p>
+<p><img src="https://fastly.jsdelivr.net/gh/houdezaiwu2019/image-bed/FEA/image-20220818091238550.png" alt=""></p>
+<p><img src="https://fastly.jsdelivr.net/gh/houdezaiwu2019/image-bed/FEA/image-20220818091406549.png" alt=""></p>
+<h3 id="5-4-平面弯曲梁求解的能量原理"><a href="#5-4-平面弯曲梁求解的能量原理" class="headerlink" title="5.4 平面弯曲梁求解的能量原理"></a><strong>5.4 平面弯曲梁求解的能量原理</strong></h3><p>本讲主要解决的是如何降低对试函数导数的要求。</p>
+<p><img src="https://fastly.jsdelivr.net/gh/houdezaiwu2019/image-bed/FEA/image-20220818091630812.png" alt=""></p>
+<p><img src="https://fastly.jsdelivr.net/gh/houdezaiwu2019/image-bed/FEA/image-20220818091721813.png" alt=""></p>
+<p><img src="https://fastly.jsdelivr.net/gh/houdezaiwu2019/image-bed/FEA/image-20220818091824980.png" alt=""></p>
+<p><img src="https://fastly.jsdelivr.net/gh/houdezaiwu2019/image-bed/FEA/image-20220818091858690.png" alt=""></p>
+<p><img src="https://fastly.jsdelivr.net/gh/houdezaiwu2019/image-bed/FEA/image-20220818092006625.png" alt=""></p>
+<p><img src="https://fastly.jsdelivr.net/gh/houdezaiwu2019/image-bed/FEA/image-20220818092117172.png" alt=""></p>
+<p><img src="https://fastly.jsdelivr.net/gh/houdezaiwu2019/image-bed/FEA/image-20220818092203428.png" alt=""></p>
+<p><img src="https://fastly.jsdelivr.net/gh/houdezaiwu2019/image-bed/FEA/image-20220818092216071.png" alt=""></p>
+<p><img src="https://fastly.jsdelivr.net/gh/houdezaiwu2019/image-bed/FEA/image-20220818092248821.png" alt=""></p>
+<p><img src="https://fastly.jsdelivr.net/gh/houdezaiwu2019/image-bed/FEA/image-20220818092312967.png" alt=""></p>
+<h3 id="5-5-最小势能原理的变分方法"><a href="#5-5-最小势能原理的变分方法" class="headerlink" title="5.5 最小势能原理的变分方法"></a><strong>5.5 最小势能原理的变分方法</strong></h3><p><img src="https://fastly.jsdelivr.net/gh/houdezaiwu2019/image-bed/FEA/image-20220818092542808.png" alt=""></p>
+<p><img src="https://fastly.jsdelivr.net/gh/houdezaiwu2019/image-bed/FEA/image-20220818092608019.png" alt=""></p>
+<p><img src="https://fastly.jsdelivr.net/gh/houdezaiwu2019/image-bed/FEA/image-20220818092737289.png" alt=""></p>
+<p><img src="https://fastly.jsdelivr.net/gh/houdezaiwu2019/image-bed/FEA/image-20220818092748443.png" alt=""></p>
+<p><img src="https://fastly.jsdelivr.net/gh/houdezaiwu2019/image-bed/FEA/image-20220818092812528.png" alt=""></p>
+<p><img src="https://fastly.jsdelivr.net/gh/houdezaiwu2019/image-bed/FEA/image-20220818092859407.png" alt=""></p>
+<p><img src="https://fastly.jsdelivr.net/gh/houdezaiwu2019/image-bed/FEA/image-20220818092915320.png" alt=""></p>
+<h3 id="5-6-一般问题的虚功原理"><a href="#5-6-一般问题的虚功原理" class="headerlink" title="5.6 一般问题的虚功原理"></a><strong>5.6 一般问题的虚功原理</strong></h3><p><img src="https://fastly.jsdelivr.net/gh/houdezaiwu2019/image-bed/FEA/image-20220818093117562.png" alt=""></p>
+<p><img src="https://fastly.jsdelivr.net/gh/houdezaiwu2019/image-bed/FEA/image-20220818093207503.png" alt=""></p>
+<p><img src="https://fastly.jsdelivr.net/gh/houdezaiwu2019/image-bed/FEA/image-20220818093444872.png" alt=""></p>
+<p><img src="https://fastly.jsdelivr.net/gh/houdezaiwu2019/image-bed/FEA/image-20220818093558373.png" alt=""></p>
+<p><img src="https://fastly.jsdelivr.net/gh/houdezaiwu2019/image-bed/FEA/image-20220818093658615.png" alt=""></p>
+<p><img src="https://fastly.jsdelivr.net/gh/houdezaiwu2019/image-bed/FEA/image-20220818093808362.png" alt=""></p>
+<p><img src="https://fastly.jsdelivr.net/gh/houdezaiwu2019/image-bed/FEA/image-20220818094427419.png" alt=""></p>
+<p><img src="https://fastly.jsdelivr.net/gh/houdezaiwu2019/image-bed/FEA/image-20220818094659228.png" alt=""></p>
+<p><img src="https://fastly.jsdelivr.net/gh/houdezaiwu2019/image-bed/FEA/image-20220818094800459.png" alt=""></p>
+<p><img src="https://fastly.jsdelivr.net/gh/houdezaiwu2019/image-bed/FEA/image-20220818094913765.png" alt=""></p>
+<p><img src="https://fastly.jsdelivr.net/gh/houdezaiwu2019/image-bed/FEA/image-20220818095029209.png" alt=""></p>
+<h2 id="Chapter-6-基于试函数的经典方法和有限元方法"><a href="#Chapter-6-基于试函数的经典方法和有限元方法" class="headerlink" title="Chapter 6 基于试函数的经典方法和有限元方法"></a><strong>Chapter 6 基于试函数的经典方法和有限元方法</strong></h2><h3 id="6-1-基于试函数的经典方法和有限元方法"><a href="#6-1-基于试函数的经典方法和有限元方法" class="headerlink" title="6.1 基于试函数的经典方法和有限元方法"></a><strong>6.1 基于试函数的经典方法和有限元方法</strong></h3><p><img src="https://fastly.jsdelivr.net/gh/houdezaiwu2019/image-bed/FEA/image-20220818095343458.png" alt=""></p>
+<p><img src="https://fastly.jsdelivr.net/gh/houdezaiwu2019/image-bed/FEA/image-20220818095452504.png" alt=""></p>
+<p><img src="https://fastly.jsdelivr.net/gh/houdezaiwu2019/image-bed/FEA/image-20220818095607681.png" alt=""></p>
+<p><img src="https://fastly.jsdelivr.net/gh/houdezaiwu2019/image-bed/FEA/image-20220818095700351.png" alt=""></p>
+<p><img src="https://fastly.jsdelivr.net/gh/houdezaiwu2019/image-bed/FEA/image-20220818095822691.png" alt=""></p>
+<p>离散主要分为自然离散、人工离散、混合离散三种。</p>
+<h3 id="6-2-有限元方法的基本步骤"><a href="#6-2-有限元方法的基本步骤" class="headerlink" title="6.2 有限元方法的基本步骤"></a><strong>6.2 有限元方法的基本步骤</strong></h3><p><img src="https://fastly.jsdelivr.net/gh/houdezaiwu2019/image-bed/FEA/image-20220818100236131.png" alt=""></p>
+<p><img src="https://fastly.jsdelivr.net/gh/houdezaiwu2019/image-bed/FEA/image-20220818100338967.png" alt=""></p>
+<p><img src="https://fastly.jsdelivr.net/gh/houdezaiwu2019/image-bed/FEA/image-20220818100518607.png" alt=""></p>
+<p><img src="https://fastly.jsdelivr.net/gh/houdezaiwu2019/image-bed/FEA/image-20220818100724981.png" alt=""></p>
+<p><img src="https://fastly.jsdelivr.net/gh/houdezaiwu2019/image-bed/FEA/image-20220818101030675.png" alt=""></p>
+<p><img src="https://fastly.jsdelivr.net/gh/houdezaiwu2019/image-bed/FEA/image-20220818101107520.png" alt=""></p>
+<h3 id="6-3-试函数经典方法及有限元方法的比较"><a href="#6-3-试函数经典方法及有限元方法的比较" class="headerlink" title="6.3 试函数经典方法及有限元方法的比较"></a><strong>6.3 试函数经典方法及有限元方法的比较</strong></h3><p><img src="https://fastly.jsdelivr.net/gh/houdezaiwu2019/image-bed/FEA/image-20220818101400262.png" alt=""></p>
+<p><img src="https://fastly.jsdelivr.net/gh/houdezaiwu2019/image-bed/FEA/image-20220818101431585.png" alt=""></p>
+<p><img src="https://fastly.jsdelivr.net/gh/houdezaiwu2019/image-bed/FEA/image-20220818101502652.png" alt=""></p>
+<h2 id=""><a href="#" class="headerlink" title=" "></a> </h2></div><div class="article-licensing box"><div class="licensing-title"><p>有限元分析与应用——理论部分</p><p><a href="http://example.com/2022/08/26/有限元方法/有限元分析与应用——理论部分/">http://example.com/2022/08/26/有限元方法/有限元分析与应用——理论部分/</a></p></div><div class="licensing-meta level is-mobile"><div class="level-left"><div class="level-item is-narrow"><div><h6>作者</h6><p>czt</p></div></div><div class="level-item is-narrow"><div><h6>发布于</h6><p>2022-08-26</p></div></div><div class="level-item is-narrow"><div><h6>更新于</h6><p>2022-08-26</p></div></div><div class="level-item is-narrow"><div><h6>许可协议</h6><p><a class="icons" rel="noopener" target="_blank" title="Creative Commons" href="https://creativecommons.org/"><i class="icon fab fa-creative-commons"></i></a><a class="icons" rel="noopener" target="_blank" title="Attribution" href="https://creativecommons.org/licenses/by/4.0/"><i class="icon fab fa-creative-commons-by"></i></a><a class="icons" rel="noopener" target="_blank" title="Noncommercial" href="https://creativecommons.org/licenses/by-nc/4.0/"><i class="icon fab fa-creative-commons-nc"></i></a></p></div></div></div></div></div><div class="article-tags is-size-7 mb-4"><span class="mr-2">#</span><a class="link-muted mr-2" rel="tag" href="/tags/Finite-Element-Analysis/">Finite Element Analysis</a></div><!--!--></article></div><!--!--><nav class="post-navigation mt-4 level is-mobile"><div class="level-start"><a class="article-nav-prev level level-item link-muted" href="/2022/08/26/%E6%9C%89%E9%99%90%E5%85%83%E6%96%B9%E6%B3%95/%E6%9C%89%E9%99%90%E5%85%83%E5%88%86%E6%9E%90%E4%B8%8E%E5%BA%94%E7%94%A8%E2%80%94%E2%80%94%E5%BA%94%E7%94%A8%E9%83%A8%E5%88%86/"><i class="level-item fas fa-chevron-left"></i><span class="level-item">有限元分析与应用——应用部分</span></a></div><div class="level-end"><a class="article-nav-next level level-item link-muted" href="/2022/08/26/%E5%9B%BE%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C/%E5%9B%BE%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C%E2%80%94%E2%80%94%E4%B8%AD%E7%A7%91%E9%99%A2%E8%AF%BE%E7%A8%8B/"><span class="level-item">图神经网络——中科院课程</span><i class="level-item fas fa-chevron-right"></i></a></div></nav><!--!--></div><div class="column column-left is-4-tablet is-4-desktop is-3-widescreen  order-1 is-sticky"><div class="card widget" data-type="profile"><div class="card-content"><nav class="level"><div class="level-item has-text-centered flex-shrink-1"><div><figure class="image is-128x128 mx-auto mb-2"><img class="avatar" src="https://cdn.jsdelivr.net/gh/houdezaiwu2019/image-bed/hexoimg/202201222202112.jpg" alt="厚德载物"></figure><p class="title is-size-4 is-block" style="line-height:inherit;">厚德载物</p><p class="is-size-6 is-block">实事求是，敢为人先</p><p class="is-size-6 is-flex justify-content-center"><i class="fas fa-map-marker-alt mr-1"></i><span>中国 湖北 武汉</span></p></div></div></nav><nav class="level is-mobile"><div class="level-item has-text-centered is-marginless"><div><p class="heading">文章</p><a href="/archives"><p class="title">98</p></a></div></div><div class="level-item has-text-centered is-marginless"><div><p class="heading">分类</p><a href="/categories"><p class="title">19</p></a></div></div><div class="level-item has-text-centered is-marginless"><div><p class="heading">标签</p><a href="/tags"><p class="title">37</p></a></div></div></nav><div class="level"><a class="level-item button is-primary is-rounded" href="https://monumental-tarsier-a544f3.netlify.app" target="_blank" rel="noopener">关注我</a></div><div class="level is-mobile is-multiline"><a class="level-item button is-transparent is-marginless" target="_blank" rel="noopener" title="Github" href="https://github.com/ppoffice"><i class="fab fa-github"></i></a><a class="level-item button is-transparent is-marginless" target="_blank" rel="noopener" title="Facebook" href="https://facebook.com"><i class="fab fa-facebook"></i></a><a class="level-item button is-transparent is-marginless" target="_blank" rel="noopener" title="Twitter" href="https://twitter.com"><i class="fab fa-twitter"></i></a><a class="level-item button is-transparent is-marginless" target="_blank" rel="noopener" title="Dribbble" href="https://dribbble.com"><i class="fab fa-dribbble"></i></a><a class="level-item button is-transparent is-marginless" target="_blank" rel="noopener" title="RSS" href="/"><i class="fas fa-rss"></i></a></div></div></div><div class="card widget" data-type="links"><div class="card-content"><div class="menu"><h3 class="menu-label">链接</h3><ul class="menu-list"><li><a class="level is-mobile" href="https://paperswithcode.com/" target="_blank" rel="noopener"><span class="level-left"><span class="level-item">paperwithcode</span></span><span class="level-right"><span class="level-item tag">paperswithcode.com</span></span></a></li><li><a class="level is-mobile" href="https://scholar.google.com.hk/?hl=zh-CN" target="_blank" rel="noopener"><span class="level-left"><span class="level-item">google_scholar</span></span><span class="level-right"><span class="level-item tag">scholar.google.com.hk</span></span></a></li><li><a class="level is-mobile" href="https://arxiv.org/" target="_blank" rel="noopener"><span class="level-left"><span class="level-item">arxiv</span></span><span class="level-right"><span class="level-item tag">arxiv.org</span></span></a></li><li><a class="level is-mobile" href="https://leetcode-cn.com/problemset/algorithms/" target="_blank" rel="noopener"><span class="level-left"><span class="level-item">leetcode</span></span><span class="level-right"><span class="level-item tag">leetcode-cn.com</span></span></a></li><li><a class="level is-mobile" href="https://mathf.itewqq.cn/" target="_blank" rel="noopener"><span class="level-left"><span class="level-item">mathf</span></span><span class="level-right"><span class="level-item tag">mathf.itewqq.cn</span></span></a></li><li><a class="level is-mobile" href="https://qwerty.kaiyi.cool/" target="_blank" rel="noopener"><span class="level-left"><span class="level-item">qwerty</span></span><span class="level-right"><span class="level-item tag">qwerty.kaiyi.cool</span></span></a></li><li><a class="level is-mobile" href="https://www.overleaf.com/" target="_blank" rel="noopener"><span class="level-left"><span class="level-item">overleaf</span></span><span class="level-right"><span class="level-item tag">www.overleaf.com</span></span></a></li><li><a class="level is-mobile" href="http://www.pipioj.online/" target="_blank" rel="noopener"><span class="level-left"><span class="level-item">pipioj</span></span><span class="level-right"><span class="level-item tag">www.pipioj.online</span></span></a></li><li><a class="level is-mobile" href="https://monumental-tarsier-a544f3.netlify.app" target="_blank" rel="noopener"><span class="level-left"><span class="level-item">hugocvofczt</span></span><span class="level-right"><span class="level-item tag">monumental-tarsier-a544f3.netlify.app</span></span></a></li><li><a class="level is-mobile" href="https://app.netlify.com/sites/monumental-tarsier-a544f3/overview" target="_blank" rel="noopener"><span class="level-left"><span class="level-item">netlify</span></span><span class="level-right"><span class="level-item tag">app.netlify.com</span></span></a></li><li><a class="level is-mobile" href="https://hexo.io" target="_blank" rel="noopener"><span class="level-left"><span class="level-item">Hexo</span></span><span class="level-right"><span class="level-item tag">hexo.io</span></span></a></li><li><a class="level is-mobile" href="https://bulma.io" target="_blank" rel="noopener"><span class="level-left"><span class="level-item">Bulma</span></span><span class="level-right"><span class="level-item tag">bulma.io</span></span></a></li></ul></div></div></div><div class="card widget" data-type="archives"><div class="card-content"><div class="menu"><h3 class="menu-label">归档</h3><ul class="menu-list"><li><a class="level is-mobile" href="/archives/2022/08/"><span class="level-start"><span class="level-item">八月 2022</span></span><span class="level-end"><span class="level-item tag">6</span></span></a></li><li><a class="level is-mobile" href="/archives/2022/07/"><span class="level-start"><span class="level-item">七月 2022</span></span><span class="level-end"><span class="level-item tag">9</span></span></a></li><li><a class="level is-mobile" href="/archives/2022/06/"><span class="level-start"><span class="level-item">六月 2022</span></span><span class="level-end"><span class="level-item tag">16</span></span></a></li><li><a class="level is-mobile" href="/archives/2022/05/"><span class="level-start"><span class="level-item">五月 2022</span></span><span class="level-end"><span class="level-item tag">1</span></span></a></li><li><a class="level is-mobile" href="/archives/2022/04/"><span class="level-start"><span class="level-item">四月 2022</span></span><span class="level-end"><span class="level-item tag">9</span></span></a></li><li><a class="level is-mobile" href="/archives/2022/03/"><span class="level-start"><span class="level-item">三月 2022</span></span><span class="level-end"><span class="level-item tag">25</span></span></a></li><li><a class="level is-mobile" href="/archives/2022/02/"><span class="level-start"><span class="level-item">二月 2022</span></span><span class="level-end"><span class="level-item tag">21</span></span></a></li><li><a class="level is-mobile" href="/archives/2022/01/"><span class="level-start"><span class="level-item">一月 2022</span></span><span class="level-end"><span class="level-item tag">11</span></span></a></li></ul></div></div></div><div class="card widget" data-type="tags"><div class="card-content"><div class="menu"><h3 class="menu-label">标签</h3><div class="field is-grouped is-grouped-multiline"><div class="control"><a class="tags has-addons" href="/tags/Computer-Vision/"><span class="tag">Computer Vision</span><span class="tag">21</span></a></div><div class="control"><a class="tags has-addons" href="/tags/Deep-learning/"><span class="tag">Deep learning</span><span class="tag">1</span></a></div><div class="control"><a class="tags has-addons" href="/tags/Finite-Element-Analysis/"><span class="tag">Finite Element Analysis</span><span class="tag">2</span></a></div><div class="control"><a class="tags has-addons" href="/tags/GAN%E5%AE%9E%E6%88%98/"><span class="tag">GAN实战</span><span class="tag">6</span></a></div><div class="control"><a class="tags has-addons" href="/tags/Generative-Adversarial-Networks/"><span class="tag">Generative Adversarial Networks</span><span class="tag">6</span></a></div><div class="control"><a class="tags has-addons" href="/tags/Graph/"><span class="tag">Graph</span><span class="tag">5</span></a></div><div class="control"><a class="tags has-addons" href="/tags/IEEE%E6%8A%95%E7%A8%BF/"><span class="tag">IEEE投稿</span><span class="tag">1</span></a></div><div class="control"><a class="tags has-addons" href="/tags/Latex/"><span class="tag">Latex</span><span class="tag">4</span></a></div><div class="control"><a class="tags has-addons" href="/tags/Machine-Learning/"><span class="tag">Machine Learning</span><span class="tag">3</span></a></div><div class="control"><a class="tags has-addons" href="/tags/Machine-learning/"><span class="tag">Machine learning</span><span class="tag">1</span></a></div><div class="control"><a class="tags has-addons" href="/tags/Markdown/"><span class="tag">Markdown</span><span class="tag">1</span></a></div><div class="control"><a class="tags has-addons" href="/tags/NLP/"><span class="tag">NLP</span><span class="tag">3</span></a></div><div class="control"><a class="tags has-addons" href="/tags/Neural-Networks/"><span class="tag">Neural Networks</span><span class="tag">5</span></a></div><div class="control"><a class="tags has-addons" href="/tags/Pytorch/"><span class="tag">Pytorch</span><span class="tag">9</span></a></div><div class="control"><a class="tags has-addons" href="/tags/SLAM/"><span class="tag">SLAM</span><span class="tag">21</span></a></div><div class="control"><a class="tags has-addons" href="/tags/Transformer/"><span class="tag">Transformer</span><span class="tag">3</span></a></div><div class="control"><a class="tags has-addons" href="/tags/Typora/"><span class="tag">Typora</span><span class="tag">1</span></a></div><div class="control"><a class="tags has-addons" href="/tags/auto-encoder/"><span class="tag">auto-encoder</span><span class="tag">4</span></a></div><div class="control"><a class="tags has-addons" href="/tags/c/"><span class="tag">c++</span><span class="tag">21</span></a></div><div class="control"><a class="tags has-addons" href="/tags/control-theory/"><span class="tag">control theory</span><span class="tag">2</span></a></div><div class="control"><a class="tags has-addons" href="/tags/latex/"><span class="tag">latex</span><span class="tag">1</span></a></div><div class="control"><a class="tags has-addons" href="/tags/object-detection/"><span class="tag">object detection</span><span class="tag">3</span></a></div><div class="control"><a class="tags has-addons" href="/tags/opencv/"><span class="tag">opencv</span><span class="tag">3</span></a></div><div class="control"><a class="tags has-addons" href="/tags/point-cloud/"><span class="tag">point cloud</span><span class="tag">1</span></a></div><div class="control"><a class="tags has-addons" href="/tags/python/"><span class="tag">python</span><span class="tag">3</span></a></div><div class="control"><a class="tags has-addons" href="/tags/pytorch/"><span class="tag">pytorch</span><span class="tag">20</span></a></div><div class="control"><a class="tags has-addons" href="/tags/%E5%9B%BE%E5%83%8F%E5%88%86%E7%B1%BB/"><span class="tag">图像分类</span><span class="tag">6</span></a></div><div class="control"><a class="tags has-addons" href="/tags/%E5%9B%BE%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C/"><span class="tag">图神经网络</span><span class="tag">5</span></a></div><div class="control"><a class="tags has-addons" href="/tags/%E6%8E%A7%E5%88%B6%E7%90%86%E8%AE%BA/"><span class="tag">控制理论</span><span class="tag">2</span></a></div><div class="control"><a class="tags has-addons" href="/tags/%E6%97%A0%E7%9B%91%E7%9D%A3%E5%AD%A6%E4%B9%A0/"><span class="tag">无监督学习</span><span class="tag">4</span></a></div><div class="control"><a class="tags has-addons" href="/tags/%E6%9C%BA%E6%A2%B0%E6%8C%AF%E5%8A%A8/"><span class="tag">机械振动</span><span class="tag">20</span></a></div><div class="control"><a class="tags has-addons" href="/tags/%E7%94%9F%E6%88%90%E6%A8%A1%E5%9E%8B/"><span class="tag">生成模型</span><span class="tag">4</span></a></div><div class="control"><a class="tags has-addons" href="/tags/%E7%9B%AE%E6%A0%87%E6%A3%80%E6%B5%8B/"><span class="tag">目标检测</span><span class="tag">2</span></a></div><div class="control"><a class="tags has-addons" href="/tags/%E7%A7%91%E7%A0%94/"><span class="tag">科研</span><span class="tag">1</span></a></div><div class="control"><a class="tags has-addons" href="/tags/%E8%87%AA%E6%B3%A8%E6%84%8F%E5%8A%9B%E6%9C%BA%E5%88%B6/"><span class="tag">自注意力机制</span><span class="tag">3</span></a></div><div class="control"><a class="tags has-addons" href="/tags/%E8%AE%BA%E6%96%87%E5%86%99%E4%BD%9C/"><span class="tag">论文写作</span><span class="tag">1</span></a></div><div class="control"><a class="tags has-addons" href="/tags/%E8%AF%AD%E4%B9%89%E5%88%86%E5%89%B2/"><span class="tag">语义分割</span><span class="tag">6</span></a></div></div></div></div></div><div class="column-right-shadow is-hidden-widescreen is-sticky"></div></div><div class="column column-right is-4-tablet is-4-desktop is-3-widescreen is-hidden-touch is-hidden-desktop-only order-3 is-sticky"><div class="card widget" id="toc" data-type="toc"><div class="card-content"><div class="menu"><h3 class="menu-label">目录</h3><ul class="menu-list"><li><a class="level is-mobile" href="#Chapter-1-引论"><span class="level-left"><span class="level-item">1</span><span class="level-item">Chapter 1 引论</span></span></a><ul class="menu-list"><li><a class="level is-mobile" href="#1-1-力学的分类：质点、刚体、变形体"><span class="level-left"><span class="level-item">1.1</span><span class="level-item">1.1 力学的分类：质点、刚体、变形体</span></span></a></li><li><a class="level is-mobile" href="#1-2-变形体力学的要点"><span class="level-left"><span class="level-item">1.2</span><span class="level-item">1.2 变形体力学的要点</span></span></a></li><li><a class="level is-mobile" href="#1-3-微分方程求解的方法"><span class="level-left"><span class="level-item">1.3</span><span class="level-item">1.3 微分方程求解的方法</span></span></a></li><li><a class="level is-mobile" href="#1-4-函数逼近问题"><span class="level-left"><span class="level-item">1.4</span><span class="level-item">1.4 函数逼近问题</span></span></a></li><li><a class="level is-mobile" href="#1-5-针对复杂域上的构造函数或级数"><span class="level-left"><span class="level-item">1.5</span><span class="level-item">1.5 针对复杂域上的构造函数或级数</span></span></a></li><li><a class="level is-mobile" href="#1-6-有限元的核心：针对复杂几何域的分片函数逼近"><span class="level-left"><span class="level-item">1.6</span><span class="level-item">1.6 有限元的核心：针对复杂几何域的分片函数逼近</span></span></a></li><li><a class="level is-mobile" href="#1-7-发展历史"><span class="level-left"><span class="level-item">1.7</span><span class="level-item">1.7 发展历史</span></span></a></li></ul></li><li><a class="level is-mobile" href="#Chapter-2-基于直接刚度法的杆系有限元方法"><span class="level-left"><span class="level-item">2</span><span class="level-item">Chapter 2 基于直接刚度法的杆系有限元方法</span></span></a><ul class="menu-list"><li><a class="level is-mobile" href="#2-1-弹簧的力学分析原理"><span class="level-left"><span class="level-item">2.1</span><span class="level-item">2.1 弹簧的力学分析原理</span></span></a></li><li><a class="level is-mobile" href="#2-2-弹簧单元和杆单元的比较"><span class="level-left"><span class="level-item">2.2</span><span class="level-item">2.2 弹簧单元和杆单元的比较</span></span></a></li><li><a class="level is-mobile" href="#2-3-杆单元的坐标变换"><span class="level-left"><span class="level-item">2.3</span><span class="level-item">2.3 杆单元的坐标变换</span></span></a></li><li><a class="level is-mobile" href="#2-4-四杆结构的有限元分析"><span class="level-left"><span class="level-item">2.4</span><span class="level-item">2.4 四杆结构的有限元分析</span></span></a></li></ul></li><li><a class="level is-mobile" href="#Chapter-3-针对复杂几何变形体的力学描述"><span class="level-left"><span class="level-item">3</span><span class="level-item">Chapter 3  针对复杂几何变形体的力学描述</span></span></a><ul class="menu-list"><li><a class="level is-mobile" href="#3-1-力学描述的基本思路及变形基本假设"><span class="level-left"><span class="level-item">3.1</span><span class="level-item">3.1 力学描述的基本思路及变形基本假设</span></span></a></li><li><a class="level is-mobile" href="#3-2-指标记法"><span class="level-left"><span class="level-item">3.2</span><span class="level-item">3.2 指标记法</span></span></a></li><li><a class="level is-mobile" href="#3-3-复杂变形体描述的建模思路"><span class="level-left"><span class="level-item">3.3</span><span class="level-item">3.3 复杂变形体描述的建模思路</span></span></a></li><li><a class="level is-mobile" href="#3-4-平衡方程的构建"><span class="level-left"><span class="level-item">3.4</span><span class="level-item">3.4 平衡方程的构建</span></span></a></li><li><a class="level is-mobile" href="#3-5-几何方程的构建"><span class="level-left"><span class="level-item">3.5</span><span class="level-item">3.5 几何方程的构建</span></span></a></li><li><a class="level is-mobile" href="#3-6-物理方程的构建"><span class="level-left"><span class="level-item">3.6</span><span class="level-item">3.6 物理方程的构建</span></span></a></li><li><a class="level is-mobile" href="#3-7-边界条件"><span class="level-left"><span class="level-item">3.7</span><span class="level-item">3.7 边界条件</span></span></a></li></ul></li><li><a class="level is-mobile" href="#Chapter-4-针对复杂几何形状变形体的力学描述2"><span class="level-left"><span class="level-item">4</span><span class="level-item">Chapter 4 针对复杂几何形状变形体的力学描述2</span></span></a><ul class="menu-list"><li><a class="level is-mobile" href="#4-1-几种问题的讨论"><span class="level-left"><span class="level-item">4.1</span><span class="level-item">4.1 几种问题的讨论</span></span></a></li><li><a class="level is-mobile" href="#4-2-简单拉杆问题的完整弹性力学求解"><span class="level-left"><span class="level-item">4.2</span><span class="level-item">4.2 简单拉杆问题的完整弹性力学求解</span></span></a></li><li><a class="level is-mobile" href="#4-3-平面纯弯梁的描述及求解"><span class="level-left"><span class="level-item">4.3</span><span class="level-item">4.3 平面纯弯梁的描述及求解</span></span></a></li><li><a class="level is-mobile" href="#4-4-空间弹性问题的完整描述"><span class="level-left"><span class="level-item">4.4</span><span class="level-item">4.4 空间弹性问题的完整描述</span></span></a></li><li><a class="level is-mobile" href="#4-5-关于张量的理解"><span class="level-left"><span class="level-item">4.5</span><span class="level-item">4.5 关于张量的理解</span></span></a></li></ul></li><li><a class="level is-mobile" href="#Chapter-5-变形体方程求解的试函数方法的原理"><span class="level-left"><span class="level-item">5</span><span class="level-item">Chapter 5 变形体方程求解的试函数方法的原理</span></span></a><ul class="menu-list"><li><a class="level is-mobile" href="#5-1-变形体-弹性-力学方程求解方法分类及试函数方法"><span class="level-left"><span class="level-item">5.1</span><span class="level-item">5.1 变形体(弹性)力学方程求解方法分类及试函数方法</span></span></a></li><li><a class="level is-mobile" href="#5-2-平面弯曲梁的求解的试函数方法——残值处理法"><span class="level-left"><span class="level-item">5.2</span><span class="level-item">5.2 平面弯曲梁的求解的试函数方法——残值处理法</span></span></a></li><li><a class="level is-mobile" href="#5-3-如何降低对试函数的高阶导数及边界条件的要求"><span class="level-left"><span class="level-item">5.3</span><span class="level-item">5.3 如何降低对试函数的高阶导数及边界条件的要求</span></span></a></li><li><a class="level is-mobile" href="#5-4-平面弯曲梁求解的能量原理"><span class="level-left"><span class="level-item">5.4</span><span class="level-item">5.4 平面弯曲梁求解的能量原理</span></span></a></li><li><a class="level is-mobile" href="#5-5-最小势能原理的变分方法"><span class="level-left"><span class="level-item">5.5</span><span class="level-item">5.5 最小势能原理的变分方法</span></span></a></li><li><a class="level is-mobile" href="#5-6-一般问题的虚功原理"><span class="level-left"><span class="level-item">5.6</span><span class="level-item">5.6 一般问题的虚功原理</span></span></a></li></ul></li><li><a class="level is-mobile" href="#Chapter-6-基于试函数的经典方法和有限元方法"><span class="level-left"><span class="level-item">6</span><span class="level-item">Chapter 6 基于试函数的经典方法和有限元方法</span></span></a><ul class="menu-list"><li><a class="level is-mobile" href="#6-1-基于试函数的经典方法和有限元方法"><span class="level-left"><span class="level-item">6.1</span><span class="level-item">6.1 基于试函数的经典方法和有限元方法</span></span></a></li><li><a class="level is-mobile" href="#6-2-有限元方法的基本步骤"><span class="level-left"><span class="level-item">6.2</span><span class="level-item">6.2 有限元方法的基本步骤</span></span></a></li><li><a class="level is-mobile" href="#6-3-试函数经典方法及有限元方法的比较"><span class="level-left"><span class="level-item">6.3</span><span class="level-item">6.3 试函数经典方法及有限元方法的比较</span></span></a></li></ul></li><li><a class="level is-mobile" href="#"><span class="level-left"><span class="level-item">7</span><span class="level-item"> </span></span></a></li></ul></div></div><script src="/js/toc.js" defer></script></div><div class="card widget" data-type="categories"><div class="card-content"><div class="menu"><h3 class="menu-label">分类</h3><ul class="menu-list"><li><a class="level is-mobile" href="/categories/Finite-Element-Analysis/"><span class="level-start"><span class="level-item">Finite Element Analysis</span></span><span class="level-end"><span class="level-item tag">2</span></span></a></li><li><a class="level is-mobile" href="/categories/Generative-Adversarial-Networks/"><span class="level-start"><span class="level-item">Generative Adversarial Networks</span></span><span class="level-end"><span class="level-item tag">6</span></span></a></li><li><a class="level is-mobile" href="/categories/Latex/"><span class="level-start"><span class="level-item">Latex</span></span><span class="level-end"><span class="level-item tag">4</span></span></a></li><li><a class="level is-mobile" href="/categories/Point-Cloud/"><span class="level-start"><span class="level-item">Point Cloud</span></span><span class="level-end"><span class="level-item tag">1</span></span></a></li><li><a class="level is-mobile" href="/categories/PyTorch%E6%95%99%E7%A8%8B%E4%B8%8E%E6%BA%90%E7%A0%81%E8%AE%B2%E8%A7%A3/"><span class="level-start"><span class="level-item">PyTorch教程与源码讲解</span></span><span class="level-end"><span class="level-item tag">6</span></span></a></li><li><a class="level is-mobile" href="/categories/SLAM/"><span class="level-start"><span class="level-item">SLAM</span></span><span class="level-end"><span class="level-item tag">21</span></span></a></li><li><a class="level is-mobile" href="/categories/Typora/"><span class="level-start"><span class="level-item">Typora</span></span><span class="level-end"><span class="level-item tag">1</span></span></a></li><li><a class="level is-mobile" href="/categories/auto-encoder/"><span class="level-start"><span class="level-item">auto-encoder</span></span><span class="level-end"><span class="level-item tag">4</span></span></a></li><li><a class="level is-mobile" href="/categories/opencv/"><span class="level-start"><span class="level-item">opencv</span></span><span class="level-end"><span class="level-item tag">3</span></span></a></li><li><a class="level is-mobile" href="/categories/%E5%9B%BE%E5%83%8F%E5%88%86%E7%B1%BB%E7%BD%91%E7%BB%9C%E5%8F%8APytorch%E5%AE%9E%E7%8E%B0/"><span class="level-start"><span class="level-item">图像分类网络及Pytorch实现</span></span><span class="level-end"><span class="level-item tag">6</span></span></a></li><li><a class="level is-mobile" href="/categories/%E5%9B%BE%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C/"><span class="level-start"><span class="level-item">图神经网络</span></span><span class="level-end"><span class="level-item tag">5</span></span></a></li><li><a class="level is-mobile" href="/categories/%E6%8C%AF%E5%8A%A8%E5%8A%9B%E5%AD%A6/"><span class="level-start"><span class="level-item">振动力学</span></span><span class="level-end"><span class="level-item tag">20</span></span></a></li><li><a class="level is-mobile" href="/categories/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E5%9F%BA%E7%9F%B3/"><span class="level-start"><span class="level-item">机器学习基石</span></span><span class="level-end"><span class="level-item tag">3</span></span></a></li><li><a class="level is-mobile" href="/categories/%E7%8E%B0%E4%BB%A3%E6%8E%A7%E5%88%B6%E7%90%86%E8%AE%BA/"><span class="level-start"><span class="level-item">现代控制理论</span></span><span class="level-end"><span class="level-item tag">2</span></span></a></li><li><a class="level is-mobile" href="/categories/%E7%9B%AE%E6%A0%87%E6%A3%80%E6%B5%8B%E4%B8%8Epytorch%E5%AE%9E%E7%8E%B0/"><span class="level-start"><span class="level-item">目标检测与pytorch实现</span></span><span class="level-end"><span class="level-item tag">2</span></span></a></li><li><a class="level is-mobile" href="/categories/%E7%A7%91%E7%A0%94%E5%85%A5%E9%97%A8%E7%AC%94%E8%AE%B0/"><span class="level-start"><span class="level-item">科研入门笔记</span></span><span class="level-end"><span class="level-item tag">1</span></span></a></li><li><a class="level is-mobile" href="/categories/%E8%87%AA%E6%B3%A8%E6%84%8F%E5%8A%9B%E6%9C%BA%E5%88%B6%E5%92%8CTransformer/"><span class="level-start"><span class="level-item">自注意力机制和Transformer</span></span><span class="level-end"><span class="level-item tag">3</span></span></a></li><li><a class="level is-mobile" href="/categories/%E8%AF%AD%E4%B9%89%E5%88%86%E5%89%B2%E5%8F%8APytorch%E5%AE%9E%E7%8E%B0/"><span class="level-start"><span class="level-item">语义分割及Pytorch实现</span></span><span class="level-end"><span class="level-item tag">6</span></span></a></li><li><a class="level is-mobile" href="/categories/%E9%AB%98%E7%BA%A7%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/"><span class="level-start"><span class="level-item">高级机器学习</span></span><span class="level-end"><span class="level-item tag">1</span></span></a></li></ul></div></div></div><div class="card widget" data-type="recent-posts"><div class="card-content"><h3 class="menu-label">最新文章</h3><article class="media"><figure class="media-left"><a class="image" href="/2022/08/26/%E7%8E%B0%E4%BB%A3%E6%8E%A7%E5%88%B6%E7%90%86%E8%AE%BA/%E7%AC%AC1%E7%AB%A0-%E6%8E%A7%E5%88%B6%E7%B3%BB%E7%BB%9F%E7%8A%B6%E6%80%81%E7%A9%BA%E9%97%B4%E8%A1%A8%E8%BE%BE%E5%BC%8F/"><img src="https://cdn.jsdelivr.net/gh/houdezaiwu2019/image-bed/control/202202081546323.png" alt="第1章 控制系统状态空间表达式"></a></figure><div class="media-content"><p class="date"><time dateTime="2022-08-26T12:48:35.000Z">2022-08-26</time></p><p class="title"><a href="/2022/08/26/%E7%8E%B0%E4%BB%A3%E6%8E%A7%E5%88%B6%E7%90%86%E8%AE%BA/%E7%AC%AC1%E7%AB%A0-%E6%8E%A7%E5%88%B6%E7%B3%BB%E7%BB%9F%E7%8A%B6%E6%80%81%E7%A9%BA%E9%97%B4%E8%A1%A8%E8%BE%BE%E5%BC%8F/">第1章 控制系统状态空间表达式</a></p><p class="categories"><a href="/categories/%E7%8E%B0%E4%BB%A3%E6%8E%A7%E5%88%B6%E7%90%86%E8%AE%BA/">现代控制理论</a></p></div></article><article class="media"><figure class="media-left"><a class="image" href="/2022/08/26/%E6%9C%89%E9%99%90%E5%85%83%E6%96%B9%E6%B3%95/%E6%9C%89%E9%99%90%E5%85%83%E5%88%86%E6%9E%90%E4%B8%8E%E5%BA%94%E7%94%A8%E2%80%94%E2%80%94%E5%BA%94%E7%94%A8%E9%83%A8%E5%88%86/"><img src="https://fastly.jsdelivr.net/gh/houdezaiwu2019/image-bed/pointnet/aaa.jpg" alt="有限元分析与应用——应用部分"></a></figure><div class="media-content"><p class="date"><time dateTime="2022-08-26T10:37:41.000Z">2022-08-26</time></p><p class="title"><a href="/2022/08/26/%E6%9C%89%E9%99%90%E5%85%83%E6%96%B9%E6%B3%95/%E6%9C%89%E9%99%90%E5%85%83%E5%88%86%E6%9E%90%E4%B8%8E%E5%BA%94%E7%94%A8%E2%80%94%E2%80%94%E5%BA%94%E7%94%A8%E9%83%A8%E5%88%86/">有限元分析与应用——应用部分</a></p><p class="categories"><a href="/categories/Finite-Element-Analysis/">Finite Element Analysis</a></p></div></article><article class="media"><figure class="media-left"><a class="image" href="/2022/08/26/%E6%9C%89%E9%99%90%E5%85%83%E6%96%B9%E6%B3%95/%E6%9C%89%E9%99%90%E5%85%83%E5%88%86%E6%9E%90%E4%B8%8E%E5%BA%94%E7%94%A8%E2%80%94%E2%80%94%E7%90%86%E8%AE%BA%E9%83%A8%E5%88%86/"><img src="https://fastly.jsdelivr.net/gh/houdezaiwu2019/image-bed/pointnet/aaa.jpg" alt="有限元分析与应用——理论部分"></a></figure><div class="media-content"><p class="date"><time dateTime="2022-08-26T10:37:16.000Z">2022-08-26</time></p><p class="title"><a href="/2022/08/26/%E6%9C%89%E9%99%90%E5%85%83%E6%96%B9%E6%B3%95/%E6%9C%89%E9%99%90%E5%85%83%E5%88%86%E6%9E%90%E4%B8%8E%E5%BA%94%E7%94%A8%E2%80%94%E2%80%94%E7%90%86%E8%AE%BA%E9%83%A8%E5%88%86/">有限元分析与应用——理论部分</a></p><p class="categories"><a href="/categories/Finite-Element-Analysis/">Finite Element Analysis</a></p></div></article><article class="media"><figure class="media-left"><a class="image" href="/2022/08/26/%E5%9B%BE%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C/%E5%9B%BE%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C%E2%80%94%E2%80%94%E4%B8%AD%E7%A7%91%E9%99%A2%E8%AF%BE%E7%A8%8B/"><img src="https://cdn.jsdelivr.net/gh/houdezaiwu2019/image-bed/%E5%9B%BE%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C/202203300021761.png" alt="图神经网络——中科院课程"></a></figure><div class="media-content"><p class="date"><time dateTime="2022-08-26T10:36:02.000Z">2022-08-26</time></p><p class="title"><a href="/2022/08/26/%E5%9B%BE%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C/%E5%9B%BE%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C%E2%80%94%E2%80%94%E4%B8%AD%E7%A7%91%E9%99%A2%E8%AF%BE%E7%A8%8B/">图神经网络——中科院课程</a></p><p class="categories"><a href="/categories/%E5%9B%BE%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C/">图神经网络</a></p></div></article><article class="media"><figure class="media-left"><a class="image" href="/2022/08/26/%E5%9B%BE%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C/%E5%9B%BE%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C%E2%80%94%E2%80%94%E4%BA%BA%E5%A4%A7%E8%AF%BE%E7%A8%8B/"><img src="https://cdn.jsdelivr.net/gh/houdezaiwu2019/image-bed/%E5%9B%BE%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C/202203300021761.png" alt="图神经网络——人大课程"></a></figure><div class="media-content"><p class="date"><time dateTime="2022-08-26T10:35:21.000Z">2022-08-26</time></p><p class="title"><a href="/2022/08/26/%E5%9B%BE%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C/%E5%9B%BE%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C%E2%80%94%E2%80%94%E4%BA%BA%E5%A4%A7%E8%AF%BE%E7%A8%8B/">图神经网络——人大课程</a></p><p class="categories"><a href="/categories/%E5%9B%BE%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C/">图神经网络</a></p></div></article></div></div></div></div></div></section><footer class="footer"><div class="container"><div class="level"><div class="level-start"><a class="footer-logo is-block mb-2" href="/"><img src="/img/logo.svg" alt="houdezaiwu&#039;s blog" height="28"></a><p class="is-size-7"><span>&copy; 2022 czt</span>  Powered by <a href="https://hexo.io/" target="_blank" rel="noopener">Hexo</a> &amp; <a href="https://github.com/ppoffice/hexo-theme-icarus" target="_blank" rel="noopener">Icarus</a></p></div><div class="level-end"><div class="field has-addons"><p class="control"><a class="button is-transparent is-large" target="_blank" rel="noopener" title="Creative Commons" href="https://creativecommons.org/"><i class="fab fa-creative-commons"></i></a></p><p class="control"><a class="button is-transparent is-large" target="_blank" rel="noopener" title="Attribution 4.0 International" href="https://creativecommons.org/licenses/by/4.0/"><i class="fab fa-creative-commons-by"></i></a></p><p class="control"><a class="button is-transparent is-large" target="_blank" rel="noopener" title="Download on GitHub" href="https://github.com/ppoffice/hexo-theme-icarus"><i class="fab fa-github"></i></a></p></div></div></div></div></footer><script src="https://cdn.jsdelivr.net/npm/jquery@3.3.1/dist/jquery.min.js"></script><script src="https://cdn.jsdelivr.net/npm/moment@2.22.2/min/moment-with-locales.min.js"></script><script src="https://cdn.jsdelivr.net/npm/clipboard@2.0.4/dist/clipboard.min.js" defer></script><script>moment.locale("zh-CN");</script><script>var IcarusThemeSettings = {
+            article: {
+                highlight: {
+                    clipboard: true,
+                    fold: 'unfolded'
+                }
+            }
+        };</script><script src="/js/column.js"></script><script src="/js/animation.js"></script><a id="back-to-top" title="回到顶端" href="javascript:;"><i class="fas fa-chevron-up"></i></a><script src="/js/back_to_top.js" defer></script><!--!--><!--!--><!--!--><script src="https://cdn.jsdelivr.net/npm/cookieconsent@3.1.1/build/cookieconsent.min.js" defer></script><script>window.addEventListener("load", () => {
+      window.cookieconsent.initialise({
+        type: "info",
+        theme: "edgeless",
+        static: false,
+        position: "bottom-left",
+        content: {
+          message: "此网站使用Cookie来改善您的体验。",
+          dismiss: "知道了！",
+          allow: "允许使用Cookie",
+          deny: "拒绝",
+          link: "了解更多",
+          policy: "Cookie政策",
+          href: "https://www.cookiesandyou.com/",
+        },
+        palette: {
+          popup: {
+            background: "#edeff5",
+            text: "#838391"
+          },
+          button: {
+            background: "#4b81e8"
+          },
+        },
+      });
+    });</script><script src="https://cdn.jsdelivr.net/npm/lightgallery@1.10.0/dist/js/lightgallery.min.js" defer></script><script src="https://cdn.jsdelivr.net/npm/justifiedGallery@3.8.1/dist/js/jquery.justifiedGallery.min.js" defer></script><script>window.addEventListener("load", () => {
+            if (typeof $.fn.lightGallery === 'function') {
+                $('.article').lightGallery({ selector: '.gallery-item' });
+            }
+            if (typeof $.fn.justifiedGallery === 'function') {
+                if ($('.justified-gallery > p > .gallery-item').length) {
+                    $('.justified-gallery > p > .gallery-item').unwrap();
+                }
+                $('.justified-gallery').justifiedGallery();
+            }
+        });</script><!--!--><!--!--><script type="text/x-mathjax-config">MathJax.Hub.Config({
+            'HTML-CSS': {
+                matchFontHeight: false
+            },
+            SVG: {
+                matchFontHeight: false
+            },
+            CommonHTML: {
+                matchFontHeight: false
+            },
+            tex2jax: {
+                inlineMath: [
+                    ['$','$'],
+                    ['\\(','\\)']
+                ]
+            }
+        });</script><script src="https://cdn.jsdelivr.net/npm/mathjax@2.7.9/unpacked/MathJax.js?config=TeX-MML-AM_CHTML" defer></script><div id="outdated"><h6>Your browser is out-of-date!</h6><p>Update your browser to view this website correctly.&amp;npsb;<a id="btnUpdateBrowser" target="_blank" rel="noopener" href="http://outdatedbrowser.com/">Update my browser now </a></p><p class="last"><a href="#" id="btnCloseUpdateBrowser" title="Close">×</a></p></div><script src="https://cdn.jsdelivr.net/npm/outdatedbrowser@1.1.5/outdatedbrowser/outdatedbrowser.min.js" defer></script><script>window.addEventListener("load", function () {
+            outdatedBrowser({
+                bgColor: '#f25648',
+                color: '#ffffff',
+                lowerThan: 'object-fit' // display on IE11 or below
+            });
+        });</script><!--!--><!--!--><!--!--><script src="/js/main.js" defer></script><div class="searchbox"><div class="searchbox-container"><div class="searchbox-header"><div class="searchbox-input-container"><input class="searchbox-input" type="text" placeholder="想要查找什么..."></div><a class="searchbox-close" href="javascript:;">×</a></div><div class="searchbox-body"></div></div></div><script src="/js/insight.js" defer></script><script>document.addEventListener('DOMContentLoaded', function () {
+            loadInsight({"contentUrl":"/content.json"}, {"hint":"想要查找什么...","untitled":"(无标题)","posts":"文章","pages":"页面","categories":"分类","tags":"标签"});
+        });</script><!-- hexo-inject:begin --><!-- hexo-inject:end --></body></html>
