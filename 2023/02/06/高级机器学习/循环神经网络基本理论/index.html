@@ -1,0 +1,292 @@
+<!doctype html>
+<html lang="zh"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"><meta><title>循环神经网络基本理论 - houdezaiwu&#039;s blog</title><link rel="manifest" href="/manifest.json"><meta name="application-name" content="czt"><meta name="msapplication-TileImage" content="/img/favicon.svg"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-title" content="czt"><meta name="apple-mobile-web-app-status-bar-style" content="default"><meta name="description" content="hljs.initHighlightingOnLoad();  本文介绍了RNN的基本理论，主要是介绍RNN、LSTM、GRU模型，推导其前向传播的公式，介绍其RNN的梯度爆炸和梯度消失，并且介绍LSTM是如何缓解的梯度爆炸和消失。"><meta property="og:type" content="blog"><meta property="og:title" content="循环神经网络基本理论"><meta property="og:url" content="http://example.com/2023/02/06/%E9%AB%98%E7%BA%A7%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/%E5%BE%AA%E7%8E%AF%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C%E5%9F%BA%E6%9C%AC%E7%90%86%E8%AE%BA/"><meta property="og:site_name" content="houdezaiwu&#039;s blog"><meta property="og:description" content="hljs.initHighlightingOnLoad();  本文介绍了RNN的基本理论，主要是介绍RNN、LSTM、GRU模型，推导其前向传播的公式，介绍其RNN的梯度爆炸和梯度消失，并且介绍LSTM是如何缓解的梯度爆炸和消失。"><meta property="og:locale" content="zh_CN"><meta property="og:image" content="https://fastly.jsdelivr.net/gh/houdezaiwu2019/image-bed/RNN/image-20230202201451268.png"><meta property="article:published_time" content="2023-02-06T03:48:46.000Z"><meta property="article:modified_time" content="2023-02-06T03:55:48.524Z"><meta property="article:author" content="czt"><meta property="article:tag" content="Machine Learning"><meta property="article:tag" content="RNN"><meta property="article:tag" content="LSTM"><meta property="twitter:card" content="summary"><meta property="twitter:image" content="https://fastly.jsdelivr.net/gh/houdezaiwu2019/image-bed/RNN/image-20230202201451268.png"><script type="application/ld+json">{"@context":"https://schema.org","@type":"BlogPosting","mainEntityOfPage":{"@type":"WebPage","@id":"http://example.com/2023/02/06/%E9%AB%98%E7%BA%A7%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/%E5%BE%AA%E7%8E%AF%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C%E5%9F%BA%E6%9C%AC%E7%90%86%E8%AE%BA/"},"headline":"循环神经网络基本理论","image":["https://fastly.jsdelivr.net/gh/houdezaiwu2019/image-bed/RNN/image-20230202201451268.png"],"datePublished":"2023-02-06T03:48:46.000Z","dateModified":"2023-02-06T03:55:48.524Z","author":{"@type":"Person","name":"czt"},"publisher":{"@type":"Organization","name":"houdezaiwu's blog","logo":{"@type":"ImageObject","url":"http://example.com/img/logo.svg"}},"description":"hljs.initHighlightingOnLoad();  本文介绍了RNN的基本理论，主要是介绍RNN、LSTM、GRU模型，推导其前向传播的公式，介绍其RNN的梯度爆炸和梯度消失，并且介绍LSTM是如何缓解的梯度爆炸和消失。"}</script><link rel="canonical" href="http://example.com/2023/02/06/%E9%AB%98%E7%BA%A7%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/%E5%BE%AA%E7%8E%AF%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C%E5%9F%BA%E6%9C%AC%E7%90%86%E8%AE%BA/"><link rel="icon" href="/img/favicon.svg"><link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.2/css/all.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@9.12.0/styles/atom-one-light.css"><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Ubuntu:wght@400;600&amp;family=Source+Code+Pro"><link rel="stylesheet" href="/css/default.css"><style>body>.footer,body>.navbar,body>.section{opacity:0}</style><!--!--><!--!--><!--!--><!--!--><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/cookieconsent@3.1.1/build/cookieconsent.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/lightgallery@1.10.0/dist/css/lightgallery.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/justifiedGallery@3.8.1/dist/css/justifiedGallery.min.css"><!--!--><!--!--><!--!--><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/outdatedbrowser@1.1.5/outdatedbrowser/outdatedbrowser.min.css"><style>.pace{-webkit-pointer-events:none;pointer-events:none;-webkit-user-select:none;-moz-user-select:none;user-select:none}.pace-inactive{display:none}.pace .pace-progress{background:#3273dc;position:fixed;z-index:2000;top:0;right:100%;width:100%;height:2px}</style><script src="https://cdn.jsdelivr.net/npm/pace-js@1.2.4/pace.min.js"></script><!--!--><!--!--><!-- hexo injector head_end start -->
+<!-- hexo-inject:begin --><!-- hexo-inject:end --><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css">
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/hexo-math@4.0.0/dist/style.css">
+<!-- hexo injector head_end end --><meta name="generator" content="Hexo 6.0.0"><!-- hexo-inject:begin --><!-- hexo-inject:end --><link rel="stylesheet" href="/css/prism-coy-without-shadows.css" type="text/css">
+<link rel="stylesheet" href="/css/prism-line-numbers.css" type="text/css"></head><body class="is-3-column"><nav class="navbar navbar-main"><div class="container"><div class="navbar-brand justify-content-center"><a class="navbar-item navbar-logo" href="/"><img src="/img/logo.svg" alt="houdezaiwu&#039;s blog" height="28"></a></div><div class="navbar-menu"><div class="navbar-start"><a class="navbar-item" href="/">主页</a><a class="navbar-item" href="/archives">归档</a><a class="navbar-item" href="/categories">分类</a><a class="navbar-item" href="/tags">标签</a><a class="navbar-item" href="/about">关于</a></div><div class="navbar-end"><a class="navbar-item" target="_blank" rel="noopener" title="Download on GitHub" href="https://github.com/ppoffice/hexo-theme-icarus"><i class="fab fa-github"></i></a><a class="navbar-item is-hidden-tablet catalogue" title="目录" href="javascript:;"><i class="fas fa-list-ul"></i></a><a class="navbar-item search" title="搜索" href="javascript:;"><i class="fas fa-search"></i></a></div></div></div></nav><section class="section"><div class="container"><div class="columns"><div class="column order-2 column-main is-8-tablet is-8-desktop is-6-widescreen"><div class="card"><div class="card-image"><span class="image is-7by3"><img class="fill" src="https://fastly.jsdelivr.net/gh/houdezaiwu2019/image-bed/RNN/image-20230202201451268.png" alt="循环神经网络基本理论"></span></div><article class="card-content article" role="article"><div class="article-meta is-size-7 is-uppercase level is-mobile"><div class="level-left"><span class="level-item"><time dateTime="2023-02-06T03:48:46.000Z" title="2023/2/6 上午11:48:46">2023-02-06</time>发表</span><span class="level-item"><time dateTime="2023-02-06T03:55:48.524Z" title="2023/2/6 上午11:55:48">2023-02-06</time>更新</span><span class="level-item"><a class="link-muted" href="/categories/%E9%AB%98%E7%BA%A7%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/">高级机器学习</a></span><span class="level-item">25 分钟读完 (大约3768个字)</span></div></div><h1 class="title is-3 is-size-4-mobile">循环神经网络基本理论</h1><div class="content"><link rel="stylesheet" href="//cdn.bootcss.com/highlight.js/9.2.0/styles/github.min.css">
+
+<!-- hexo-inject:begin --><!-- hexo-inject:end --><script src="//cdn.bootcss.com/highlight.js/9.2.0/highlight.min.js"></script>
+<script>hljs.initHighlightingOnLoad();</script>
+
+<p>本文介绍了RNN的基本理论，主要是介绍RNN、LSTM、GRU模型，推导其前向传播的公式，介绍其RNN的梯度爆炸和梯度消失，并且介绍LSTM是如何缓解的梯度爆炸和消失。</p>
+<span id="more"></span>
+<h2 id="RNN"><a href="#RNN" class="headerlink" title="RNN"></a><strong>RNN</strong></h2><h3 id="带时间序列的任务场景"><a href="#带时间序列的任务场景" class="headerlink" title="带时间序列的任务场景"></a><strong>带时间序列的任务场景</strong></h3><p><img src="https://fastly.jsdelivr.net/gh/houdezaiwu2019/image-bed/RNN/image-20230202201451268.png" alt=""></p>
+<ul>
+<li>语音识别</li>
+<li>音乐生成</li>
+<li>情感分析</li>
+<li>DNA测序分析</li>
+<li>机器翻译</li>
+<li>视频识别</li>
+<li>姓名识别：输入一点化，输出这段话里面所涵盖的人名。</li>
+</ul>
+<p>以上都是带有时间序列的应用场景，这些场景的主要特点是：<strong>前后的关联性强，“前因后果”。</strong></p>
+<hr>
+<h3 id="标准神经网络的建模弊端"><a href="#标准神经网络的建模弊端" class="headerlink" title="标准神经网络的建模弊端"></a><strong>标准神经网络的建模弊端</strong></h3><p>以下就是一个人名识别的标准的应用场景。</p>
+<p><img src="https://fastly.jsdelivr.net/gh/houdezaiwu2019/image-bed/RNN/image-20230202204648487.png" alt=""></p>
+<p>上述的场景主要有以下的弊端：</p>
+<ol>
+<li><p>输入和输出的数据在不同的例子中有不同的程度；</p>
+</li>
+<li><p>一个像这样的单纯的神经网络结构，<strong>它并不共享从文本不同位置里面学到的特征信息</strong>；</p>
+<ul>
+<li><p>以前的特征输入是稳定的，即所有的特征域表达的内容是同一性质的。<strong>比如人名是一个特征域类别，其他的是其他类别，一旦他们交换位置，是要重新去学三的。</strong></p>
+<p><img src="https://fastly.jsdelivr.net/gh/houdezaiwu2019/image-bed/RNN/image-20230202205627683.png" alt=""></p>
+<p>机器学习模型主要处理数据的主要类型。</p>
+</li>
+<li><p>如果神经网络已经学习到了在位置1出现的Harry可能是人名的一部分，那么如果Harry出现在其他位置，可能就识别不出来了。</p>
+</li>
+<li><p>在A位置学习到识别人名的能力，但是B位置学不到当人名出现在B位置时，B就不能识别出来。</p>
+</li>
+</ul>
+</li>
+<li><p>参数量巨大；</p>
+<ul>
+<li>输入网络的特征，往往是<strong>one hot或者embedding向量</strong>，维度大。</li>
+<li>输入网络的特征是<strong>一段序列</strong>，<strong>当序列很长的时候</strong>，输入向量是巨大的。</li>
+</ul>
+</li>
+<li><p>没办法体现时序上的”前因后果“。</p>
+</li>
+</ol>
+<hr>
+<h3 id="RNN神经网络"><a href="#RNN神经网络" class="headerlink" title="RNN神经网络"></a><strong>RNN神经网络</strong></h3><h4 id="网络架构"><a href="#网络架构" class="headerlink" title="网络架构"></a><strong>网络架构</strong></h4><p><img src="https://fastly.jsdelivr.net/gh/houdezaiwu2019/image-bed/RNN/image-20230202210535461.png" alt=""></p>
+<p>以上是只要的网络架构，其整体式一个串联的形式。</p>
+<p>下面将针对其中的一个具体的单元进行介绍：</p>
+<p><img src="https://fastly.jsdelivr.net/gh/houdezaiwu2019/image-bed/RNN/image-20230202211625338.png" alt=""></p>
+<hr>
+<h4 id="特点"><a href="#特点" class="headerlink" title="特点"></a><strong>特点</strong></h4><ol>
+<li>串联的结构，体现出“前因后果”，后面结果的生成，要参考前面的信息。</li>
+<li>所有的特征共享同一套参数，<strong>即每个Cell里的W参数是一样的。</strong><ul>
+<li>面对不同的输入(两个方面)，能学到不同的相应结果</li>
+<li>极大的减小训练参数的训练量</li>
+<li>输入和输出数据在不同的例子中可以有不同的长度</li>
+</ul>
+</li>
+</ol>
+<hr>
+<h4 id="前向传播"><a href="#前向传播" class="headerlink" title="前向传播"></a><strong>前向传播</strong></h4><p>前向传播过程如下图所示，就是按照箭头的方向取计算。</p>
+<p><img src="https://fastly.jsdelivr.net/gh/houdezaiwu2019/image-bed/RNN/image-20230202211625338.png" alt=""></p>
+<hr>
+<h4 id="损失函数"><a href="#损失函数" class="headerlink" title="损失函数"></a><strong>损失函数</strong></h4><ul>
+<li>对于单个时间步的损失函数来说，其实就是计算上述一个单元的输入和输出的情况。<ul>
+<li>可以自行定义</li>
+<li>对于二分类任务，比如判断是不是人名这个问题，可以直接使用交叉熵损失函数。</li>
+</ul>
+</li>
+<li>整个序列的损失函数，其实就是将全部的单个时间步的损失函数进行相加即可。</li>
+</ul>
+<hr>
+<h4 id="反向传播"><a href="#反向传播" class="headerlink" title="反向传播"></a><strong>反向传播</strong></h4><p>这里引用吴恩达老师的课件，最其中的每个参数进行求导如下：</p>
+<p><img src="https://fastly.jsdelivr.net/gh/houdezaiwu2019/image-bed/RNN/image-20230202212413777.png" alt=""></p>
+<p>此处的激活函数采用的是<code>tanh()</code></p>
+<hr>
+<h3 id="RNN模型的缺点"><a href="#RNN模型的缺点" class="headerlink" title="RNN模型的缺点"></a><strong>RNN模型的缺点</strong></h3><p>当序列太长时，容易导致<strong>梯度消失</strong>，参数更新只能捕捉到局部依赖关系，没法再捕捉序列之间的<strong>长期</strong>关联或者依赖关系。</p>
+<h4 id="现象"><a href="#现象" class="headerlink" title="现象"></a><strong>现象</strong></h4><p>这对应着吴恩达老师讲的那个例子:The cat, which ate already .., as full。就是后面的was还是were,要看前面是cat,还是cats,但是一旦中间的这个which句子很长，cat的信息根本传不到was这里来。对was的更新没有任何帮助，这是RNN一个很大的不足之处。</p>
+<hr>
+<h4 id="举例"><a href="#举例" class="headerlink" title="举例"></a><strong>举例</strong></h4><p><img src="https://fastly.jsdelivr.net/gh/houdezaiwu2019/image-bed/RNN/image-20230202213759320.png" alt=""></p>
+<p><strong>前向传播就是：</strong></p>
+<p><img src="https://fastly.jsdelivr.net/gh/houdezaiwu2019/image-bed/RNN/image-20230202213849545.png" alt=""></p>
+<p><strong>对应的损失函数</strong>为：</p>
+<p>假设在t=3时，损失函数为$L_3=\frac1 2 (Y_3-O_3)^2$</p>
+<p>于是对网络里面的各个参数求梯度可得：</p>
+<p>对$W_o$求偏导可得：</p>
+<p><img src="https://fastly.jsdelivr.net/gh/houdezaiwu2019/image-bed/RNN/image-20230202214711023.png" alt=""></p>
+<p>然后对$W_x$求偏导：</p>
+<p><img src="https://fastly.jsdelivr.net/gh/houdezaiwu2019/image-bed/RNN/image-20230202215217783.png" alt=""></p>
+<p>其中，令$\theta_3=W_xx_3+W_ss_3+b_1$</p>
+<p><img src="https://fastly.jsdelivr.net/gh/houdezaiwu2019/image-bed/RNN/image-20230202215441403.png" alt="0" style="zoom:67%;" /></p>
+<p><img src="https://fastly.jsdelivr.net/gh/houdezaiwu2019/image-bed/RNN/image-20230202215552609.png" style="zoom:67%;" /></p>
+<p>将上述的后面的几个公式不断地迭代，在带入回到最开始的几个公式里面可得：</p>
+<p><img src="https://fastly.jsdelivr.net/gh/houdezaiwu2019/image-bed/RNN/image-20230202215758785.png" alt=""></p>
+<p>再将其待会到原式就得到最终的结果：</p>
+<p><img src="https://fastly.jsdelivr.net/gh/houdezaiwu2019/image-bed/RNN/image-20230202215908871.png" alt=""></p>
+<p>于是就有第三步处理的结果和前两步都有关系，类比这个方法，我们就可<strong>以得出任意步梯度下降的公式为：</strong></p>
+<p><img src="https://fastly.jsdelivr.net/gh/houdezaiwu2019/image-bed/RNN/image-20230202220520431.png" alt=""></p>
+<ul>
+<li><p><strong>导致梯度爆炸和梯度消失的主要的因素就是$W_s^{k-1}$</strong> ，随着序列的增长，前项和后面项之间的间距变大，于是就会造成下梯度爆炸和消失的问题。</p>
+</li>
+<li><p>但是针对<strong>梯度爆炸</strong>主要的解决方法就是<strong>梯度修剪</strong>。</p>
+<ul>
+<li><strong>梯度修剪</strong>的意思就是观察你的梯度向量，如果它大于某个阈值，缩放梯度向量，保证它不会太大。</li>
+<li>实际使用的时候，遇到梯度为<code>NaN</code>的情况，就才有梯度修剪来处理。</li>
+</ul>
+</li>
+<li>但是针对梯度消失，还没很好的办法来解决，主要时改进模型成为LSTM和GPU来解决。</li>
+</ul>
+<p>比如，<code>t=3</code>的节点,由于连乘过多导致梯度消失，无法将信息传回给<code>t=20</code>,因此<code>t=20</code>的更新，无法引入t=3时的信息，认为<code>t=20</code>节点跟<code>t=3</code>的节点无关联。</p>
+<h2 id="LSTM"><a href="#LSTM" class="headerlink" title="LSTM"></a><strong>LSTM</strong></h2><h3 id="思路"><a href="#思路" class="headerlink" title="思路"></a><strong>思路</strong></h3><p>LSTM模型主要针对RNN模型的梯度消失问题而设计出来的，主要的设计思路为：</p>
+<ul>
+<li>RNN是想把所有信息都记住，不管是有用的信息还是没用的信息</li>
+<li>LSTM设计一个记忆细胞，具备选择性记忆的功能，可以选择记忆重要信息，过滤掉噪声信息，减轻记忆负担</li>
+</ul>
+<hr>
+<h3 id="前向传播-1"><a href="#前向传播-1" class="headerlink" title="前向传播"></a><strong>前向传播</strong></h3><p>首先来对比RNN和LSTM模型的连接结构，主要的不同的地方为LSTM里面存在记忆细胞，其串联的结构是两条回路的，而RNN的串联的回路仅仅只有一条。</p>
+<p><img src="https://fastly.jsdelivr.net/gh/houdezaiwu2019/image-bed/RNN/image-20230202232610046.png" alt=""></p>
+<p><img src="%E5%BE%AA%E7%8E%AF%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C.assets/image-20230202232520137.png" alt=""></p>
+<p>下面来分析单个LSTM Cell的内部结构：</p>
+<ul>
+<li>$f_t$ ：<code>forget</code>代表的是遗忘门；</li>
+<li>$i_t$：代表的是更新门；</li>
+<li>$o_t$：<code>output</code>代表的是输出门；</li>
+</ul>
+<p><img src="https://fastly.jsdelivr.net/gh/houdezaiwu2019/image-bed/RNN/image-20230202233243695.png" alt=""></p>
+<p>以上是LSTM结构里面的主要的公式，这里将其进行整理，得到一种比较的好的结构表现方式。</p>
+<p><img src="https://fastly.jsdelivr.net/gh/houdezaiwu2019/image-bed/RNN/image-20230202233350183.png" alt=""></p>
+<p>下面就开始讲解其对应的原理：</p>
+<ol>
+<li><strong>记忆细胞</strong></li>
+</ol>
+<p><img src="https://fastly.jsdelivr.net/gh/houdezaiwu2019/image-bed/RNN/image-20230202234041942.png" alt=""></p>
+<p>在LSTM的每个时间步里面，都有一个记忆cell，这个东西给与了LSTM选择记忆功能，使得LSTM有能力自由选择每个时间步里面记忆的内容。</p>
+<ol>
+<li><strong>遗忘门</strong></li>
+</ol>
+<p>假设$f_t=[0,0,0,1,0,1,1,0]$，其功能是用来调节计记忆，将上一次传过来的信息选择一部分记住，相关性差的内容就直接忘记掉。其实就是忘掉之前的冗余信息。</p>
+<ol>
+<li><strong>更新门</strong></li>
+</ol>
+<p>$c_t$这条线对应本单元信息产生的新的记忆，其中的$i_t$和之前$f_t$一样，是用来筛选信息的，将本个单元和输出有关的重要的知识筛选出来，其实就是本个Cell学习到的新知识。</p>
+<ol>
+<li><strong>输出门</strong></li>
+</ol>
+<p>其实就是将记忆细胞里面的记忆选择一部分出来，$o_t=[0,1,0,…,0,1,1]$也是和$f_t$是一样的，起到筛选的作用，筛选对输出有帮助的内容，比如考试就是从全部的知识里取出跟试题相关的内容。</p>
+<hr>
+<h3 id="解决梯度消失的原理"><a href="#解决梯度消失的原理" class="headerlink" title="解决梯度消失的原理"></a><strong>解决梯度消失的原理</strong></h3><h4 id="RNN梯度消失的回顾"><a href="#RNN梯度消失的回顾" class="headerlink" title="RNN梯度消失的回顾"></a><strong>RNN梯度消失的回顾</strong></h4><p>这里的梯度消失现象不是说后面时刻参数更新的时候梯度为0，而是说后面时刻梯度更新的时候，前面更远时刻的序列对参数更新是起不到作用的，梯度被近距离梯度主导，所以才说RNN无法捕捉长期依赖。</p>
+<p><img src="https://fastly.jsdelivr.net/gh/houdezaiwu2019/image-bed/RNN/image-20230203001146217.png" alt=""></p>
+<p>本文是以t=3这个时刻为例子，于是其反向传播的过程就被分解成为三个部分，这里写出对应的上标来便于区分。</p>
+<p><img src="https://fastly.jsdelivr.net/gh/houdezaiwu2019/image-bed/RNN/image-20230203001406240.png" alt=""></p>
+<p><img src="https://fastly.jsdelivr.net/gh/houdezaiwu2019/image-bed/RNN/image-20230203002921229.png" alt=""></p>
+<p>将上述的三个公式带入到最终的公式中可得：</p>
+<p><img src="https://fastly.jsdelivr.net/gh/houdezaiwu2019/image-bed/RNN/image-20230203003533646.png" alt=""></p>
+<p><img src="https://fastly.jsdelivr.net/gh/houdezaiwu2019/image-bed/RNN/image-20230203004012618.png" alt=""></p>
+<p>于是对于任意的t时刻就会有：</p>
+<p><img src="https://fastly.jsdelivr.net/gh/houdezaiwu2019/image-bed/RNN/image-20230203004305006.png" alt=""></p>
+<p>因此，两个节点间隔的越远，其连乘的$W_s$就会越多，于是就更容易出现梯度爆炸和消失。</p>
+<p>如下以<code>t=20</code>来距离，可得：</p>
+<p><img src="https://fastly.jsdelivr.net/gh/houdezaiwu2019/image-bed/RNN/image-20230203004632258.png" alt=""></p>
+<hr>
+<h4 id="LSTM的反向传播"><a href="#LSTM的反向传播" class="headerlink" title="LSTM的反向传播"></a><strong>LSTM的反向传播</strong></h4><p>以下就是一个3层的LSTM对应的传播过程，其中主要的参数是$W_{hf},W_{hg},W_{hi},W_{ho},W_{xf},W_{xg},W_{xo},W_{yh},b$ 。</p>
+<p><img src="https://fastly.jsdelivr.net/gh/houdezaiwu2019/image-bed/RNN/image-20230203005029127.png" alt=""></p>
+<p>此处仅仅以求解$W_{xh}$的反向传播过程为例，来进行推导。</p>
+<p><img src="https://fastly.jsdelivr.net/gh/houdezaiwu2019/image-bed/RNN/image-20230203005716791.png" alt=""></p>
+<p>通过上述的网络连接图可知，第三个$W_{xf}$的路径仅仅有一条，但连接第二个$W_{xf}$的路径就有四条。</p>
+<p><img src="https://fastly.jsdelivr.net/gh/houdezaiwu2019/image-bed/RNN/image-20230203010535239.png" alt=""></p>
+<p><img src="https://fastly.jsdelivr.net/gh/houdezaiwu2019/image-bed/RNN/image-20230203010523372.png" alt=""></p>
+<p>下面我们直接使用路径图来推导第一个$W_{xf}$的导数：</p>
+<p><img src="https://fastly.jsdelivr.net/gh/houdezaiwu2019/image-bed/RNN/image-20230203005029127.png" alt=""></p>
+<p><img src="https://fastly.jsdelivr.net/gh/houdezaiwu2019/image-bed/RNN/image-20230203011300933.png" alt=""></p>
+<p><img src="https://fastly.jsdelivr.net/gh/houdezaiwu2019/image-bed/RNN/image-20230203011427813.png" alt=""></p>
+<p><img src="https://fastly.jsdelivr.net/gh/houdezaiwu2019/image-bed/RNN/image-20230203011601614.png" alt=""></p>
+<p>将上述两部分的路径进行组合可得：</p>
+<p><img src="https://fastly.jsdelivr.net/gh/houdezaiwu2019/image-bed/RNN/image-20230203011720686.png" alt=""></p>
+<p><img src="https://fastly.jsdelivr.net/gh/houdezaiwu2019/image-bed/RNN/image-20230203011832272.png" alt=""></p>
+<p><img src="https://fastly.jsdelivr.net/gh/houdezaiwu2019/image-bed/RNN/image-20230203011915842.png" alt=""></p>
+<p>将上述的20条路径写成求导的形式可得：</p>
+<p><img src="https://fastly.jsdelivr.net/gh/houdezaiwu2019/image-bed/RNN/image-20230203012147027.png" alt=""></p>
+<p><img src="https://fastly.jsdelivr.net/gh/houdezaiwu2019/image-bed/RNN/image-20230203012219653.png" alt=""></p>
+<p>于是同个对可学习参数$W$的学习，进而调控$\dfrac {\partial C_t} {\partial C_{t-1}}$大小，使得其尽可能的取接近1，这样的话对于跨度比较的路径，就有和$\dfrac {\partial C_t} {\partial C_{t-1}} \to 1$ 相关的路径可以走过来，从而避免梯度爆炸和消失。</p>
+<p><img src="https://fastly.jsdelivr.net/gh/houdezaiwu2019/image-bed/RNN/image-20230203012930535.png" alt=""></p>
+<p>即是通过走记忆细胞的那个路径来反向传播梯度，可以很好的避免梯度爆炸和消失的问题。</p>
+<hr>
+<h2 id="GRU"><a href="#GRU" class="headerlink" title="GRU"></a><strong>GRU</strong></h2><p>针对LSTM里面训练参数繁多，模型结果角为复杂的问题，本文采用了GRU的结果来精简参数和结构。</p>
+<h3 id="基本结构"><a href="#基本结构" class="headerlink" title="基本结构"></a><strong>基本结构</strong></h3><p><img src="https://fastly.jsdelivr.net/gh/houdezaiwu2019/image-bed/RNN/image-20230203085002862.png" alt=""></p>
+<p>这里对比LSTM的单元结构来直观的观察一下可得：</p>
+<p><img src="https://fastly.jsdelivr.net/gh/houdezaiwu2019/image-bed/RNN/image-20230203085215536.png" alt=""></p>
+<p>直观来看，其主要的改进是：</p>
+<ul>
+<li>GRU的门有2个，比LSTM减少1个；</li>
+<li>GRU的权重为6个，比LSTM减少了3个。</li>
+</ul>
+<p>LSTM主要包含的是，遗忘门、更新门和输出门结构；而GRU包含的是更新门$r_t$和重置门$z_t$。</p>
+<p>下面是计算网络图：</p>
+<p><img src="https://fastly.jsdelivr.net/gh/houdezaiwu2019/image-bed/RNN/image-20230203085618949.png" alt=""></p>
+<h3 id="应用场景"><a href="#应用场景" class="headerlink" title="应用场景"></a><strong>应用场景</strong></h3><p><img src="https://fastly.jsdelivr.net/gh/houdezaiwu2019/image-bed/RNN/image-20230203090100050.png" alt=""></p>
+<p>在<code>t</code>时刻我们学习了机器学习，于是需要将我们的笔记库更新，留下原来和机器学习相关的内容，增加新学到的机器学习的内容，之后删除和机器学习无关的内容。</p>
+<p>于是我们围绕上述场景绘制计算图：</p>
+<p><img src="https://fastly.jsdelivr.net/gh/houdezaiwu2019/image-bed/RNN/image-20230203090424230.png" alt=""></p>
+<p>更新门计算权重，可得高数和机器学习的相关为0.6，线代和机器学习相关为0.4，概率论为0.7，依次计算。</p>
+<p><img src="https://fastly.jsdelivr.net/gh/houdezaiwu2019/image-bed/RNN/image-20230203090522427.png" alt=""></p>
+<p>于是基于$r_t$ 来对原来的知识进行筛选，和我们要学习机器学习的知识进行整合可得$\tilde{h_t}$ ，但是$\tilde {h_t}$里的东西也有和之前知识$h_{t-1}$相互冗余的项，还需要进一步的筛选。</p>
+<p><img src="https://fastly.jsdelivr.net/gh/houdezaiwu2019/image-bed/RNN/image-20230203090917835.png" alt=""></p>
+<p>下面重置门$z_t$，就是取筛选$\tilde{h_t}$ 新学到的知识，将和$h_{t-1}$重复并且冗余的知识删去。</p>
+<p><img src="https://fastly.jsdelivr.net/gh/houdezaiwu2019/image-bed/RNN/image-20230203091451930.png" alt=""></p>
+<p>最后将上述两部分相加，来得出更新之后，即学习完机器学习之后所留下的笔记。</p>
+<p><img src="https://fastly.jsdelivr.net/gh/houdezaiwu2019/image-bed/RNN/image-20230203091812963.png" alt=""></p>
+<hr>
+<h3 id="与LSTM的区别"><a href="#与LSTM的区别" class="headerlink" title="与LSTM的区别"></a><strong>与LSTM的区别</strong></h3><ul>
+<li>事实上，这两种模型在许多任务中都不相上下，因此，与挑选出一个理想的架构相比，调整层数这些超参数等更重要。</li>
+<li>GRU的参数较少，因此其训练速度更快，或需要归纳的数据更少。相对应的，如果有足够的训练数据，表达能力更强的LSTM或许效果更佳。</li>
+<li>相比较于LSTM，GRU能降低过拟合风险。</li>
+</ul>
+<hr>
+<h3 id="缓解梯度消失"><a href="#缓解梯度消失" class="headerlink" title="缓解梯度消失"></a><strong>缓解梯度消失</strong></h3><p><img src="https://fastly.jsdelivr.net/gh/houdezaiwu2019/image-bed/RNN/image-20230203092227731.png" alt=""></p>
+<p>下图是GRU的反向传播推导，缓解梯度消失的本质就是依靠门的设计。</p>
+</div><div class="article-licensing box"><div class="licensing-title"><p>循环神经网络基本理论</p><p><a href="http://example.com/2023/02/06/高级机器学习/循环神经网络基本理论/">http://example.com/2023/02/06/高级机器学习/循环神经网络基本理论/</a></p></div><div class="licensing-meta level is-mobile"><div class="level-left"><div class="level-item is-narrow"><div><h6>作者</h6><p>czt</p></div></div><div class="level-item is-narrow"><div><h6>发布于</h6><p>2023-02-06</p></div></div><div class="level-item is-narrow"><div><h6>更新于</h6><p>2023-02-06</p></div></div><div class="level-item is-narrow"><div><h6>许可协议</h6><p><a class="icons" rel="noopener" target="_blank" title="Creative Commons" href="https://creativecommons.org/"><i class="icon fab fa-creative-commons"></i></a><a class="icons" rel="noopener" target="_blank" title="Attribution" href="https://creativecommons.org/licenses/by/4.0/"><i class="icon fab fa-creative-commons-by"></i></a><a class="icons" rel="noopener" target="_blank" title="Noncommercial" href="https://creativecommons.org/licenses/by-nc/4.0/"><i class="icon fab fa-creative-commons-nc"></i></a></p></div></div></div></div></div><div class="article-tags is-size-7 mb-4"><span class="mr-2">#</span><a class="link-muted mr-2" rel="tag" href="/tags/Machine-Learning/">Machine Learning</a><a class="link-muted mr-2" rel="tag" href="/tags/RNN/">RNN</a><a class="link-muted mr-2" rel="tag" href="/tags/LSTM/">LSTM</a></div><!--!--></article></div><!--!--><nav class="post-navigation mt-4 level is-mobile"><div class="level-start"><a class="article-nav-prev level level-item link-muted" href="/2023/02/06/%E9%AB%98%E7%BA%A7%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/%E5%BE%AA%E7%8E%AF%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9CPytorch%E4%BB%A3%E7%A0%81%E5%AE%9E%E7%8E%B0/"><i class="level-item fas fa-chevron-left"></i><span class="level-item">循环神经网络Pytorch代码实现</span></a></div><div class="level-end"><a class="article-nav-next level level-item link-muted" href="/2023/02/06/%E5%9B%BE%E5%83%8F%E5%88%86%E7%B1%BB%E7%BD%91%E7%BB%9C%E5%8F%8APytorch%E5%AE%9E%E7%8E%B0/RepVGG%E7%BD%91%E7%BB%9C%E8%AF%A6%E8%A7%A3%E4%B8%8EPytorch%E5%AE%9E%E7%8E%B0/"><span class="level-item">RepVGG网络详解与Pytorch实现</span><i class="level-item fas fa-chevron-right"></i></a></div></nav><!--!--></div><div class="column column-left is-4-tablet is-4-desktop is-3-widescreen  order-1 is-sticky"><div class="card widget" data-type="profile"><div class="card-content"><nav class="level"><div class="level-item has-text-centered flex-shrink-1"><div><figure class="image is-128x128 mx-auto mb-2"><img class="avatar" src="https://cdn.jsdelivr.net/gh/houdezaiwu2019/image-bed/hexoimg/202201222202112.jpg" alt="厚德载物"></figure><p class="title is-size-4 is-block" style="line-height:inherit;">厚德载物</p><p class="is-size-6 is-block">实事求是，敢为人先</p><p class="is-size-6 is-flex justify-content-center"><i class="fas fa-map-marker-alt mr-1"></i><span>中国 湖北 武汉</span></p></div></div></nav><nav class="level is-mobile"><div class="level-item has-text-centered is-marginless"><div><p class="heading">文章</p><a href="/archives"><p class="title">120</p></a></div></div><div class="level-item has-text-centered is-marginless"><div><p class="heading">分类</p><a href="/categories"><p class="title">19</p></a></div></div><div class="level-item has-text-centered is-marginless"><div><p class="heading">标签</p><a href="/tags"><p class="title">42</p></a></div></div></nav><div class="level"><a class="level-item button is-primary is-rounded" href="https://monumental-tarsier-a544f3.netlify.app" target="_blank" rel="noopener">关注我</a></div><div class="level is-mobile is-multiline"><a class="level-item button is-transparent is-marginless" target="_blank" rel="noopener" title="Github" href="https://github.com/ppoffice"><i class="fab fa-github"></i></a><a class="level-item button is-transparent is-marginless" target="_blank" rel="noopener" title="Facebook" href="https://facebook.com"><i class="fab fa-facebook"></i></a><a class="level-item button is-transparent is-marginless" target="_blank" rel="noopener" title="Twitter" href="https://twitter.com"><i class="fab fa-twitter"></i></a><a class="level-item button is-transparent is-marginless" target="_blank" rel="noopener" title="Dribbble" href="https://dribbble.com"><i class="fab fa-dribbble"></i></a><a class="level-item button is-transparent is-marginless" target="_blank" rel="noopener" title="RSS" href="/"><i class="fas fa-rss"></i></a></div></div></div><div class="card widget" data-type="links"><div class="card-content"><div class="menu"><h3 class="menu-label">链接</h3><ul class="menu-list"><li><a class="level is-mobile" href="https://paperswithcode.com/" target="_blank" rel="noopener"><span class="level-left"><span class="level-item">paperwithcode</span></span><span class="level-right"><span class="level-item tag">paperswithcode.com</span></span></a></li><li><a class="level is-mobile" href="https://scholar.google.com.hk/?hl=zh-CN" target="_blank" rel="noopener"><span class="level-left"><span class="level-item">google_scholar</span></span><span class="level-right"><span class="level-item tag">scholar.google.com.hk</span></span></a></li><li><a class="level is-mobile" href="https://arxiv.org/" target="_blank" rel="noopener"><span class="level-left"><span class="level-item">arxiv</span></span><span class="level-right"><span class="level-item tag">arxiv.org</span></span></a></li><li><a class="level is-mobile" href="https://leetcode-cn.com/problemset/algorithms/" target="_blank" rel="noopener"><span class="level-left"><span class="level-item">leetcode</span></span><span class="level-right"><span class="level-item tag">leetcode-cn.com</span></span></a></li><li><a class="level is-mobile" href="https://mathf.itewqq.cn/" target="_blank" rel="noopener"><span class="level-left"><span class="level-item">mathf</span></span><span class="level-right"><span class="level-item tag">mathf.itewqq.cn</span></span></a></li><li><a class="level is-mobile" href="https://qwerty.kaiyi.cool/" target="_blank" rel="noopener"><span class="level-left"><span class="level-item">qwerty</span></span><span class="level-right"><span class="level-item tag">qwerty.kaiyi.cool</span></span></a></li><li><a class="level is-mobile" href="https://www.overleaf.com/" target="_blank" rel="noopener"><span class="level-left"><span class="level-item">overleaf</span></span><span class="level-right"><span class="level-item tag">www.overleaf.com</span></span></a></li><li><a class="level is-mobile" href="http://www.pipioj.online/" target="_blank" rel="noopener"><span class="level-left"><span class="level-item">pipioj</span></span><span class="level-right"><span class="level-item tag">www.pipioj.online</span></span></a></li><li><a class="level is-mobile" href="https://monumental-tarsier-a544f3.netlify.app" target="_blank" rel="noopener"><span class="level-left"><span class="level-item">hugocvofczt</span></span><span class="level-right"><span class="level-item tag">monumental-tarsier-a544f3.netlify.app</span></span></a></li><li><a class="level is-mobile" href="https://app.netlify.com/sites/monumental-tarsier-a544f3/overview" target="_blank" rel="noopener"><span class="level-left"><span class="level-item">netlify</span></span><span class="level-right"><span class="level-item tag">app.netlify.com</span></span></a></li><li><a class="level is-mobile" href="https://hexo.io" target="_blank" rel="noopener"><span class="level-left"><span class="level-item">Hexo</span></span><span class="level-right"><span class="level-item tag">hexo.io</span></span></a></li><li><a class="level is-mobile" href="https://bulma.io" target="_blank" rel="noopener"><span class="level-left"><span class="level-item">Bulma</span></span><span class="level-right"><span class="level-item tag">bulma.io</span></span></a></li></ul></div></div></div><div class="card widget" data-type="archives"><div class="card-content"><div class="menu"><h3 class="menu-label">归档</h3><ul class="menu-list"><li><a class="level is-mobile" href="/archives/2023/02/"><span class="level-start"><span class="level-item">二月 2023</span></span><span class="level-end"><span class="level-item tag">12</span></span></a></li><li><a class="level is-mobile" href="/archives/2023/01/"><span class="level-start"><span class="level-item">一月 2023</span></span><span class="level-end"><span class="level-item tag">4</span></span></a></li><li><a class="level is-mobile" href="/archives/2022/12/"><span class="level-start"><span class="level-item">十二月 2022</span></span><span class="level-end"><span class="level-item tag">2</span></span></a></li><li><a class="level is-mobile" href="/archives/2022/10/"><span class="level-start"><span class="level-item">十月 2022</span></span><span class="level-end"><span class="level-item tag">2</span></span></a></li><li><a class="level is-mobile" href="/archives/2022/09/"><span class="level-start"><span class="level-item">九月 2022</span></span><span class="level-end"><span class="level-item tag">2</span></span></a></li><li><a class="level is-mobile" href="/archives/2022/08/"><span class="level-start"><span class="level-item">八月 2022</span></span><span class="level-end"><span class="level-item tag">6</span></span></a></li><li><a class="level is-mobile" href="/archives/2022/07/"><span class="level-start"><span class="level-item">七月 2022</span></span><span class="level-end"><span class="level-item tag">9</span></span></a></li><li><a class="level is-mobile" href="/archives/2022/06/"><span class="level-start"><span class="level-item">六月 2022</span></span><span class="level-end"><span class="level-item tag">16</span></span></a></li><li><a class="level is-mobile" href="/archives/2022/05/"><span class="level-start"><span class="level-item">五月 2022</span></span><span class="level-end"><span class="level-item tag">1</span></span></a></li><li><a class="level is-mobile" href="/archives/2022/04/"><span class="level-start"><span class="level-item">四月 2022</span></span><span class="level-end"><span class="level-item tag">9</span></span></a></li><li><a class="level is-mobile" href="/archives/2022/03/"><span class="level-start"><span class="level-item">三月 2022</span></span><span class="level-end"><span class="level-item tag">25</span></span></a></li><li><a class="level is-mobile" href="/archives/2022/02/"><span class="level-start"><span class="level-item">二月 2022</span></span><span class="level-end"><span class="level-item tag">21</span></span></a></li><li><a class="level is-mobile" href="/archives/2022/01/"><span class="level-start"><span class="level-item">一月 2022</span></span><span class="level-end"><span class="level-item tag">11</span></span></a></li></ul></div></div></div><div class="card widget" data-type="tags"><div class="card-content"><div class="menu"><h3 class="menu-label">标签</h3><div class="field is-grouped is-grouped-multiline"><div class="control"><a class="tags has-addons" href="/tags/ANSYS/"><span class="tag">ANSYS</span><span class="tag">3</span></a></div><div class="control"><a class="tags has-addons" href="/tags/Computer-Vision/"><span class="tag">Computer Vision</span><span class="tag">21</span></a></div><div class="control"><a class="tags has-addons" href="/tags/Deep-learning/"><span class="tag">Deep learning</span><span class="tag">1</span></a></div><div class="control"><a class="tags has-addons" href="/tags/Finite-Element-Analysis/"><span class="tag">Finite Element Analysis</span><span class="tag">6</span></a></div><div class="control"><a class="tags has-addons" href="/tags/GAN%E5%AE%9E%E6%88%98/"><span class="tag">GAN实战</span><span class="tag">6</span></a></div><div class="control"><a class="tags has-addons" href="/tags/Generative-Adversarial-Networks/"><span class="tag">Generative Adversarial Networks</span><span class="tag">6</span></a></div><div class="control"><a class="tags has-addons" href="/tags/Graph/"><span class="tag">Graph</span><span class="tag">12</span></a></div><div class="control"><a class="tags has-addons" href="/tags/IEEE%E6%8A%95%E7%A8%BF/"><span class="tag">IEEE投稿</span><span class="tag">1</span></a></div><div class="control"><a class="tags has-addons" href="/tags/LSTM/"><span class="tag">LSTM</span><span class="tag">2</span></a></div><div class="control"><a class="tags has-addons" href="/tags/Latex/"><span class="tag">Latex</span><span class="tag">4</span></a></div><div class="control"><a class="tags has-addons" href="/tags/Machine-Learning/"><span class="tag">Machine Learning</span><span class="tag">5</span></a></div><div class="control"><a class="tags has-addons" href="/tags/Machine-learning/"><span class="tag">Machine learning</span><span class="tag">1</span></a></div><div class="control"><a class="tags has-addons" href="/tags/Markdown/"><span class="tag">Markdown</span><span class="tag">1</span></a></div><div class="control"><a class="tags has-addons" href="/tags/NLP/"><span class="tag">NLP</span><span class="tag">3</span></a></div><div class="control"><a class="tags has-addons" href="/tags/Neural-Networks/"><span class="tag">Neural Networks</span><span class="tag">12</span></a></div><div class="control"><a class="tags has-addons" href="/tags/Pytorch/"><span class="tag">Pytorch</span><span class="tag">9</span></a></div><div class="control"><a class="tags has-addons" href="/tags/RNN/"><span class="tag">RNN</span><span class="tag">2</span></a></div><div class="control"><a class="tags has-addons" href="/tags/SLAM/"><span class="tag">SLAM</span><span class="tag">21</span></a></div><div class="control"><a class="tags has-addons" href="/tags/Transformer/"><span class="tag">Transformer</span><span class="tag">3</span></a></div><div class="control"><a class="tags has-addons" href="/tags/Typora/"><span class="tag">Typora</span><span class="tag">1</span></a></div><div class="control"><a class="tags has-addons" href="/tags/auto-encoder/"><span class="tag">auto-encoder</span><span class="tag">4</span></a></div><div class="control"><a class="tags has-addons" href="/tags/c/"><span class="tag">c++</span><span class="tag">21</span></a></div><div class="control"><a class="tags has-addons" href="/tags/control-theory/"><span class="tag">control theory</span><span class="tag">2</span></a></div><div class="control"><a class="tags has-addons" href="/tags/latex/"><span class="tag">latex</span><span class="tag">1</span></a></div><div class="control"><a class="tags has-addons" href="/tags/object-detection/"><span class="tag">object detection</span><span class="tag">3</span></a></div><div class="control"><a class="tags has-addons" href="/tags/opencv/"><span class="tag">opencv</span><span class="tag">3</span></a></div><div class="control"><a class="tags has-addons" href="/tags/point-cloud/"><span class="tag">point cloud</span><span class="tag">1</span></a></div><div class="control"><a class="tags has-addons" href="/tags/python/"><span class="tag">python</span><span class="tag">4</span></a></div><div class="control"><a class="tags has-addons" href="/tags/pytorch/"><span class="tag">pytorch</span><span class="tag">29</span></a></div><div class="control"><a class="tags has-addons" href="/tags/transformer/"><span class="tag">transformer</span><span class="tag">2</span></a></div><div class="control"><a class="tags has-addons" href="/tags/%E5%9B%BE%E5%83%8F%E5%88%86%E7%B1%BB/"><span class="tag">图像分类</span><span class="tag">15</span></a></div><div class="control"><a class="tags has-addons" href="/tags/%E5%9B%BE%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C/"><span class="tag">图神经网络</span><span class="tag">12</span></a></div><div class="control"><a class="tags has-addons" href="/tags/%E6%8E%A7%E5%88%B6%E7%90%86%E8%AE%BA/"><span class="tag">控制理论</span><span class="tag">2</span></a></div><div class="control"><a class="tags has-addons" href="/tags/%E6%97%A0%E7%9B%91%E7%9D%A3%E5%AD%A6%E4%B9%A0/"><span class="tag">无监督学习</span><span class="tag">4</span></a></div><div class="control"><a class="tags has-addons" href="/tags/%E6%9C%89%E9%99%90%E5%85%83%E5%88%86%E6%9E%90/"><span class="tag">有限元分析</span><span class="tag">4</span></a></div><div class="control"><a class="tags has-addons" href="/tags/%E6%9C%BA%E6%A2%B0%E6%8C%AF%E5%8A%A8/"><span class="tag">机械振动</span><span class="tag">20</span></a></div><div class="control"><a class="tags has-addons" href="/tags/%E7%94%9F%E6%88%90%E6%A8%A1%E5%9E%8B/"><span class="tag">生成模型</span><span class="tag">4</span></a></div><div class="control"><a class="tags has-addons" href="/tags/%E7%9B%AE%E6%A0%87%E6%A3%80%E6%B5%8B/"><span class="tag">目标检测</span><span class="tag">2</span></a></div><div class="control"><a class="tags has-addons" href="/tags/%E7%A7%91%E7%A0%94/"><span class="tag">科研</span><span class="tag">1</span></a></div><div class="control"><a class="tags has-addons" href="/tags/%E8%87%AA%E6%B3%A8%E6%84%8F%E5%8A%9B%E6%9C%BA%E5%88%B6/"><span class="tag">自注意力机制</span><span class="tag">3</span></a></div><div class="control"><a class="tags has-addons" href="/tags/%E8%AE%BA%E6%96%87%E5%86%99%E4%BD%9C/"><span class="tag">论文写作</span><span class="tag">1</span></a></div><div class="control"><a class="tags has-addons" href="/tags/%E8%AF%AD%E4%B9%89%E5%88%86%E5%89%B2/"><span class="tag">语义分割</span><span class="tag">6</span></a></div></div></div></div></div><div class="column-right-shadow is-hidden-widescreen is-sticky"></div></div><div class="column column-right is-4-tablet is-4-desktop is-3-widescreen is-hidden-touch is-hidden-desktop-only order-3 is-sticky"><div class="card widget" id="toc" data-type="toc"><div class="card-content"><div class="menu"><h3 class="menu-label">目录</h3><ul class="menu-list"><li><a class="level is-mobile" href="#RNN"><span class="level-left"><span class="level-item">1</span><span class="level-item">RNN</span></span></a><ul class="menu-list"><li><a class="level is-mobile" href="#带时间序列的任务场景"><span class="level-left"><span class="level-item">1.1</span><span class="level-item">带时间序列的任务场景</span></span></a></li><li><a class="level is-mobile" href="#标准神经网络的建模弊端"><span class="level-left"><span class="level-item">1.2</span><span class="level-item">标准神经网络的建模弊端</span></span></a></li><li><a class="level is-mobile" href="#RNN神经网络"><span class="level-left"><span class="level-item">1.3</span><span class="level-item">RNN神经网络</span></span></a><ul class="menu-list"><li><a class="level is-mobile" href="#网络架构"><span class="level-left"><span class="level-item">1.3.1</span><span class="level-item">网络架构</span></span></a></li><li><a class="level is-mobile" href="#特点"><span class="level-left"><span class="level-item">1.3.2</span><span class="level-item">特点</span></span></a></li><li><a class="level is-mobile" href="#前向传播"><span class="level-left"><span class="level-item">1.3.3</span><span class="level-item">前向传播</span></span></a></li><li><a class="level is-mobile" href="#损失函数"><span class="level-left"><span class="level-item">1.3.4</span><span class="level-item">损失函数</span></span></a></li><li><a class="level is-mobile" href="#反向传播"><span class="level-left"><span class="level-item">1.3.5</span><span class="level-item">反向传播</span></span></a></li></ul></li><li><a class="level is-mobile" href="#RNN模型的缺点"><span class="level-left"><span class="level-item">1.4</span><span class="level-item">RNN模型的缺点</span></span></a><ul class="menu-list"><li><a class="level is-mobile" href="#现象"><span class="level-left"><span class="level-item">1.4.1</span><span class="level-item">现象</span></span></a></li><li><a class="level is-mobile" href="#举例"><span class="level-left"><span class="level-item">1.4.2</span><span class="level-item">举例</span></span></a></li></ul></li></ul></li><li><a class="level is-mobile" href="#LSTM"><span class="level-left"><span class="level-item">2</span><span class="level-item">LSTM</span></span></a><ul class="menu-list"><li><a class="level is-mobile" href="#思路"><span class="level-left"><span class="level-item">2.1</span><span class="level-item">思路</span></span></a></li><li><a class="level is-mobile" href="#前向传播-1"><span class="level-left"><span class="level-item">2.2</span><span class="level-item">前向传播</span></span></a></li><li><a class="level is-mobile" href="#解决梯度消失的原理"><span class="level-left"><span class="level-item">2.3</span><span class="level-item">解决梯度消失的原理</span></span></a><ul class="menu-list"><li><a class="level is-mobile" href="#RNN梯度消失的回顾"><span class="level-left"><span class="level-item">2.3.1</span><span class="level-item">RNN梯度消失的回顾</span></span></a></li><li><a class="level is-mobile" href="#LSTM的反向传播"><span class="level-left"><span class="level-item">2.3.2</span><span class="level-item">LSTM的反向传播</span></span></a></li></ul></li></ul></li><li><a class="level is-mobile" href="#GRU"><span class="level-left"><span class="level-item">3</span><span class="level-item">GRU</span></span></a><ul class="menu-list"><li><a class="level is-mobile" href="#基本结构"><span class="level-left"><span class="level-item">3.1</span><span class="level-item">基本结构</span></span></a></li><li><a class="level is-mobile" href="#应用场景"><span class="level-left"><span class="level-item">3.2</span><span class="level-item">应用场景</span></span></a></li><li><a class="level is-mobile" href="#与LSTM的区别"><span class="level-left"><span class="level-item">3.3</span><span class="level-item">与LSTM的区别</span></span></a></li><li><a class="level is-mobile" href="#缓解梯度消失"><span class="level-left"><span class="level-item">3.4</span><span class="level-item">缓解梯度消失</span></span></a></li></ul></li></ul></div></div><script src="/js/toc.js" defer></script></div><div class="card widget" data-type="categories"><div class="card-content"><div class="menu"><h3 class="menu-label">分类</h3><ul class="menu-list"><li><a class="level is-mobile" href="/categories/Finite-Element-Analysis/"><span class="level-start"><span class="level-item">Finite Element Analysis</span></span><span class="level-end"><span class="level-item tag">6</span></span></a></li><li><a class="level is-mobile" href="/categories/Generative-Adversarial-Networks/"><span class="level-start"><span class="level-item">Generative Adversarial Networks</span></span><span class="level-end"><span class="level-item tag">6</span></span></a></li><li><a class="level is-mobile" href="/categories/Latex/"><span class="level-start"><span class="level-item">Latex</span></span><span class="level-end"><span class="level-item tag">4</span></span></a></li><li><a class="level is-mobile" href="/categories/Point-Cloud/"><span class="level-start"><span class="level-item">Point Cloud</span></span><span class="level-end"><span class="level-item tag">1</span></span></a></li><li><a class="level is-mobile" href="/categories/PyTorch%E6%95%99%E7%A8%8B%E4%B8%8E%E6%BA%90%E7%A0%81%E8%AE%B2%E8%A7%A3/"><span class="level-start"><span class="level-item">PyTorch教程与源码讲解</span></span><span class="level-end"><span class="level-item tag">6</span></span></a></li><li><a class="level is-mobile" href="/categories/SLAM/"><span class="level-start"><span class="level-item">SLAM</span></span><span class="level-end"><span class="level-item tag">21</span></span></a></li><li><a class="level is-mobile" href="/categories/Typora/"><span class="level-start"><span class="level-item">Typora</span></span><span class="level-end"><span class="level-item tag">1</span></span></a></li><li><a class="level is-mobile" href="/categories/auto-encoder/"><span class="level-start"><span class="level-item">auto-encoder</span></span><span class="level-end"><span class="level-item tag">4</span></span></a></li><li><a class="level is-mobile" href="/categories/opencv/"><span class="level-start"><span class="level-item">opencv</span></span><span class="level-end"><span class="level-item tag">3</span></span></a></li><li><a class="level is-mobile" href="/categories/%E5%9B%BE%E5%83%8F%E5%88%86%E7%B1%BB%E7%BD%91%E7%BB%9C%E5%8F%8APytorch%E5%AE%9E%E7%8E%B0/"><span class="level-start"><span class="level-item">图像分类网络及Pytorch实现</span></span><span class="level-end"><span class="level-item tag">15</span></span></a></li><li><a class="level is-mobile" href="/categories/%E5%9B%BE%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C/"><span class="level-start"><span class="level-item">图神经网络</span></span><span class="level-end"><span class="level-item tag">12</span></span></a></li><li><a class="level is-mobile" href="/categories/%E6%8C%AF%E5%8A%A8%E5%8A%9B%E5%AD%A6/"><span class="level-start"><span class="level-item">振动力学</span></span><span class="level-end"><span class="level-item tag">20</span></span></a></li><li><a class="level is-mobile" href="/categories/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E5%9F%BA%E7%9F%B3/"><span class="level-start"><span class="level-item">机器学习基石</span></span><span class="level-end"><span class="level-item tag">3</span></span></a></li><li><a class="level is-mobile" href="/categories/%E7%8E%B0%E4%BB%A3%E6%8E%A7%E5%88%B6%E7%90%86%E8%AE%BA/"><span class="level-start"><span class="level-item">现代控制理论</span></span><span class="level-end"><span class="level-item tag">2</span></span></a></li><li><a class="level is-mobile" href="/categories/%E7%9B%AE%E6%A0%87%E6%A3%80%E6%B5%8B%E4%B8%8Epytorch%E5%AE%9E%E7%8E%B0/"><span class="level-start"><span class="level-item">目标检测与pytorch实现</span></span><span class="level-end"><span class="level-item tag">2</span></span></a></li><li><a class="level is-mobile" href="/categories/%E7%A7%91%E7%A0%94%E5%85%A5%E9%97%A8%E7%AC%94%E8%AE%B0/"><span class="level-start"><span class="level-item">科研入门笔记</span></span><span class="level-end"><span class="level-item tag">1</span></span></a></li><li><a class="level is-mobile" href="/categories/%E8%87%AA%E6%B3%A8%E6%84%8F%E5%8A%9B%E6%9C%BA%E5%88%B6%E5%92%8CTransformer/"><span class="level-start"><span class="level-item">自注意力机制和Transformer</span></span><span class="level-end"><span class="level-item tag">3</span></span></a></li><li><a class="level is-mobile" href="/categories/%E8%AF%AD%E4%B9%89%E5%88%86%E5%89%B2%E5%8F%8APytorch%E5%AE%9E%E7%8E%B0/"><span class="level-start"><span class="level-item">语义分割及Pytorch实现</span></span><span class="level-end"><span class="level-item tag">6</span></span></a></li><li><a class="level is-mobile" href="/categories/%E9%AB%98%E7%BA%A7%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/"><span class="level-start"><span class="level-item">高级机器学习</span></span><span class="level-end"><span class="level-item tag">3</span></span></a></li></ul></div></div></div><div class="card widget" data-type="recent-posts"><div class="card-content"><h3 class="menu-label">最新文章</h3><article class="media"><figure class="media-left"><a class="image" href="/2023/02/06/%E9%AB%98%E7%BA%A7%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/%E5%BE%AA%E7%8E%AF%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9CPytorch%E4%BB%A3%E7%A0%81%E5%AE%9E%E7%8E%B0/"><img src="https://cdn.jsdelivr.net/gh/houdezaiwu2019/image-bed/pytorch/202201271155098.png" alt="循环神经网络Pytorch代码实现"></a></figure><div class="media-content"><p class="date"><time dateTime="2023-02-06T03:49:02.000Z">2023-02-06</time></p><p class="title"><a href="/2023/02/06/%E9%AB%98%E7%BA%A7%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/%E5%BE%AA%E7%8E%AF%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9CPytorch%E4%BB%A3%E7%A0%81%E5%AE%9E%E7%8E%B0/">循环神经网络Pytorch代码实现</a></p><p class="categories"><a href="/categories/%E9%AB%98%E7%BA%A7%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/">高级机器学习</a></p></div></article><article class="media"><figure class="media-left"><a class="image" href="/2023/02/06/%E9%AB%98%E7%BA%A7%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/%E5%BE%AA%E7%8E%AF%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C%E5%9F%BA%E6%9C%AC%E7%90%86%E8%AE%BA/"><img src="https://cdn.jsdelivr.net/gh/houdezaiwu2019/image-bed/pytorch/202201271155098.png" alt="循环神经网络基本理论"></a></figure><div class="media-content"><p class="date"><time dateTime="2023-02-06T03:48:46.000Z">2023-02-06</time></p><p class="title"><a href="/2023/02/06/%E9%AB%98%E7%BA%A7%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/%E5%BE%AA%E7%8E%AF%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C%E5%9F%BA%E6%9C%AC%E7%90%86%E8%AE%BA/">循环神经网络基本理论</a></p><p class="categories"><a href="/categories/%E9%AB%98%E7%BA%A7%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/">高级机器学习</a></p></div></article><article class="media"><figure class="media-left"><a class="image" href="/2023/02/06/%E5%9B%BE%E5%83%8F%E5%88%86%E7%B1%BB%E7%BD%91%E7%BB%9C%E5%8F%8APytorch%E5%AE%9E%E7%8E%B0/RepVGG%E7%BD%91%E7%BB%9C%E8%AF%A6%E8%A7%A3%E4%B8%8EPytorch%E5%AE%9E%E7%8E%B0/"><img src="https://cdn.jsdelivr.net/gh/houdezaiwu2019/image-bed/pytorch/202201271155098.png" alt="RepVGG网络详解与Pytorch实现"></a></figure><div class="media-content"><p class="date"><time dateTime="2023-02-06T03:35:27.000Z">2023-02-06</time></p><p class="title"><a href="/2023/02/06/%E5%9B%BE%E5%83%8F%E5%88%86%E7%B1%BB%E7%BD%91%E7%BB%9C%E5%8F%8APytorch%E5%AE%9E%E7%8E%B0/RepVGG%E7%BD%91%E7%BB%9C%E8%AF%A6%E8%A7%A3%E4%B8%8EPytorch%E5%AE%9E%E7%8E%B0/">RepVGG网络详解与Pytorch实现</a></p><p class="categories"><a href="/categories/%E5%9B%BE%E5%83%8F%E5%88%86%E7%B1%BB%E7%BD%91%E7%BB%9C%E5%8F%8APytorch%E5%AE%9E%E7%8E%B0/">图像分类网络及Pytorch实现</a></p></div></article><article class="media"><figure class="media-left"><a class="image" href="/2023/02/06/%E5%9B%BE%E5%83%8F%E5%88%86%E7%B1%BB%E7%BD%91%E7%BB%9C%E5%8F%8APytorch%E5%AE%9E%E7%8E%B0/MoVIT%E7%BD%91%E7%BB%9C%E8%AF%A6%E8%A7%A3%E4%B8%8EPytorch%E5%AE%9E%E7%8E%B0/"><img src="https://cdn.jsdelivr.net/gh/houdezaiwu2019/image-bed/pytorch/202201271155098.png" alt="MoVIT网络详解与Pytorch实现"></a></figure><div class="media-content"><p class="date"><time dateTime="2023-02-06T03:35:07.000Z">2023-02-06</time></p><p class="title"><a href="/2023/02/06/%E5%9B%BE%E5%83%8F%E5%88%86%E7%B1%BB%E7%BD%91%E7%BB%9C%E5%8F%8APytorch%E5%AE%9E%E7%8E%B0/MoVIT%E7%BD%91%E7%BB%9C%E8%AF%A6%E8%A7%A3%E4%B8%8EPytorch%E5%AE%9E%E7%8E%B0/">MoVIT网络详解与Pytorch实现</a></p><p class="categories"><a href="/categories/%E5%9B%BE%E5%83%8F%E5%88%86%E7%B1%BB%E7%BD%91%E7%BB%9C%E5%8F%8APytorch%E5%AE%9E%E7%8E%B0/">图像分类网络及Pytorch实现</a></p></div></article><article class="media"><figure class="media-left"><a class="image" href="/2023/02/06/%E5%9B%BE%E5%83%8F%E5%88%86%E7%B1%BB%E7%BD%91%E7%BB%9C%E5%8F%8APytorch%E5%AE%9E%E7%8E%B0/Swin-transformer%E7%BD%91%E7%BB%9C%E8%AF%A6%E8%A7%A3%E4%B8%8EPytorch%E5%AE%9E%E7%8E%B0/"><img src="https://cdn.jsdelivr.net/gh/houdezaiwu2019/image-bed/pytorch/202201271155098.png" alt="Swin-transformer网络详解与Pytorch实现"></a></figure><div class="media-content"><p class="date"><time dateTime="2023-02-06T03:34:53.000Z">2023-02-06</time></p><p class="title"><a href="/2023/02/06/%E5%9B%BE%E5%83%8F%E5%88%86%E7%B1%BB%E7%BD%91%E7%BB%9C%E5%8F%8APytorch%E5%AE%9E%E7%8E%B0/Swin-transformer%E7%BD%91%E7%BB%9C%E8%AF%A6%E8%A7%A3%E4%B8%8EPytorch%E5%AE%9E%E7%8E%B0/">Swin-transformer网络详解与Pytorch实现</a></p><p class="categories"><a href="/categories/%E5%9B%BE%E5%83%8F%E5%88%86%E7%B1%BB%E7%BD%91%E7%BB%9C%E5%8F%8APytorch%E5%AE%9E%E7%8E%B0/">图像分类网络及Pytorch实现</a></p></div></article></div></div></div></div></div></section><footer class="footer"><div class="container"><div class="level"><div class="level-start"><a class="footer-logo is-block mb-2" href="/"><img src="/img/logo.svg" alt="houdezaiwu&#039;s blog" height="28"></a><p class="is-size-7"><span>&copy; 2023 czt</span>  Powered by <a href="https://hexo.io/" target="_blank" rel="noopener">Hexo</a> &amp; <a href="https://github.com/ppoffice/hexo-theme-icarus" target="_blank" rel="noopener">Icarus</a></p></div><div class="level-end"><div class="field has-addons"><p class="control"><a class="button is-transparent is-large" target="_blank" rel="noopener" title="Creative Commons" href="https://creativecommons.org/"><i class="fab fa-creative-commons"></i></a></p><p class="control"><a class="button is-transparent is-large" target="_blank" rel="noopener" title="Attribution 4.0 International" href="https://creativecommons.org/licenses/by/4.0/"><i class="fab fa-creative-commons-by"></i></a></p><p class="control"><a class="button is-transparent is-large" target="_blank" rel="noopener" title="Download on GitHub" href="https://github.com/ppoffice/hexo-theme-icarus"><i class="fab fa-github"></i></a></p></div></div></div></div></footer><script src="https://cdn.jsdelivr.net/npm/jquery@3.3.1/dist/jquery.min.js"></script><script src="https://cdn.jsdelivr.net/npm/moment@2.22.2/min/moment-with-locales.min.js"></script><script src="https://cdn.jsdelivr.net/npm/clipboard@2.0.4/dist/clipboard.min.js" defer></script><script>moment.locale("zh-CN");</script><script>var IcarusThemeSettings = {
+            article: {
+                highlight: {
+                    clipboard: true,
+                    fold: 'unfolded'
+                }
+            }
+        };</script><script src="/js/column.js"></script><script src="/js/animation.js"></script><a id="back-to-top" title="回到顶端" href="javascript:;"><i class="fas fa-chevron-up"></i></a><script src="/js/back_to_top.js" defer></script><!--!--><!--!--><!--!--><script src="https://cdn.jsdelivr.net/npm/cookieconsent@3.1.1/build/cookieconsent.min.js" defer></script><script>window.addEventListener("load", () => {
+      window.cookieconsent.initialise({
+        type: "info",
+        theme: "edgeless",
+        static: false,
+        position: "bottom-left",
+        content: {
+          message: "此网站使用Cookie来改善您的体验。",
+          dismiss: "知道了！",
+          allow: "允许使用Cookie",
+          deny: "拒绝",
+          link: "了解更多",
+          policy: "Cookie政策",
+          href: "https://www.cookiesandyou.com/",
+        },
+        palette: {
+          popup: {
+            background: "#edeff5",
+            text: "#838391"
+          },
+          button: {
+            background: "#4b81e8"
+          },
+        },
+      });
+    });</script><script src="https://cdn.jsdelivr.net/npm/lightgallery@1.10.0/dist/js/lightgallery.min.js" defer></script><script src="https://cdn.jsdelivr.net/npm/justifiedGallery@3.8.1/dist/js/jquery.justifiedGallery.min.js" defer></script><script>window.addEventListener("load", () => {
+            if (typeof $.fn.lightGallery === 'function') {
+                $('.article').lightGallery({ selector: '.gallery-item' });
+            }
+            if (typeof $.fn.justifiedGallery === 'function') {
+                if ($('.justified-gallery > p > .gallery-item').length) {
+                    $('.justified-gallery > p > .gallery-item').unwrap();
+                }
+                $('.justified-gallery').justifiedGallery();
+            }
+        });</script><!--!--><!--!--><script type="text/x-mathjax-config">MathJax.Hub.Config({
+            'HTML-CSS': {
+                matchFontHeight: false
+            },
+            SVG: {
+                matchFontHeight: false
+            },
+            CommonHTML: {
+                matchFontHeight: false
+            },
+            tex2jax: {
+                inlineMath: [
+                    ['$','$'],
+                    ['\\(','\\)']
+                ]
+            }
+        });</script><script src="https://cdn.jsdelivr.net/npm/mathjax@2.7.9/unpacked/MathJax.js?config=TeX-MML-AM_CHTML" defer></script><div id="outdated"><h6>Your browser is out-of-date!</h6><p>Update your browser to view this website correctly.&amp;npsb;<a id="btnUpdateBrowser" target="_blank" rel="noopener" href="http://outdatedbrowser.com/">Update my browser now </a></p><p class="last"><a href="#" id="btnCloseUpdateBrowser" title="Close">×</a></p></div><script src="https://cdn.jsdelivr.net/npm/outdatedbrowser@1.1.5/outdatedbrowser/outdatedbrowser.min.js" defer></script><script>window.addEventListener("load", function () {
+            outdatedBrowser({
+                bgColor: '#f25648',
+                color: '#ffffff',
+                lowerThan: 'object-fit' // display on IE11 or below
+            });
+        });</script><!--!--><!--!--><!--!--><script src="/js/main.js" defer></script><div class="searchbox"><div class="searchbox-container"><div class="searchbox-header"><div class="searchbox-input-container"><input class="searchbox-input" type="text" placeholder="想要查找什么..."></div><a class="searchbox-close" href="javascript:;">×</a></div><div class="searchbox-body"></div></div></div><script src="/js/insight.js" defer></script><script>document.addEventListener('DOMContentLoaded', function () {
+            loadInsight({"contentUrl":"/content.json"}, {"hint":"想要查找什么...","untitled":"(无标题)","posts":"文章","pages":"页面","categories":"分类","tags":"标签"});
+        });</script><!-- hexo-inject:begin --><!-- hexo-inject:end --></body></html>
